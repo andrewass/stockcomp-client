@@ -6,7 +6,8 @@ const URL = {
 };
 
 const signUp = async (username, password, email) => {
-    return await axios.post(URL.sign_up, {username, password, email})
+    alert("attempting to sign up "+username+" with password "+password);
+    return await axios.post(URL.sign_up, {username, password, email});
 };
 
 const signIn = async (username, password) => {

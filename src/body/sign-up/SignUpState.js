@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import authService from "../service/authService";
+import {useState} from "react";
+import authService from "../../service/authService";
 import {useHistory} from "react-router-dom";
 
-const SignUp = ({setSignedIn}) => {
+const SignUpState = (setSignedIn) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -38,8 +38,8 @@ const SignUp = ({setSignedIn}) => {
             result.then((response) => {
                 authService.updateLocalStorage(response.data.username, response.data.jwt);
                 setSignedIn(true);
-                history.push("/problems");
-            }).catch((error) => setErrorMessage("Unknown error occurred during sign in : "+error));
+                history.push("/stocks");
+            }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));
         } else {
             setErrorMessage("Mismatch between passwords! Please try again");
             setPassword("");
@@ -47,20 +47,9 @@ const SignUp = ({setSignedIn}) => {
         }
     };
 
-    return (
-        <div className="signUpBlock">
-            <form onSubmit={postSignUpToServer} className="signUpForm">
-                <span>Sign Up</span>
-                <input name="username" type="text" placeholder="Your username" onChange={updateUsername}/>
-                <input name="email" type="email" placeholder="Your email address" onChange={updateEmail}/>
-                <input name="password" type="password" placeholder="Your password" onChange={updatePassword}/>
-                <input name="retypedPassword" type="password" placeholder="Retype password"
-                       onChange={updateRetypedPassword}/>
-                <input type="submit" value="Submit"/>
-            </form>
-            <span className="errorMessage">{errorMessage}</span>
-        </div>
-    );
-};
+    return {
+        updateUsername, updatePassword, updateRetypedPassword, updateEmail, postSignUpToServer, errorMessage
+    }
+}
 
-export default SignUp;
+export default SignUpState;

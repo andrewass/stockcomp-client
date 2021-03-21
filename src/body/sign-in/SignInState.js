@@ -1,8 +1,9 @@
-import React, {useState} from "react";
-import authService from "../service/authService";
+import {useState} from "react";
 import {useHistory} from "react-router-dom";
+import authService from "../../service/authService";
 
-const SignIn = ({setSignedIn}) => {
+
+const SignInState = (setSignedIn) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -35,17 +36,9 @@ const SignIn = ({setSignedIn}) => {
         }).catch((error) => handleErrorResponse(error.response));
     };
 
-    return (
-        <div className="signInBlock">
-            <form onSubmit={postSignInToServer} className="signInForm">
-                <span>Sign In</span>
-                <input name="username" type="text" placeholder="Your username" onChange={updateUsername}/>
-                <input name="password" type="password" placeholder="Your password" onChange={updatePassword}/>
-                <input type="submit" value="Submit"/>
-            </form>
-            <p>{errorMessage}</p>
-        </div>
-    );
-};
+    return {
+        updateUsername,updatePassword,postSignInToServer, errorMessage
+    }
+}
 
-export default SignIn;
+export default SignInState;
