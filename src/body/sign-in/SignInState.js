@@ -28,16 +28,16 @@ const SignInState = (setSignedIn) => {
 
     const postSignInToServer = (event) => {
         event.preventDefault();
-        let result = authService.signIn(username, password);
-        result.then((response) => {
-            authService.updateLocalStorage(response.data.username, response.data.jwt);
-            setSignedIn(true);
-            history.push("/problems");
-        }).catch((error) => handleErrorResponse(error.response));
+        authService.signIn(username, password)
+            .then(() => {
+                authService.updateLocalStorage(username, "true");
+                setSignedIn(true);
+                history.push("/problems");
+            }).catch((error) => handleErrorResponse(error.response));
     };
 
     return {
-        updateUsername,updatePassword,postSignInToServer, errorMessage
+        updateUsername, updatePassword, postSignInToServer, errorMessage
     }
 }
 

@@ -8,7 +8,7 @@ const App = () => {
     const [signedIn, setSignedIn] = useState(localStorage.getItem("isSignedIn"));
 
     return (
-        <div className="appBody">
+        <div id="appBody">
             <Router>
                 <Header signedIn={signedIn} setSignedIn={setSignedIn}/>
                 <Body setSignedIn={setSignedIn}/>

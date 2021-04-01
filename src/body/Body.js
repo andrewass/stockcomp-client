@@ -11,7 +11,7 @@ const Body = (props) => {
     return (
         <div className="bodySection">
             <Switch>
-                <Route path="/contest" component={Contest}/>
+                <Route path="/contests" component={Contest}/>
                 <Route path="/leaderboard" component={Leaderboard}/>
                 <Route path="/sign-in" render={() => <SignIn setSignedIn={props.setSignedIn}/>}/>
                 <Route path="/sign-up" render={() => <SignUp setSignedIn={props.setSignedIn}/>}/>

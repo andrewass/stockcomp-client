@@ -1,0 +1,25 @@
+
+
+#signInBox{
+    background-color: aquamarine;
+    margin: 8% auto;
+    padding: 2%;
+    width: 400px;
+    border-radius: 10%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#signInForm{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#signInForm input{
+    margin: 10px 0;
+    font-size: 18px;
+    padding: 10px 20px 10px 5px;
+    border: none;
+}

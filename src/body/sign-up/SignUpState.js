@@ -34,12 +34,12 @@ const SignUpState = (setSignedIn) => {
     const postSignUpToServer = (event) => {
         event.preventDefault();
         if (matchingPasswords()) {
-            let result = authService.signUp(username, password, email);
-            result.then((response) => {
-                authService.updateLocalStorage(response.data.username, response.data.jwt);
-                setSignedIn(true);
-                history.push("/stocks");
-            }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));
+            authService.signUp(username, password, email)
+                .then(() => {
+                    authService.updateLocalStorage(username, "true");
+                    setSignedIn(true);
+                    history.push("/stocks");
+                }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));
         } else {
             setErrorMessage("Mismatch between passwords! Please try again");
             setPassword("");
