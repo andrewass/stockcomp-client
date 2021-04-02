@@ -1,5 +1,5 @@
 import {useState} from "react";
-import authService from "../../service/authService";
+import authService from "../../../service/authService";
 import {useHistory} from "react-router-dom";
 
 const SignUpState = (setSignedIn) => {
