@@ -7,7 +7,7 @@ const URL = {
 };
 
 const signUp = async (username, password, email) => {
-    return await axios({
+    return axios({
         method: "post",
         url: URL.sign_up,
         data: {username, password, email},
@@ -20,7 +20,7 @@ const signIn = async (username, password) => {
 };
 
 const signOut = async (username) => {
-    return await axios({
+    return axios({
         method: "post",
         url: URL.sign_out,
         params: {username},

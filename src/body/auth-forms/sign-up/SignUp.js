@@ -17,19 +17,19 @@ const SignUp = ({setSignedIn}) => {
             <form onSubmit={postSignUpToServer} id="signUpForm">
                 <p>STOCK COMP</p>
                 <div className="username">
-                    <img src={usernameIcon} className="formIcon"/>
+                    <img src={usernameIcon} className="formIcon" alt="User icon"/>
                     <input name="username" type="text" placeholder="username" onChange={updateUsername}/>
                 </div>
                 <div className="email">
-                    <img src={emailIcon} className="formIcon"/>
+                    <img src={emailIcon} className="formIcon" alt="Email icon"/>
                     <input name="email" type="email" placeholder="email address" onChange={updateEmail}/>
                 </div>
                 <div className="password">
-                    <img src={passwordIcon} className="formIcon"/>
+                    <img src={passwordIcon} className="formIcon" alt="Password icon"/>
                     <input name="password" type="password" placeholder="password" onChange={updatePassword}/>
                 </div>
                 <div className="password">
-                    <img src={passwordIcon} className="formIcon"/>
+                    <img src={passwordIcon} className="formIcon" alt="Password icon"/>
                     <input name="retypedPassword" type="password" placeholder="confirm password"
                            onChange={updateRetypedPassword}/>
                 </div>

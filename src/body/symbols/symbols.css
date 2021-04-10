@@ -1,0 +1,26 @@
+
+#searchComponent{
+    margin-left: 40%;
+    margin-top: 2%;
+}
+
+#searchIcon{
+    width: 25px;
+    margin: 0 10px;
+}
+
+
+#query{
+    margin: 10px 5px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+
+#searchField{
+    margin: 3% 0;
+    width: 30%;
+    border: 1px solid black;
+    display: flex;
+    flex-flow: row nowrap;
+}

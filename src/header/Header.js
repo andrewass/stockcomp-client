@@ -12,15 +12,15 @@ const Header = ({signedIn, setSignedIn}) => {
             <span id="appTitle">STOCK COMP</span>
             <nav id="navigation">
                 <NavLink to="/stocks" className="link">
-                    <img src={stocks} className="headerIcon"/>
+                    <img src={stocks} className="headerIcon" alt="Symbol icon"/>
                     <span className="headerText">STOCKS</span>
                 </NavLink>
                 <NavLink to="/leaderboard" className="link">
-                    <img src={leaderboard} className="headerIcon"/>
+                    <img src={leaderboard} className="headerIcon" alt="Leaderboard icon"/>
                     <span className="headerText">LEADERBOARD</span>
                 </NavLink>
                 <NavLink to="/contests" className="link">
-                    <img src={calendar} className="headerIcon"/>
+                    <img src={calendar} className="headerIcon" alt="Calendar icon"/>
                     <span className="headerText">CONTESTS</span>
                 </NavLink>
                 <Authentication signedIn={signedIn} setSignedIn={setSignedIn}/>

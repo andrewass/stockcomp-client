@@ -14,11 +14,11 @@ const SignIn = ({setSignedIn}) => {
             <p>STOCK COMP</p>
             <form onSubmit={postSignInToServer} id="signInForm">
                 <div className="username">
-                    <img src={usernameIcon} className="formIcon"/>
+                    <img src={usernameIcon} className="formIcon" alt="User Icon"/>
                     <input name="username" type="text" placeholder="username" onChange={updateUsername}/>
                 </div>
                 <div className="password">
-                    <img src={passwordIcon} className="formIcon" />
+                    <img src={passwordIcon} className="formIcon" alt="Password Icon"/>
                     <input name="password" type="password" placeholder="password"
                            onChange={updatePassword}/>
                 </div>
