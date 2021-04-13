@@ -5,7 +5,7 @@ const Symbols = () => {
 
     return (
         <React.Fragment>
-            <SearchComponent />
+            <SearchComponent/>
         </React.Fragment>
     );
 };

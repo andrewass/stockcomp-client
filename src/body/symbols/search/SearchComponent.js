@@ -12,15 +12,15 @@ const SearchComponent = () => {
 
     useEffect(() => {
         getSuggestions();
-    },[query]);
+    }, [query]);
 
     return (
         <div id="searchComponent">
             <div id="searchField">
                 <img src={searchIcon} id="searchIcon" alt="Search icon"/>
-                <input id="query" type="text"  onChange={updateQuery}/>
+                <input id="query" type="text" onChange={updateQuery}/>
             </div>
-            <SuggestionList suggestions={suggestionList} query={query}/>
+            <SuggestionList suggestions={suggestionList}/>
         </div>
     );
 }
