@@ -5,7 +5,7 @@ import Leaderboard from "./leaderboard/Leaderboard";
 import Symbols from "./symbols/Symbols";
 import SignIn from "./auth-forms/sign-in/SignIn";
 import SignUp from "./auth-forms/sign-up/SignUp";
-import SymbolDetail from "./symbols/SymbolDetail";
+import SymbolDetail from "./symbols/symboldetail/SymbolDetail";
 
 const Body = (props) => {
 

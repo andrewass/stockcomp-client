@@ -21,7 +21,7 @@ const SearchComponentState = () => {
     };
 
     return {
-        updateQuery, getSuggestions, suggestionList, query
+        updateQuery, getSuggestions, suggestionList, query, setQuery
     }
 }
 

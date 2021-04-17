@@ -1,13 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import "../symbols.css";
 import {NavLink} from "react-router-dom";
+import {SymbolContext} from "../../../context/SymbolContext";
 
-const SuggestionList = ({suggestions}) => {
+const SuggestionList = ({suggestions, setQuery}) => {
 
-    return(
+    const {setSelectedSymbol} = useContext(SymbolContext);
+
+    return (
         <div id="suggestionList">
             {suggestions.map((suggestion) =>
-                <NavLink to="/symbol" className="link">
+                <NavLink to="/symbol" key={suggestion.decode} className="link"
+                         onClick={() => {
+                             setSelectedSymbol(suggestion.symbol);
+                             setQuery("");
+                         }}>
                     {suggestion.symbol} : {suggestion.description}
                 </NavLink>)}
         </div>

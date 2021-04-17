@@ -7,7 +7,7 @@ import searchIcon from "../../../icons/loupe.svg";
 const SearchComponent = () => {
 
     const {
-        query, updateQuery, suggestionList, getSuggestions
+        setQuery, query, updateQuery, suggestionList, getSuggestions
     } = SearchComponentState();
 
     useEffect(() => {
@@ -18,9 +18,9 @@ const SearchComponent = () => {
         <div id="searchComponent">
             <div id="searchField">
                 <img src={searchIcon} id="searchIcon" alt="Search icon"/>
-                <input id="query" type="text" onChange={updateQuery}/>
+                <input id="query" type="text" value={query} onChange={updateQuery}/>
             </div>
-            <SuggestionList suggestions={suggestionList}/>
+            <SuggestionList suggestions={suggestionList} setQuery={setQuery}/>
         </div>
     );
 }
