@@ -1,15 +1,16 @@
 import {useContext, useState} from "react";
 import {SymbolContext} from "../../../context/SymbolContext";
-import symbolService from "../../../service/symbolService";
+import {getHistoricPrices} from "../../../service/symbolService";
 
-const SymbolDetailState = () => {
+const DetailBlockState = () => {
 
     const {selectedSymbol} = useContext(SymbolContext);
 
     const [pricelist, setPricelist] = useState([]);
 
     const setHistoricPrices = () => {
-        symbolService.getHistoricPrices(selectedSymbol)
+        console.log("Selected symbol is "+selectedSymbol.symbol);
+        getHistoricPrices(selectedSymbol.symbol)
             .then(response => setPricelist(response.data))
             .catch(error => console.log(error));
     }
@@ -19,4 +20,4 @@ const SymbolDetailState = () => {
     }
 }
 
-export default SymbolDetailState;
+export default DetailBlockState;

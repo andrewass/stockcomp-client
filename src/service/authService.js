@@ -37,7 +37,7 @@ const updateLocalStorage = (username, isSignedIn) => {
     localStorage.setItem("isSignedIn", isSignedIn);
 };
 
-export default {
+export {
     signIn,
     signUp,
     signOut,

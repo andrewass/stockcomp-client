@@ -1,7 +1,7 @@
 import {useState} from "react";
-import symbolService from "../../../service/symbolService";
+import {getSuggestionsFromQuery} from "../../../service/symbolService";
 
-const SearchComponentState = () => {
+const SearchState = () => {
 
     const [query, setQuery] = useState("");
     const [suggestionList, setSuggestionList] = useState([]);
@@ -14,7 +14,7 @@ const SearchComponentState = () => {
         if (query === "") {
             setSuggestionList([]);
         } else {
-            symbolService.getSuggestions(query)
+            getSuggestionsFromQuery(query)
                 .then((response) => setSuggestionList(response.data))
                 .catch((error) => console.log(error));
         }
@@ -25,4 +25,4 @@ const SearchComponentState = () => {
     }
 }
 
-export default SearchComponentState;
+export default SearchState;

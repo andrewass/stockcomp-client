@@ -8,17 +8,20 @@ const SuggestionList = ({suggestions, setQuery}) => {
     const {setSelectedSymbol} = useContext(SymbolContext);
 
     return (
-        <div id="suggestionList">
+        <ul id="suggestionList">
             {suggestions.map((suggestion) =>
-                <NavLink to="/symbol" key={suggestion.decode} className="link"
-                         onClick={() => {
-                             setSelectedSymbol(suggestion.symbol);
-                             setQuery("");
-                         }}>
-                    {suggestion.symbol} : {suggestion.description}
-                </NavLink>)}
-        </div>
-    )
+                <li className="suggestion" key={suggestion.symbol}>
+                    <NavLink to="/symbol-detail"
+                             onClick={() => {
+                                 setSelectedSymbol(suggestion);
+                                 setQuery("");
+                             }}>
+                        {suggestion.symbol} : {suggestion.description}
+                    </NavLink>
+                </li>
+            )}
+        </ul>
+    );
 }
 
 export default SuggestionList;

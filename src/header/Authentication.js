@@ -1,5 +1,5 @@
 import React from "react";
-import authService from "../service/authService"
+import {signOut} from "../service/authService"
 import signInIcon from "../icons/login.svg"
 import signOutIcon from "../icons/logout.svg";
 import settingsIcon from "../icons/user.svg";
@@ -8,7 +8,7 @@ import {NavLink} from "react-router-dom";
 const Authentication = ({signedIn, setSignedIn}) => {
 
     const signOutUser = () => {
-        authService.signOut(localStorage.getItem("username"))
+        signOut(localStorage.getItem("username"))
             .then(() => {
                 localStorage.clear();
                 setSignedIn(false);
@@ -19,7 +19,7 @@ const Authentication = ({signedIn, setSignedIn}) => {
         return (
             <React.Fragment>
                 <NavLink to="/user" className="link">
-                    <img src={settingsIcon} className="headerIcon" alt="settings icon" />
+                    <img src={settingsIcon} className="headerIcon" alt="settings icon"/>
                     <span className="headerText">SETTINGS</span>
                 </NavLink>
                 <NavLink to="/problems" className="link">

@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import "../symbols.css";
 import SuggestionList from "./SuggestionList";
-import SearchComponentState from "./SearchComponentState";
+import SearchState from "./SearchState";
 import searchIcon from "../../../icons/loupe.svg";
 
-const SearchComponent = () => {
+const Search = () => {
 
     const {
         setQuery, query, updateQuery, suggestionList, getSuggestions
-    } = SearchComponentState();
+    } = SearchState();
 
     useEffect(() => {
         getSuggestions();
@@ -25,4 +25,4 @@ const SearchComponent = () => {
     );
 }
 
-export default SearchComponent;
+export default Search;

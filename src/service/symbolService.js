@@ -7,7 +7,7 @@ const URL = {
     historic_prices: "http://localhost:8080/stock/historic-prices"
 };
 
-const getSuggestions = (query) => {
+const getSuggestionsFromQuery = (query) => {
     return axios({
         method: "get",
         url: URL.symbol_suggestions,
@@ -34,6 +34,6 @@ const getHistoricPrices = (symbol) => {
     });
 }
 
-export default {
-    searchSymbol, getSuggestions, getHistoricPrices
+export {
+    searchSymbol, getSuggestionsFromQuery, getHistoricPrices
 };

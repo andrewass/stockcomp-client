@@ -1,16 +1,11 @@
 
-#searchComponent{
-    margin-left: 40%;
-    margin-top: 2%;
-    width: 40%;
-}
-
 #searchIcon{
     width: 25px;
     margin: 0 10px;
 }
 
 #query{
+    width: 100%;
     margin: 10px 5px;
     font-size: 18px;
     border: none;
@@ -18,13 +13,33 @@
 }
 
 #searchField{
-    margin-top: 3%;
-    width: 60%;
+    width: 40%;
+    margin: 0 auto;
     border: 1px solid black;
     display: flex;
     flex-flow: row nowrap;
 }
 
+#suggestionList{
+    width: 40%;
+    margin: 0 auto;
+}
+
 .suggestion{
     margin-top: 10px;
+    margin-left: 25px;
+}
+
+#symbolDetail{
+    margin-top: 5%;
+    margin-left: 40%;
+}
+
+#symbolDetail p{
+
+}
+
+#priceChart{
+    margin-top: 5%;
+    margin-left: 25%;
 }

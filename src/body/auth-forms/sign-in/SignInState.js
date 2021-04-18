@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useHistory} from "react-router-dom";
-import authService from "../../../service/authService";
+import {signIn, updateLocalStorage} from "../../../service/authService";
 
 
 const SignInState = (setSignedIn) => {
@@ -28,9 +28,9 @@ const SignInState = (setSignedIn) => {
 
     const postSignInToServer = (event) => {
         event.preventDefault();
-        authService.signIn(username, password)
+        signIn(username, password)
             .then(() => {
-                authService.updateLocalStorage(username, "true");
+                updateLocalStorage(username, "true");
                 setSignedIn(true);
                 history.push("/problems");
             }).catch((error) => handleErrorResponse(error.response));

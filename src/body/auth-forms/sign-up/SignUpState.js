@@ -1,5 +1,5 @@
 import {useState} from "react";
-import authService from "../../../service/authService";
+import {signUp, updateLocalStorage} from "../../../service/authService";
 import {useHistory} from "react-router-dom";
 
 const SignUpState = (setSignedIn) => {
@@ -34,9 +34,9 @@ const SignUpState = (setSignedIn) => {
     const postSignUpToServer = (event) => {
         event.preventDefault();
         if (matchingPasswords()) {
-            authService.signUp(username, password, email)
+            signUp(username, password, email)
                 .then(() => {
-                    authService.updateLocalStorage(username, "true");
+                    updateLocalStorage(username, "true");
                     setSignedIn(true);
                     history.push("/stocks");
                 }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));

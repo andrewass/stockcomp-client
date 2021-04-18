@@ -1,12 +1,14 @@
 import React from "react";
-import SearchComponent from "./search/SearchComponent";
+import Search from "./search/Search";
+import TrendingSymbols from "../trending/TrendingSymbols";
 
 const Symbols = () => {
 
     return (
-        <React.Fragment>
-            <SearchComponent/>
-        </React.Fragment>
+        <div id="symbolList">
+            <Search/>
+            <TrendingSymbols />
+        </div>
     );
 };
 

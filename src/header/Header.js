@@ -9,8 +9,10 @@ import Authentication from "./Authentication";
 const Header = ({signedIn, setSignedIn}) => {
     return (
         <header id="header">
-            <span id="appTitle">STOCK COMP</span>
             <nav id="navigation">
+                <NavLink to="/home" className="link">
+                    <span id="appTitle">STOCK COMP</span>
+                </NavLink>
                 <NavLink to="/stocks" className="link">
                     <img src={stocks} className="headerIcon" alt="Symbol icon"/>
                     <span className="headerText">STOCKS</span>
