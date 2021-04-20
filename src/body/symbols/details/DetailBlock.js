@@ -4,24 +4,32 @@ import Search from "../search/Search";
 import PriceChart from "./PriceChart";
 import "../symbols.css";
 import SymbolDetail from "./SymbolDetail";
+import LoadingComponent from "../../../common/LoadingComponent";
 
 const DetailBlock = () => {
 
-    const {pricelist, selectedSymbol, setHistoricPrices} = DetailBlockState();
+    const {priceList, selectedSymbol, setHistoricPrices, setCurrentPrice, realTimePrice} = DetailBlockState();
 
     useEffect(() => {
         if(selectedSymbol !== undefined) {
+            setCurrentPrice();
             setHistoricPrices();
         }
     },[selectedSymbol]);
 
-    return(
-        <div id="detailBlock">
-            <Search />
-            <SymbolDetail selectedSymbol={selectedSymbol} />
-            <PriceChart priceList={pricelist}/>
-        </div>
-    )
+    if(priceList === undefined || realTimePrice === undefined){
+        return(
+            <LoadingComponent />
+        );
+    } else {
+        return (
+            <div id="detailBlock">
+                <Search/>
+                <SymbolDetail selectedSymbol={selectedSymbol} realTimePrice={realTimePrice}/>
+                <PriceChart priceList={priceList}/>
+            </div>
+        );
+    }
 }
 
 export default DetailBlock;

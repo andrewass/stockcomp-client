@@ -4,7 +4,8 @@ import axios from "axios";
 const URL = {
     search_symbol: "http://localhost:8080/stock/search-symbol",
     symbol_suggestions: "http://localhost:8080/stock/symbol-suggestions",
-    historic_prices: "http://localhost:8080/stock/historic-prices"
+    historic_prices: "http://localhost:8080/stock/historic-prices",
+    real_time_price: "http://localhost:8080/stock/real-time-price"
 };
 
 const getSuggestionsFromQuery = (query) => {
@@ -34,6 +35,15 @@ const getHistoricPrices = (symbol) => {
     });
 }
 
+const getRealTimePrice = (symbol) => {
+    return axios({
+        method: "get",
+        url: URL.real_time_price,
+        params: {symbol},
+        withCredentials: true
+    });
+}
+
 export {
-    searchSymbol, getSuggestionsFromQuery, getHistoricPrices
+    searchSymbol, getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice
 };

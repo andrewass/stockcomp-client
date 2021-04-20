@@ -36,7 +36,22 @@
 }
 
 #symbolDetail p{
+    font-size: large;
+}
 
+#currentPriceList{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.positivePriceDiff{
+    margin-left: 10px;
+    color : #26de26;
+}
+
+.negativePriceDiff{
+    margin-left: 10px;
+    color: red;
 }
 
 #priceChart{
