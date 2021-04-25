@@ -1,16 +1,16 @@
 import React from "react";
-import "../authForm.css";
+import "./authentication.css";
 import SignUpState from "./SignUpState";
-import usernameIcon from "../../../icons/user.svg";
-import passwordIcon from "../../../icons/padlock.svg";
-import emailIcon from "../../../icons/email.svg";
+import usernameIcon from "../../icons/user.svg";
+import passwordIcon from "../../icons/padlock.svg";
+import emailIcon from "../../icons/email.svg";
 
-const SignUp = ({setSignedIn}) => {
+const SignUp = () => {
 
     const {
         postSignUpToServer, updateUsername, updatePassword,
         updateEmail, updateRetypedPassword
-    } = SignUpState(setSignedIn);
+    } = SignUpState();
 
     return (
         <div id="signUpBox">

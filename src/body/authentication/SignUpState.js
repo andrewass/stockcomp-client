@@ -1,14 +1,17 @@
-import {useState} from "react";
-import {signUp, updateLocalStorage} from "../../../service/authService";
+import {useContext, useState} from "react";
+import {signUp, updateLocalStorage} from "../../service/authService";
 import {useHistory} from "react-router-dom";
+import {UserContext} from "../../context/UserContext";
 
-const SignUpState = (setSignedIn) => {
+const SignUpState = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const {setIsSignedIn} = useContext(UserContext);
     const history = useHistory();
 
     const matchingPasswords = () => {
@@ -37,7 +40,7 @@ const SignUpState = (setSignedIn) => {
             signUp(username, password, email)
                 .then(() => {
                     updateLocalStorage(username, "true");
-                    setSignedIn(true);
+                    setIsSignedIn(true);
                     history.push("/stocks");
                 }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));
         } else {

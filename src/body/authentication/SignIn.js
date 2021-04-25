@@ -1,13 +1,13 @@
 import React from "react";
-import "../authForm.css";
+import "./authentication.css";
 import SignInState from "./SignInState";
 import {NavLink} from "react-router-dom";
-import usernameIcon from "../../../icons/user.svg";
-import passwordIcon from "../../../icons/padlock.svg";
+import usernameIcon from "../../icons/user.svg";
+import passwordIcon from "../../icons/padlock.svg";
 
-const SignIn = ({setSignedIn}) => {
+const SignIn = () => {
 
-    const {updateUsername, updatePassword, postSignInToServer} = SignInState(setSignedIn);
+    const {updateUsername, updatePassword, postSignInToServer} = SignInState();
 
     return (
         <div id="signInBox">

@@ -1,21 +1,23 @@
-import React from "react";
+import React, {useContext} from "react";
 import {signOut} from "../service/authService"
 import signInIcon from "../icons/login.svg"
 import signOutIcon from "../icons/logout.svg";
 import settingsIcon from "../icons/user.svg";
 import {NavLink} from "react-router-dom";
+import {UserContext} from "../context/UserContext";
 
-const Authentication = ({signedIn, setSignedIn}) => {
+const Authentication = () => {
+
+    const {isSignedIn, setIsSignedIn} = useContext(UserContext);
 
     const signOutUser = () => {
         signOut(localStorage.getItem("username"))
             .then(() => {
-                localStorage.clear();
-                setSignedIn(false);
+                setIsSignedIn(false);
             }).catch((error) => console.log(error));
     };
 
-    if (signedIn) {
+    if (isSignedIn) {
         return (
             <React.Fragment>
                 <NavLink to="/user" className="link">

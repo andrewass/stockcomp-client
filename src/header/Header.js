@@ -6,7 +6,8 @@ import calendar from "../icons/calendar.svg";
 import "./header.css";
 import Authentication from "./Authentication";
 
-const Header = ({signedIn, setSignedIn}) => {
+const Header = () => {
+
     return (
         <header id="header">
             <nav id="navigation">
@@ -25,7 +26,7 @@ const Header = ({signedIn, setSignedIn}) => {
                     <img src={calendar} className="headerIcon" alt="Calendar icon"/>
                     <span className="headerText">CONTESTS</span>
                 </NavLink>
-                <Authentication signedIn={signedIn} setSignedIn={setSignedIn}/>
+                <Authentication />
             </nav>
         </header>
     );

@@ -1,13 +1,16 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
-import {signIn, updateLocalStorage} from "../../../service/authService";
+import {signIn, updateLocalStorage} from "../../service/authService";
+import {UserContext} from "../../context/UserContext";
 
 
-const SignInState = (setSignedIn) => {
+const SignInState = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const {setIsSignedIn} = useContext(UserContext);
     const history = useHistory();
 
     const updateUsername = (event) => {
@@ -31,7 +34,7 @@ const SignInState = (setSignedIn) => {
         signIn(username, password)
             .then(() => {
                 updateLocalStorage(username, "true");
-                setSignedIn(true);
+                setIsSignedIn(true);
                 history.push("/problems");
             }).catch((error) => handleErrorResponse(error.response));
     };

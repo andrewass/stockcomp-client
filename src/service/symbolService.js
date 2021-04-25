@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const URL = {
     search_symbol: "http://localhost:8080/stock/search-symbol",
     symbol_suggestions: "http://localhost:8080/stock/symbol-suggestions",
