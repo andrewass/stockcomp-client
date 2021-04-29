@@ -25,6 +25,11 @@
     margin: 0 auto;
 }
 
+#symbolsBody{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
 .suggestion{
     margin-top: 10px;
     margin-left: 25px;
