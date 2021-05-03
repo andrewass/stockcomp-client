@@ -17,11 +17,10 @@ const UpcomingContests = () => {
         return (<p>No upcoming contests</p>);
     } else {
         return (
-            <div>
-                <p>Upcoming contests :</p>
+            <div id="upcomingContests">
                 <ul id="contestList">
                     {upcomingContests.map((contest) =>
-                        <UpcomingContest contest={contest}/>
+                        <UpcomingContest key={contest.contestNumber} contest={contest}/>
                     )}
                 </ul>
             </div>

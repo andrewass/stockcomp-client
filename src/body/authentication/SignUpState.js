@@ -39,7 +39,7 @@ const SignUpState = () => {
         if (matchingPasswords()) {
             signUp(username, password, email)
                 .then(() => {
-                    updateLocalStorage(username, "true");
+                    updateLocalStorage("true");
                     setIsSignedIn(true);
                     history.push("/stocks");
                 }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));

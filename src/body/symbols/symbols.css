@@ -26,8 +26,17 @@
 }
 
 #symbolsBody{
+    margin-top: 3%;
     display: flex;
     flex-flow: row nowrap;
+}
+
+#trendingSymbols{
+    width: 70%;
+}
+
+#upcomingContests{
+    width: 30%;
 }
 
 .suggestion{

@@ -33,9 +33,9 @@ const SignInState = () => {
         event.preventDefault();
         signIn(username, password)
             .then(() => {
-                updateLocalStorage(username, "true");
+                updateLocalStorage("true");
                 setIsSignedIn(true);
-                history.push("/problems");
+                history.push("/stocks");
             }).catch((error) => handleErrorResponse(error.response));
     };
 

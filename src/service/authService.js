@@ -16,14 +16,18 @@ const signUp = async (username, password, email) => {
 };
 
 const signIn = async (username, password) => {
-    return await axios.post(URL.sign_in, {username, password,});
+    return axios({
+        method: "post",
+        url: URL.sign_in,
+        data: {username, password},
+        withCredentials: true
+    })
 };
 
-const signOut = async (username) => {
+const signOut = async () => {
     return axios({
         method: "post",
         url: URL.sign_out,
-        params: {username},
         withCredentials: true
     });
 };
@@ -32,8 +36,7 @@ const getSignedInUser = () => {
     return JSON.parse(localStorage.getItem("user"))
 };
 
-const updateLocalStorage = (username, isSignedIn) => {
-    localStorage.setItem("username", username);
+const updateLocalStorage = (isSignedIn) => {
     localStorage.setItem("isSignedIn", isSignedIn);
 };
 

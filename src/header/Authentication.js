@@ -1,21 +1,17 @@
-import React, {useContext} from "react";
-import {signOut} from "../service/authService"
+import React, {useEffect} from "react";
 import signInIcon from "../icons/login.svg"
 import signOutIcon from "../icons/logout.svg";
 import settingsIcon from "../icons/user.svg";
 import {NavLink} from "react-router-dom";
-import {UserContext} from "../context/UserContext";
+import AuthenticationState from "./AuthenticationState";
 
 const Authentication = () => {
 
-    const {isSignedIn, setIsSignedIn} = useContext(UserContext);
+    const {isSignedIn, signOutUser} = AuthenticationState();
 
-    const signOutUser = () => {
-        signOut(localStorage.getItem("username"))
-            .then(() => {
-                setIsSignedIn(false);
-            }).catch((error) => console.log(error));
-    };
+    useEffect(() => {
+        console.log("Triggering use effect on authentication component");
+    }, [isSignedIn]);
 
     if (isSignedIn) {
         return (
@@ -24,10 +20,10 @@ const Authentication = () => {
                     <img src={settingsIcon} className="headerIcon" alt="settings icon"/>
                     <span className="headerText">SETTINGS</span>
                 </NavLink>
-                <NavLink to="/problems" className="link">
+                <button>
                     <img src={signOutIcon} className="headerIcon" alt="sign out icon"/>
                     <span className="headerText" onClick={signOutUser}>SIGN OUT</span>
-                </NavLink>
+                </button>
             </React.Fragment>
         );
     } else {

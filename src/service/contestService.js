@@ -14,6 +14,15 @@ const getUpcomingContests = () => {
     });
 }
 
+const signUpForContest = (contestNumber) => {
+    return axios({
+        method: "post",
+        url: URL.sign_up,
+        withCredentials: true,
+        params: {contestNumber}
+    })
+}
+
 export {
-    getUpcomingContests
+    getUpcomingContests, signUpForContest
 }
