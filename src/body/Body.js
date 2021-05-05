@@ -7,6 +7,7 @@ import SignIn from "./authentication/SignIn";
 import SignUp from "./authentication/SignUp";
 import DetailBlock from "./symbols/details/DetailBlock";
 import "./body.css";
+import UserAccount from "./account/UserAccount";
 
 const Body = () => {
 
@@ -18,6 +19,7 @@ const Body = () => {
                 <Route path="/symbol-detail" component={DetailBlock}/>
                 <Route path="/sign-in" component={SignIn}/>
                 <Route path="/sign-up" component={SignUp}/>
+                <Route path="/account" component={UserAccount}/>
                 <Route path="*" component={Symbols}/>
             </Switch>
         </div>

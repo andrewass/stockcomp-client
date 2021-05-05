@@ -8,40 +8,73 @@
     flex-flow: row wrap;
 }
 
-.headerText{
-    font-weight: bold;
-    margin-left: 7%;
-}
-
-#appTitle{
-    font-family: Arial, serif;
-    font-size: xx-large;
-    width: 20%;
-    display: flex;
-    margin: 0 1% 0 0%;
-    justify-content: center;
-    align-items: center;
-}
-
-#navigation{
+#navigationBar{
     width: 60%;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
 }
 
+.headerText{
+    font-family: fantasy, Arial;
+    font-size: 20px;
+    margin-left: 7%;
+}
+
+#appTitle{
+    font-family: fantasy, Arial;
+    font-size: xx-large;
+    margin: 0 1% 0 0%;
+}
+
 .headerIcon{
     width: 35px;
 }
 
-.link{
+.dropDownItemIcon{
+    width: 25px;
+}
+
+.navItem {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     margin-right: 12%;
 }
 
+#dropDownItems {
+    display: none;
+}
+
 a {
     text-decoration: none;
-    color: black;
+    color: black
+}
+
+#accountDropDown{
+    margin-right: 12%;
+}
+
+#accountDropDown:hover #dropDownItems {
+    display: flex;
+    flex-flow: column nowrap;
+    position: absolute;
+    background-color: #d0d9d9;
+}
+
+#dropDownButton{
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 0;
+}
+
+.dropDownItem{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;}
+
+.dropDownItemText{
+    font-family: fantasy, Arial;
+    font-size: 15px;
+    margin-left: 5%;
 }

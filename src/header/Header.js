@@ -10,19 +10,19 @@ const Header = () => {
 
     return (
         <header id="header">
-            <nav id="navigation">
-                <NavLink to="/home" className="link">
+            <nav id="navigationBar">
+                <NavLink to="/home" className="navItem">
                     <span id="appTitle">STOCK COMP</span>
                 </NavLink>
-                <NavLink to="/stocks" className="link">
+                <NavLink to="/stocks" className="navItem">
                     <img src={stocks} className="headerIcon" alt="Symbol icon"/>
                     <span className="headerText">STOCKS</span>
                 </NavLink>
-                <NavLink to="/leaderboard" className="link">
+                <NavLink to="/leaderboard" className="navItem">
                     <img src={leaderboard} className="headerIcon" alt="Leaderboard icon"/>
                     <span className="headerText">LEADERBOARD</span>
                 </NavLink>
-                <NavLink to="/contests" className="link">
+                <NavLink to="/contests" className="navItem">
                     <img src={calendar} className="headerIcon" alt="Calendar icon"/>
                     <span className="headerText">CONTESTS</span>
                 </NavLink>
