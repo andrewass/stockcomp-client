@@ -3,6 +3,10 @@ body{
     padding: 0;
 }
 
+*{
+    font-family: fantasy, Arial;
+}
+
 ul{
    list-style-type: none;
     margin: 0;

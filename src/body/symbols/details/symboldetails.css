@@ -1,0 +1,24 @@
+
+#selectedSymbol{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#symbolDescription{
+    width: 70%;
+}
+
+.positivePriceDiff{
+    margin-left: 10px;
+    color : #26de26;
+}
+
+.negativePriceDiff{
+    margin-left: 10px;
+    color: red;
+}
+
+#priceChart{
+    margin-top: 5%;
+    margin-left: 25%;
+}

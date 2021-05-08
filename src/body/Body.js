@@ -12,17 +12,15 @@ import UserAccount from "./account/UserAccount";
 const Body = () => {
 
     return (
-        <div id="bodySection">
-            <Switch>
-                <Route path="/contests" component={Contest}/>
-                <Route path="/leaderboard" component={Leaderboard}/>
-                <Route path="/symbol-detail" component={DetailBlock}/>
-                <Route path="/sign-in" component={SignIn}/>
-                <Route path="/sign-up" component={SignUp}/>
-                <Route path="/account" component={UserAccount}/>
-                <Route path="*" component={Symbols}/>
-            </Switch>
-        </div>
+        <Switch>
+            <Route path="/contests" component={Contest}/>
+            <Route path="/leaderboard" component={Leaderboard}/>
+            <Route path="/symbol-detail" component={DetailBlock}/>
+            <Route path="/sign-in" component={SignIn}/>
+            <Route path="/sign-up" component={SignUp}/>
+            <Route path="/account" component={UserAccount}/>
+            <Route path="*" component={Symbols}/>
+        </Switch>
     );
 }
 
