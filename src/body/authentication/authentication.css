@@ -41,3 +41,7 @@
     width: 25px;
     margin: 0 10px;
 }
+
+input{
+    outline: none;
+}

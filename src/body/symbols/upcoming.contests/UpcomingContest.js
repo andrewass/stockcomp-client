@@ -10,7 +10,7 @@ const UpcomingContest = ({contest}) => {
 
     const renderSignedUpStatus = () => {
         return contest.userIsParticipating ? "Signed up"
-            : <button onClick={() => {handleContestSignUp(contest.contestNumber)}}>Sign up</button>;
+            : <button onClick={() => handleContestSignUp(contest.contestNumber)}>Sign up</button>;
     }
 
     return (

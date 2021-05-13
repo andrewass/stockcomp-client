@@ -18,7 +18,7 @@ const getUpcomingContests = () => {
     });
 }
 
-const signUpForContest = (contestNumber) => {
+const signUpForContest = contestNumber => {
     return axios({
         method: "post",
         url: URL.sign_up,
@@ -36,7 +36,7 @@ const getInvestmentFromSymbol = (contestNumber, symbol) => {
     });
 }
 
-const getRemainingFunds = (contestNumber) => {
+const getRemainingFunds = contestNumber => {
     return axios({
         method: "get",
         url: URL.remaining_funds,
@@ -49,6 +49,6 @@ const buyInvestmentFromSymbol = (contestNumber, symbol, amount) => {
 }
 
 export {
-    getUpcomingContests, signUpForContest, buyInvestmentFromSymbol, getInvestmentFromSymbol
+    getUpcomingContests, signUpForContest, buyInvestmentFromSymbol, getInvestmentFromSymbol, getRemainingFunds
 }
 

@@ -1,12 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import TransactionState from "./TransactionState";
 
-const TransactionMenu = () => {
+const TransactionMenu = ({symbol}) => {
 
-    const {populateInvestments, remainingFunds, amountInvested} = TransactionState();
+    const {remainingFunds, amountInvested, fetchParticipantData} = TransactionState(symbol);
 
-    return(
-        <h3>TransactionMenu</h3>
+    useEffect(() => {
+        fetchParticipantData();
+    }, []);
+
+    return (
+        <ul>
+            <h3>TransactionMenu</h3>
+            <p>Remaining funds : {remainingFunds}</p>
+            <p>Amount invested : {amountInvested}</p>
+            <li>
+                <input type="text"/>
+            </li>
+            <button>Send</button>
+        </ul>
     );
 }
 

@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import DetailBlockState from "./DetailBlockState";
 import Search from "../search/Search";
 import PriceChart from "./PriceChart";
-import "../symbols.css";
 import "./symboldetails.css";
 import SymbolDetail from "./SymbolDetail";
 import LoadingComponent from "../../../common/LoadingComponent";
