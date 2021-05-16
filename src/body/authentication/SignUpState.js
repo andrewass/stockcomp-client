@@ -37,12 +37,13 @@ const SignUpState = () => {
     const postSignUpToServer = (event) => {
         event.preventDefault();
         if (matchingPasswords()) {
+            setErrorMessage(null);
             signUp(username, password, email)
                 .then(() => {
                     updateLocalStorage("true");
                     setIsSignedIn(true);
                     history.push("/stocks");
-                }).catch((error) => setErrorMessage("Unknown error occurred during sign up : " + error));
+                }).catch((error) => setErrorMessage("Error : " + error));
         } else {
             setErrorMessage("Mismatch between passwords! Please try again");
             setPassword("");

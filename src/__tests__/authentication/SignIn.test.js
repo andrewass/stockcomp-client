@@ -1,12 +1,12 @@
-import SignIn from "../body/authentication/SignIn";
-import UserProvider from "../context/UserContext";
-import {signIn} from "../service/authService";
+import SignIn from "../../body/authentication/SignIn";
+import UserProvider from "../../context/UserContext";
+import {signIn} from "../../service/authService";
 import "@testing-library/jest-dom";
 import {BrowserRouter as Router} from "react-router-dom";
 import {act, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-jest.mock("../service/authService");
+jest.mock("../../service/authService");
 
 describe("Test suite for sign in", () => {
 
@@ -24,15 +24,12 @@ describe("Test suite for sign in", () => {
     afterAll(() => jest.clearAllMocks());
 
     test("Should sign in as expected", async () => {
-        const usernameInput = screen.getByPlaceholderText("username");
-        const passwordInput = screen.getByPlaceholderText("password");
-        const submitButton = screen.getByDisplayValue("Sign In");
         signIn.mockReturnValue(Promise.resolve());
 
-        userEvent.type(usernameInput, "testUser");
-        userEvent.type(passwordInput, "testPassword");
+        userEvent.type(screen.getByPlaceholderText("username"), "testUser");
+        userEvent.type(screen.getByPlaceholderText("password"), "testPassword");
         await act(async () => {
-            userEvent.click(submitButton);
+            userEvent.click(screen.getByDisplayValue("Sign In"));
         });
 
         expect(signIn).toHaveBeenCalledTimes(1);

@@ -9,8 +9,16 @@ const SignUp = () => {
 
     const {
         postSignUpToServer, updateUsername, updatePassword,
-        updateEmail, updateRetypedPassword
+        updateEmail, updateRetypedPassword, errorMessage
     } = SignUpState();
+
+    const infoMessage = () => {
+        return(
+            <p className="outputMessages">
+                {errorMessage}
+            </p>
+        );
+    }
 
     return (
         <div id="signUpBox">
@@ -35,6 +43,7 @@ const SignUp = () => {
                 </div>
                 <input type="submit" className="submit" value="Sign Up"/>
             </form>
+            {infoMessage()}
         </div>
     );
 };
