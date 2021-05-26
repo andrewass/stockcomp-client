@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {getRemainingFunds, getUpcomingContests} from "../../../service/contestService";
+import {getRemainingFunds, getUpcomingContests, getInvestmentFromSymbol} from "../../../service/contestService";
 
-const TransactionState = (symbol) => {
+const TransactionMenuState = ({symbol}) => {
 
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
@@ -16,8 +16,8 @@ const TransactionState = (symbol) => {
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             setRemainingFunds(userRemainingFunds.data);
-            const userAmountInvested = 2000;
-            setAmountInvested(userAmountInvested);
+            const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol);
+            setAmountInvested(userAmountInvested.data.amount);
         }
     }
 
@@ -26,4 +26,4 @@ const TransactionState = (symbol) => {
     }
 }
 
-export default TransactionState;
+export default TransactionMenuState;

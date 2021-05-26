@@ -31,7 +31,7 @@ const DetailBlock = () => {
                         <SymbolDetail selectedSymbol={selectedSymbol} realTimePrice={realTimePrice}/>
                         <PriceChart priceList={priceList}/>
                     </div>
-                    <TransactionMenu/>
+                    <TransactionMenu symbol={selectedSymbol}/>
                 </div>
             </div>
         );
