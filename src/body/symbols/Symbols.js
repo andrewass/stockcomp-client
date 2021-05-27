@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "./search/Search";
 import TrendingSymbols from "../trending/TrendingSymbols";
-import UpcomingContests from "./upcoming.contests/UpcomingContests";
+import UpcomingContests from "./upcoming-contests/UpcomingContests";
 
 const Symbols = () => {
 

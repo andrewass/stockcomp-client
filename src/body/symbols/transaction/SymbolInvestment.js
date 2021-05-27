@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import TransactionMenuState from "./TransactionMenuState";
+import SymbolInvestmentState from "./SymbolInvestmentState";
 
-const PortfolioStatus = ({symbol}) => {
+const SymbolInvestment = ({symbol}) => {
 
-    const {remainingFunds, amountInvested, fetchParticipantData} = TransactionMenuState(symbol);
+    const {remainingFunds, amountInvested, fetchParticipantData} = SymbolInvestmentState(symbol);
 
     useEffect(() => {
         fetchParticipantData();
@@ -23,4 +23,4 @@ const PortfolioStatus = ({symbol}) => {
     );
 }
 
-export default PortfolioStatus;
+export default SymbolInvestment;

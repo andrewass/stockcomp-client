@@ -1,8 +1,11 @@
 import {useState} from "react";
 import {getRemainingFunds, getUpcomingContests, getInvestmentFromSymbol} from "../../../service/contestService";
 
-const TransactionMenuState = ({symbol}) => {
+const SymbolInvestmentState = ({symbol}) => {
 
+    const [acceptedPrice, setAcceptedPrice] = useState();
+    const [expirationTime, setExpirationTime] = useState();
+    const [requestedAmount, setRequestedAmount] = useState();
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
 
@@ -21,9 +24,36 @@ const TransactionMenuState = ({symbol}) => {
         }
     }
 
+    const updateRequestedAmount = (event) => {
+        setExpirationTime(event.target.value);
+    };
+
+    const updateAcceptedPrice = (event) => {
+        setExpirationTime(event.target.value);
+    }
+
+    const createInvestmentOrderRequest = () => {
+        return {
+            acceptedPrice: acceptedPrice,
+            expirationTime: expirationTime,
+            symbol: symbol,
+
+        }
+    }
+
+    const placeSellOrder = () => {
+
+    }
+
+    const placeBuyOrder = () => {
+
+    }
+
     return {
         fetchParticipantData, remainingFunds, amountInvested
     }
+
+
 }
 
-export default TransactionMenuState;
+export default SymbolInvestmentState;

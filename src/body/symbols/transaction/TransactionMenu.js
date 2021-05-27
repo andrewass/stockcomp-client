@@ -1,12 +1,12 @@
 import React from "react";
-import PortfolioStatus from "./PortfolioStatus";
+import SymbolInvestment from "./SymbolInvestment";
 import ActiveOrders from "./ActiveOrders";
 
 const TransactionMenu = ({symbol}) => {
 
     return (
         <div id="transactionMenu">
-            <PortfolioStatus symbol={symbol}/>
+            <SymbolInvestment symbol={symbol}/>
             <ActiveOrders/>
         </div>
     );
