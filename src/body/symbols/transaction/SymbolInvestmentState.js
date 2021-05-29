@@ -1,13 +1,21 @@
 import {useState} from "react";
-import {getRemainingFunds, getUpcomingContests, getInvestmentFromSymbol} from "../../../service/contestService";
+import {
+    getInvestmentFromSymbol,
+    getRemainingFunds,
+    getUpcomingContests,
+    placeBuyOrder,
+    placeSellOrder
+} from "../../../service/contestService";
 
 const SymbolInvestmentState = ({symbol}) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
-    const [requestedAmount, setRequestedAmount] = useState();
+    const [orderAmount, setOrderAmount] = useState();
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
+    const [activeContest, setActiveContest] = useState();
+    const [operationType, setOperationType] = useState("BUY");
 
     const getUserParticipatingInActiveContest = (contests) => {
         return contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
@@ -16,6 +24,7 @@ const SymbolInvestmentState = ({symbol}) => {
     const fetchParticipantData = async () => {
         const contests = await getUpcomingContests();
         const activeContest = getUserParticipatingInActiveContest(contests.data);
+        setActiveContest(activeContest);
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             setRemainingFunds(userRemainingFunds.data);
@@ -24,36 +33,26 @@ const SymbolInvestmentState = ({symbol}) => {
         }
     }
 
-    const updateRequestedAmount = (event) => {
-        setExpirationTime(event.target.value);
-    };
-
-    const updateAcceptedPrice = (event) => {
-        setExpirationTime(event.target.value);
-    }
-
     const createInvestmentOrderRequest = () => {
         return {
-            acceptedPrice: acceptedPrice,
             expirationTime: expirationTime,
+            acceptedPrice: parseInt(acceptedPrice),
             symbol: symbol,
-
+            amount: parseInt(orderAmount),
+            contestNumber: activeContest.contestNumber,
         }
     }
 
-    const placeSellOrder = () => {
-
-    }
-
-    const placeBuyOrder = () => {
-
+    const sendOrder = () => {
+        operationType === "BUY"
+            ? placeBuyOrder(createInvestmentOrderRequest())
+            : placeSellOrder(createInvestmentOrderRequest());
     }
 
     return {
-        fetchParticipantData, remainingFunds, amountInvested
+        fetchParticipantData, remainingFunds, amountInvested, setOrderAmount, setAcceptedPrice,
+        setExpirationTime, sendOrder, setOperationType
     }
-
-
 }
 
 export default SymbolInvestmentState;
