@@ -5,7 +5,7 @@ import {
     getUpcomingContests,
     placeBuyOrder,
     placeSellOrder
-} from "../../../service/contestService";
+} from "../../../../service/contestService";
 
 const SymbolInvestmentState = ({symbol}) => {
 
@@ -27,7 +27,7 @@ const SymbolInvestmentState = ({symbol}) => {
         setActiveContest(activeContest);
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
-            setRemainingFunds(userRemainingFunds.data);
+            setRemainingFunds((userRemainingFunds.data).toFixed(2));
             const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol);
             setAmountInvested(userAmountInvested.data.amount);
         }

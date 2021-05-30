@@ -5,7 +5,7 @@ import PriceChart from "./PriceChart";
 import "./symboldetails.css";
 import SymbolDetail from "./SymbolDetail";
 import LoadingComponent from "../../../common/LoadingComponent";
-import TransactionMenu from "../transaction/TransactionMenu";
+import InvestmentMenu from "../investment/InvestmentMenu";
 
 const DetailBlock = () => {
 
@@ -31,7 +31,7 @@ const DetailBlock = () => {
                         <SymbolDetail selectedSymbol={selectedSymbol} realTimePrice={realTimePrice}/>
                         <PriceChart priceList={priceList}/>
                     </div>
-                    <TransactionMenu symbol={selectedSymbol}/>
+                    <InvestmentMenu symbol={selectedSymbol}/>
                 </div>
             </div>
         );

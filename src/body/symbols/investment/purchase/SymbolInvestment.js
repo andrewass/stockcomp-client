@@ -11,13 +11,13 @@ const SymbolInvestment = ({symbol}) => {
 
     useEffect(() => {
         fetchParticipantData();
-    }, []);
+    }, [symbol]);
 
     return (
         <div>
             <h2>Portfolio Status</h2>
             <p>Remaining funds : {remainingFunds}</p>
-            <p>Amount invested : {amountInvested}</p>
+            <p>{symbol.description} - Amount invested : {amountInvested}</p>
             <form id="submitOrderForm">
                 <div>
                     <span>Order amount : </span>
