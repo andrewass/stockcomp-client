@@ -1,8 +1,11 @@
+const CompletedOrders = ({completedOrders}) => {
 
-const CompletedOrders = () => {
-
-    return(
-        <h2>Completed orders</h2>
+    return (
+        <ul>
+            {completedOrders.map((order) =>
+                <li key={order.orderId}>A-COMPLETED-ORDER</li>
+            )}
+        </ul>
     );
 }
 

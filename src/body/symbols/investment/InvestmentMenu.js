@@ -8,7 +8,7 @@ const InvestmentMenu = ({symbol}) => {
     return (
         <div id="transactionMenu">
             <SymbolInvestment symbol={symbol}/>
-            <OrderMenu/>
+            <OrderMenu symbol={symbol}/>
         </div>
     );
 }

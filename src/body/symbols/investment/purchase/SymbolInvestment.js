@@ -10,7 +10,8 @@ const SymbolInvestment = ({symbol}) => {
     } = SymbolInvestmentState(symbol);
 
     useEffect(() => {
-        fetchParticipantData();
+        fetchParticipantData()
+            .catch(error => console.log(error));
     }, [symbol]);
 
     return (

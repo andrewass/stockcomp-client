@@ -1,8 +1,11 @@
+const ActiveOrders = ({activeOrders}) => {
 
-const ActiveOrders = () => {
-
-    return(
-        <h2>Active orders</h2>
+    return (
+        <ul>
+            {activeOrders.map((order) =>
+                <li key={order.orderId}>AN-ACTIVE-ORDER</li>
+            )}
+        </ul>
     );
 }
 
