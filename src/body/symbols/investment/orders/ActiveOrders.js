@@ -1,11 +1,16 @@
+import Order from "./Order";
+
 const ActiveOrders = ({activeOrders}) => {
 
     return (
-        <ul>
-            {activeOrders.map((order) =>
-                <li key={order.orderId}>AN-ACTIVE-ORDER</li>
-            )}
-        </ul>
+        <div className="orderList">
+            <h3>Active Orders : </h3>
+            <ul>
+                {activeOrders.map((order) =>
+                    <Order order={order} key={order.orderId} />
+                )}
+            </ul>
+        </div>
     );
 }
 

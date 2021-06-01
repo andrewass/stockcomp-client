@@ -1,11 +1,16 @@
+import Order from "./Order";
+
 const CompletedOrders = ({completedOrders}) => {
 
     return (
-        <ul>
-            {completedOrders.map((order) =>
-                <li key={order.orderId}>A-COMPLETED-ORDER</li>
-            )}
-        </ul>
+        <div className="orderList">
+            <h3>Completed Orders : </h3>
+            <ul>
+                {completedOrders.map((order) =>
+                    <Order order={order} key={order.orderId} />
+                )}
+            </ul>
+        </div>
     );
 }
 
