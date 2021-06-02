@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {
-     getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol
+     getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol, deleteActiveOrder
 } from "../../../../service/investmentOrderService";
 import {getUpcomingContests} from "../../../../service/contestService";
 
@@ -8,6 +8,10 @@ const OrderMenuState = ({symbol}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
+
+    const deleteOrder = (orderId) => {
+        deleteActiveOrder(orderId);
+    }
 
     const getContestNumberOfParticipatingContest = (contests) => {
         const contest =  contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
@@ -28,7 +32,7 @@ const OrderMenuState = ({symbol}) => {
     }
 
     return {
-        populateOrderList, activeOrders, completedOrders
+        populateOrderList, activeOrders, completedOrders, deleteOrder
     }
 }
 

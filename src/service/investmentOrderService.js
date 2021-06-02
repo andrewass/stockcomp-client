@@ -4,7 +4,8 @@ const URL = {
     completed_orders_participant : "http://localhost:8080/investment-order/completed-orders-participant",
     completed_orders_participant_symbol : "http://localhost:8080/investment-order/completed-orders-symbol-participant",
     active_orders_participant : "http://localhost:8080/investment-order/active-orders-participant",
-    active_orders_participant_symbol : "http://localhost:8080/investment-order/active-orders-symbol-participant"
+    active_orders_participant_symbol : "http://localhost:8080/investment-order/active-orders-symbol-participant",
+    delete_active_order : "http://localhost:8080/investment-order/delete-active-order"
 }
 
 const getCompletedOrdersParticipant = (contestNumber) => {
@@ -34,6 +35,16 @@ const getActiveOrdersParticipantSymbol = (contestNumber, symbol) => {
     });
 }
 
+const deleteActiveOrder = (orderId) => {
+    return axios({
+        method: "post",
+        url: URL.delete_active_order,
+        params: {orderId},
+        withCredentials: true
+    });
+}
+
 export {
-    getCompletedOrdersParticipant, getCompletedOrdersParticipantSymbol, getActiveOrdersParticipantSymbol
+    getCompletedOrdersParticipant, getCompletedOrdersParticipantSymbol,
+    getActiveOrdersParticipantSymbol, deleteActiveOrder
 }

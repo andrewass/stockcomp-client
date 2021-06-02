@@ -5,7 +5,7 @@ import OrderMenuState from "./OrderMenuState";
 
 const OrderMenu = ({symbol}) => {
 
-    const {populateOrderList, activeOrders, completedOrders} = OrderMenuState(symbol)
+    const {populateOrderList, activeOrders, completedOrders, deleteOrder} = OrderMenuState(symbol)
 
     useEffect(() => {
         populateOrderList();
@@ -13,7 +13,7 @@ const OrderMenu = ({symbol}) => {
 
     return(
         <div>
-            <ActiveOrders activeOrders={activeOrders}/>
+            <ActiveOrders activeOrders={activeOrders} deleteOrder={deleteOrder}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
     );
