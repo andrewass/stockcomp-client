@@ -7,7 +7,7 @@ import {
     placeSellOrder
 } from "../../../../service/contestService";
 
-const SymbolInvestmentState = ({symbol}) => {
+const SymbolInvestmentState = (symbol) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
@@ -43,10 +43,10 @@ const SymbolInvestmentState = ({symbol}) => {
         }
     }
 
-    const sendOrder = () => {
+    const sendOrder = async () => {
         operationType === "BUY"
-            ? placeBuyOrder(createInvestmentOrderRequest())
-            : placeSellOrder(createInvestmentOrderRequest());
+            ? await placeBuyOrder(createInvestmentOrderRequest())
+            : await placeSellOrder(createInvestmentOrderRequest());
     }
 
     return {

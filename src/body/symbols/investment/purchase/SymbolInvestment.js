@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import SymbolInvestmentState from "./SymbolInvestmentState";
 import OperationDropDown from "./OperationDropDown";
 
-const SymbolInvestment = ({symbol}) => {
+const SymbolInvestment = ({symbol, populateOrderList}) => {
 
     const {
         remainingFunds, amountInvested, fetchParticipantData, setExpirationTime, setAcceptedPrice,

@@ -1,6 +1,12 @@
 import Order from "./Order";
+import {deleteActiveOrder} from "../../../../service/investmentOrderService";
 
-const ActiveOrders = ({activeOrders, deleteOrder}) => {
+const ActiveOrders = ({activeOrders, populateOrderList}) => {
+
+    const deleteOrder = async (orderId) => {
+        await deleteActiveOrder(orderId);
+        await populateOrderList();
+    }
 
     return (
         <div className="orderList">

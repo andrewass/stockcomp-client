@@ -1,19 +1,12 @@
 import React, {useEffect} from "react";
 import ActiveOrders from "./ActiveOrders";
 import CompletedOrders from "./CompletedOrders";
-import OrderMenuState from "./OrderMenuState";
 
-const OrderMenu = ({symbol}) => {
-
-    const {populateOrderList, activeOrders, completedOrders, deleteOrder} = OrderMenuState(symbol)
-
-    useEffect(() => {
-        populateOrderList();
-    },[symbol]);
+const OrderMenu = ({activeOrders, completedOrders, populateOrderList}) => {
 
     return(
         <div>
-            <ActiveOrders activeOrders={activeOrders} deleteOrder={deleteOrder}/>
+            <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
     );
