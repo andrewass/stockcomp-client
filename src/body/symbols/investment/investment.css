@@ -1,4 +1,13 @@
 
+#positiveInvestmentReturns{
+    color : #26de26;
+
+}
+
+#negativeInvestmentReturns{
+    color : #ff0000ff;
+}
+
 #submitOrderForm{
     display: flex;
     flex-flow: column nowrap;

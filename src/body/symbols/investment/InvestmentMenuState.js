@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {
-    getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol, deleteActiveOrder
+    getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol
 } from "../../../service/investmentOrderService";
 import {getUpcomingContests} from "../../../service/contestService";
 

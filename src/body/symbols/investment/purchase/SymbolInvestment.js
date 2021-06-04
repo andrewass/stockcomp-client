@@ -2,23 +2,34 @@ import React, {useEffect} from "react";
 import SymbolInvestmentState from "./SymbolInvestmentState";
 import OperationDropDown from "./OperationDropDown";
 
-const SymbolInvestment = ({symbol, populateOrderList}) => {
+const SymbolInvestment = ({symbol, populateOrderList, currentPrice}) => {
 
     const {
         remainingFunds, amountInvested, fetchParticipantData, setExpirationTime, setAcceptedPrice,
-        setOrderAmount, sendOrder, setOperationType
-    } = SymbolInvestmentState(symbol);
+        setOrderAmount, sendOrder, setOperationType, investmentReturns
+    } = SymbolInvestmentState(symbol, populateOrderList, currentPrice);
 
     useEffect(() => {
         fetchParticipantData()
             .catch(error => console.log(error));
     }, [symbol]);
 
+    const displayInvestmentReturns = () => {
+        if (investmentReturns >= 0) {
+            return <span id="positiveInvestmentReturns"> +{investmentReturns} USD</span>
+        } else {
+            return <span id="negativeInvestmentReturns"> -{investmentReturns} USD</span>
+        }
+    }
+
     return (
         <div>
             <h2>Portfolio Status</h2>
             <p>Remaining funds : {remainingFunds}</p>
-            <p>{symbol.description} - Amount invested : {amountInvested}</p>
+            <h4>{symbol.description} : </h4>
+            <p>- Investment returns : {displayInvestmentReturns()}</p>
+            <p>- Amount invested : {amountInvested}</p>
+
             <form id="submitOrderForm">
                 <div>
                     <span>Order amount : </span>

@@ -7,13 +7,14 @@ import {
     placeSellOrder
 } from "../../../../service/contestService";
 
-const SymbolInvestmentState = (symbol) => {
+const SymbolInvestmentState = (symbol, populateOrderList, currentPrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
     const [orderAmount, setOrderAmount] = useState();
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
+    const [investmentReturns, setInvestmentReturns] = useState(0);
     const [activeContest, setActiveContest] = useState();
     const [operationType, setOperationType] = useState("BUY");
 
@@ -28,16 +29,19 @@ const SymbolInvestmentState = (symbol) => {
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
-            const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol);
+            const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol.symbol);
             setAmountInvested(userAmountInvested.data.amount);
+            setInvestmentReturns(
+                (currentPrice * userAmountInvested.data.amount - userAmountInvested.data.sumPaid).toFixed(2)
+            );
         }
     }
 
     const createInvestmentOrderRequest = () => {
         return {
             expirationTime: expirationTime,
-            acceptedPrice: parseInt(acceptedPrice),
-            symbol: symbol,
+            acceptedPrice: parseFloat(acceptedPrice),
+            symbol: symbol.symbol,
             amount: parseInt(orderAmount),
             contestNumber: activeContest.contestNumber,
         }
@@ -47,11 +51,12 @@ const SymbolInvestmentState = (symbol) => {
         operationType === "BUY"
             ? await placeBuyOrder(createInvestmentOrderRequest())
             : await placeSellOrder(createInvestmentOrderRequest());
+        await populateOrderList();
     }
 
     return {
-        fetchParticipantData, remainingFunds, amountInvested, setOrderAmount, setAcceptedPrice,
-        setExpirationTime, sendOrder, setOperationType
+        fetchParticipantData, remainingFunds, amountInvested, investmentReturns,
+        setOrderAmount, setAcceptedPrice, setExpirationTime, sendOrder, setOperationType
     }
 }
 
