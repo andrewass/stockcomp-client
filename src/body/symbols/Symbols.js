@@ -1,7 +1,8 @@
 import React from "react";
 import Search from "./search/Search";
-import TrendingSymbols from "../trending/TrendingSymbols";
+import TrendingSymbols from "./trending/TrendingSymbols";
 import UpcomingContests from "./upcoming-contests/UpcomingContests";
+import InvestmentMenuTotal from "./investment/InvestmentMenuTotal";
 
 const Symbols = () => {
 
@@ -11,6 +12,7 @@ const Symbols = () => {
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <UpcomingContests/>
+                <InvestmentMenuTotal/>
             </div>
         </div>
     );

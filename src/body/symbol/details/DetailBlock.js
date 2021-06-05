@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import DetailBlockState from "./DetailBlockState";
-import Search from "../search/Search";
+import Search from "../../symbols/search/Search";
 import PriceChart from "./PriceChart";
 import "./symboldetails.css";
 import SymbolDetail from "./SymbolDetail";
-import LoadingComponent from "../../../common/LoadingComponent";
+import LoadingComponent from "../../../util/LoadingComponent";
 import InvestmentMenu from "../investment/InvestmentMenu";
 
 const DetailBlock = () => {

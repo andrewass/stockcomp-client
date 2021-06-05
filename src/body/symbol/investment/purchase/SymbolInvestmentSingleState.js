@@ -7,7 +7,7 @@ import {
     placeSellOrder
 } from "../../../../service/contestService";
 
-const SymbolInvestmentState = (symbol, populateOrderList, currentPrice) => {
+const SymbolInvestmentSingleState = (symbol, populateOrderList, currentPrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
@@ -60,4 +60,4 @@ const SymbolInvestmentState = (symbol, populateOrderList, currentPrice) => {
     }
 }
 
-export default SymbolInvestmentState;
+export default SymbolInvestmentSingleState;

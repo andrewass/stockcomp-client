@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import UpcomingContestsState from "./UpcomingContestsState";
 import UpcomingContest from "./UpcomingContest";
-import LoadingComponent from "../../../common/LoadingComponent";
+import LoadingComponent from "../../../util/LoadingComponent";
 
 const UpcomingContests = () => {
 
