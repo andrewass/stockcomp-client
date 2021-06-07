@@ -41,6 +41,7 @@
 
 #upcomingContests{
     width: 30%;
+    margin-bottom: 10%;
 }
 
 .suggestion{
@@ -60,4 +61,13 @@
 #currentPriceList{
     display: flex;
     flex-flow: row nowrap;
+}
+
+#symbolsRightMeny{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.leftMenu{
+    width: 30%;
 }

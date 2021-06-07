@@ -7,7 +7,9 @@ const URL = {
     place_buy_order: "http://localhost:8080/contest/place-buy-order",
     place_sell_order: "http://localhost:8080/contest/place-sell-order",
     symbol_investment: "http://localhost:8080/contest/symbol-investment",
-    remaining_funds: "http://localhost:8080/contest/remaining-funds"
+    remaining_funds: "http://localhost:8080/contest/remaining-funds",
+    total_investment_returns: "http://localhost:8080/contest/total-investment-returns",
+    total_value_investments : "http://localhost:8080/contest/total-value-investments"
 };
 
 const getUpcomingContests = () => {
@@ -63,8 +65,26 @@ const placeSellOrder = (request) => {
     })
 }
 
+const getTotalInvestmentReturns = contestNumber => {
+    return axios({
+        method: "get",
+        url: URL.total_investment_returns,
+        withCredentials: true,
+        params: {contestNumber}
+    });
+}
+
+const getTotalValueInvestments = contestNumber => {
+    return axios({
+        method: "get",
+        url: URL.total_value_investments,
+        withCredentials: true,
+        params: {contestNumber}
+    });
+}
+
 export {
     getUpcomingContests, signUpForContest, getInvestmentFromSymbol, getRemainingFunds
-    , placeBuyOrder, placeSellOrder
+    , placeBuyOrder, placeSellOrder, getTotalInvestmentReturns, getTotalValueInvestments
 }
 

@@ -11,8 +11,10 @@ const Symbols = () => {
             <Search/>
             <div id="symbolsBody">
                 <TrendingSymbols/>
-                <UpcomingContests/>
-                <InvestmentMenuTotal/>
+                <div className="leftMenu" id="symbolsRightMenu">
+                    <UpcomingContests/>
+                    <InvestmentMenuTotal/>
+                </div>
             </div>
         </div>
     );

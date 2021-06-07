@@ -1,0 +1,32 @@
+import {useState} from "react";
+import {getRemainingFunds, getTotalValueInvestments, getUpcomingContests} from "../../../service/contestService";
+
+const SymbolInvestmentTotalState = () => {
+
+    const [remainingFunds, setRemainingFunds] = useState();
+    const [totalValueInvestments, setTotalValueInvestments] = useState();
+    const [totalValue, setTotalValue] = useState();
+
+    const getUserParticipatingInActiveContest = (contests) => {
+        return contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
+    }
+
+    const fetchParticipantData = async () => {
+        console.log("Fetching participant data");
+        const contests = await getUpcomingContests();
+        const activeContest = await getUserParticipatingInActiveContest(contests.data);
+        if (activeContest) {
+            const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
+            const userTotalValueInvestments = await getTotalValueInvestments(activeContest.contestNumber);
+            setRemainingFunds((userRemainingFunds.data).toFixed(2));
+            setTotalValueInvestments(userTotalValueInvestments.data.toFixed(2));
+            setTotalValue(userRemainingFunds.data + userTotalValueInvestments.data);
+        }
+    }
+
+    return {
+        fetchParticipantData, remainingFunds, totalValueInvestments, totalValue
+    }
+}
+
+export default SymbolInvestmentTotalState;
