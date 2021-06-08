@@ -31,9 +31,7 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, currentPrice) =>
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
             const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol.symbol);
             setAmountInvested(userAmountInvested.data.amount);
-            setInvestmentReturns(
-                (currentPrice * userAmountInvested.data.amount - userAmountInvested.data.sumPaid).toFixed(2)
-            );
+            setInvestmentReturns(userAmountInvested.data.investmentReturns.toFixed(2));
         }
     }
 

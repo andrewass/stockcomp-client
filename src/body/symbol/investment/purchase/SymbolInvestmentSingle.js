@@ -18,7 +18,7 @@ const SymbolInvestmentSingle = ({symbol, populateOrderList, currentPrice}) => {
         if (investmentReturns >= 0) {
             return <span id="positiveInvestmentReturns"> +{investmentReturns} USD</span>
         } else {
-            return <span id="negativeInvestmentReturns"> -{investmentReturns} USD</span>
+            return <span id="negativeInvestmentReturns"> {investmentReturns} USD</span>
         }
     }
 

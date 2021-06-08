@@ -12,20 +12,13 @@ const SymbolInvestmentTotal = () => {
             .catch(error => console.log(error));
     }, []);
 
-    const displayInvestmentValue = (value) => {
-        if (value >= 0) {
-            return <span id="positiveInvestmentReturns"> +{value} USD</span>
-        } else {
-            return <span id="negativeInvestmentReturns"> -{value} USD</span>
-        }
-    }
-
     return(
         <div>
             <h2>Portfolio Status</h2>
-            <p>Remaining funds : {remainingFunds}</p>
-            <p>Total investment returns : {displayInvestmentValue(totalValueInvestments)}</p>
-            <p>Total value : {totalValue}</p>
+            <p>Remaining funds : {remainingFunds} USD</p>
+            <p>Investments value : {totalValueInvestments} USD</p>
+            <hr/>
+            <p>Total value : {totalValue} USD</p>
         </div>
     )
 }
