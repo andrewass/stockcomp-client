@@ -20,7 +20,7 @@ const SignIn = () => {
                 <div className="password">
                     <img src={passwordIcon} className="formIcon" alt="Password Icon"/>
                     <input name="password" type="password" placeholder="password"
-                           onChange={updatePassword}/>
+                           autoComplete="off" onChange={updatePassword}/>
                 </div>
                 <input type="submit" value="Sign In" className="submit"/>
             </form>
