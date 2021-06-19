@@ -3,7 +3,8 @@ import axios from "axios";
 const URL = {
     sign_in: "http://localhost:8080/auth/sign-in",
     sign_up: "http://localhost:8080/auth/sign-up",
-    sign_out: "http://localhost:8080/auth/sign-out"
+    sign_out: "http://localhost:8080/auth/sign-out",
+    refresh_token: "http://localhost:8080/auth/refresh-token"
 };
 
 const signUp = async (username, password, email) => {
@@ -32,6 +33,14 @@ const signOut = async () => {
     });
 };
 
+const refreshToken = () => {
+    return axios({
+        method: "get",
+        url: URL.refresh_token,
+        withCredentials: true
+    });
+}
+
 const getSignedInUser = () => {
     return JSON.parse(localStorage.getItem("user"))
 };
@@ -44,6 +53,7 @@ export {
     signIn,
     signUp,
     signOut,
+    refreshToken,
     getSignedInUser,
     updateLocalStorage
 };

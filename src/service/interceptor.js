@@ -1,13 +1,28 @@
 import axios from "axios";
+import {refreshToken} from "./authService";
+
+
+const requestInterceptor = axios.interceptors.request.use(
+    config => {
+        config.withCredentials = true;
+        return config;
+    }
+);
 
 const responseInterceptor = axios.interceptors.response.use(
     response => {
         console.log("Logging a fulfilled response");
         return response;
     },
-    error => {
-        console.log("Logging a rejected response "+error);
+    async error => {
+        if(error.response.status === 401){
+            console.log("Logging a rejected 401 response " + error);
+            await refreshToken();
+            return axios.request(error.config);
+        } else {
+            return Promise.reject(error);
+        }
     }
 );
 
-export default responseInterceptor
+export {responseInterceptor, requestInterceptor}

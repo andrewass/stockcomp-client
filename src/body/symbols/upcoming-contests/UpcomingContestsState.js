@@ -1,13 +1,12 @@
 import {UserContext} from "../../../context/UserContext";
-import {useContext, useState} from "react";
-import {getUpcomingContests, signUpForContest} from "../../../service/contestService";
+import {useContext} from "react";
+import {signUpForContest} from "../../../service/contestService";
 import {useHistory} from "react-router-dom";
 
 const UpcomingContestsState = () => {
 
     const {isSignedIn} = useContext(UserContext);
     const history = useHistory();
-    const [upcomingContests, setUpcomingContests] = useState([]);
 
     const handleContestSignUp = (contestNumber) => {
         if (isSignedIn) {
@@ -19,15 +18,7 @@ const UpcomingContestsState = () => {
         }
     }
 
-    const fetchUpcomingContests = () => {
-        getUpcomingContests()
-            .then(response => setUpcomingContests(response.data))
-            .catch(error => console.log(error))
-    }
-
-    return {
-        fetchUpcomingContests, handleContestSignUp, upcomingContests
-    }
+    return {handleContestSignUp}
 }
 
 export default UpcomingContestsState;

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import SymbolInvestmentTotalState from "./SymbolInvestmentTotalState";
 
-const SymbolInvestmentTotal = () => {
+const SymbolInvestmentTotal = ({contestList}) => {
 
     const {
         remainingFunds, totalValueInvestments, totalValue, fetchParticipantData
