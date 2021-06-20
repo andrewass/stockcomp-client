@@ -11,7 +11,6 @@ const requestInterceptor = axios.interceptors.request.use(
 
 const responseInterceptor = axios.interceptors.response.use(
     response => {
-        console.log("Logging a fulfilled response");
         return response;
     },
     async error => {

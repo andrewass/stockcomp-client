@@ -5,14 +5,14 @@ const SymbolInvestmentTotal = ({contestList}) => {
 
     const {
         remainingFunds, totalValueInvestments, totalValue, fetchParticipantData
-    } = SymbolInvestmentTotalState();
+    } = SymbolInvestmentTotalState(contestList);
 
     useEffect(() => {
         fetchParticipantData()
             .catch(error => console.log(error));
-    }, []);
+    }, [contestList]);
 
-    return(
+    return (
         <div>
             <h2>Portfolio Status</h2>
             <p>Remaining funds : {remainingFunds} USD</p>
