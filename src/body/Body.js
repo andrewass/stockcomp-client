@@ -8,18 +8,33 @@ import SignUp from "./authentication/SignUp";
 import DetailBlock from "./symbol/details/DetailBlock";
 import "./body.css";
 import UserAccount from "./account/UserAccount";
+import ProtectedRoute from "../util/ProtectedRoute";
 
 const Body = () => {
 
     return (
         <Switch>
-            <Route path="/contests" component={Contest}/>
-            <Route path="/leaderboard" component={Leaderboard}/>
-            <Route path="/symbol-detail" component={DetailBlock}/>
-            <Route path="/sign-in" component={SignIn}/>
-            <Route path="/sign-up" component={SignUp}/>
-            <Route path="/account" component={UserAccount}/>
-            <Route path="*" component={Symbols}/>
+            <ProtectedRoute path="/contests">
+                <Contest/>
+            </ProtectedRoute>
+            <ProtectedRoute path="/leaderboard">
+                <Leaderboard/>
+            </ProtectedRoute>
+            <ProtectedRoute path="/symbol-detail">
+                <DetailBlock/>
+            </ProtectedRoute>
+            <Route path="/sign-in">
+                <SignIn/>
+            </Route>
+            <Route path="/sign-up">
+                <SignUp/>
+            </Route>
+            <ProtectedRoute path="/account">
+                <UserAccount/>
+            </ProtectedRoute>
+            <ProtectedRoute path="*">
+                <Symbols/>
+            </ProtectedRoute>
         </Switch>
     );
 }
