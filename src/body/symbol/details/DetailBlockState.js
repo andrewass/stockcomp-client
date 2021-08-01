@@ -18,8 +18,8 @@ const DetailBlockState = () => {
     const setCurrentPrice = () => {
         getRealTimePrice(selectedSymbol.symbol)
         .then(response => setRealTimePrice({
-            previousClosePrice : response.data.previousClosePrice,
-            currentPrice : response.data.currentPrice
+            previousClosePrice : response.data.previousClose,
+            currentPrice : response.data.price
         })).catch(error => console.log(error));
     }
 
