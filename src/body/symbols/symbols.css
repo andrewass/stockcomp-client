@@ -1,6 +1,5 @@
 
 #symbolsPage{
-    margin-top: 3%;
 }
 
 #searchIcon{
@@ -18,10 +17,10 @@
 
 #searchField{
     width: 40%;
-    margin: 0 auto;
     border: 1px solid black;
     display: flex;
     flex-flow: row nowrap;
+    margin: 2% auto;
 }
 
 #suggestionList{
@@ -51,7 +50,7 @@
 
 #symbolDetail{
     margin-top: 5%;
-    margin-left: 40%;
+    margin-left: 30%;
 }
 
 #symbolDetail p{

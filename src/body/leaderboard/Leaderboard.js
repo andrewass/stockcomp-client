@@ -1,8 +1,12 @@
 import React from "react";
+import Header from "../../header/Header";
 
 const Leaderboard = () => {
     return (
-        <p>Leaderboard</p>
+        <div>
+            <Header/>
+            <p>Leaderboard</p>
+        </div>
     );
 };
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const URL = {
     symbol_suggestions: "http://localhost:8088/stock/suggestions",
-    historic_prices: "http://localhost:8080/stock/historic-prices",
+    historic_prices: "http://localhost:8088/stock/historical-quotes",
     real_time_price: "http://localhost:8088/stock/stock-quote"
 };
 
@@ -17,8 +17,7 @@ const getSuggestionsFromQuery = (query) => {
 const getHistoricPrices = (symbol) => {
     return axios({
         method: "get",
-        url: URL.historic_prices,
-        params: {symbol},
+        url: URL.historic_prices+"/"+symbol,
         withCredentials: true
     });
 }

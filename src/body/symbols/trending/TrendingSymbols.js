@@ -2,7 +2,7 @@ import React from "react";
 
 const TrendingSymbols = () => {
 
-    return(
+    return (
         <div id="trendingSymbols">
             <p>Trending Symbols</p>
         </div>

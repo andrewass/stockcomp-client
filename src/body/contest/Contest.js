@@ -1,8 +1,12 @@
 import React from "react";
+import Header from "../../header/Header";
 
 const Contest = () => {
     return (
-        <p>Contest</p>
+        <div>
+            <Header/>
+            <p>Contest</p>
+        </div>
     );
 };
 

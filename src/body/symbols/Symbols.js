@@ -4,6 +4,7 @@ import TrendingSymbols from "./trending/TrendingSymbols";
 import UpcomingContests from "./upcoming-contests/UpcomingContests";
 import SymbolsState from "./SymbolsState";
 import SymbolInvestmentTotal from "./investment/SymbolInvestmentTotal";
+import Header from "../../header/Header";
 
 const Symbols = () => {
 
@@ -15,6 +16,7 @@ const Symbols = () => {
 
     return (
         <div id="symbolsPage">
+            <Header/>
             <Search/>
             <div id="symbolsBody">
                 <TrendingSymbols/>
