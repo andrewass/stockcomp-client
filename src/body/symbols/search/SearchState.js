@@ -3,14 +3,9 @@ import {getSuggestionsFromQuery} from "../../../service/symbolService";
 
 const SearchState = () => {
 
-    const [query, setQuery] = useState("");
     const [suggestionList, setSuggestionList] = useState([]);
 
-    const updateQuery = (event) => {
-        setQuery(event.target.value);
-    };
-
-    const getSuggestions = () => {
+    const getSuggestions = (query) => {
         if (query === "") {
             setSuggestionList([]);
         } else {
@@ -21,7 +16,7 @@ const SearchState = () => {
     };
 
     return {
-        updateQuery, getSuggestions, suggestionList, query, setQuery
+        getSuggestions, suggestionList, setSuggestionList
     }
 }
 
