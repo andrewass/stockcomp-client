@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import "../symbols.css";
 import AutoSuggest from "react-autosuggest";
 import SearchState from "./SearchState";
 import searchIcon from "../../../icons/loupe.svg";
+import {SymbolContext} from "../../../context/SymbolContext";
+import {NavLink} from "react-router-dom";
 
 const Search = () => {
 
     const [query, setQuery] = useState("");
-
+    const {setSelectedSymbol} = useContext(SymbolContext);
     const {suggestionList, setSuggestionList, getSuggestions} = SearchState();
 
     const onSuggestionsFetchRequested = ({value}) => {
@@ -15,14 +17,18 @@ const Search = () => {
             setSuggestionList([]);
             return;
         }
-        getSuggestions(value)
+        getSuggestions(value);
     }
 
     const renderSuggestion = suggestion => {
         return (
-            <div>
-                <span>{suggestion.symbol} : {suggestion.description}</span>
-            </div>
+            <NavLink to="/symbol-detail"
+                     onClick={() => {
+                         setSelectedSymbol(suggestion);
+                         setQuery("");
+                     }}>
+                {suggestion.symbol} : {suggestion.description}
+            </NavLink>
         );
     }
 
