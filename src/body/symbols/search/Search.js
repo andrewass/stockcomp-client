@@ -22,7 +22,7 @@ const Search = () => {
 
     const renderSuggestion = suggestion => {
         return (
-            <NavLink to="/symbol-detail"
+            <NavLink className="suggestion" to="/symbol-detail"
                      onClick={() => {
                          setSelectedSymbol(suggestion);
                          setQuery("");

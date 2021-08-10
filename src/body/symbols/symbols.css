@@ -1,6 +1,4 @@
 
-#symbolsPage{
-}
 
 #searchIcon{
     width: 25px;
@@ -24,10 +22,6 @@
     margin-left: 25%;
 }
 
-#suggestionList{
-    width: 40%;
-    margin-left: 26%;
-}
 
 #symbolsBody{
     margin-top: 3%;
@@ -44,10 +38,6 @@
     margin-bottom: 10%;
 }
 
-.suggestion{
-    margin-top: 10px;
-    margin-left: 25px;
-}
 
 #symbolDetail{
     margin-top: 5%;
@@ -70,4 +60,21 @@
 
 .leftMenu{
     width: 30%;
+}
+
+.suggestion{}
+
+.react-autosuggest__container{
+    display: inline-block;
+}
+
+.react-autosuggest__suggestions-container{
+    display: none;
+}
+
+.react-autosuggest__suggestions-container--open{
+    display: block;
+    position: absolute;
+    background-color: white;
+    z-index: 10;
 }
