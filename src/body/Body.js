@@ -9,7 +9,7 @@ import DetailBlock from "./symbol/details/DetailBlock";
 import "./body.css";
 import UserAccount from "./account/UserAccount";
 import ProtectedRoute from "../util/ProtectedRoute";
-import AdminPage from "../admin/AdminPage";
+import {AdminPage} from "../admin/AdminPage";
 
 const Body = () => {
 
