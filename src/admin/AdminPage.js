@@ -9,6 +9,6 @@ const dataProvider = restProvider("http://localhost:8080");
 export const AdminPage = () => (
     <Admin dataProvider={dataProvider}>
         <Resource name="admin/contests" list={ContestList} edit={EditGuesser}/>
-        <Resource name="admin/users" list={UserList}/>
+        <Resource name="admin/users" list={UserList} edit={EditGuesser}/>
     </Admin>
 );

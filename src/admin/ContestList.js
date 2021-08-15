@@ -1,5 +1,5 @@
 import React from "react";
-import {Datagrid, EmailField, List, TextField} from 'react-admin';
+import {Datagrid, EditButton, EmailField, List, TextField} from 'react-admin';
 
 
 export const ContestList = props => (
@@ -10,6 +10,7 @@ export const ContestList = props => (
             <EmailField source="contestNumber"/>
             <TextField source="inPreStartMode"/>
             <TextField source="inRunningMode"/>
+            <EditButton/>
         </Datagrid>
     </List>
 );
