@@ -10,7 +10,7 @@ const InvestmentMenuState = ({symbol}) => {
     const [completedOrders, setCompletedOrders] = useState([]);
 
     const getContestNumberOfParticipatingContest = (contests) => {
-        const contest =  contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
+        const contest =  contests.find(contest => contest.userParticipating && contest.running);
         if(contest){
             return contest.contestNumber;
         }

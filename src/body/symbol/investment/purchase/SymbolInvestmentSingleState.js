@@ -19,7 +19,7 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, currentPrice) =>
     const [operationType, setOperationType] = useState("BUY");
 
     const getUserParticipatingInActiveContest = (contests) => {
-        return contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
+        return contests.find(contest => contest.userParticipating && contest.running);
     }
 
     const fetchParticipantData = async () => {

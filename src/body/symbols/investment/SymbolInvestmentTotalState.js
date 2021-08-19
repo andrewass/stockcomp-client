@@ -8,7 +8,7 @@ const SymbolInvestmentTotalState = (contests) => {
     const [totalValue, setTotalValue] = useState();
 
     const getUserParticipatingInActiveContest = () => {
-        return contests.find(contest => contest.userIsParticipating && contest.inRunningMode);
+        return contests.find(contest => contest.userParticipating && contest.running);
     }
 
     const fetchParticipantData = async (contestList) => {
