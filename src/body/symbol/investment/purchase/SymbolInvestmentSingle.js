@@ -2,12 +2,12 @@ import React, {useEffect} from "react";
 import SymbolInvestmentSingleState from "./SymbolInvestmentSingleState";
 import OperationDropDown from "./OperationDropDown";
 
-const SymbolInvestmentSingle = ({symbol, populateOrderList, currentPrice}) => {
+const SymbolInvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
 
     const {
         remainingFunds, amountInvested, fetchParticipantData, setExpirationTime, setAcceptedPrice,
         setOrderAmount, sendOrder, setOperationType, investmentReturns
-    } = SymbolInvestmentSingleState(symbol, populateOrderList, currentPrice);
+    } = SymbolInvestmentSingleState(symbol, populateOrderList, realTimePrice);
 
     useEffect(() => {
         fetchParticipantData()

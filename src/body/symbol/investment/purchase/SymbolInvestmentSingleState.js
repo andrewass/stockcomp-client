@@ -7,7 +7,7 @@ import {
     placeSellOrder
 } from "../../../../service/contestService";
 
-const SymbolInvestmentSingleState = (symbol, populateOrderList, currentPrice) => {
+const SymbolInvestmentSingleState = (symbol, populateOrderList, realTimePrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
@@ -39,6 +39,7 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, currentPrice) =>
         return {
             expirationTime: expirationTime,
             acceptedPrice: parseFloat(acceptedPrice),
+            currency: realTimePrice.currency,
             symbol: symbol.symbol,
             amount: parseInt(orderAmount),
             contestNumber: activeContest.contestNumber,

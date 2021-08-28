@@ -6,18 +6,32 @@ const SymbolDetail = ({selectedSymbol, realTimePrice}) => {
     const diffPercentage = ((diffUSD / realTimePrice.previousClosePrice) * 100).toFixed(2);
 
     const getPriceDifferenceUSD = () => {
-        return diffUSD >= 0.00 ? "+"+diffUSD : diffUSD;
+        return diffUSD >= 0.00 ? "+" + diffUSD : diffUSD;
     }
 
     const getPriceDifferencePercentage = () => {
-        return diffUSD >= 0.00 ? "+"+diffPercentage : diffPercentage;
+        return diffUSD >= 0.00 ? "+" + diffPercentage : diffPercentage;
     }
 
-    return(
+    const getCurrentPrince = () => {
+        if (realTimePrice.currency === "USD") {
+            return (
+                <li>{realTimePrice.currentPrice} {realTimePrice.currency}</li>
+            )
+        } else {
+            return (
+                <li>
+                    {realTimePrice.currentPrice} {realTimePrice.currency} (USD {realTimePrice.usdPrice.toFixed(2)})
+                </li>
+            )
+        }
+    }
+
+    return (
         <div id="symbolDetail">
             <p>{selectedSymbol.description} ({selectedSymbol.symbol})</p>
             <ul id="currentPriceList">
-                <li>{realTimePrice.currentPrice} USD</li>
+                {getCurrentPrince()}
                 <li className={diffUSD >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>
                     {getPriceDifferenceUSD()}
                 </li>

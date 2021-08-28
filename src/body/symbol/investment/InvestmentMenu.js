@@ -4,7 +4,7 @@ import "./investment.css";
 import OrderMenu from "./orders/OrderMenu";
 import InvestmentMenuState from "./InvestmentMenuState";
 
-const InvestmentMenu = ({symbol, currentPrice}) => {
+const InvestmentMenu = ({symbol, realTimePrice}) => {
 
     const {populateOrderList, activeOrders, completedOrders} = InvestmentMenuState(symbol);
 
@@ -16,7 +16,7 @@ const InvestmentMenu = ({symbol, currentPrice}) => {
     return (
         <div id="transactionMenu">
             <SymbolInvestmentSingle symbol={symbol} populateOrderList={populateOrderList}
-                                    currentPrice={currentPrice}/>
+                                    realTimePrice={realTimePrice}/>
             <OrderMenu symbol={symbol} activeOrders={activeOrders}
                        completedOrders={completedOrders} populateOrderList={populateOrderList}/>
         </div>

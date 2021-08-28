@@ -33,7 +33,7 @@ const DetailBlock = () => {
                         <SymbolDetail selectedSymbol={selectedSymbol} realTimePrice={realTimePrice}/>
                         <PriceChart priceList={priceList}/>
                     </div>
-                    <InvestmentMenu symbol={selectedSymbol} currentPrice={realTimePrice.currentPrice}/>
+                    <InvestmentMenu symbol={selectedSymbol} realTimePrice={realTimePrice}/>
                 </div>
             </div>
         );
