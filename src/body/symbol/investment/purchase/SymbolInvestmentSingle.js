@@ -6,7 +6,7 @@ const SymbolInvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
 
     const {
         remainingFunds, amountInvested, fetchParticipantData, setExpirationTime, setAcceptedPrice,
-        setOrderAmount, sendOrder, setOperationType, investmentReturns
+        setOrderAmount, sendOrder, setOperationType, investmentProfit, investmentValue
     } = SymbolInvestmentSingleState(symbol, populateOrderList, realTimePrice);
 
     useEffect(() => {
@@ -14,11 +14,11 @@ const SymbolInvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
             .catch(error => console.log(error));
     }, [symbol]);
 
-    const displayInvestmentReturns = () => {
-        if (investmentReturns >= 0) {
-            return <span id="positiveInvestmentReturns"> +{investmentReturns} USD</span>
+    const displayInvestmentProfit = () => {
+        if (investmentProfit >= 0) {
+            return <span id="positiveInvestmentProfit"> +{investmentProfit} USD</span>
         } else {
-            return <span id="negativeInvestmentReturns"> {investmentReturns} USD</span>
+            return <span id="negativeInvestmentProfit"> {investmentProfit} USD</span>
         }
     }
 
@@ -27,8 +27,9 @@ const SymbolInvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
             <h2>Portfolio Status</h2>
             <p>Remaining funds : {remainingFunds}</p>
             <h4>{symbol.description} : </h4>
-            <p>- Investment returns : {displayInvestmentReturns()}</p>
             <p>- Amount invested : {amountInvested}</p>
+            <p>- Investment value : {investmentValue} USD</p>
+            <p>- Investment profit : {displayInvestmentProfit()}</p>
 
             <form id="submitOrderForm">
                 <div>

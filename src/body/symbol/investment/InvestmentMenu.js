@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import SymbolInvestmentSingle from "./purchase/SymbolInvestmentSingle";
 import "./investment.css";
-import OrderMenu from "./orders/OrderMenu";
+import OrderMenu from "../orders/OrderMenu";
 import InvestmentMenuState from "./InvestmentMenuState";
 
 const InvestmentMenu = ({symbol, realTimePrice}) => {

@@ -1,5 +1,5 @@
 import Order from "./Order";
-import {deleteActiveOrder} from "../../../../service/investmentOrderService";
+import {deleteActiveOrder} from "../../../service/investmentOrderService";
 
 const ActiveOrders = ({activeOrders, populateOrderList}) => {
 

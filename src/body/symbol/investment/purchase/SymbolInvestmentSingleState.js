@@ -14,7 +14,8 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, realTimePrice) =
     const [orderAmount, setOrderAmount] = useState();
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
-    const [investmentReturns, setInvestmentReturns] = useState(0);
+    const [investmentValue, setInvestmentValue] = useState(0);
+    const [investmentProfit, setInvestmentProfit] = useState(0);
     const [activeContest, setActiveContest] = useState();
     const [operationType, setOperationType] = useState("BUY");
 
@@ -29,9 +30,10 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, realTimePrice) =
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
-            const userAmountInvested = await getInvestmentFromSymbol(activeContest.contestNumber, symbol.symbol);
-            setAmountInvested(userAmountInvested.data.amount);
-            setInvestmentReturns(userAmountInvested.data.investmentReturns.toFixed(2));
+            const investment = await getInvestmentFromSymbol(activeContest.contestNumber, symbol.symbol);
+            setAmountInvested(investment.data.amount);
+            setInvestmentValue(investment.data.totalValue.toFixed(2));
+            setInvestmentProfit(investment.data.totalProfit.toFixed(2));
         }
     }
 
@@ -54,7 +56,7 @@ const SymbolInvestmentSingleState = (symbol, populateOrderList, realTimePrice) =
     }
 
     return {
-        fetchParticipantData, remainingFunds, amountInvested, investmentReturns,
+        fetchParticipantData, remainingFunds, amountInvested, investmentProfit, investmentValue,
         setOrderAmount, setAcceptedPrice, setExpirationTime, sendOrder, setOperationType
     }
 }
