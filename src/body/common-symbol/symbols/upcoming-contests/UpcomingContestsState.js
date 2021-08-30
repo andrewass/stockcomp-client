@@ -1,6 +1,6 @@
-import {UserContext} from "../../../context/UserContext";
+import {UserContext} from "../../../../context/UserContext";
 import {useContext} from "react";
-import {signUpForContest} from "../../../service/contestService";
+import {signUpForContest} from "../../../../service/contestService";
 import {useHistory} from "react-router-dom";
 
 const UpcomingContestsState = () => {

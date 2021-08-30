@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
-import {SymbolContext} from "../../../context/SymbolContext";
-import {getHistoricPrices, getRealTimePrice} from "../../../service/symbolService";
+import {SymbolContext} from "../../../../context/SymbolContext";
+import {getHistoricPrices, getRealTimePrice} from "../../../../service/symbolService";
 
 const DetailBlockState = () => {
 

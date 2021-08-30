@@ -1,6 +1,6 @@
 import React from "react";
 import UpcomingContest from "./UpcomingContest";
-import LoadingComponent from "../../../util/LoadingComponent";
+import LoadingComponent from "../../../../util/LoadingComponent";
 
 const UpcomingContests = ({constestList}) => {
 

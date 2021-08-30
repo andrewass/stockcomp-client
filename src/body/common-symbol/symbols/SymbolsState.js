@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {getUpcomingContests} from "../../service/contestService";
+import {getUpcomingContests} from "../../../service/contestService";
 
 const SymbolsState = () => {
 

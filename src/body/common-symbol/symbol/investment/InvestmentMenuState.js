@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {
     getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol
-} from "../../../service/investmentOrderService";
-import {getUpcomingContests} from "../../../service/contestService";
+} from "../../../../service/investmentOrderService";
+import {getUpcomingContests} from "../../../../service/contestService";
 
 const InvestmentMenuState = ({symbol}) => {
 

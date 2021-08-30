@@ -4,7 +4,7 @@ import TrendingSymbols from "./trending/TrendingSymbols";
 import UpcomingContests from "./upcoming-contests/UpcomingContests";
 import SymbolsState from "./SymbolsState";
 import SymbolInvestmentTotal from "./investment/SymbolInvestmentTotal";
-import Header from "../../header/Header";
+import Header from "../../../header/Header";
 
 const Symbols = () => {
 

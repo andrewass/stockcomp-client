@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {getRemainingFunds, getTotalValueInvestments} from "../../../service/contestService";
+import {getRemainingFunds, getTotalValueInvestments} from "../../../../service/contestService";
 
 const SymbolInvestmentTotalState = (contests) => {
 

@@ -4,9 +4,9 @@ import Search from "../../symbols/search/Search";
 import PriceChart from "./PriceChart";
 import "./symboldetails.css";
 import SymbolDetail from "./SymbolDetail";
-import LoadingComponent from "../../../util/LoadingComponent";
+import LoadingComponent from "../../../../util/LoadingComponent";
 import InvestmentMenu from "../investment/InvestmentMenu";
-import Header from "../../../header/Header";
+import Header from "../../../../header/Header";
 
 const DetailBlock = () => {
 
