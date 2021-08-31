@@ -1,12 +1,12 @@
 import React from "react";
-import UpcomingContestsState from "./UpcomingContestsState";
+import ContestStatusState from "./ActiveContestState";
 
-const UpcomingContest = ({contest}) => {
+const ActiveContest = ({contest}) => {
 
     const ongoingContest = "Ongoing contest";
     const upcomingContest = "Starting " + contest.startTime;
 
-    const {handleContestSignUp} = UpcomingContestsState();
+    const {handleContestSignUp} = ContestStatusState();
 
     const renderSignedUpStatus = () => {
         return contest.userParticipating ? "Signed up"
@@ -22,4 +22,4 @@ const UpcomingContest = ({contest}) => {
     );
 }
 
-export default UpcomingContest;
+export default ActiveContest;

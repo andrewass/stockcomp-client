@@ -1,8 +1,8 @@
 import React from "react";
-import UpcomingContest from "./UpcomingContest";
+import ActiveContest from "./ActiveContest";
 import LoadingComponent from "../../../../util/LoadingComponent";
 
-const UpcomingContests = ({constestList}) => {
+const ContestStatus = ({constestList}) => {
 
     if (constestList === undefined) {
         return (<LoadingComponent/>);
@@ -13,7 +13,7 @@ const UpcomingContests = ({constestList}) => {
             <div id="upcomingContests">
                 <ul id="contestList">
                     {constestList.map((contest) =>
-                        <UpcomingContest key={contest.contestNumber} contest={contest}/>
+                        <ActiveContest key={contest.contestNumber} contest={contest}/>
                     )}
                 </ul>
             </div>
@@ -21,4 +21,4 @@ const UpcomingContests = ({constestList}) => {
     }
 }
 
-export default UpcomingContests;
+export default ContestStatus;

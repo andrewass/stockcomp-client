@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {signUpForContest} from "../../../../service/contestService";
 import {useHistory} from "react-router-dom";
 
-const UpcomingContestsState = () => {
+const ActiveContestState = () => {
 
     const {isSignedIn} = useContext(UserContext);
     const history = useHistory();
@@ -21,4 +21,4 @@ const UpcomingContestsState = () => {
     return {handleContestSignUp}
 }
 
-export default UpcomingContestsState;
+export default ActiveContestState;

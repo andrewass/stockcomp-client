@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Search from "../search/Search";
 import TrendingSymbols from "./trending/TrendingSymbols";
-import UpcomingContests from "./upcoming-contests/UpcomingContests";
+import ContestStatus from "./contest-status/ContestStatus";
 import SymbolsState from "./SymbolsState";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
 import Header from "../../../header/Header";
@@ -20,8 +20,8 @@ const Symbols = () => {
             <Search/>
             <div id="symbolsBody">
                 <TrendingSymbols/>
-                <div className="leftMenu" id="symbolsRightMenu">
-                    <UpcomingContests constestList={contestList}/>
+                <div className="rightMenu" id="symbolsRightMenu">
+                    <ContestStatus constestList={contestList}/>
                     <InvestmentTotal contestList={contestList}/>
                 </div>
             </div>
