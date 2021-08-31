@@ -1,9 +1,9 @@
 import React, {useContext, useState} from "react";
-import "../symbols.css";
+import "../commonSymbol.css";
 import AutoSuggest from "react-autosuggest";
 import SearchState from "./SearchState";
-import searchIcon from "../../../../icons/loupe.svg";
-import {SymbolContext} from "../../../../context/SymbolContext";
+import searchIcon from "../../../icons/loupe.svg";
+import {SymbolContext} from "../../../context/SymbolContext";
 import {NavLink} from "react-router-dom";
 
 const Search = () => {

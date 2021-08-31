@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import SymbolInvestmentTotalState from "./SymbolInvestmentTotalState";
+import InvestmentTotalState from "./InvestmentTotalState";
 
-const SymbolInvestmentTotal = ({contestList}) => {
+const InvestmentTotal = ({contestList}) => {
 
     const {
         remainingFunds, totalValueInvestments, totalValue, fetchParticipantData
-    } = SymbolInvestmentTotalState(contestList);
+    } = InvestmentTotalState(contestList);
 
     useEffect(() => {
         fetchParticipantData()
@@ -23,4 +23,4 @@ const SymbolInvestmentTotal = ({contestList}) => {
     )
 }
 
-export default SymbolInvestmentTotal;
+export default InvestmentTotal;

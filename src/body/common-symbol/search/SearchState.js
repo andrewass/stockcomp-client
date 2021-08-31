@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {getSuggestionsFromQuery} from "../../../../service/symbolService";
+import {getSuggestionsFromQuery} from "../../../service/symbolService";
 
 const SearchState = () => {
 
