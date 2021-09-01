@@ -5,6 +5,7 @@ import ContestStatus from "./contest-status/ContestStatus";
 import SymbolsState from "./SymbolsState";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
 import Header from "../../../header/Header";
+import OrderMenuTotal from "./order-menu-total/OrderTotal";
 
 const Symbols = () => {
 
@@ -23,6 +24,7 @@ const Symbols = () => {
                 <div className="rightMenu" id="symbolsRightMenu">
                     <ContestStatus constestList={contestList}/>
                     <InvestmentTotal contestList={contestList}/>
+                    <OrderMenuTotal/>
                 </div>
             </div>
         </div>

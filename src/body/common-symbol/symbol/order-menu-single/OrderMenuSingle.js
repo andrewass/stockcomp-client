@@ -1,8 +1,8 @@
 import React from "react";
-import ActiveOrders from "./ActiveOrders";
-import CompletedOrders from "./CompletedOrders";
+import ActiveOrders from "../../order/ActiveOrders";
+import CompletedOrders from "../../order/CompletedOrders";
 
-const OrderMenu = ({activeOrders, completedOrders, populateOrderList}) => {
+const OrderMenuSingle = ({activeOrders, completedOrders, populateOrderList}) => {
 
     return(
         <div>
@@ -12,4 +12,4 @@ const OrderMenu = ({activeOrders, completedOrders, populateOrderList}) => {
     );
 }
 
-export default OrderMenu;
+export default OrderMenuSingle;

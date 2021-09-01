@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const URL = {
-    completed_orders_participant : "http://localhost:8080/investment-order/completed-orders-participant",
-    completed_orders_participant_symbol : "http://localhost:8080/investment-order/completed-orders-symbol-participant",
-    active_orders_participant : "http://localhost:8080/investment-order/active-orders-participant",
-    active_orders_participant_symbol : "http://localhost:8080/investment-order/active-orders-symbol-participant",
-    delete_active_order : "http://localhost:8080/investment-order/delete-active-order"
+    completed_orders_participant: "http://localhost:8080/investment-order/completed-orders-participant",
+    completed_orders_participant_symbol: "http://localhost:8080/investment-order/completed-orders-symbol-participant",
+    active_orders_participant: "http://localhost:8080/investment-order/active-orders-participant",
+    active_orders_participant_symbol: "http://localhost:8080/investment-order/active-orders-symbol-participant",
+    delete_active_order: "http://localhost:8080/investment-order/delete-active-order"
 }
 
 const getCompletedOrdersParticipant = (contestNumber) => {
@@ -22,6 +22,15 @@ const getCompletedOrdersParticipantSymbol = (contestNumber, symbol) => {
         method: "get",
         url: URL.completed_orders_participant_symbol,
         params: {contestNumber, symbol},
+        withCredentials: true
+    });
+}
+
+const getActiveOrdersParticipant = (contestNumber) => {
+    return axios({
+        method: "get",
+        url: URL.active_orders_participant,
+        params: {contestNumber},
         withCredentials: true
     });
 }
@@ -46,5 +55,5 @@ const deleteActiveOrder = (orderId) => {
 
 export {
     getCompletedOrdersParticipant, getCompletedOrdersParticipantSymbol,
-    getActiveOrdersParticipantSymbol, deleteActiveOrder
+    getActiveOrdersParticipant, getActiveOrdersParticipantSymbol, deleteActiveOrder
 }
