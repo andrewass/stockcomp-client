@@ -2,7 +2,7 @@ import React from "react";
 import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
 
-const OrderMenuSingle = ({activeOrders, completedOrders, populateOrderList}) => {
+const OrderSymbol = ({activeOrders, completedOrders, populateOrderList}) => {
 
     return(
         <div>
@@ -12,4 +12,4 @@ const OrderMenuSingle = ({activeOrders, completedOrders, populateOrderList}) => 
     );
 }
 
-export default OrderMenuSingle;
+export default OrderSymbol;

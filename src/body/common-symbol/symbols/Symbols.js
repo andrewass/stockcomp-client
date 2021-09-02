@@ -3,9 +3,10 @@ import Search from "../search/Search";
 import TrendingSymbols from "./trending/TrendingSymbols";
 import ContestStatus from "./contest-status/ContestStatus";
 import SymbolsState from "./SymbolsState";
-import InvestmentTotal from "./investment-total/InvestmentTotal";
+import PortfolioStatus from "./portfolio-status/PortfolioStatus";
 import Header from "../../../header/Header";
-import OrderMenuTotal from "./order-menu-total/OrderTotal";
+import OrderMenuTotal from "./order-total/OrderTotal";
+import InvestmentTotal from "./investment-total/InvestmentTotal";
 
 const Symbols = () => {
 
@@ -23,8 +24,9 @@ const Symbols = () => {
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
                     <ContestStatus constestList={contestList}/>
-                    <InvestmentTotal contestList={contestList}/>
+                    <PortfolioStatus contestList={contestList}/>
                     <OrderMenuTotal/>
+                    <InvestmentTotal/>
                 </div>
             </div>
         </div>

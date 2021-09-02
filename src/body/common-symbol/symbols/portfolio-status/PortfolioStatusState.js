@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {getRemainingFunds, getTotalValueInvestments} from "../../../../service/contestService";
 
-const InvestmentTotalState = (contests) => {
+const PortfolioStatusState = (contests) => {
 
     const [remainingFunds, setRemainingFunds] = useState();
     const [totalValueInvestments, setTotalValueInvestments] = useState();
@@ -27,4 +27,4 @@ const InvestmentTotalState = (contests) => {
     }
 }
 
-export default InvestmentTotalState;
+export default PortfolioStatusState;
