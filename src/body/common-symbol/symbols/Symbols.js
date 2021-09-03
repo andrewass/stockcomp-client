@@ -5,17 +5,21 @@ import ContestStatus from "./contest-status/ContestStatus";
 import SymbolsState from "./SymbolsState";
 import PortfolioStatus from "./portfolio-status/PortfolioStatus";
 import Header from "../../../header/Header";
-import OrderMenuTotal from "./order-total/OrderTotal";
+import OrderTotal from "./order-total/OrderTotal";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
+import LoadingComponent from "../../../util/LoadingComponent";
 
 const Symbols = () => {
 
-    const {contestList, fetchUpcomingContests} = SymbolsState();
+    const {contests, isLoading, fetchUpcomingContests} = SymbolsState();
 
     useEffect(() => {
         fetchUpcomingContests();
     }, []);
 
+    if (isLoading) {
+        return <LoadingComponent/>
+    }
     return (
         <div id="symbolsPage">
             <Header/>
@@ -23,10 +27,10 @@ const Symbols = () => {
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
-                    <ContestStatus constestList={contestList}/>
-                    <PortfolioStatus contestList={contestList}/>
-                    <OrderMenuTotal/>
-                    <InvestmentTotal/>
+                    <ContestStatus contests={contests}/>
+                    <PortfolioStatus contests={contests}/>
+                    <OrderTotal contests={contests}/>
+                    <InvestmentTotal contests={contests}/>
                 </div>
             </div>
         </div>

@@ -2,17 +2,17 @@ import React from "react";
 import ActiveContest from "./ActiveContest";
 import LoadingComponent from "../../../../util/LoadingComponent";
 
-const ContestStatus = ({constestList}) => {
+const ContestStatus = ({contests}) => {
 
-    if (constestList === undefined) {
+    if (contests === undefined) {
         return (<LoadingComponent/>);
-    } else if (constestList.length === 0) {
+    } else if (contests.length === 0) {
         return (<p>No upcoming contests</p>);
     } else {
         return (
             <div id="upcomingContests">
                 <ul id="contestList">
-                    {constestList.map((contest) =>
+                    {contests.map((contest) =>
                         <ActiveContest key={contest.contestNumber} contest={contest}/>
                     )}
                 </ul>

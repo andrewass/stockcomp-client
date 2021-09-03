@@ -12,7 +12,7 @@ const PortfolioStatusState = (contests) => {
     }
 
     const fetchParticipantData = async (contestList) => {
-        const activeContest = await getUserParticipatingInActiveContest(contestList);
+        const activeContest = getUserParticipatingInActiveContest(contestList);
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             const userTotalValueInvestments = await getTotalValueInvestments(activeContest.contestNumber);

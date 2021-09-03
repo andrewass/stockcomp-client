@@ -3,16 +3,20 @@ import {getUpcomingContests} from "../../../service/contestService";
 
 const SymbolsState = () => {
 
-    const [contestList, setContestList] = useState([]);
+    const [contests, setContests] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
     const fetchUpcomingContests = () => {
         getUpcomingContests()
-            .then(response => setContestList(response.data))
+            .then(response => {
+                setContests(response.data);
+                setLoading(false);
+            })
             .catch(error => console.log(error))
     }
 
     return{
-        contestList, fetchUpcomingContests
+        contests, fetchUpcomingContests, isLoading
     }
 }
 

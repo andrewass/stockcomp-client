@@ -1,14 +1,13 @@
 import {useState} from "react";
-import {getUpcomingContests} from "../../../../service/contestService";
 import {getActiveOrdersParticipant, getCompletedOrdersParticipant} from "../../../../service/investmentOrderService";
 
 
-const OrderTotalState = () => {
+const OrderTotalState = (contests) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
 
-    const getContestNumberOfParticipatingContest = (contests) => {
+    const getContestNumberOfParticipatingContest = () => {
         const contest = contests.find(contest => contest.userParticipating && contest.running);
         if (contest) {
             return contest.contestNumber;
@@ -16,8 +15,7 @@ const OrderTotalState = () => {
     }
 
     const populateOrderList = async () => {
-        const contests = await getUpcomingContests();
-        const contestNumber = getContestNumberOfParticipatingContest(contests.data);
+        const contestNumber = getContestNumberOfParticipatingContest();
         if (contestNumber) {
             const activeOrderSymbolResponse = await getActiveOrdersParticipant(contestNumber);
             const completedOrderSymbolResponse = await getCompletedOrdersParticipant(contestNumber);

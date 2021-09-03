@@ -3,9 +3,9 @@ import InvestmentTotalState from "./InvestmentTotalState";
 import Investment from "./Investment";
 
 
-const InvestmentTotal = () => {
+const InvestmentTotal = ({contests}) => {
 
-    const {investments, populateInvestmentList} = InvestmentTotalState();
+    const {investments, populateInvestmentList} = InvestmentTotalState(contests);
 
     useEffect(() => {
         populateInvestmentList()

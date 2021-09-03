@@ -1,12 +1,11 @@
 import {useState} from "react";
-import {getUpcomingContests} from "../../../../service/contestService";
 import {getAllInvestmentsForContest} from "../../../../service/investmentService";
 
-const InvestmentTotalState = () => {
+const InvestmentTotalState = (contests) => {
 
     const [investments, setInvestments] = useState([]);
 
-    const getContestNumberOfParticipatingContest = (contests) => {
+    const getContestNumberOfParticipatingContest = () => {
         const contest = contests.find(contest => contest.userParticipating && contest.running);
         if (contest) {
             return contest.contestNumber;
@@ -14,8 +13,7 @@ const InvestmentTotalState = () => {
     }
 
     const populateInvestmentList = async () => {
-        const contests = await getUpcomingContests();
-        const contestNumber = getContestNumberOfParticipatingContest(contests.data);
+        const contestNumber = getContestNumberOfParticipatingContest();
         if (contestNumber) {
             const fetchedInvestments = await getAllInvestmentsForContest(contestNumber);
             setInvestments(fetchedInvestments.data);

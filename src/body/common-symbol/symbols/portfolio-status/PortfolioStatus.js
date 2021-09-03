@@ -1,16 +1,16 @@
 import React, {useEffect} from "react";
 import PortfolioStatusState from "./PortfolioStatusState";
 
-const PortfolioStatus = ({contestList}) => {
+const PortfolioStatus = ({contests}) => {
 
     const {
         remainingFunds, totalValueInvestments, totalValue, fetchParticipantData
-    } = PortfolioStatusState(contestList);
+    } = PortfolioStatusState(contests);
 
     useEffect(() => {
         fetchParticipantData()
             .catch(error => console.log(error));
-    }, [contestList]);
+    }, [contests]);
 
     return (
         <div>

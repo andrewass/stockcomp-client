@@ -4,9 +4,9 @@ import {useEffect} from "react";
 import OrderTotalState from "./OrderTotalState";
 
 
-const OrderMenuTotal = () => {
+const OrderTotal = ({contests}) => {
 
-    const {populateOrderList, activeOrders, completedOrders} = OrderTotalState();
+    const {populateOrderList, activeOrders, completedOrders} = OrderTotalState(contests);
 
     useEffect(() => {
         populateOrderList()
@@ -21,4 +21,4 @@ const OrderMenuTotal = () => {
     );
 }
 
-export default OrderMenuTotal;
+export default OrderTotal;
