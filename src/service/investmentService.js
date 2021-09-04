@@ -2,6 +2,7 @@ import axios from "axios";
 
 const URL = {
     total_investment : "http://localhost:8080/investment/total-investments",
+    symbol_investment : "http://localhost:8080/investment/symbol-investment",
 }
 
 const getAllInvestmentsForContest = (contestNumber) => {
@@ -13,6 +14,15 @@ const getAllInvestmentsForContest = (contestNumber) => {
     });
 }
 
+const getInvestmentOfSymbol = (contestNumber, symbol) => {
+    return axios({
+        method: "get",
+        url: URL.symbol_investment,
+        withCredentials: true,
+        params: {contestNumber, symbol}
+    });
+}
+
 export {
-    getAllInvestmentsForContest
+    getAllInvestmentsForContest, getInvestmentOfSymbol
 }

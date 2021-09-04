@@ -4,9 +4,6 @@ const URL = {
     upcoming_contests: "http://localhost:8080/contest/upcoming-contests",
     sign_up: "http://localhost:8080/contest/sign-up",
     user_participating: "http://localhost:8080/contest/user-participating",
-    place_buy_order: "http://localhost:8080/contest/place-buy-order",
-    place_sell_order: "http://localhost:8080/contest/place-sell-order",
-    symbol_investment: "http://localhost:8080/contest/symbol-investment",
     remaining_funds: "http://localhost:8080/contest/remaining-funds",
     total_investment_value : "http://localhost:8080/contest/total-investment-value"
 };
@@ -46,24 +43,6 @@ const getRemainingFunds = contestNumber => {
     });
 }
 
-const placeBuyOrder = (request) => {
-    return axios({
-        method: "post",
-        url: URL.place_buy_order,
-        withCredentials: true,
-        data : request
-    })
-}
-
-const placeSellOrder = (request) => {
-    return axios({
-        method: "post",
-        url: URL.place_sell_order,
-        withCredentials: true,
-        data : request
-    })
-}
-
 const getTotalValueInvestments = contestNumber => {
     return axios({
         method: "get",
@@ -75,6 +54,6 @@ const getTotalValueInvestments = contestNumber => {
 
 export {
     getUpcomingContests, signUpForContest, getInvestmentFromSymbol, getRemainingFunds
-    , placeBuyOrder, placeSellOrder, getTotalValueInvestments
+    , getTotalValueInvestments
 }
 

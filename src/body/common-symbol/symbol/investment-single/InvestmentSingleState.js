@@ -1,11 +1,10 @@
 import {useState} from "react";
 import {
-    getInvestmentFromSymbol,
     getRemainingFunds,
     getUpcomingContests,
-    placeBuyOrder,
-    placeSellOrder
 } from "../../../../service/contestService";
+import {getInvestmentOfSymbol} from "../../../../service/investmentService";
+import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 
 const InvestmentSingleState = (symbol, populateOrderList, realTimePrice) => {
 
@@ -30,7 +29,7 @@ const InvestmentSingleState = (symbol, populateOrderList, realTimePrice) => {
         if (activeContest) {
             const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
-            const investment = await getInvestmentFromSymbol(activeContest.contestNumber, symbol.symbol);
+            const investment = await getInvestmentOfSymbol(activeContest.contestNumber, symbol.symbol);
             setAmountInvested(investment.data.amount);
             setInvestmentValue(investment.data.totalValue.toFixed(2));
             setInvestmentProfit(investment.data.totalProfit.toFixed(2));
