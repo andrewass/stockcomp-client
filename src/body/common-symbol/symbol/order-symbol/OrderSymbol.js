@@ -1,10 +1,13 @@
 import React from "react";
 import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
+import OrderSymbolState from "./OrderSymbolState";
 
-const OrderSymbol = ({activeOrders, completedOrders, populateOrderList}) => {
+const OrderSymbol = ({contests, symbol}) => {
 
-    return(
+    const {populateOrderList, activeOrders, completedOrders} = OrderSymbolState(contests, symbol);
+
+    return (
         <div>
             <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
             <CompletedOrders completedOrders={completedOrders}/>

@@ -1,18 +1,19 @@
 import Header from "../../../header/Header";
 import Search from "../search/Search";
-import React from "react";
+import React, {useContext} from "react";
+import {SymbolContext} from "../../../context/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
-import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 
 const Symbol = () => {
+
+    const {selectedSymbol} = useContext(SymbolContext);
 
     return (
         <div id="symbolPage">
             <Header/>
             <Search/>
             <div id="symbolBody">
-                <DetailBlock />
-                <SymbolRightMenu />
+                <DetailBlock symbol={selectedSymbol}/>
             </div>
         </div>
     );

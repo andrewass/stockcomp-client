@@ -1,6 +1,6 @@
 import React from "react";
 
-const SymbolDetail = ({selectedSymbol, realTimePrice}) => {
+const SymbolDetail = ({symbol, realTimePrice}) => {
 
     const diffUSD = (realTimePrice.currentPrice - realTimePrice.previousClosePrice).toFixed(2);
     const diffPercentage = ((diffUSD / realTimePrice.previousClosePrice) * 100).toFixed(2);
@@ -29,7 +29,7 @@ const SymbolDetail = ({selectedSymbol, realTimePrice}) => {
 
     return (
         <div id="symbolDetail">
-            <p>{selectedSymbol.description} ({selectedSymbol.symbol})</p>
+            <p>{symbol.description} ({symbol.symbol})</p>
             <ul id="currentPriceList">
                 {getCurrentPrince()}
                 <li className={diffUSD >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>

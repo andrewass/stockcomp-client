@@ -1,32 +1,29 @@
-import {useContext, useState} from "react";
-import {SymbolContext} from "../../../../context/SymbolContext";
+import {useState} from "react";
 import {getHistoricPrices, getRealTimePrice} from "../../../../service/symbolService";
 
-const DetailBlockState = () => {
-
-    const {selectedSymbol} = useContext(SymbolContext);
+const DetailBlockState = (symbol) => {
 
     const [priceList, setPriceList] = useState([]);
     const [realTimePrice, setRealTimePrice] = useState(undefined);
 
     const setHistoricPrices = () => {
-        getHistoricPrices(selectedSymbol.symbol)
+        getHistoricPrices(symbol.symbol)
             .then(response => setPriceList(response.data))
             .catch(error => console.log(error));
     }
 
     const setCurrentPrice = () => {
-        getRealTimePrice(selectedSymbol.symbol)
-        .then(response => setRealTimePrice({
-            previousClosePrice : response.data.previousClose,
-            currentPrice : response.data.price,
-            currency : response.data.currency,
-            usdPrice : response.data.usdPrice
-        })).catch(error => console.log(error));
+        getRealTimePrice(symbol.symbol)
+            .then(response => setRealTimePrice({
+                previousClosePrice: response.data.previousClose,
+                currentPrice: response.data.price,
+                currency: response.data.currency,
+                usdPrice: response.data.usdPrice
+            })).catch(error => console.log(error));
     }
 
     return {
-        setHistoricPrices,setCurrentPrice, priceList: priceList, selectedSymbol, realTimePrice
+        setHistoricPrices, setCurrentPrice, priceList: priceList, symbol, realTimePrice
     }
 }
 

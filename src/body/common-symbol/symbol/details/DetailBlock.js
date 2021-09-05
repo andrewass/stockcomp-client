@@ -1,23 +1,20 @@
 import React, {useEffect} from "react";
 import DetailBlockState from "./DetailBlockState";
-import Search from "../../search/Search";
 import PriceChart from "./PriceChart";
 import "./symboldetails.css";
 import SymbolDetail from "./SymbolDetail";
 import LoadingComponent from "../../../../util/LoadingComponent";
-import InvestmentMenu from "../investment/InvestmentMenu";
-import Header from "../../../../header/Header";
 
-const DetailBlock = () => {
+const DetailBlock = ({symbol}) => {
 
-    const {priceList, selectedSymbol, setHistoricPrices, setCurrentPrice, realTimePrice} = DetailBlockState();
+    const {priceList, setHistoricPrices, setCurrentPrice, realTimePrice} = DetailBlockState(symbol);
 
     useEffect(() => {
-        if (selectedSymbol !== undefined) {
+        if (symbol !== undefined) {
             setCurrentPrice();
             setHistoricPrices();
         }
-    }, [selectedSymbol]);
+    }, [symbol]);
 
     if (priceList === undefined || realTimePrice === undefined) {
         return (
@@ -26,15 +23,8 @@ const DetailBlock = () => {
     } else {
         return (
             <div id="detailBlock">
-                <Header/>
-                <Search/>
-                <div id="selectedSymbol">
-                    <div id="symbolDescription">
-                        <SymbolDetail selectedSymbol={selectedSymbol} realTimePrice={realTimePrice}/>
-                        <PriceChart priceList={priceList}/>
-                    </div>
-                    <InvestmentMenu symbol={selectedSymbol} realTimePrice={realTimePrice}/>
-                </div>
+                <SymbolDetail symbol={symbol} realTimePrice={realTimePrice}/>
+                <PriceChart priceList={priceList}/>
             </div>
         );
     }

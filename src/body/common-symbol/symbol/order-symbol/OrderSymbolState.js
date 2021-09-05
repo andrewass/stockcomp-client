@@ -1,25 +1,25 @@
 import {useState} from "react";
 import {
-    getActiveOrdersParticipantSymbol, getCompletedOrdersParticipantSymbol
+    getActiveOrdersParticipantSymbol,
+    getCompletedOrdersParticipantSymbol
 } from "../../../../service/investmentOrderService";
-import {getUpcomingContests} from "../../../../service/contestService";
 
-const InvestmentMenuState = ({symbol}) => {
+
+const OrderSymbolState = (contests, symbol) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
 
-    const getContestNumberOfParticipatingContest = (contests) => {
-        const contest =  contests.find(contest => contest.userParticipating && contest.running);
-        if(contest){
+    const getContestNumberOfParticipatingContest = () => {
+        const contest = contests.find(contest => contest.userParticipating && contest.running);
+        if (contest) {
             return contest.contestNumber;
         }
     }
 
     const populateOrderList = async () => {
-        const contests = await getUpcomingContests();
-        const contestNumber = getContestNumberOfParticipatingContest(contests.data);
-        if(contestNumber) {
+        const contestNumber = getContestNumberOfParticipatingContest();
+        if (contestNumber) {
             const activeOrderSymbolResponse = await getActiveOrdersParticipantSymbol(contestNumber, symbol);
             const completedOrderSymbolResponse = await getCompletedOrdersParticipantSymbol(contestNumber, symbol);
             setActiveOrders(activeOrderSymbolResponse.data);
@@ -32,4 +32,4 @@ const InvestmentMenuState = ({symbol}) => {
     }
 }
 
-export default InvestmentMenuState;
+export default OrderSymbolState;
