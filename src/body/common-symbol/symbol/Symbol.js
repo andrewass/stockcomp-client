@@ -3,6 +3,7 @@ import Search from "../search/Search";
 import React, {useContext} from "react";
 import {SymbolContext} from "../../../context/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
+import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 
 const Symbol = () => {
 
@@ -14,6 +15,7 @@ const Symbol = () => {
             <Search/>
             <div id="symbolBody">
                 <DetailBlock symbol={selectedSymbol}/>
+                <SymbolRightMenu symbol={selectedSymbol}/>
             </div>
         </div>
     );

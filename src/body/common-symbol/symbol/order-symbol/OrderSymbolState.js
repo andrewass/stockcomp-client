@@ -20,8 +20,8 @@ const OrderSymbolState = (contests, symbol) => {
     const populateOrderList = async () => {
         const contestNumber = getContestNumberOfParticipatingContest();
         if (contestNumber) {
-            const activeOrderSymbolResponse = await getActiveOrdersParticipantSymbol(contestNumber, symbol);
-            const completedOrderSymbolResponse = await getCompletedOrdersParticipantSymbol(contestNumber, symbol);
+            const activeOrderSymbolResponse = await getActiveOrdersParticipantSymbol(contestNumber, symbol.symbol);
+            const completedOrderSymbolResponse = await getCompletedOrdersParticipantSymbol(contestNumber, symbol.symbol);
             setActiveOrders(activeOrderSymbolResponse.data);
             setCompletedOrders(completedOrderSymbolResponse.data);
         }

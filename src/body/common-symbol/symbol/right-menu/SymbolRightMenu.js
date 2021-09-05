@@ -1,28 +1,24 @@
-import InvestmentSymbol from "../investment-symbol/InvestmentSymbol";
 import React, {useEffect} from "react";
 import SymbolRightMenuState from "./SymbolRightMenuState";
 import OrderSymbol from "../order-symbol/OrderSymbol";
+import LoadingComponent from "../../../../util/LoadingComponent";
 
 const SymbolRightMenu = ({symbol}) => {
 
-    const {contests, fetchUpcomingContests} = SymbolRightMenuState();
+    const {contests, fetchUpcomingContests, isLoading} = SymbolRightMenuState();
 
     useEffect(() => {
         fetchUpcomingContests();
     }, []);
 
-    if (true) {
-        return (
-            <div>
-                <OrderSymbol contests={contests} symbol={symbol}/>
-            </div>
-        );
+    if (isLoading) {
+        return <LoadingComponent/>
     }
     return (
         <div>
-            <InvestmentSymbol contests={contests}/>
+            <OrderSymbol contests={contests} symbol={symbol}/>
         </div>
-    )
+    );
 }
 
 export default SymbolRightMenu;

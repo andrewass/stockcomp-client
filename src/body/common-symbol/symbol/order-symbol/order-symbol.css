@@ -1,0 +1,24 @@
+#submitOrderForm{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#operationList{
+    display: none;
+}
+
+#operationDropDown:hover #operationList {
+    display: flex;
+    flex-flow: column nowrap;
+    position: absolute;
+    background-color: #d0d9d9;
+}
+
+#orderSubmit{
+    margin-top: 40px;
+}
+
+#operationSelectIcon{
+    width: 10px;
+    margin: 0 10px;
+}
