@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import InvestmentSingle from "../investment-single/InvestmentSingle";
-import "./investment.css";
+import InvestmentSymbol from "../investment-symbol/InvestmentSymbol";
+import "../investment.css";
 import OrderSymbol from "../order-symbol/OrderSymbol";
 import InvestmentMenuState from "./InvestmentMenuState";
 
@@ -15,7 +15,7 @@ const InvestmentMenu = ({symbol, realTimePrice}) => {
 
     return (
         <div id="transactionMenu">
-            <InvestmentSingle symbol={symbol} populateOrderList={populateOrderList}
+            <InvestmentSymbol symbol={symbol} populateOrderList={populateOrderList}
                               realTimePrice={realTimePrice}/>
             <OrderSymbol symbol={symbol} activeOrders={activeOrders}
                          completedOrders={completedOrders} populateOrderList={populateOrderList}/>

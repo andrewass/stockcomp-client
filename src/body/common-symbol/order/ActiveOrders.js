@@ -1,5 +1,5 @@
-import Order from "./Order";
 import {deleteActiveOrder} from "../../../service/investmentOrderService";
+import OrderList from "./OrderList";
 
 const ActiveOrders = ({activeOrders, populateOrderList}) => {
 
@@ -9,13 +9,9 @@ const ActiveOrders = ({activeOrders, populateOrderList}) => {
     }
 
     return (
-        <div className="orderList">
+        <div id="activeOrders">
             <h3>Active Orders : </h3>
-            <ul>
-                {activeOrders.map((order) =>
-                    <Order order={order} key={order.orderId} deleteOrder={deleteOrder} />
-                )}
-            </ul>
+            <OrderList orders={activeOrders} deleteOrder={deleteOrder}/>
         </div>
     );
 }

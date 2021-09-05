@@ -6,7 +6,7 @@ import {
 import {getInvestmentOfSymbol} from "../../../../service/investmentService";
 import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 
-const InvestmentSingleState = (symbol, populateOrderList, realTimePrice) => {
+const InvestmentSymbolState = (symbol, populateOrderList, realTimePrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
@@ -60,4 +60,4 @@ const InvestmentSingleState = (symbol, populateOrderList, realTimePrice) => {
     }
 }
 
-export default InvestmentSingleState;
+export default InvestmentSymbolState;

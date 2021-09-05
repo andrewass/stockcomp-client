@@ -2,7 +2,7 @@ import Header from "../../../header/Header";
 import Search from "../search/Search";
 import React from "react";
 import DetailBlock from "./details/DetailBlock";
-import SymbolRightMenu from "./SymbolRightMenu";
+import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 
 const Symbol = () => {
 

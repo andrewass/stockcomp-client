@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
-import InvestmentSingleState from "./InvestmentSingleState";
-import OperationDropDown from "../purchase/OperationDropDown";
+import InvestmentSymbolState from "./InvestmentSymbolState";
+import OperationDropDown from "./OperationDropDown";
 
-const InvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
+const InvestmentSymbol = ({symbol, populateOrderList, realTimePrice}) => {
 
     const {
         remainingFunds, amountInvested, fetchParticipantData, setExpirationTime, setAcceptedPrice,
         setOrderAmount, sendOrder, setOperationType, investmentProfit, investmentValue
-    } = InvestmentSingleState(symbol, populateOrderList, realTimePrice);
+    } = InvestmentSymbolState(symbol, populateOrderList, realTimePrice);
 
     useEffect(() => {
         fetchParticipantData()
@@ -54,4 +54,4 @@ const InvestmentSingle = ({symbol, populateOrderList, realTimePrice}) => {
     );
 }
 
-export default InvestmentSingle;
+export default InvestmentSymbol;
