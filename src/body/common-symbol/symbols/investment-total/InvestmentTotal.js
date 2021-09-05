@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import InvestmentTotalState from "./InvestmentTotalState";
-import Investment from "./Investment";
+import InvestmentList from "../../investment/InvestmentList";
 
 
 const InvestmentTotal = ({contests}) => {
@@ -13,14 +13,7 @@ const InvestmentTotal = ({contests}) => {
     }, []);
 
     return (
-        <div id="investmentList">
-            <h3>Investments : </h3>
-            <ul>
-                {investments.map((investment) =>
-                    <Investment investment={investment} key={investment.id}/>
-                )}
-            </ul>
-        </div>
+        <InvestmentList investments={investments}/>
     );
 }
 

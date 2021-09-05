@@ -1,5 +1,6 @@
 import {useState} from "react";
-import {getRemainingFunds, getTotalValueInvestments} from "../../../../service/contestService";
+import {getRemainingFunds} from "../../../../service/contestService";
+import {getTotalValueInvestments} from "../../../../service/investmentService";
 
 const PortfolioStatusState = (contests) => {
 
