@@ -1,62 +1,30 @@
 import {useState} from "react";
-import {
-    getRemainingFunds,
-    getUpcomingContests,
-} from "../../../../../service/contestService";
+import {getRemainingFunds} from "../../../../../service/contestService";
 import {getInvestmentOfSymbol} from "../../../../../service/investmentService";
-import {placeBuyOrder, placeSellOrder} from "../../../../../service/investmentOrderService";
 
-const InvestmentSymbolState = (symbol, populateOrderList, realTimePrice) => {
+const InvestmentSymbolState = (contest, symbol) => {
 
-    const [acceptedPrice, setAcceptedPrice] = useState();
-    const [expirationTime, setExpirationTime] = useState();
-    const [orderAmount, setOrderAmount] = useState();
     const [remainingFunds, setRemainingFunds] = useState();
     const [amountInvested, setAmountInvested] = useState(0);
     const [investmentValue, setInvestmentValue] = useState(0);
     const [investmentProfit, setInvestmentProfit] = useState(0);
-    const [activeContest, setActiveContest] = useState();
-    const [operationType, setOperationType] = useState("BUY");
-
-    const getUserParticipatingInActiveContest = (contests) => {
-        return contests.find(contest => contest.userParticipating && contest.running);
-    }
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchParticipantData = async () => {
-        const contests = await getUpcomingContests();
-        const activeContest = getUserParticipatingInActiveContest(contests.data);
-        setActiveContest(activeContest);
-        if (activeContest) {
-            const userRemainingFunds = await getRemainingFunds(activeContest.contestNumber);
+        if (contest) {
+            const userRemainingFunds = await getRemainingFunds(contest.contestNumber);
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
-            const investment = await getInvestmentOfSymbol(activeContest.contestNumber, symbol.symbol);
+            const investment = await getInvestmentOfSymbol(contest.contestNumber, symbol.symbol);
             setAmountInvested(investment.data.amount);
             setInvestmentValue(investment.data.totalValue.toFixed(2));
             setInvestmentProfit(investment.data.totalProfit.toFixed(2));
+            setIsLoading(false);
         }
-    }
-
-    const createInvestmentOrderRequest = () => {
-        return {
-            expirationTime: expirationTime,
-            acceptedPrice: parseFloat(acceptedPrice),
-            currency: realTimePrice.currency,
-            symbol: symbol.symbol,
-            amount: parseInt(orderAmount),
-            contestNumber: activeContest.contestNumber,
-        }
-    }
-
-    const sendOrder = async () => {
-        operationType === "BUY"
-            ? await placeBuyOrder(createInvestmentOrderRequest())
-            : await placeSellOrder(createInvestmentOrderRequest());
-        await populateOrderList();
     }
 
     return {
         fetchParticipantData, remainingFunds, amountInvested, investmentProfit, investmentValue,
-        setOrderAmount, setAcceptedPrice, setExpirationTime, sendOrder, setOperationType
+        isLoading, setIsLoading
     }
 }
 

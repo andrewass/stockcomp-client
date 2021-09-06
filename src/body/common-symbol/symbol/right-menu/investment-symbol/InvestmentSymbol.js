@@ -1,16 +1,17 @@
 import React, {useEffect} from "react";
 import InvestmentSymbolState from "./InvestmentSymbolState";
+import LoadingComponent from "../../../../../util/LoadingComponent";
 
-const InvestmentSymbol = ({symbol, populateOrderList, realTimePrice}) => {
+const InvestmentSymbol = ({contest, symbol}) => {
 
     const {
-        remainingFunds, amountInvested, fetchParticipantData, investmentProfit, investmentValue
-    } = InvestmentSymbolState(symbol, populateOrderList, realTimePrice);
+        remainingFunds, amountInvested, fetchParticipantData, investmentProfit,
+        investmentValue, isLoading
+    } = InvestmentSymbolState(contest, symbol);
 
     useEffect(() => {
-        fetchParticipantData()
-            .catch(error => console.log(error));
-    }, [symbol]);
+        fetchParticipantData().then(() => {});
+    }, []);
 
     const displayInvestmentProfit = () => {
         if (investmentProfit >= 0) {
@@ -20,6 +21,9 @@ const InvestmentSymbol = ({symbol, populateOrderList, realTimePrice}) => {
         }
     }
 
+    if (isLoading) {
+        return <LoadingComponent/>
+    }
     return (
         <div>
             <h2>Portfolio Status</h2>

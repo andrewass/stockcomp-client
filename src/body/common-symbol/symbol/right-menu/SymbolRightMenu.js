@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import SymbolRightMenuState from "./SymbolRightMenuState";
 import OrderSymbol from "./order-symbol/OrderSymbol";
 import LoadingComponent from "../../../../util/LoadingComponent";
+import InvestmentSymbol from "./investment-symbol/InvestmentSymbol";
 
 const SymbolRightMenu = ({symbol, currentPrice}) => {
 
@@ -16,6 +17,7 @@ const SymbolRightMenu = ({symbol, currentPrice}) => {
     }
     return (
         <div id="symbolRightMenu">
+            <InvestmentSymbol contest={activeContest} symbol={symbol}/>
             <OrderSymbol contest={activeContest} symbol={symbol} currentPrice={currentPrice}/>
         </div>
     );
