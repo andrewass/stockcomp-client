@@ -4,6 +4,7 @@ import React, {useContext} from "react";
 import {SymbolContext} from "../../../context/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
 import SymbolRightMenu from "./right-menu/SymbolRightMenu";
+import "./symbol.css";
 
 const Symbol = () => {
 

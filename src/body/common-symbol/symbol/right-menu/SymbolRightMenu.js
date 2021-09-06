@@ -15,7 +15,7 @@ const SymbolRightMenu = ({symbol}) => {
         return <LoadingComponent/>
     }
     return (
-        <div>
+        <div id="symbolRightMenu">
             <OrderSymbol contests={contests} symbol={symbol}/>
         </div>
     );

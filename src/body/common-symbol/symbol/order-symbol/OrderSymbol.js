@@ -3,7 +3,7 @@ import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
 import OrderSymbolState from "./OrderSymbolState";
 import OrderForm from "./OrderForm";
-import "./order-symbol.css";
+import "./order-form.css";
 
 const OrderSymbol = ({contests, symbol}) => {
 
