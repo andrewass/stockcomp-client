@@ -2,10 +2,10 @@ import React from "react";
 import OperationDropDown from "./OperationDropDown";
 import OrderFormState from "./OrderFormState";
 
-const OrderForm = ({symbol, contest}) => {
+const OrderForm = ({symbol, contest, currentPrice}) => {
 
     const {setOrderAmount, setAcceptedPrice, setExpirationTime, setOperationType, sendOrder
-    } = OrderFormState(symbol, contest);
+    } = OrderFormState(symbol, contest, currentPrice);
 
     return (
         <div>
@@ -17,7 +17,7 @@ const OrderForm = ({symbol, contest}) => {
                 </div>
                 <div>
                     <span>Accepted price</span>
-                    <input id="acceptedPrice" type="text" placeholder="0"
+                    <input id="acceptedPrice" type="text" placeholder={currentPrice.price}
                            onChange={event => setAcceptedPrice(event.target.value)}/>
                 </div>
                 <div>

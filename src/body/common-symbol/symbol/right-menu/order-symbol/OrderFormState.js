@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {placeBuyOrder, placeSellOrder} from "../../../../../service/investmentOrderService";
 
-const OrderFormState = (symbol, contest) => {
+const OrderFormState = (symbol, contest, currentPrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState();
@@ -15,6 +15,7 @@ const OrderFormState = (symbol, contest) => {
             symbol: symbol.symbol,
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
+            currency : currentPrice.currency,
         }
     }
 

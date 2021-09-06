@@ -2,26 +2,26 @@ import React from "react";
 
 const SymbolDetail = ({symbol, realTimePrice}) => {
 
-    const diffUSD = (realTimePrice.currentPrice - realTimePrice.previousClosePrice).toFixed(2);
-    const diffPercentage = ((diffUSD / realTimePrice.previousClosePrice) * 100).toFixed(2);
+    const priceDifference = (realTimePrice.price - realTimePrice.previousClose).toFixed(2);
+    const percentageDifference = ((priceDifference / realTimePrice.previousClose) * 100).toFixed(2);
 
     const getPriceDifferenceUSD = () => {
-        return diffUSD >= 0.00 ? "+" + diffUSD : diffUSD;
+        return priceDifference >= 0.00 ? "+" + priceDifference : priceDifference;
     }
 
     const getPriceDifferencePercentage = () => {
-        return diffUSD >= 0.00 ? "+" + diffPercentage : diffPercentage;
+        return priceDifference >= 0.00 ? "+" + percentageDifference : percentageDifference;
     }
 
     const getCurrentPrince = () => {
         if (realTimePrice.currency === "USD") {
             return (
-                <li>{realTimePrice.currentPrice} {realTimePrice.currency}</li>
+                <li>{realTimePrice.price} {realTimePrice.currency}</li>
             )
         } else {
             return (
                 <li>
-                    {realTimePrice.currentPrice} {realTimePrice.currency} (USD {realTimePrice.usdPrice.toFixed(2)})
+                    {realTimePrice.price} {realTimePrice.currency} (USD {realTimePrice.usdPrice.toFixed(2)})
                 </li>
             )
         }
@@ -32,10 +32,10 @@ const SymbolDetail = ({symbol, realTimePrice}) => {
             <p>{symbol.description} ({symbol.symbol})</p>
             <ul id="currentPriceList">
                 {getCurrentPrince()}
-                <li className={diffUSD >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>
+                <li className={priceDifference >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>
                     {getPriceDifferenceUSD()}
                 </li>
-                <li className={diffUSD >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>
+                <li className={priceDifference >= 0 ? "positivePriceDiff" : "negativePriceDiff"}>
                     ({getPriceDifferencePercentage()}%)
                 </li>
             </ul>

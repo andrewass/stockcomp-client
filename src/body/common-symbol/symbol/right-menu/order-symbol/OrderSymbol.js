@@ -5,7 +5,7 @@ import OrderSymbolState from "./OrderSymbolState";
 import OrderForm from "./OrderForm";
 import "./order-form.css";
 
-const OrderSymbol = ({contest, symbol}) => {
+const OrderSymbol = ({contest, symbol, currentPrice}) => {
 
     const {populateOrderList, activeOrders, completedOrders} = OrderSymbolState(contest, symbol);
 
@@ -16,7 +16,7 @@ const OrderSymbol = ({contest, symbol}) => {
 
     return (
         <div>
-            <OrderForm symbol={symbol} contest={contest}/>
+            <OrderForm symbol={symbol} contest={contest} currentPrice={currentPrice}/>
             <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
