@@ -2,9 +2,9 @@ import {useState} from "react";
 import {
     getRemainingFunds,
     getUpcomingContests,
-} from "../../../../service/contestService";
-import {getInvestmentOfSymbol} from "../../../../service/investmentService";
-import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
+} from "../../../../../service/contestService";
+import {getInvestmentOfSymbol} from "../../../../../service/investmentService";
+import {placeBuyOrder, placeSellOrder} from "../../../../../service/investmentOrderService";
 
 const InvestmentSymbolState = (symbol, populateOrderList, realTimePrice) => {
 

@@ -1,11 +1,11 @@
 import React from "react";
-import OperationDropDown from "../investment-symbol/OperationDropDown";
+import OperationDropDown from "./OperationDropDown";
 import OrderFormState from "./OrderFormState";
 
-const OrderForm = ({symbol}) => {
+const OrderForm = ({symbol, contest}) => {
 
     const {setOrderAmount, setAcceptedPrice, setExpirationTime, setOperationType, sendOrder
-    } = OrderFormState(symbol);
+    } = OrderFormState(symbol, contest);
 
     return (
         <div>

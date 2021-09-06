@@ -5,29 +5,23 @@ import "./detail-block.css";
 import SymbolDetail from "./SymbolDetail";
 import LoadingComponent from "../../../../util/LoadingComponent";
 
-const DetailBlock = ({symbol}) => {
+const DetailBlock = ({symbol, currentPrice}) => {
 
-    const {priceList, setHistoricPrices, setCurrentPrice, realTimePrice} = DetailBlockState(symbol);
+    const {historicPriceList, setHistoricPrices, isLoading} = DetailBlockState(symbol);
 
     useEffect(() => {
-        if (symbol !== undefined) {
-            setCurrentPrice();
-            setHistoricPrices();
-        }
-    }, [symbol]);
+        setHistoricPrices();
+    }, []);
 
-    if (priceList === undefined || realTimePrice === undefined) {
-        return (
-            <LoadingComponent/>
-        );
-    } else {
-        return (
-            <div id="detailBlock">
-                <SymbolDetail symbol={symbol} realTimePrice={realTimePrice}/>
-                <PriceChart priceList={priceList}/>
-            </div>
-        );
+    if (isLoading) {
+        return <LoadingComponent/>;
     }
+    return (
+        <div id="detailBlock">
+            <SymbolDetail symbol={symbol} realTimePrice={currentPrice}/>
+            <PriceChart priceList={historicPriceList}/>
+        </div>
+    );
 }
 
 export default DetailBlock;

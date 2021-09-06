@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import SymbolRightMenuState from "./SymbolRightMenuState";
-import OrderSymbol from "../order-symbol/OrderSymbol";
+import OrderSymbol from "./order-symbol/OrderSymbol";
 import LoadingComponent from "../../../../util/LoadingComponent";
 
 const SymbolRightMenu = ({symbol}) => {
 
-    const {contests, fetchUpcomingContests, isLoading} = SymbolRightMenuState();
+    const {activeContest, fetchUpcomingContests, isLoading} = SymbolRightMenuState();
 
     useEffect(() => {
         fetchUpcomingContests();
@@ -16,7 +16,7 @@ const SymbolRightMenu = ({symbol}) => {
     }
     return (
         <div id="symbolRightMenu">
-            <OrderSymbol contests={contests} symbol={symbol}/>
+            <OrderSymbol contest={activeContest} symbol={symbol}/>
         </div>
     );
 }

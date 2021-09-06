@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import operationSelect from "../../../../icons/operationselect.svg";
+import operationSelect from "../../../../../icons/operationselect.svg";
 
 const OperationDropDown = ({setOperationType}) => {
 

@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
-import ActiveOrders from "../../order/ActiveOrders";
-import CompletedOrders from "../../order/CompletedOrders";
+import ActiveOrders from "../../../order/ActiveOrders";
+import CompletedOrders from "../../../order/CompletedOrders";
 import OrderSymbolState from "./OrderSymbolState";
 import OrderForm from "./OrderForm";
 import "./order-form.css";
 
-const OrderSymbol = ({contests, symbol}) => {
+const OrderSymbol = ({contest, symbol}) => {
 
-    const {populateOrderList, activeOrders, completedOrders} = OrderSymbolState(contests, symbol);
+    const {populateOrderList, activeOrders, completedOrders} = OrderSymbolState(contest, symbol);
 
     useEffect(() => {
         populateOrderList()
@@ -16,7 +16,7 @@ const OrderSymbol = ({contests, symbol}) => {
 
     return (
         <div>
-            <OrderForm symbol={symbol}/>
+            <OrderForm symbol={symbol} contest={contest}/>
             <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>

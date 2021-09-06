@@ -3,20 +3,24 @@ import {getUpcomingContests} from "../../../../service/contestService";
 
 const SymbolRightMenuState = () => {
 
-    const [contests, setContests] = useState([]);
+    const [activeContest, setActiveContest] = useState();
     const [isLoading, setLoading] = useState(true);
 
+    const getActiveContest = contests => {
+        return contests.find(contest => contest.userParticipating && contest.running);
+    }
+    
     const fetchUpcomingContests = () => {
         getUpcomingContests()
             .then(response => {
-                setContests(response.data);
+                setActiveContest(getActiveContest(response.data));
                 setLoading(false);
             })
             .catch(error => console.log(error))
     }
 
     return{
-        contests, fetchUpcomingContests, isLoading
+        activeContest, fetchUpcomingContests, isLoading
     }
 }
 
