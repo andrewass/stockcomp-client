@@ -15,9 +15,11 @@ const InvestmentSymbolState = (contest, symbol) => {
             const userRemainingFunds = await getRemainingFunds(contest.contestNumber);
             setRemainingFunds((userRemainingFunds.data).toFixed(2));
             const investment = await getInvestmentOfSymbol(contest.contestNumber, symbol.symbol);
-            setAmountInvested(investment.data.amount);
-            setInvestmentValue(investment.data.totalValue.toFixed(2));
-            setInvestmentProfit(investment.data.totalProfit.toFixed(2));
+            if(investment.data) {
+                setAmountInvested(investment.data.amount);
+                setInvestmentValue(investment.data.totalValue.toFixed(2));
+                setInvestmentProfit(investment.data.totalProfit.toFixed(2));
+            }
             setIsLoading(false);
         }
     }

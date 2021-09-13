@@ -3,7 +3,8 @@ import axios from "axios";
 const URL = {
     symbol_suggestions: "http://localhost:8088/stock/suggestions",
     historic_prices: "http://localhost:8088/stock/historical-quotes",
-    real_time_price: "http://localhost:8088/stock/stock-quote"
+    real_time_price: "http://localhost:8088/stock/stock-quote",
+    trending_stocks: "http://localhost:8088/stock/stock-quote-trending"
 };
 
 const getSuggestionsFromQuery = (query) => {
@@ -30,6 +31,14 @@ const getRealTimePrice = (symbol) => {
     });
 }
 
+const getTrendingStocks = () => {
+    return axios({
+        method: "get",
+        url: URL.trending_stocks,
+        withCredentials: true
+    });
+}
+
 export {
-    getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice
+    getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
 };

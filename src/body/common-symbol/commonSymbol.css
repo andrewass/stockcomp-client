@@ -29,10 +29,6 @@
     flex-flow: row nowrap;
 }
 
-#trendingSymbols{
-    width: 70%;
-}
-
 #upcomingContests{
     width: 30%;
     margin-bottom: 10%;
