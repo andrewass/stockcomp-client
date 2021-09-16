@@ -3,3 +3,9 @@
     width: 70%;
     padding: 0 10%;
 }
+
+#symbolGrid{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-auto-rows: minmax(150px, auto);
+}

@@ -19,11 +19,11 @@ const TrendingSymbols = () => {
     }
     return (
         <div id="trendingSymbols">
-            <ul>
-                {trendingSymbols.map((symbol) =>
-                    <SymbolPresentation symbol={symbol.name} name={symbol.name}/>
-                )}
-            </ul>
+            <div id="symbolGrid">
+                    {trendingSymbols.map((symbol) =>
+                        <SymbolPresentation symbol={symbol}/>
+                    )}
+            </div>
         </div>
     );
 }
