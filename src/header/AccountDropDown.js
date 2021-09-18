@@ -3,13 +3,13 @@ import {NavLink} from "react-router-dom";
 import signOutIcon from "../icons/logout.svg";
 import settingsIcon from "../icons/gear.svg";
 import userIcon from "../icons/user.svg";
-import AuthenticationState from "./AuthenticationState";
+import AccountDropDownState from "./AccountDropDownState";
 import "./header.css";
 
 
 const AccountDropDown = () => {
 
-    const {signOutUser} = AuthenticationState();
+    const {signOutUser} = AccountDropDownState();
 
     return (
         <div id="accountDropDown">

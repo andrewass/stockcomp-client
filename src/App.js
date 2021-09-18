@@ -8,7 +8,6 @@ import {responseInterceptor, requestInterceptor} from "./service/interceptor";
 const App = () => {
 
     return (
-        <div>
             <Router>
                 <UserProvider>
                     <SymbolProvider>
@@ -16,7 +15,6 @@ const App = () => {
                     </SymbolProvider>
                 </UserProvider>
             </Router>
-        </div>
     );
 };
 

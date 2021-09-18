@@ -8,7 +8,7 @@ const ProtectedRoute = ({children, ...rest}) => {
 
     return (
         <Route {...rest} render={() => {
-            return isSignedIn ? children : <Redirect to="/sign-in"/>
+            return isSignedIn ? children : <Redirect to="/authentication"/>
         }}/>
     );
 }

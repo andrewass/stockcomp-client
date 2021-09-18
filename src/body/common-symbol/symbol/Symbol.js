@@ -1,4 +1,3 @@
-import SearchField from "../search/SearchField";
 import React, {useContext, useEffect} from "react";
 import {SymbolContext} from "../../../context/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
@@ -6,6 +5,7 @@ import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 import "./symbol.css";
 import SymbolState from "./SymbolState";
 import LoadingComponent from "../../../util/LoadingComponent";
+import SearchBar from "../search/SearchBar";
 
 const Symbol = () => {
 
@@ -22,7 +22,7 @@ const Symbol = () => {
     }
     return (
         <div id="symbolPage">
-            <SearchField/>
+            <SearchBar/>
             <div id="symbolBody">
                 <DetailBlock symbol={selectedSymbol} currentPrice={currentPrice}/>
                 <SymbolRightMenu symbol={selectedSymbol} currentPrice={currentPrice}/>

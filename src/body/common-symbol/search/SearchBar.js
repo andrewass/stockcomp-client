@@ -7,3 +7,5 @@ const SearchBar = () => {
         <SearchField />
     )
 }
+
+export default SearchBar;

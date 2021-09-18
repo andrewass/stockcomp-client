@@ -2,9 +2,9 @@ import {signOut, updateLocalStorage} from "../service/authService";
 import {UserContext} from "../context/UserContext";
 import {useContext} from "react";
 
-const AuthenticationState = () => {
+const AccountDropDownState = () => {
 
-    const {isSignedIn, setIsSignedIn} = useContext(UserContext);
+    const {setIsSignedIn} = useContext(UserContext);
 
     const signOutUser = () => {
         signOut()
@@ -15,8 +15,8 @@ const AuthenticationState = () => {
     };
 
     return{
-        signOutUser, isSignedIn
+        signOutUser
     }
 }
 
-export default AuthenticationState;
+export default AccountDropDownState;

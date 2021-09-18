@@ -12,6 +12,7 @@ ul{
 
 #root{
     background-color: blueviolet;
+    min-width: 280px;
     border: black solid;
 }
 

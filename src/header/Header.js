@@ -4,16 +4,14 @@ import leaderboard from "../icons/podium.svg";
 import stocks from "../icons/stock.svg";
 import calendar from "../icons/calendar.svg";
 import "./header.css";
-import Authentication from "./Authentication";
+import AccountDropDown from "./AccountDropDown";
 
 const Header = () => {
 
     return (
         <header id="header">
+            <span id="appTitle">STOCK COMP</span>
             <nav id="navigationBar">
-                <NavLink to="/home" className="navItem">
-                    <span id="appTitle">STOCK COMP</span>
-                </NavLink>
                 <NavLink to="/stocks" className="navItem">
                     <img src={stocks} className="headerIcon" alt="Symbol icon"/>
                     <span className="headerText">STOCKS</span>
@@ -26,7 +24,7 @@ const Header = () => {
                     <img src={calendar} className="headerIcon" alt="Calendar icon"/>
                     <span className="headerText">CONTESTS</span>
                 </NavLink>
-                <Authentication />
+                <AccountDropDown />
             </nav>
         </header>
     );

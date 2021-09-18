@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import SearchField from "../search/SearchField";
 import TrendingSymbols from "./trending/TrendingSymbols";
 import ContestStatus from "./contest-status/ContestStatus";
 import SymbolsState from "./SymbolsState";
@@ -7,6 +6,7 @@ import PortfolioStatus from "./portfolio-status/PortfolioStatus";
 import OrderTotal from "./order-total/OrderTotal";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
 import LoadingComponent from "../../../util/LoadingComponent";
+import SearchBar from "../search/SearchBar";
 
 const Symbols = () => {
 
@@ -21,7 +21,7 @@ const Symbols = () => {
     }
     return (
         <div id="symbolsPage">
-            <SearchField/>
+            <SearchBar/>
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
