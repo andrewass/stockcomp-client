@@ -7,6 +7,7 @@ import OrderTotal from "./order-total/OrderTotal";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
 import LoadingComponent from "../../../util/LoadingComponent";
 import SearchBar from "../search/SearchBar";
+import "./symbols.css";
 
 const Symbols = () => {
 

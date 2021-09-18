@@ -17,6 +17,20 @@
     justify-content: space-evenly;
 }
 
+@media(max-width:900px) {
+    #navigationBar{
+        display: grid;
+        grid-template-columns: repeat(2, 50%);
+    }
+}
+
+@media(max-width:455px) {
+    #navigationBar{
+        display: flex;
+        flex-flow: column nowrap;
+    }
+}
+
 .headerText{
     font-family: fantasy, Arial;
     font-size: 1rem;
