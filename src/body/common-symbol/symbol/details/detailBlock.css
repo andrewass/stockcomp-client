@@ -20,9 +20,16 @@
 
 #priceChart{
     margin-top: 5%;
-    margin-left: 30%;
+    margin-right: 10%;
 }
 
 #detailBlock{
     width: 70%;
 }
+
+@media(max-width:800px) {
+    #detailBlock, #symbolDescription{
+        width: 100%;
+    }
+}
+

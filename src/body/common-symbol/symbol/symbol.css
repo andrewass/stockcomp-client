@@ -2,6 +2,12 @@
 #symbolBody{
     margin-top: 3%;
     display: flex;
+    gap: 10%;
     flex-flow: row nowrap;
 }
 
+@media(max-width:800px) {
+    #symbolBody{
+        flex-flow: column nowrap;
+    }
+}

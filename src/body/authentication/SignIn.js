@@ -10,7 +10,7 @@ const SignIn = ({setDisplaySignUp}) => {
 
     return (
         <form onSubmit={postSignInToServer} id="signInForm">
-            <p>STOCK COMP</p>
+            <h1>STOCK COMP</h1>
             <div className="formFields">
                 <div className="username">
                     <img src={usernameIcon} className="formIcon" alt="User Icon"/>
