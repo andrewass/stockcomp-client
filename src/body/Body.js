@@ -10,36 +10,40 @@ import UserAccount from "./account/UserAccount";
 import ProtectedRoute from "../util/ProtectedRoute";
 import {AdminPage} from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
+import Header from "../header/Header";
 
 const Body = () => {
 
     return (
-        <Switch>
-            <ProtectedRoute path="/contests">
-                <Contest/>
-            </ProtectedRoute>
-            <ProtectedRoute path="/leaderboard">
-                <Leaderboard/>
-            </ProtectedRoute>
-            <ProtectedRoute path="/symbol-detail">
-                <Symbol/>
-            </ProtectedRoute>
-            <Route path="/sign-in">
-                <SignIn/>
-            </Route>
-            <Route path="/sign-up">
-                <SignUp/>
-            </Route>
-            <Route path="/admin">
-                <AdminPage/>
-            </Route>
-            <ProtectedRoute path="/account">
-                <UserAccount/>
-            </ProtectedRoute>
-            <ProtectedRoute path="*">
-                <Symbols/>
-            </ProtectedRoute>
-        </Switch>
+        <div>
+            <Header/>
+            <Switch>
+                <ProtectedRoute path="/contests">
+                    <Contest/>
+                </ProtectedRoute>
+                <ProtectedRoute path="/leaderboard">
+                    <Leaderboard/>
+                </ProtectedRoute>
+                <ProtectedRoute path="/symbol-detail">
+                    <Symbol/>
+                </ProtectedRoute>
+                <Route path="/sign-in">
+                    <SignIn/>
+                </Route>
+                <Route path="/sign-up">
+                    <SignUp/>
+                </Route>
+                <Route path="/admin">
+                    <AdminPage/>
+                </Route>
+                <ProtectedRoute path="/account">
+                    <UserAccount/>
+                </ProtectedRoute>
+                <ProtectedRoute path="*">
+                    <Symbols/>
+                </ProtectedRoute>
+            </Switch>
+        </div>
     );
 }
 

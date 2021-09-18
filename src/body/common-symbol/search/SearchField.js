@@ -1,16 +1,17 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import "../commonSymbol.css";
 import AutoSuggest from "react-autosuggest";
-import SearchState from "./SearchState";
+import SearchFieldState from "./SearchFieldState";
 import searchIcon from "../../../icons/loupe.svg";
 import {SymbolContext} from "../../../context/SymbolContext";
 import {NavLink} from "react-router-dom";
 
-const Search = () => {
+const SearchField = () => {
 
-    const [query, setQuery] = useState("");
-    const {setSelectedSymbol} = useContext(SymbolContext);
-    const {suggestionList, setSuggestionList, getSuggestions} = SearchState();
+    const {selectedSymbol, setSelectedSymbol} = useContext(SymbolContext);
+    const {suggestionList, setSuggestionList, getSuggestions, query, setQuery} = SearchFieldState();
+
+    useEffect(() => setQuery(""), [selectedSymbol]);
 
     const onSuggestionsFetchRequested = ({value}) => {
         if (!value) {
@@ -22,11 +23,7 @@ const Search = () => {
 
     const renderSuggestion = suggestion => {
         return (
-            <NavLink className="suggestion" to="/symbol-detail"
-                     onClick={() => {
-                         setSelectedSymbol(suggestion);
-                         setQuery("");
-                     }}>
+            <NavLink className="suggestion" to="/symbol-detail" onClick={() => setSelectedSymbol(suggestion)}>
                 {suggestion.symbol} : {suggestion.description}
             </NavLink>
         );
@@ -52,4 +49,4 @@ const Search = () => {
     );
 }
 
-export default Search;
+export default SearchField;

@@ -1,14 +1,14 @@
 
 
 #searchIcon{
-    width: 25px;
+    width: 2rem;
     margin: 0 10px;
 }
 
 #query{
     width: 100%;
     margin: 10px 5px;
-    font-size: 18px;
+    font-size: 2rem;
     border: none;
     outline: none;
 }
@@ -24,7 +24,6 @@
 
 
 #symbolsBody{
-    margin-top: 3%;
     display: flex;
     flex-flow: row nowrap;
 }

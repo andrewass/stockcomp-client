@@ -1,23 +1,18 @@
 
 #header{
     background-color: #d0d9d9;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row wrap;
 }
 
 #navigationBar{
     width: 60%;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: center;
 }
 
 .headerText{
     font-family: fantasy, Arial;
-    font-size: 20px;
+    font-size: 1rem;
     margin-left: 7%;
 }
 
@@ -28,11 +23,11 @@
 }
 
 .headerIcon{
-    width: 35px;
+    width: 1rem;
 }
 
 .dropDownItemIcon{
-    width: 25px;
+    width: 2rem;
 }
 
 .navItem {
@@ -75,6 +70,6 @@ a {
 
 .dropDownItemText{
     font-family: fantasy, Arial;
-    font-size: 15px;
+    font-size: 1rem;
     margin-left: 5%;
 }

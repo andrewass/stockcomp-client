@@ -9,12 +9,12 @@
 }
 
 .positivePriceDiff{
-    margin-left: 10px;
+    margin-left: 1rem;
     color : #26de26;
 }
 
 .negativePriceDiff{
-    margin-left: 10px;
+    margin-left: 0.5rem;
     color: red;
 }
 

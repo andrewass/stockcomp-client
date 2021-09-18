@@ -13,7 +13,7 @@ const SignUp = () => {
     } = SignUpState();
 
     const infoMessage = () => {
-        return(
+        return (
             <p className="outputMessages">
                 {errorMessage}
             </p>

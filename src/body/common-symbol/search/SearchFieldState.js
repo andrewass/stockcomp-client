@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {getSuggestionsFromQuery} from "../../../service/symbolService";
 
-const SearchState = () => {
+const SearchFieldState = () => {
 
+    const [query, setQuery] = useState("");
     const [suggestionList, setSuggestionList] = useState([]);
 
     const getSuggestions = (query) => {
@@ -16,8 +17,8 @@ const SearchState = () => {
     };
 
     return {
-        getSuggestions, suggestionList, setSuggestionList
+        getSuggestions, suggestionList, setSuggestionList, query, setQuery
     }
 }
 
-export default SearchState;
+export default SearchFieldState;
