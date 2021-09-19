@@ -6,7 +6,7 @@
     flex-flow: row nowrap;
 }
 
-@media(max-width:800px) {
+@media(max-width:1000px) {
     #symbolBody{
         flex-flow: column nowrap;
     }

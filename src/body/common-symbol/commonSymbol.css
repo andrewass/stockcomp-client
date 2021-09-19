@@ -1,31 +1,10 @@
 
-
-#searchIcon{
-    width: 2rem;
-    margin: 0 10px;
-}
-
 #query{
     width: 100%;
     margin: 10px 5px;
     font-size: 2rem;
     border: none;
     outline: none;
-}
-
-#searchField{
-    width: 30%;
-    border: 1px solid black;
-    display: flex;
-    flex-flow: row nowrap;
-    margin-top: 2%;
-    margin-left: 25%;
-}
-
-
-#symbolsBody{
-    display: flex;
-    flex-flow: row nowrap;
 }
 
 #upcomingContests{
@@ -59,17 +38,3 @@
 
 .suggestion{}
 
-.react-autosuggest__container{
-    display: inline-block;
-}
-
-.react-autosuggest__suggestions-container{
-    display: none;
-}
-
-.react-autosuggest__suggestions-container--open{
-    display: block;
-    position: absolute;
-    background-color: white;
-    z-index: 10;
-}

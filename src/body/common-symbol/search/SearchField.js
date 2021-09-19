@@ -1,10 +1,10 @@
 import React, {useContext, useEffect} from "react";
-import "../commonSymbol.css";
 import AutoSuggest from "react-autosuggest";
 import SearchFieldState from "./SearchFieldState";
 import searchIcon from "../../../icons/loupe.svg";
 import {SymbolContext} from "../../../context/SymbolContext";
 import {NavLink} from "react-router-dom";
+import "./searchBar.css";
 
 const SearchField = () => {
 
