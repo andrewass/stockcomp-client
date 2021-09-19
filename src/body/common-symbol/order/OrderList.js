@@ -1,11 +1,9 @@
 import React from "react";
 import Order from "./Order";
 
-const OrderList = ({orders, deleteOrder}) => {
+const OrderList = ({orders, deleteOrder, renderOrders}) => {
 
-    if(orders.length === 0){
-        return <p>-- No orders available --</p>
-    } else {
+    if(renderOrders){
         return (
             <div className="orderList">
                 <ul>
@@ -15,6 +13,8 @@ const OrderList = ({orders, deleteOrder}) => {
                 </ul>
             </div>
         )
+    } else{
+        return null;
     }
 }
 
