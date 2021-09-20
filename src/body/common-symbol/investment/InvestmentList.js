@@ -1,18 +1,21 @@
-import Investment from "./Investment";
 import React from "react";
+import Investment from "./Investment";
 
-const InvestmentList = ({investments}) => {
+const InvestmentList = ({investments, renderInvestments}) => {
 
-    return (
-        <div id="investmentList">
-            <h3>Investments : </h3>
-            <ul>
-                {investments.map((investment) =>
-                    <Investment investment={investment} key={investment.id}/>
-                )}
-            </ul>
-        </div>
-    );
+    if(renderInvestments) {
+        return (
+            <div id="investmentList">
+                <ul>
+                    {investments.map((investment) =>
+                        <Investment investment={investment} key={investment.id}/>
+                    )}
+                </ul>
+            </div>
+        );
+    } else {
+        return null;
+    }
 }
 
 export default InvestmentList;

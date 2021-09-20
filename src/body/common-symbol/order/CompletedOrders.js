@@ -16,7 +16,7 @@ const CompletedOrders = ({completedOrders}) => {
 
     return (
         <div id="CompletedOrders">
-            <div className="orderToggle">
+            <div className="listToggle">
                 <h3>Completed orders</h3>
                 <img src={currentIcon} className="currentIcon" onClick={toggleOrders} alt="Current icon"/>
             </div>

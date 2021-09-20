@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import InvestmentTotalState from "./InvestmentTotalState";
-import InvestmentList from "../../investment/InvestmentList";
+import Investments from "../../investment/Investments";
 
 
 const InvestmentTotal = ({contests}) => {
@@ -13,7 +13,7 @@ const InvestmentTotal = ({contests}) => {
     }, []);
 
     return (
-        <InvestmentList investments={investments}/>
+        <Investments investments={investments}/>
     );
 }
 

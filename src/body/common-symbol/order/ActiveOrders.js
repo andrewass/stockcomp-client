@@ -22,7 +22,7 @@ const ActiveOrders = ({activeOrders, populateOrderList}) => {
 
     return (
         <div id="activeOrders">
-            <div className="orderToggle">
+            <div className="listToggle">
                 <h3>Active orders</h3>
                 <img src={currentIcon} className="currentIcon" onClick={toggleOrders} alt="Current icon"/>
             </div>

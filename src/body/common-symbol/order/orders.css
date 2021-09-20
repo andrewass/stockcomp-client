@@ -1,5 +1,5 @@
 
-.orderToggle{
+.listToggle{
     display: flex;
     flex-flow: row nowrap;
 }
