@@ -15,15 +15,13 @@ const SymbolDetail = ({symbol, realTimePrice}) => {
 
     const getCurrentPrince = () => {
         if (realTimePrice.currency === "USD") {
-            return (
-                <li>{realTimePrice.price} {realTimePrice.currency}</li>
-            )
+            return <li>{realTimePrice.price} {realTimePrice.currency}</li>
         } else {
             return (
                 <li>
                     {realTimePrice.price} {realTimePrice.currency} (USD {realTimePrice.usdPrice.toFixed(2)})
                 </li>
-            )
+            );
         }
     }
 

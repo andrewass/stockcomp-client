@@ -9,7 +9,7 @@ const SymbolRightMenu = ({symbol, currentPrice}) => {
     const {activeContest, fetchUpcomingContests, isLoading} = SymbolRightMenuState();
 
     useEffect(() => {
-        fetchUpcomingContests();
+        fetchUpcomingContests().catch(error => console.log(error));
     }, []);
 
     if (isLoading) {

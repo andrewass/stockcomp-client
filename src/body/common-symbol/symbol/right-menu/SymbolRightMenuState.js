@@ -10,13 +10,11 @@ const SymbolRightMenuState = () => {
         return contests.find(contest => contest.userParticipating && contest.running);
     }
     
-    const fetchUpcomingContests = () => {
-        getUpcomingContests()
-            .then(response => {
-                setActiveContest(getActiveContest(response.data));
-                setLoading(false);
-            })
-            .catch(error => console.log(error))
+    const fetchUpcomingContests = async () => {
+        setLoading(true)
+        let response = await getUpcomingContests();
+        setActiveContest(getActiveContest(response.data));
+        setLoading(false);
     }
 
     return{

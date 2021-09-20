@@ -14,7 +14,7 @@ const Symbols = () => {
     const {contests, isLoading, fetchUpcomingContests} = SymbolsState();
 
     useEffect(() => {
-        fetchUpcomingContests();
+        fetchUpcomingContests().catch(error => console.log(error));
     }, []);
 
     if (isLoading) {

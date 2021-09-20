@@ -6,12 +6,10 @@ const AccountDropDownState = () => {
 
     const {setIsSignedIn} = useContext(UserContext);
 
-    const signOutUser = () => {
-        signOut()
-            .then(() => {
-                setIsSignedIn(false);
-                updateLocalStorage("false");
-            }).catch((error) => console.log(error));
+    const signOutUser = async () => {
+        await signOut()
+        setIsSignedIn(false);
+        updateLocalStorage("false");
     };
 
     return{

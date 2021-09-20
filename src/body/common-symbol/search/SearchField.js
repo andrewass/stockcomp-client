@@ -18,7 +18,7 @@ const SearchField = () => {
             setSuggestionList([]);
             return;
         }
-        getSuggestions(value);
+        getSuggestions(value).catch(error => console.log(error));
     }
 
     const renderSuggestion = suggestion => {

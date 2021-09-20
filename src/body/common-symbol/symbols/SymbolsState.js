@@ -6,13 +6,11 @@ const SymbolsState = () => {
     const [contests, setContests] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
-    const fetchUpcomingContests = () => {
-        getUpcomingContests()
-            .then(response => {
-                setContests(response.data);
-                setLoading(false);
-            })
-            .catch(error => console.log(error))
+    const fetchUpcomingContests = async () => {
+        setLoading(true);
+        let response = await getUpcomingContests()
+        setContests(response.data);
+        setLoading(false);
     }
 
     return{

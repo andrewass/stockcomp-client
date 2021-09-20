@@ -29,14 +29,12 @@ const SignInState = () => {
         }
     };
 
-    const postSignInToServer = (event) => {
+    const postSignInToServer = async (event) => {
         event.preventDefault();
-        signIn(username, password)
-            .then(() => {
-                updateLocalStorage("true");
-                setIsSignedIn(true);
-                history.push("/stocks");
-            }).catch((error) => handleErrorResponse(error.response));
+        await signIn(username, password)
+        updateLocalStorage("true");
+        setIsSignedIn(true);
+        history.push("/stocks");
     };
 
     return {

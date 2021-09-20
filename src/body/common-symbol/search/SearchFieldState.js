@@ -6,13 +6,12 @@ const SearchFieldState = () => {
     const [query, setQuery] = useState("");
     const [suggestionList, setSuggestionList] = useState([]);
 
-    const getSuggestions = (query) => {
+    const getSuggestions = async (query) => {
         if (query === "") {
             setSuggestionList([]);
         } else {
-            getSuggestionsFromQuery(query)
-                .then((response) => setSuggestionList(response.data))
-                .catch((error) => console.log(error));
+            let response = await getSuggestionsFromQuery(query)
+            setSuggestionList(response.data);
         }
     };
 

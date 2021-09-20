@@ -34,16 +34,14 @@ const SignUpState = () => {
         setEmail(event.target.value);
     };
 
-    const postSignUpToServer = (event) => {
+    const postSignUpToServer = async (event) => {
         event.preventDefault();
         if (matchingPasswords()) {
             setErrorMessage(null);
-            signUp(username, password, email)
-                .then(() => {
-                    updateLocalStorage("true");
-                    setIsSignedIn(true);
-                    history.push("/stocks");
-                }).catch((error) => setErrorMessage("Error : " + error));
+            await signUp(username, password, email)
+            updateLocalStorage("true");
+            setIsSignedIn(true);
+            history.push("/stocks");
         } else {
             setErrorMessage("Mismatch between passwords! Please try again");
             setPassword("");

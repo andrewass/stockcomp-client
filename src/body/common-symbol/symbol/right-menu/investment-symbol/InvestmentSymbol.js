@@ -10,7 +10,7 @@ const InvestmentSymbol = ({contest, symbol}) => {
     } = InvestmentSymbolState(contest, symbol);
 
     useEffect(() => {
-        fetchParticipantData().then(() => {});
+        fetchParticipantData().catch(error => console.log(error));
     }, []);
 
     const displayInvestmentProfit = () => {

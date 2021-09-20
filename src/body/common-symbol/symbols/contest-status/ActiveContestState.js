@@ -8,11 +8,10 @@ const ActiveContestState = () => {
     const {isSignedIn} = useContext(UserContext);
     const history = useHistory();
 
-    const handleContestSignUp = (contestNumber) => {
+    const handleContestSignUp = async (contestNumber) => {
         if (isSignedIn) {
-            signUpForContest(contestNumber)
-                .then(() => history.push("/stocks"))
-                .catch(error => console.log(error))
+            await signUpForContest(contestNumber)
+            history.push("/stocks");
         } else {
             history.push("/sign-in");
         }
