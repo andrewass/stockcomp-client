@@ -15,15 +15,9 @@ const SymbolPresentation = ({symbol}) => {
 
     const getCurrentPrince = () => {
         if (symbol.currency === "USD") {
-            return (
-                <li>{symbol.price} {symbol.currency}</li>
-            )
+            return <li>{symbol.price} {symbol.currency}</li>;
         } else {
-            return (
-                <li>
-                    {symbol.price} {symbol.currency} (USD {symbol.usdPrice.toFixed(2)})
-                </li>
-            )
+            return <li>{symbol.price} {symbol.currency} (USD {symbol.usdPrice.toFixed(2)})</li>;
         }
     }
 

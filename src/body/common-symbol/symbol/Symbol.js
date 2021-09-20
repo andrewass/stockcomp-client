@@ -14,7 +14,7 @@ const Symbol = () => {
     const {isLoading, currentPrice, getCurrentPrice} = SymbolState(selectedSymbol);
 
     useEffect(() => {
-        getCurrentPrice();
+        getCurrentPrice().catch(error => console.log(error));
     }, [selectedSymbol]);
 
     if (isLoading) {

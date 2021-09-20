@@ -9,10 +9,8 @@ const TrendingSymbols = () => {
     const {trendingSymbols, getTrendingSymbols, isLoading} = TrendingSymbolsState();
 
     useEffect(() => {
-        getTrendingSymbols()
-            .catch(error => console.log(error));
+        getTrendingSymbols().catch(error => console.log(error));
     }, []);
-
 
     if (isLoading) {
         return <LoadingComponent/>
@@ -21,7 +19,7 @@ const TrendingSymbols = () => {
         <div id="trendingSymbols">
             <div id="symbolGrid">
                     {trendingSymbols.map((symbol) =>
-                        <SymbolPresentation symbol={symbol}/>
+                        <SymbolPresentation key={symbol.symbol} symbol={symbol}/>
                     )}
             </div>
         </div>
