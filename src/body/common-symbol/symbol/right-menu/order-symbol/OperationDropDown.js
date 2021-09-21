@@ -11,8 +11,8 @@ const OperationDropDown = ({setOperationType}) => {
 
     return (
         <div id="operationDropDown">
+            <span>Operation</span>
             <div id="operationSelector">
-                <span>Select operation : </span>
                 <button id="operationSelectButton" type="button">{selectedValue}</button>
                 <img id="operationSelectIcon" src={operationSelect}/>
             </div>

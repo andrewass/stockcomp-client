@@ -3,8 +3,39 @@
     flex-flow: column nowrap;
 }
 
+#orderGrid{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+
+#orderQuantity{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#orderPrice{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#expirationDate{
+    width: 8rem;
+}
+
+#acceptedPrice{
+    width: 3rem;
+}
+
+#quantityInput{
+    width: 1rem;
+}
+
 #operationList{
     display: none;
+}
+
+#operationDropDown{
+    width: 6rem;
 }
 
 #operationDropDown:hover #operationList {
@@ -15,7 +46,14 @@
 }
 
 #orderSubmit{
-    margin-top: 2%;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    width: 8rem;
+    border-radius: 25px;
+}
+
+#operationSelector{
+    border: ridge;
 }
 
 #operationSelectIcon{

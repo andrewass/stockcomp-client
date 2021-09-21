@@ -3,6 +3,7 @@ import SymbolRightMenuState from "./SymbolRightMenuState";
 import OrderSymbol from "./order-symbol/OrderSymbol";
 import LoadingComponent from "../../../../util/LoadingComponent";
 import InvestmentSymbol from "./investment-symbol/InvestmentSymbol";
+import "./symbolRightMenu.css";
 
 const SymbolRightMenu = ({symbol, currentPrice}) => {
 
