@@ -1,3 +1,10 @@
 #symbolRightMenu{
     width: 30%;
 }
+
+@media(max-width:1000px) {
+    #symbolRightMenu{
+        width: 90%;
+        margin-left: 10%;
+    }
+}

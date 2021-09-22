@@ -3,9 +3,10 @@
     flex-flow: column nowrap;
 }
 
-#orderGrid{
+#orderGrid {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 27%);
+    gap: 2rem;
 }
 
 #orderQuantity{
@@ -14,6 +15,11 @@
 }
 
 #orderPrice{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+orderExpiration{
     display: flex;
     flex-flow: column nowrap;
 }
@@ -46,8 +52,6 @@
 }
 
 #orderSubmit{
-    margin-top: 2rem;
-    margin-left: 4rem;
     width: 8rem;
     border-radius: 25px;
 }

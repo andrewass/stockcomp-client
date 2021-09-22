@@ -28,8 +28,8 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
                     <input id="expirationDate" type="date"
                            onChange={event => setExpirationTime(event.target.value)}/>
                 </div>
+                <input type="button" id="orderSubmit" value="Submit" onClick={sendOrder}/>
             </div>
-            <input type="button" id="orderSubmit" value="Submit" onClick={sendOrder}/>
         </form>
     );
 }
