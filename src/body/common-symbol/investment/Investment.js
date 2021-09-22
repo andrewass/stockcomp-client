@@ -1,4 +1,5 @@
 import React from "react";
+import "./investment.css";
 
 const Investment = ({investment}) => {
 
@@ -12,7 +13,7 @@ const Investment = ({investment}) => {
 
     return (
         <div>
-            <h4>{investment.symbol} : </h4>
+            <p>{investment.symbol} : </p>
             <ul>
                 <li>Amount invested : {investment.amount}</li>
                 <li>Investment value : {investment.totalValue.toFixed(2)} USD</li>

@@ -1,13 +1,15 @@
 import React from "react";
 import PriceChart from "./PriceChart";
 import "./detailBlock.css";
-import SymbolDetail from "./SymbolDetail";
+import SymbolPresentation from "../../SymbolPresentation";
 
 const DetailBlock = ({symbol, currentPrice}) => {
 
     return (
         <div id="detailBlock">
-            <SymbolDetail symbol={symbol} realTimePrice={currentPrice}/>
+            <div id="symbolDetail">
+                <SymbolPresentation symbol={currentPrice}/>
+            </div>
             <PriceChart symbol={symbol}/>
         </div>
     );

@@ -1,4 +1,8 @@
 
+#symbolDetail{
+    margin-left: 40%;
+}
+
 #selectedSymbol{
     display: flex;
     flex-flow: row nowrap;
