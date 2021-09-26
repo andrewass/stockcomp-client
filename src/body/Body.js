@@ -30,9 +30,9 @@ const Body = () => {
                 <Route path="/authentication">
                     <Authentication/>
                 </Route>
-                <Route path="/admin">
+                <ProtectedRoute path="/admin">
                     <AdminPage/>
-                </Route>
+                </ProtectedRoute>
                 <ProtectedRoute path="/account">
                     <Header/>
                     <UserAccount/>

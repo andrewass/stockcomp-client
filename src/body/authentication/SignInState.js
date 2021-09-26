@@ -31,11 +31,11 @@ const SignInState = () => {
 
     const postSignInToServer = async (event) => {
         event.preventDefault();
-        await signIn(username, password)
+        let response = await signIn(username, password);
         updateLocalStorage("true");
         setIsSignedIn(true);
-        history.push("/stocks");
-    };
+        (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
+    }
 
     return {
         updateUsername, updatePassword, postSignInToServer, errorMessage
