@@ -3,15 +3,13 @@ import Investment from "./Investment";
 
 const InvestmentList = ({investments, renderInvestments}) => {
 
-    if(renderInvestments) {
+    if (renderInvestments) {
         return (
-            <div id="investmentList">
-                <ul>
-                    {investments.map((investment) =>
-                        <Investment investment={investment} key={investment.id}/>
-                    )}
-                </ul>
-            </div>
+            <ul id="investmentList">
+                {investments.map((investment) =>
+                    <Investment investment={investment} key={investment.id}/>
+                )}
+            </ul>
         );
     } else {
         return null;

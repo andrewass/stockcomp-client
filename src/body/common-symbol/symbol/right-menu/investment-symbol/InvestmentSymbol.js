@@ -7,21 +7,26 @@ const InvestmentSymbol = ({contest, symbol}) => {
 
     const {remainingFunds, fetchParticipantData, investment, isLoading} = InvestmentSymbolState(contest, symbol);
 
+    const displayInvestment = () => {
+        return investment ? <Investment investment={investment}/> : null;
+    }
+
     useEffect(() => {
         fetchParticipantData().catch(error => console.log(error));
     }, []);
 
-
     if (isLoading) {
         return <LoadingComponent/>
     }
-    return (
-        <div>
-            <h2>Portfolio Status</h2>
-            <p>Remaining funds : {remainingFunds}</p>
-            <Investment investment={investment}/>
-        </div>
-    );
+    else {
+        return (
+            <div>
+                <h2>Portfolio Status</h2>
+                <p>Remaining funds : {remainingFunds}</p>
+                {displayInvestment()}
+            </div>
+        );
+    }
 }
 
 export default InvestmentSymbol;

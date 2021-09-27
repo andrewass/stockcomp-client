@@ -5,23 +5,24 @@ import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
 
 
 const QuantitySelect = ({setOrderAmount}) => {
-    return <TextField label="Outlined" variant="outlined" onChange={event => setOrderAmount(event.target.value)}/>
+    return <TextField label="Quantity" variant="outlined" defaultValue={1}
+                      onChange={event => setOrderAmount(event.target.value)}/>
 }
 
-const PriceSelect = ({setAcceptedPrice}) => {
-    return <TextField label="Outlined" variant="outlined" onChange={event => setAcceptedPrice(event.target.value)}/>
+const PriceSelect = ({setAcceptedPrice, currentPrice}) => {
+    return <TextField label="Accepted Price" variant="outlined" defaultValue={currentPrice}
+                      onChange={event => setAcceptedPrice(event.target.value)}/>
 }
 
 const OperationSelect = ({operationType, setOperationType}) => {
     return (
         <FormControl>
-            <InputLabel id="demo-simple-select-label">Operation</InputLabel>
-            <Select labelId="demo-simple-select-label"
-                    id="demo-simple-select" value={operationType}
-                    label="Age" onChange={event => setOperationType(event.target.value)}>
+            <InputLabel>Operation</InputLabel>
+            <Select value={operationType} label="Operation" onChange={event => setOperationType(event.target.value)}>
                 <MenuItem value="BUY">BUY</MenuItem>
                 <MenuItem value="SELL">SELL</MenuItem>
             </Select>
@@ -53,10 +54,10 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
         <form id="submitOrderForm">
             <div id="orderGrid">
                 <QuantitySelect setOrderAmount={setOrderAmount}/>
-                <PriceSelect setAcceptedPrice={setAcceptedPrice}/>
+                <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={currentPrice.price}/>
                 <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
                 <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
-                <input type="button" id="orderSubmit" value="Submit" onClick={sendOrder}/>
+                <Button variant="contained" onClick={sendOrder}>Submit</Button>
             </div>
         </form>
     );

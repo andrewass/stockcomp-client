@@ -13,7 +13,7 @@ const Investment = ({investment}) => {
 
     return (
         <div>
-            <p>{investment.symbol} : </p>
+            <p>{investment.symbol}</p>
             <ul>
                 <li>Amount invested : {investment.amount}</li>
                 <li>Investment value : {investment.totalValue.toFixed(2)} USD</li>
