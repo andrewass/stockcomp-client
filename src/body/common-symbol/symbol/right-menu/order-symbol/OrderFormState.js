@@ -4,7 +4,7 @@ import {placeBuyOrder, placeSellOrder} from "../../../../../service/investmentOr
 const OrderFormState = (symbol, contest, currentPrice) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
-    const [expirationTime, setExpirationTime] = useState();
+    const [expirationTime, setExpirationTime] = useState(Date.now);
     const [orderAmount, setOrderAmount] = useState();
     const [operationType, setOperationType] = useState("BUY");
 
@@ -26,7 +26,9 @@ const OrderFormState = (symbol, contest, currentPrice) => {
         //await populateOrderList();
     }
 
-    return {setOrderAmount, setAcceptedPrice, setExpirationTime, setOperationType, sendOrder}
+    return {
+        setOrderAmount, setAcceptedPrice, expirationTime, setExpirationTime, operationType, setOperationType, sendOrder
+    }
 }
 
 export default OrderFormState;
