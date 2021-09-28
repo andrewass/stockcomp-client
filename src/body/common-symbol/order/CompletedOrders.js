@@ -1,27 +1,23 @@
-import OrderList from "./OrderList";
 import React, {useState} from "react";
-import "./orders.css";
-import downArrow from "../../../icons/down-arrow.svg";
-import rightArrow from "../../../icons/right-arrow.svg";
+import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
 
 const CompletedOrders = ({completedOrders}) => {
 
-    const [renderOrders, setRenderOrders] = useState(false);
-    const [currentIcon, setCurrentIcon] = useState(rightArrow);
-
-    const toggleOrders = () => {
-        setCurrentIcon(currentIcon === rightArrow ? downArrow : rightArrow);
-        setRenderOrders(!renderOrders)
-    }
+    const [open, setOpen] = useState(false);
 
     return (
-        <div id="CompletedOrders">
-            <div className="listToggle">
-                <h3>Completed orders</h3>
-                <img src={currentIcon} className="currentIcon" onClick={toggleOrders} alt="Current icon"/>
-            </div>
-            <OrderList orders={completedOrders} renderOrders={renderOrders}/>
-        </div>
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemText primary="Completed orders"/>
+                {open ? <ExpandLess/> : <ExpandMore/>}
+            </ListItemButton>
+            <Collapse in={open} unmountOnExit>
+                <List component="div" disablePadding>
+                    {completedOrders.map((order) => <ListItemText primary={order.symbol} sx={{pl: 4}}/>)}
+                </List>
+            </Collapse>
+        </List>
     );
 }
 

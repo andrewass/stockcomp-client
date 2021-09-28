@@ -1,19 +1,12 @@
 import {deleteActiveOrder} from "../../../service/investmentOrderService";
-import OrderList from "./OrderList";
 import React, {useState} from "react";
-import "./orders.css";
-import rightArrow from "../../../icons/right-arrow.svg";
-import downArrow from "../../../icons/down-arrow.svg";
+import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
+
 
 const ActiveOrders = ({activeOrders, populateOrderList}) => {
 
-    const [renderOrders, setRenderOrders] = useState(false);
-    const [currentIcon, setCurrentIcon] = useState(rightArrow);
-
-    const toggleOrders = () => {
-        setCurrentIcon(currentIcon === rightArrow ? downArrow : rightArrow);
-        setRenderOrders(!renderOrders)
-    }
+    const [open, setOpen] = useState(false);
 
     const deleteOrder = async (orderId) => {
         await deleteActiveOrder(orderId);
@@ -21,13 +14,17 @@ const ActiveOrders = ({activeOrders, populateOrderList}) => {
     }
 
     return (
-        <div id="activeOrders">
-            <div className="listToggle">
-                <h3>Active orders</h3>
-                <img src={currentIcon} className="currentIcon" onClick={toggleOrders} alt="Current icon"/>
-            </div>
-            <OrderList orders={activeOrders} deleteOrder={deleteOrder} renderOrders={renderOrders}/>
-        </div>
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemText primary="Active orders"/>
+                {open ? <ExpandLess/> : <ExpandMore/>}
+            </ListItemButton>
+            <Collapse in={open} unmountOnExit>
+                <List component="div" disablePadding>
+                    {activeOrders.map((order) => <ListItemText primary={order.symbol} sx={{pl: 4}}/>)}
+                </List>
+            </Collapse>
+        </List>
     );
 }
 

@@ -9,6 +9,7 @@ import LoadingComponent from "../../../util/LoadingComponent";
 import SearchBar from "../search/SearchBar";
 import "./symbols.css";
 
+
 const Symbols = () => {
 
     const {contests, isLoading, fetchUpcomingContests} = SymbolsState();

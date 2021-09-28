@@ -1,26 +1,24 @@
 import React, {useState} from "react";
-import rightArrow from "../../../icons/right-arrow.svg";
-import downArrow from "../../../icons/down-arrow.svg";
-import InvestmentList from "./InvestmentList";
+import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import Investment from "./Investment";
 
 const Investments = ({investments}) => {
 
-    const [renderInvestments, setRenderInvestments] = useState(false);
-    const [currentIcon, setCurrentIcon] = useState(rightArrow);
-
-    const toggleInvestments = () => {
-        setCurrentIcon(currentIcon === rightArrow ? downArrow : rightArrow);
-        setRenderInvestments(!renderInvestments)
-    }
+    const [open, setOpen] = useState(false);
 
     return (
-        <div>
-            <div className="listToggle">
-                <h3>Investments : </h3>
-                <img src={currentIcon} className="currentIcon" onClick={toggleInvestments} alt="Current icon"/>
-            </div>
-            <InvestmentList investments={investments} renderInvestments={renderInvestments}/>
-        </div>
+        <List>
+            <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemText primary="Investments"/>
+                {open ? <ExpandLess/> : <ExpandMore/>}
+            </ListItemButton>
+            <Collapse in={open} unmountOnExit>
+                <List component="div" disablePadding>
+                    {investments.map((investment) => <Investment investment={investment}/>)}
+                </List>
+            </Collapse>
+        </List>
     );
 }
 

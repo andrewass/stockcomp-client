@@ -57,7 +57,7 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
                 <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={currentPrice.price}/>
                 <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
                 <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
-                <Button variant="contained" onClick={sendOrder}>Submit</Button>
+                <Button type="submit" variant="contained" onClick={sendOrder}>Submit</Button>
             </div>
         </form>
     );
