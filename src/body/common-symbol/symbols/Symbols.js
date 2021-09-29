@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import TrendingSymbols from "./trending/TrendingSymbols";
 import ContestStatus from "./contest-status/ContestStatus";
-import PortfolioStatus from "./portfolio-status/PortfolioStatus";
+import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import InvestmentTotal from "./investment-total/InvestmentTotal";
 import SearchBar from "../search/SearchBar";
@@ -12,20 +12,21 @@ import {getUpcomingContests} from "../../../service/contestService";
 
 const Symbols = () => {
 
-    const [contests, setContests] = useState([]);
+    const [contestList, setContestList] = useState([]);
     const [runningContest, setRunningContest] = useState();
     const [isLoading, setLoading] = useState(true);
 
-
-    const getContestNumberOfParticipatingContest = () => {
-        return contests.find(contest => contest.userParticipating && contest.running);
+    const getContestNumberOfParticipatingContest = (contestsData) => {
+        return contestsData.find(contest => contest.userParticipating && contest.running);
     }
 
     const fetchUpcomingContests = async () => {
-        setLoading(true);
-        let response = await getUpcomingContests()
-        setContests(response.data);
-        setRunningContest(getContestNumberOfParticipatingContest());
+        const response = await getUpcomingContests();
+        const contests = response.data;
+        if(contests){
+            setContestList(contests);
+            setRunningContest(getContestNumberOfParticipatingContest(contests));
+        }
         setLoading(false);
     }
 
@@ -42,10 +43,10 @@ const Symbols = () => {
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
-                    <ContestStatus contests={contests}/>
-                    <PortfolioStatus contests={contests}/>
-                    <OrderTotal contestNumber={contests}/>
-                    <InvestmentTotal contests={contests}/>
+                    <ContestStatus contests={contestList}/>
+                    <PortfolioStatus contest={runningContest}/>
+                    <OrderTotal contest={runningContest}/>
+                    <InvestmentTotal contest={runningContest}/>
                 </div>
             </div>
         </div>

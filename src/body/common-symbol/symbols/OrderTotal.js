@@ -4,31 +4,26 @@ import {useEffect, useState} from "react";
 import {getActiveOrdersParticipant, getCompletedOrdersParticipant} from "../../../service/investmentOrderService";
 
 
-const OrderTotal = ({contestNumber}) => {
+const OrderTotal = ({contest}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
 
-
     const getActiveOrders = async () => {
-        const response = await getActiveOrdersParticipant(contestNumber);
+        const response = await getActiveOrdersParticipant(contest.contestNumber);
         setActiveOrders(response.data);
     }
 
     const getCompletedOrders = async () => {
-        const response = await getCompletedOrdersParticipant(contestNumber);
+        const response = await getCompletedOrdersParticipant(contest.contestNumber);
         setCompletedOrders(response.data);
     }
 
-
     useEffect(() => {
-        (async () => {
-            if (contestNumber) {
-                console.log("Fetching orders");
-                await getActiveOrders();
-                await getCompletedOrders();
-            }
-        })()
+        if (contest) {
+            getActiveOrders().catch(error => console.log(error));
+            getCompletedOrders().catch(error => console.log(error));
+        }
     }, []);
 
     return (
