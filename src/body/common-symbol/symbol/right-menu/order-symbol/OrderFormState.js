@@ -23,7 +23,6 @@ const OrderFormState = (symbol, contest, currentPrice) => {
         operationType === "BUY"
             ? await placeBuyOrder(createInvestmentOrderRequest())
             : await placeSellOrder(createInvestmentOrderRequest());
-        //await populateOrderList();
     }
 
     return {

@@ -1,16 +1,41 @@
-import {deleteActiveOrder} from "../../../service/investmentOrderService";
+import {
+    deleteActiveOrder,
+    getActiveOrdersParticipant,
+    getActiveOrdersParticipantSymbol
+} from "../../../service/investmentOrderService";
 import React, {useState} from "react";
-import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
-import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import {
+    Collapse,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemSecondaryAction,
+    ListItemText
+} from "@mui/material";
+import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 
 
-const ActiveOrders = ({activeOrders, populateOrderList}) => {
+const ActiveOrders = ({activeOrders, fetchActiveOrders}) => {
 
     const [open, setOpen] = useState(false);
 
     const deleteOrder = async (orderId) => {
         await deleteActiveOrder(orderId);
-        await populateOrderList();
+        fetchActiveOrders();
+    }
+
+    const createActiveOrder = (order) => {
+        return (
+            <ListItem key={order.orderId}>
+                <ListItemText primary={order.symbol} sx={{pl: 4}}/>
+                <ListItemSecondaryAction>
+                    <IconButton aria-label="Delete" onClick={() => deleteOrder(order.orderId)}>
+                        <Delete/>
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        );
     }
 
     return (
@@ -21,7 +46,7 @@ const ActiveOrders = ({activeOrders, populateOrderList}) => {
             </ListItemButton>
             <Collapse in={open} unmountOnExit>
                 <List component="div" disablePadding>
-                    {activeOrders.map((order) => <ListItemText primary={order.symbol} sx={{pl: 4}}/>)}
+                    {activeOrders.map(order => createActiveOrder(order))}
                 </List>
             </Collapse>
         </List>
