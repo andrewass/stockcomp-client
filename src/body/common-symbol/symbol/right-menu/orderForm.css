@@ -1,0 +1,10 @@
+#submitOrderForm{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#orderGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 27%);
+    gap: 2rem;
+}

@@ -1,11 +1,19 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import PriceChartState from "./PriceChartState";
 import LoadingComponent from "../../../../util/LoadingComponent";
+import {getHistoricPrices} from "../../../../service/symbolService";
 
 const PriceChart = ({symbol}) => {
 
-    const {historicPriceList, setHistoricPrices, isLoading} = PriceChartState(symbol);
+    const [historicPriceList, setHistoricPriceList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const setHistoricPrices = async () => {
+        setIsLoading(true);
+        const response = await getHistoricPrices(symbol.symbol);
+        setHistoricPriceList(response.data);
+        setIsLoading(false);
+    }
 
     useEffect(() => {
         setHistoricPrices().catch(error => console.log(error));

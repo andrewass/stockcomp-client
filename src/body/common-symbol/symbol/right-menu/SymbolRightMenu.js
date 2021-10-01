@@ -1,13 +1,25 @@
-import React, {useEffect} from "react";
-import SymbolRightMenuState from "./SymbolRightMenuState";
-import OrderSymbol from "./order-symbol/OrderSymbol";
+import React, {useEffect, useState} from "react";
+import OrderSymbol from "./OrderSymbol";
 import LoadingComponent from "../../../../util/LoadingComponent";
-import InvestmentSymbol from "./investment-symbol/InvestmentSymbol";
+import InvestmentSymbol from "./InvestmentSymbol";
 import "./symbolRightMenu.css";
+import {getUpcomingContests} from "../../../../service/contestService";
 
 const SymbolRightMenu = ({symbol, currentPrice}) => {
 
-    const {activeContest, fetchUpcomingContests, isLoading} = SymbolRightMenuState();
+    const [activeContest, setActiveContest] = useState();
+    const [isLoading, setLoading] = useState(true);
+
+    const getActiveContest = contests => {
+        return contests.find(contest => contest.userParticipating && contest.running);
+    }
+
+    const fetchUpcomingContests = async () => {
+        setLoading(true)
+        let response = await getUpcomingContests();
+        setActiveContest(getActiveContest(response.data));
+        setLoading(false);
+    }
 
     useEffect(() => {
         fetchUpcomingContests().catch(error => console.log(error));

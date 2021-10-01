@@ -1,11 +1,11 @@
-import React from "react";
-import OrderFormState from "./OrderFormState";
+import React, {useState} from "react";
 import "./orderForm.css";
 import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 
 
 const QuantitySelect = ({setOrderAmount}) => {
@@ -45,10 +45,28 @@ const ExpirationSelect = ({expirationTime, setExpirationTime}) => {
 
 const OrderForm = ({symbol, contest, currentPrice}) => {
 
-    const {
-        setOrderAmount, setAcceptedPrice, expirationTime, setExpirationTime,
-        operationType, setOperationType, sendOrder
-    } = OrderFormState(symbol, contest, currentPrice);
+    const [acceptedPrice, setAcceptedPrice] = useState();
+    const [expirationTime, setExpirationTime] = useState(Date.now);
+    const [orderAmount, setOrderAmount] = useState();
+    const [operationType, setOperationType] = useState("BUY");
+
+    const createInvestmentOrderRequest = () => {
+        return {
+            expirationTime: expirationTime,
+            acceptedPrice: parseFloat(acceptedPrice),
+            symbol: symbol.symbol,
+            amount: parseInt(orderAmount),
+            contestNumber: contest.contestNumber,
+            currency : currentPrice.currency,
+        }
+    }
+
+    const sendOrder = async () => {
+        operationType === "BUY"
+            ? await placeBuyOrder(createInvestmentOrderRequest())
+            : await placeSellOrder(createInvestmentOrderRequest());
+    }
+
 
     return (
         <form id="submitOrderForm">
