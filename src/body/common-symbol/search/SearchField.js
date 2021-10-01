@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from "react";
 import AutoSuggest from "react-autosuggest";
 import SearchFieldState from "./SearchFieldState";
-import searchIcon from "../../../icons/loupe.svg";
 import {SymbolContext} from "../../../context/SymbolContext";
 import {NavLink} from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
 import "./searchBar.css";
 
 const SearchField = () => {
@@ -36,7 +36,7 @@ const SearchField = () => {
 
     return (
         <div id="searchField">
-            <img src={searchIcon} id="searchIcon" alt="Search icon"/>
+            <SearchIcon/>
             <AutoSuggest
                 suggestions={suggestionList}
                 onSuggestionsFetchRequested={onSuggestionsFetchRequested}

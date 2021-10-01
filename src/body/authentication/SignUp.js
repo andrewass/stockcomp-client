@@ -1,15 +1,15 @@
 import React from "react";
 import "./authentication.css";
 import SignUpState from "./SignUpState";
-import usernameIcon from "../../icons/user.svg";
-import passwordIcon from "../../icons/padlock.svg";
-import emailIcon from "../../icons/email.svg";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LockIcon from '@mui/icons-material/Lock';
+import EmailIcon from '@mui/icons-material/Email';
 
 const SignUp = ({setDisplaySignUp}) => {
 
     const {
         postSignUpToServer, updateUsername, updatePassword,
-        updateEmail, updateRetypedPassword, errorMessage
+        updateEmail, updateRetypedPassword
     } = SignUpState();
 
     return (
@@ -17,19 +17,19 @@ const SignUp = ({setDisplaySignUp}) => {
             <h1>STOCK COMP</h1>
             <div className="formFields">
                 <div className="username">
-                    <img src={usernameIcon} className="formIcon" alt="User icon"/>
+                    <AccountCircleIcon/>
                     <input name="username" type="text" placeholder="username" onChange={updateUsername}/>
                 </div>
                 <div className="email">
-                    <img src={emailIcon} className="formIcon" alt="Email icon"/>
+                    <EmailIcon/>
                     <input name="email" type="email" placeholder="email address" onChange={updateEmail}/>
                 </div>
                 <div className="password">
-                    <img src={passwordIcon} className="formIcon" alt="Password icon"/>
+                    <LockIcon/>
                     <input name="password" type="password" placeholder="password" onChange={updatePassword}/>
                 </div>
                 <div className="password">
-                    <img src={passwordIcon} className="formIcon" alt="Password icon"/>
+                    <LockIcon/>
                     <input name="retypedPassword" type="password" placeholder="confirm password"
                            onChange={updateRetypedPassword}/>
                 </div>

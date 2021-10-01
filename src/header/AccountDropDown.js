@@ -1,8 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import signOutIcon from "../icons/logout.svg";
-import settingsIcon from "../icons/gear.svg";
-import userIcon from "../icons/user.svg";
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
 import AccountDropDownState from "./AccountDropDownState";
 import "./header.css";
 
@@ -14,16 +14,16 @@ const AccountDropDown = () => {
     return (
         <div id="accountDropDown">
             <button id="dropDownButton">
-                <img src={settingsIcon} className="headerIcon" alt="sign in icon"/>
+                <SettingsIcon />
                 <span className="headerText">SETTINGS</span>
             </button>
             <div id="dropDownItems">
                 <NavLink to="/account" className="dropDownItem">
-                    <img src={userIcon} className="dropDownItemIcon" alt="account icon"/>
+                    <AccountCircleIcon />
                     <span className="dropDownItemText">ACCOUNT</span>
                 </NavLink>
                 <button className="dropDownItem" onClick={signOutUser}>
-                    <img src={signOutIcon} className="dropDownItemIcon" alt="sign out icon"/>
+                    <LogoutIcon />
                     <span className="dropDownItemText">SIGN OUT</span>
                 </button>
             </div>

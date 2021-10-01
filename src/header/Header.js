@@ -1,8 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import leaderboard from "../icons/podium.svg";
-import stocks from "../icons/stock.svg";
-import calendar from "../icons/calendar.svg";
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import EventIcon from '@mui/icons-material/Event';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import "./header.css";
 import AccountDropDown from "./AccountDropDown";
 
@@ -13,15 +13,15 @@ const Header = () => {
             <span id="appTitle">STOCK COMP</span>
             <nav id="navigationBar">
                 <NavLink to="/stocks" className="navItem">
-                    <img src={stocks} className="headerIcon" alt="Symbol icon"/>
+                    <ShowChartIcon />
                     <span className="headerText">STOCKS</span>
                 </NavLink>
                 <NavLink to="/leaderboard" className="navItem">
-                    <img src={leaderboard} className="headerIcon" alt="Leaderboard icon"/>
+                    <LeaderboardIcon />
                     <span className="headerText">LEADERBOARD</span>
                 </NavLink>
                 <NavLink to="/contests" className="navItem">
-                    <img src={calendar} className="headerIcon" alt="Calendar icon"/>
+                    <EventIcon />
                     <span className="headerText">CONTESTS</span>
                 </NavLink>
                 <AccountDropDown />
