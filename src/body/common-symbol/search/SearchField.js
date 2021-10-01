@@ -1,15 +1,25 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AutoSuggest from "react-autosuggest";
-import SearchFieldState from "./SearchFieldState";
 import {SymbolContext} from "../../../context/SymbolContext";
 import {NavLink} from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import "./searchBar.css";
+import {getSuggestionsFromQuery} from "../../../service/symbolService";
 
 const SearchField = () => {
 
     const {selectedSymbol, setSelectedSymbol} = useContext(SymbolContext);
-    const {suggestionList, setSuggestionList, getSuggestions, query, setQuery} = SearchFieldState();
+    const [query, setQuery] = useState("");
+    const [suggestionList, setSuggestionList] = useState([]);
+
+    const getSuggestions = async (query) => {
+        if (query === "") {
+            setSuggestionList([]);
+        } else {
+            let response = await getSuggestionsFromQuery(query)
+            setSuggestionList(response.data);
+        }
+    };
 
     useEffect(() => setQuery(""), [selectedSymbol]);
 

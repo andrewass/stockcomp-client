@@ -3,7 +3,7 @@ import TrendingSymbols from "./trending/TrendingSymbols";
 import ContestStatus from "./contest-status/ContestStatus";
 import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
-import InvestmentTotal from "./investment-total/InvestmentTotal";
+import InvestmentTotal from "./InvestmentTotal";
 import SearchBar from "../search/SearchBar";
 import "./symbols.css";
 import {CircularProgress} from "@mui/material";

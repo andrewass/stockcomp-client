@@ -1,16 +1,54 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import "./authentication.css";
-import SignUpState from "./SignUpState";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
+import {UserContext} from "../../context/UserContext";
+import {useHistory} from "react-router-dom";
+import {signUp, updateLocalStorage} from "../../service/authService";
 
 const SignUp = ({setDisplaySignUp}) => {
 
-    const {
-        postSignUpToServer, updateUsername, updatePassword,
-        updateEmail, updateRetypedPassword
-    } = SignUpState();
+    const {setIsSignedIn} = useContext(UserContext);
+    const history = useHistory();
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [retypedPassword, setRetypedPassword] = useState("");
+    const [email, setEmail] = useState("");
+
+    const matchingPasswords = () => {
+        return password.length > 0 && password === retypedPassword;
+    };
+
+    const updateUsername = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const updatePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const updateRetypedPassword = (event) => {
+        setRetypedPassword(event.target.value);
+    };
+
+    const updateEmail = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const postSignUpToServer = async (event) => {
+        event.preventDefault();
+        if (matchingPasswords()) {
+            await signUp(username, password, email)
+            updateLocalStorage("true");
+            setIsSignedIn(true);
+            history.push("/stocks");
+        } else {
+            setPassword("");
+            setRetypedPassword("");
+        }
+    };
 
     return (
         <form onSubmit={postSignUpToServer} id="signUpForm">

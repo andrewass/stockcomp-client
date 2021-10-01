@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Investments from "../../investment/Investments";
-import {getAllInvestmentsForContest} from "../../../../service/investmentService";
+import Investments from "../investment/Investments";
+import {getAllInvestmentsForContest} from "../../../service/investmentService";
 
 
 const InvestmentTotal = ({contest}) => {

@@ -1,12 +1,19 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./trendingSymbols.css";
-import TrendingSymbolsState from "./TrendingSymbolsState";
 import LoadingComponent from "../../../../util/LoadingComponent";
 import SymbolPresentation from "../../SymbolPresentation";
+import {getTrendingStocks} from "../../../../service/symbolService";
 
 const TrendingSymbols = () => {
 
-    const {trendingSymbols, getTrendingSymbols, isLoading} = TrendingSymbolsState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [trendingSymbols, setTrendingSymbols] = useState([]);
+
+    const getTrendingSymbols = async () => {
+        const trendingSymbolsResponse = await getTrendingStocks();
+        setTrendingSymbols(trendingSymbolsResponse.data);
+        setIsLoading(false);
+    }
 
     useEffect(() => {
         getTrendingSymbols().catch(error => console.log(error));
