@@ -1,17 +1,31 @@
 import React, {useContext, useState} from "react";
-import "./authentication.css";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
 import {signUp, updateLocalStorage} from "../../service/authService";
+import {makeStyles} from "@mui/styles";
+import {InputAdornment, TextField, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+
+const useStyles = makeStyles({
+    root: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "10% auto",
+        border: "1px ridge black",
+        width: "30%"
+    }
+});
 
 const SignUp = ({setDisplaySignUp}) => {
 
+    const classes = useStyles();
     const {setIsSignedIn} = useContext(UserContext);
     const history = useHistory();
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
@@ -51,29 +65,44 @@ const SignUp = ({setDisplaySignUp}) => {
     };
 
     return (
-        <form onSubmit={postSignUpToServer} id="signUpForm">
-            <h1>STOCK COMP</h1>
-            <div className="formFields">
-                <div className="username">
-                    <AccountCircleIcon/>
-                    <input name="username" type="text" placeholder="username" onChange={updateUsername}/>
-                </div>
-                <div className="email">
-                    <EmailIcon/>
-                    <input name="email" type="email" placeholder="email address" onChange={updateEmail}/>
-                </div>
-                <div className="password">
-                    <LockIcon/>
-                    <input name="password" type="password" placeholder="password" onChange={updatePassword}/>
-                </div>
-                <div className="password">
-                    <LockIcon/>
-                    <input name="retypedPassword" type="password" placeholder="confirm password"
-                           onChange={updateRetypedPassword}/>
-                </div>
-            </div>
-            <input type="submit" className="submit" value="Sign Up"/>
-            <button onClick={() => setDisplaySignUp(false)}>Go to sign in</button>
+        <form className={classes.root} onSubmit={postSignUpToServer} id="signInForm">
+            <Typography variant="h4" sx={{mt: 4}}>
+                STOCK COMP
+            </Typography>
+            <TextField sx={{mt: 4}} label="Username" onChange={e => updateUsername(e)}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                                   <AccountCircleIcon/>
+                               </InputAdornment>
+                           )
+                       }}/>
+            <TextField sx={{mt: 4}} label="Email" onChange={e => updateEmail(e)}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                                   <EmailIcon/>
+                               </InputAdornment>
+                           )
+                       }}/>
+            <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => updatePassword(e)}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                                   <LockIcon/>
+                               </InputAdornment>
+                           )
+                       }}/>
+            <TextField sx={{mt: 4}} label="Confirm Password" type="password" onChange={e => updateRetypedPassword(e)}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                                   <LockIcon/>
+                               </InputAdornment>
+                           )
+                       }}/>
+            <Button sx={{mt: 3}} type="submit" variant="contained" >Submit</Button>
+            <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
         </form>
     );
 };

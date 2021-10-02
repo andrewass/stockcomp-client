@@ -1,5 +1,4 @@
 import React, {useContext, useState} from "react";
-import "./authentication.css";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import {signIn, updateLocalStorage} from "../../service/authService";
@@ -66,7 +65,7 @@ const SignIn = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <Button sx={{mt: 3}} type="submit">Submit</Button>
+            <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
         </form>
     );
