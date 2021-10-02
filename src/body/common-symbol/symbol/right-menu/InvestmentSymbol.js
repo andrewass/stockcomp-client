@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import LoadingComponent from "../../../../util/LoadingComponent";
 import Investment from "../../investment/Investment";
 import {getRemainingFunds} from "../../../../service/contestService";
 import {getInvestmentOfSymbol} from "../../../../service/investmentService";
+import {CircularProgress} from "@mui/material";
 
 const InvestmentSymbol = ({contest, symbol}) => {
 
@@ -33,7 +33,7 @@ const InvestmentSymbol = ({contest, symbol}) => {
     }, []);
 
     if (isLoading) {
-        return <LoadingComponent/>
+        return <CircularProgress/>
     }
     else {
         return (

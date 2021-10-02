@@ -3,9 +3,9 @@ import {SymbolContext} from "../../../context/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
 import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 import "./symbol.css";
-import LoadingComponent from "../../../util/LoadingComponent";
-import SearchBar from "../search/SearchBar";
 import {getRealTimePrice} from "../../../service/symbolService";
+import {CircularProgress} from "@mui/material";
+import SearchField from "../search/SearchField";
 
 const Symbol = () => {
 
@@ -26,11 +26,11 @@ const Symbol = () => {
     }, [selectedSymbol]);
 
     if (isLoading) {
-        return <LoadingComponent/>;
+        return <CircularProgress/>;
     }
     return (
         <div id="symbolPage">
-            <SearchBar/>
+            <SearchField/>
             <div id="symbolBody">
                 <DetailBlock symbol={selectedSymbol} currentPrice={currentPrice}/>
                 <SymbolRightMenu symbol={selectedSymbol} currentPrice={currentPrice}/>

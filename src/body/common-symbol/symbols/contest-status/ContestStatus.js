@@ -1,11 +1,11 @@
 import React from "react";
 import ActiveContest from "./ActiveContest";
-import LoadingComponent from "../../../../util/LoadingComponent";
+import {CircularProgress} from "@mui/material";
 
 const ContestStatus = ({contests}) => {
 
     if (contests === undefined) {
-        return (<LoadingComponent/>);
+        return (<CircularProgress/>);
     } else if (contests.length === 0) {
         return (<p>No upcoming contests</p>);
     } else {

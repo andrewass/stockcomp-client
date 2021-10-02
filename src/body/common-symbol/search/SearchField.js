@@ -1,61 +1,46 @@
-import React, {useContext, useEffect, useState} from "react";
-import AutoSuggest from "react-autosuggest";
+import React, {useContext, useState} from "react";
 import {SymbolContext} from "../../../context/SymbolContext";
-import {NavLink} from "react-router-dom";
-import SearchIcon from '@mui/icons-material/Search';
-import "./searchBar.css";
 import {getSuggestionsFromQuery} from "../../../service/symbolService";
+import {Autocomplete, Box, TextField} from "@mui/material";
+import {useHistory} from "react-router-dom";
 
 const SearchField = () => {
 
-    const {selectedSymbol, setSelectedSymbol} = useContext(SymbolContext);
-    const [query, setQuery] = useState("");
+    const {setSelectedSymbol} = useContext(SymbolContext);
+    const history = useHistory();
     const [suggestionList, setSuggestionList] = useState([]);
 
-    const getSuggestions = async (query) => {
-        if (query === "") {
+    const getSuggestions = async (value) => {
+        if (value === "") {
             setSuggestionList([]);
         } else {
-            let response = await getSuggestionsFromQuery(query)
+            const response = await getSuggestionsFromQuery(value);
             setSuggestionList(response.data);
         }
     };
 
-    useEffect(() => setQuery(""), [selectedSymbol]);
-
-    const onSuggestionsFetchRequested = ({value}) => {
-        if (!value) {
-            setSuggestionList([]);
-            return;
-        }
-        getSuggestions(value).catch(error => console.log(error));
+    const redirectToSymbolDetail = symbol => {
+        setSelectedSymbol(symbol);
+        history.push("/symbol-detail");
     }
 
-    const renderSuggestion = suggestion => {
-        return (
-            <NavLink className="suggestion" to="/symbol-detail" onClick={() => setSelectedSymbol(suggestion)}>
-                {suggestion.symbol} : {suggestion.description}
-            </NavLink>
-        );
-    }
-
-    const inputProps = {
-        value: query,
-        onChange: (event, {newValue}) => setQuery(newValue)
+    const buildOptionLabel = option => {
+        return option ? option.symbol + " " + option.description : "";
     }
 
     return (
-        <div id="searchField">
-            <SearchIcon/>
-            <AutoSuggest
-                suggestions={suggestionList}
-                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={() => setSuggestionList([])}
-                getSuggestionValue={suggestion => suggestion.description}
-                renderSuggestion={renderSuggestion}
-                inputProps={inputProps}
+        <Box sx={{width: 300, margin: "2rem auto"}}>
+            <Autocomplete
+                freeSolo
+                options={suggestionList}
+                getOptionLabel={option => buildOptionLabel(option)}
+                onChange={(event, value) => redirectToSymbolDetail(value)}
+                onInputChange={(event, value) => getSuggestions(value)}
+                renderInput={params => (
+                    <TextField {...params} label="Search symbols"/>
+                )}
             />
-        </div>
+        </Box>
     );
 }
 

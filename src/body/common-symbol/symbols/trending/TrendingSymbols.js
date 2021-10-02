@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "./trendingSymbols.css";
-import LoadingComponent from "../../../../util/LoadingComponent";
 import SymbolPresentation from "../../SymbolPresentation";
 import {getTrendingStocks} from "../../../../service/symbolService";
+import {CircularProgress} from "@mui/material";
 
 const TrendingSymbols = () => {
 
@@ -20,7 +20,7 @@ const TrendingSymbols = () => {
     }, []);
 
     if (isLoading) {
-        return <LoadingComponent/>
+        return <CircularProgress/>
     }
     return (
         <div id="trendingSymbols">

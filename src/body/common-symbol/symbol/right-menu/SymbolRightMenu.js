@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import OrderSymbol from "./OrderSymbol";
-import LoadingComponent from "../../../../util/LoadingComponent";
 import InvestmentSymbol from "./InvestmentSymbol";
 import "./symbolRightMenu.css";
 import {getUpcomingContests} from "../../../../service/contestService";
+import {CircularProgress} from "@mui/material";
 
 const SymbolRightMenu = ({symbol, currentPrice}) => {
 
@@ -26,7 +26,7 @@ const SymbolRightMenu = ({symbol, currentPrice}) => {
     }, []);
 
     if (isLoading) {
-        return <LoadingComponent/>
+        return <CircularProgress/>
     }
     return (
         <div id="symbolRightMenu">

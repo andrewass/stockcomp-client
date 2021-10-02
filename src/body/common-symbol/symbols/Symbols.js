@@ -4,10 +4,10 @@ import ContestStatus from "./contest-status/ContestStatus";
 import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import InvestmentTotal from "./InvestmentTotal";
-import SearchBar from "../search/SearchBar";
 import "./symbols.css";
 import {CircularProgress} from "@mui/material";
 import {getUpcomingContests} from "../../../service/contestService";
+import SearchField from "../search/SearchField";
 
 
 const Symbols = () => {
@@ -39,7 +39,7 @@ const Symbols = () => {
     }
     return (
         <div id="symbolsPage">
-            <SearchBar/>
+            <SearchField/>
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">

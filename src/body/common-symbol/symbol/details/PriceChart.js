@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import LoadingComponent from "../../../../util/LoadingComponent";
 import {getHistoricPrices} from "../../../../service/symbolService";
+import {CircularProgress} from "@mui/material";
 
 const PriceChart = ({symbol}) => {
 
@@ -20,7 +20,7 @@ const PriceChart = ({symbol}) => {
     }, []);
 
     if (isLoading) {
-        return <LoadingComponent/>
+        return <CircularProgress/>
     }
     return (
         <div id="priceChart">
