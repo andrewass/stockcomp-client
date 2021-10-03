@@ -9,8 +9,6 @@ RUN npm ci --production
 
 COPY . .
 
-EXPOSE 8000
-
 RUN npm run build
 
 

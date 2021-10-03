@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stockcomp-client
+  labels:
+    app: stockclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stockclient
+  template:
+    metadata:
+      labels:
+        app: stockclient
+    spec:
+      containers:
+        - name: stockclient
+          image: ghcr.io/andrewass/stockclient:latest
+          ports:
+            - containerPort: 80
+
