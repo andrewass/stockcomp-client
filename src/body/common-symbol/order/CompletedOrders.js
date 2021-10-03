@@ -1,20 +1,30 @@
 import React, {useState} from "react";
-import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {Collapse, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+
 
 const CompletedOrders = ({completedOrders}) => {
 
     const [open, setOpen] = useState(false);
 
+    const createListItem = (order) => {
+        return (
+            <ListItem sx={{pl: 4}}>
+                <ListItemText primary={order.symbol + " : Status " + order.totalAmount + "/"
+                + order.totalAmount + " at price " + order.acceptedPrice}/>
+            </ListItem>
+        );
+    }
+
     return (
-        <List>
+        <List sx={{width:"100%"}}>
             <ListItemButton onClick={() => setOpen(!open)}>
                 <ListItemText primary="Completed orders"/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
             <Collapse in={open} unmountOnExit>
-                <List component="div" disablePadding>
-                    {completedOrders.map((order) => <ListItemText primary={order.symbol} sx={{pl: 4}}/>)}
+                <List>
+                    {completedOrders.map((order) => createListItem(order))}
                 </List>
             </Collapse>
         </List>

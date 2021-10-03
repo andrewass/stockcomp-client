@@ -1,7 +1,5 @@
 import {
-    deleteActiveOrder,
-    getActiveOrdersParticipant,
-    getActiveOrdersParticipantSymbol
+    deleteActiveOrder
 } from "../../../service/investmentOrderService";
 import React, {useState} from "react";
 import {
@@ -25,10 +23,11 @@ const ActiveOrders = ({activeOrders, fetchActiveOrders}) => {
         fetchActiveOrders();
     }
 
-    const createActiveOrder = (order) => {
+    const createListItem = (order) => {
         return (
-            <ListItem key={order.orderId}>
-                <ListItemText primary={order.symbol} sx={{pl: 4}}/>
+            <ListItem sx={{pl: 4}}>
+                <ListItemText primary={order.symbol + " : Status " + order.totalAmount + "/"
+                + order.totalAmount + " at price " + order.acceptedPrice}/>
                 <ListItemSecondaryAction>
                     <IconButton aria-label="Delete" onClick={() => deleteOrder(order.orderId)}>
                         <Delete/>
@@ -45,8 +44,10 @@ const ActiveOrders = ({activeOrders, fetchActiveOrders}) => {
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
             <Collapse in={open} unmountOnExit>
-                <List component="div" disablePadding>
-                    {activeOrders.map(order => createActiveOrder(order))}
+                <List>
+                    <List>
+                        {activeOrders.map((order) => createListItem(order))}
+                    </List>
                 </List>
             </Collapse>
         </List>
