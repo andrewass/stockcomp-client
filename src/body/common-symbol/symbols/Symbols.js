@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import TrendingSymbols from "./trending/TrendingSymbols";
-import ContestStatus from "./contest-status/ContestStatus";
+import ActiveContests from "./contest/ActiveContests";
 import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import InvestmentTotal from "./InvestmentTotal";
@@ -43,7 +43,7 @@ const Symbols = () => {
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
-                    <ContestStatus contests={contestList}/>
+                    <ActiveContests contests={contestList}/>
                     <PortfolioStatus contest={runningContest}/>
                     <OrderTotal contest={runningContest}/>
                     <InvestmentTotal contest={runningContest}/>

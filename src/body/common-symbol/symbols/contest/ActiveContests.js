@@ -1,13 +1,13 @@
 import React from "react";
 import ActiveContest from "./ActiveContest";
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Typography} from "@mui/material";
 
-const ContestStatus = ({contests}) => {
+const ActiveContests = ({contests}) => {
 
     if (contests === undefined) {
         return (<CircularProgress/>);
     } else if (contests.length === 0) {
-        return (<p>No upcoming contests</p>);
+        return <Typography variant="p">No upcoming contests</Typography>
     } else {
         return (
             <div id="upcomingContests">
@@ -21,4 +21,4 @@ const ContestStatus = ({contests}) => {
     }
 }
 
-export default ContestStatus;
+export default ActiveContests;
