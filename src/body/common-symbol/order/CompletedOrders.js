@@ -18,7 +18,7 @@ const CompletedOrders = ({completedOrders}) => {
 
     return (
         <List sx={{width:"100%"}}>
-            <ListItemButton onClick={() => setOpen(!open)}>
+            <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
                 <ListItemText primary="Completed orders"/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>

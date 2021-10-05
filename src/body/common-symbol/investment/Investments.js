@@ -9,7 +9,7 @@ const Investments = ({investments}) => {
 
     return (
         <List>
-            <ListItemButton onClick={() => setOpen(!open)}>
+            <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
                 <ListItemText primary="Investments"/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>

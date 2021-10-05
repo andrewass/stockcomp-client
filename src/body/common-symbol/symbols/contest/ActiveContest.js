@@ -1,7 +1,8 @@
 import React from "react";
 import {signUpForContest} from "../../../../service/contestService";
-import {Button, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
+
 
 const ActiveContest = ({contest}) => {
 
@@ -11,12 +12,10 @@ const ActiveContest = ({contest}) => {
 
     const getContestStatus = () => {
         return (
-            <ListItem sx={{p: 0}}>
-                <ListItemIcon sx={{minWidth: "2rem"}}>
-                    <CircleIcon sx={{color: contest.running ? "green" : "orange"}}/>
-                </ListItemIcon>
-                <ListItemText primary={contest.running ? "Running" : "Starting " + contest.startTime}/>
-            </ListItem>
+            <Box display="flex">
+                <CircleIcon sx={{color: contest.running ? "green" : "orange", marginRight: 1}}/>
+                <Typography> {contest.running ? "Running" : "Starting " + contest.startTime}</Typography>
+            </Box>
         );
     }
 
@@ -31,11 +30,15 @@ const ActiveContest = ({contest}) => {
     }
 
     return (
-        <List>
-            <ListItemText>Contest {contest.contestNumber}</ListItemText>
-            {getContestStatus()}
-            {getParticipantStatus()}
-        </List>
+        <ListItem sx={{p:"0.5rem 0"}}>
+            <Card elevation={0}>
+                <CardContent>
+                    <Typography variant="h6">Contest {contest.contestNumber}</Typography>
+                    {getContestStatus()}
+                    {getParticipantStatus()}
+                </CardContent>
+            </Card>
+        </ListItem>
     );
 }
 

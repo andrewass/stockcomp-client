@@ -39,7 +39,7 @@ const ActiveOrders = ({activeOrders, getActiveOrders}) => {
 
     return (
         <List>
-            <ListItemButton onClick={() => setOpen(!open)}>
+            <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
                 <ListItemText primary="Active orders"/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>

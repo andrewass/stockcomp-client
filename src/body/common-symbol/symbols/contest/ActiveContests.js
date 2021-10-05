@@ -1,22 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 import ActiveContest from "./ActiveContest";
-import {CircularProgress, Typography} from "@mui/material";
+import {CircularProgress, Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
 
 const ActiveContests = ({contests}) => {
 
+    const [open, setOpen] = useState(true);
+
     if (contests === undefined) {
         return (<CircularProgress/>);
-    } else if (contests.length === 0) {
-        return <Typography variant="p">No upcoming contests</Typography>
     } else {
         return (
-            <div id="upcomingContests">
-                <ul id="contestList">
-                    {contests.map((contest) =>
-                        <ActiveContest key={contest.contestNumber} contest={contest}/>
-                    )}
-                </ul>
-            </div>
+            <List sx={{width:"100%"}}>
+                <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
+                    <ListItemText primary="Contests"/>
+                    {open ? <ExpandLess/> : <ExpandMore/>}
+                </ListItemButton>
+                <Collapse in={open} unmountOnExit>
+                    <List>
+                        {contests.map((contest) => <ActiveContest key={contest.contestNumber} contest={contest}/>)}
+                    </List>
+                </Collapse>
+            </List>
         );
     }
 }
