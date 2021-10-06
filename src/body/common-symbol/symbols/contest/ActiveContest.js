@@ -23,14 +23,14 @@ const ActiveContest = ({contest}) => {
         if (contest.rank) {
             return <ListItemText primary={"Rank " + contest.rank + " / " + contest.participantCount}/>
         } else if (contest.userParticipating) {
-            return <ListItemText primary={"Signed Up"}/>
+            return <ListItemText primary={"Signed Up"} sx={{p: 0}}/>
         } else {
             return <Button onClick={() => handleContestSignUp(contest.contestNumber)}>Sign Up</Button>
         }
     }
 
     return (
-        <ListItem sx={{p:"0.5rem 0"}}>
+        <ListItem sx={{p:0, paddingLeft:2}}>
             <Card elevation={0}>
                 <CardContent>
                     <Typography variant="h6">Contest {contest.contestNumber}</Typography>

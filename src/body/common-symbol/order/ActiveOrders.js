@@ -9,7 +9,7 @@ import {
     ListItem,
     ListItemButton,
     ListItemSecondaryAction,
-    ListItemText
+    ListItemText, Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 
@@ -25,7 +25,7 @@ const ActiveOrders = ({activeOrders, getActiveOrders}) => {
 
     const createListItem = (order) => {
         return (
-            <ListItem sx={{pl: 4}}>
+            <ListItem sx={{pl: 2}}>
                 <ListItemText primary={order.symbol + " : Status " + order.totalAmount + "/"
                 + order.totalAmount + " at price " + order.acceptedPrice}/>
                 <ListItemSecondaryAction>
@@ -40,7 +40,7 @@ const ActiveOrders = ({activeOrders, getActiveOrders}) => {
     return (
         <List>
             <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
-                <ListItemText primary="Active orders"/>
+                <ListItemText primary={<Typography variant="h5">Active Orders</Typography>} />
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
             <Collapse in={open} unmountOnExit>

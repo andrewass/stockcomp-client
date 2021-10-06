@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Collapse, List, ListItemButton, ListItemText} from "@mui/material";
+import {Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import Investment from "./Investment";
 
@@ -10,7 +10,7 @@ const Investments = ({investments}) => {
     return (
         <List>
             <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
-                <ListItemText primary="Investments"/>
+                <ListItemText primary={<Typography variant="h5">Investments</Typography> }/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
             <Collapse in={open} unmountOnExit>
