@@ -30,7 +30,7 @@ const ActiveContest = ({contest}) => {
     }
 
     return (
-        <ListItem sx={{p:0, paddingLeft:2}}>
+        <ListItem sx={{p:0, pl:2}}>
             <Card elevation={0}>
                 <CardContent>
                     <Typography variant="h6">Contest {contest.contestNumber}</Typography>
