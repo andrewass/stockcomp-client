@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Investment from "../../investment/Investment";
 import {getRemainingFunds} from "../../../../service/contestService";
 import {getInvestmentOfSymbol} from "../../../../service/investmentService";
-import {CircularProgress} from "@mui/material";
+import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 
 const InvestmentSymbol = ({contest, symbol}) => {
 
@@ -36,12 +36,15 @@ const InvestmentSymbol = ({contest, symbol}) => {
         return <CircularProgress/>
     }
     else {
-        return (
-            <div>
-                <h2>Portfolio Status</h2>
-                <p>Remaining funds : {remainingFunds}</p>
-                {displayInvestment()}
-            </div>
+
+        return(
+            <Card elevation={0} >
+                <CardContent>
+                    <Typography variant="h5" sx={{pb:"0.5rem"}}>Portfolio Status</Typography>
+                    <Typography sx={{pb:"1rem"}}>Remaining funds : {remainingFunds}</Typography>
+                    {displayInvestment()}
+                </CardContent>
+            </Card>
         );
     }
 }

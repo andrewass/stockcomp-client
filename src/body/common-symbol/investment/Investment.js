@@ -16,7 +16,7 @@ const Investment = ({investment}) => {
     }
 
     return(
-        <Card elevation={0} sx={{mt:"1rem", mb:"2rem", pl:2}}>
+        <Card elevation={0} sx={{mt:"1rem", mb:"2rem"}}>
             <CardContent>
                 <Typography variant="h6">{investment.symbol}</Typography>
                 <Typography>Amount invested : {investment.amount}</Typography>

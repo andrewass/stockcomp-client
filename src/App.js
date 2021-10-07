@@ -17,6 +17,14 @@ const myTheme = createTheme({
                     }
                 }
             }
+        },
+        MuiCircularProgress:{
+            styleOverrides: {
+                root:{
+                    width:"20%",
+                    margin:"10% 40%",
+                }
+            }
         }
     }
 });
