@@ -1,32 +1,41 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
+import React, {useContext, useState} from "react";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
-import EventIcon from '@mui/icons-material/Event';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import EventIcon from '@mui/icons-material/Event';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import "./header.css";
-import AccountDropDown from "./AccountDropDown";
+import {AppBar, Box, Button, Link, Tab, Tabs, Typography} from "@mui/material";
+import {NavLink} from "react-router-dom";
+import {UserContext} from "../context/UserContext";
+import {signOut, updateLocalStorage} from "../service/authService";
 
 const Header = () => {
 
+    const [value, setValue] = useState(0);
+    const {setIsSignedIn} = useContext(UserContext);
+
+    const signOutUser = async () => {
+        await signOut()
+        setIsSignedIn(false);
+        updateLocalStorage("false");
+    };
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue)
+    }
+
     return (
-        <header id="header">
-            <span id="appTitle">STOCK COMP</span>
-            <nav id="navigationBar">
-                <NavLink to="/stocks" className="navItem">
-                    <ShowChartIcon />
-                    <span className="headerText">STOCKS</span>
-                </NavLink>
-                <NavLink to="/leaderboard" className="navItem">
-                    <LeaderboardIcon />
-                    <span className="headerText">LEADERBOARD</span>
-                </NavLink>
-                <NavLink to="/contests" className="navItem">
-                    <EventIcon />
-                    <span className="headerText">CONTESTS</span>
-                </NavLink>
-                <AccountDropDown />
-            </nav>
-        </header>
+            <AppBar position="static">
+                <Tabs value={value} onChange={handleChange}>
+                    <Tab label="STOCK COMP" component={NavLink} to="/stocks"/>
+                    <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/stocks"/>
+                    <Tab label="LEADERBOARD" icon={<LeaderboardIcon/>} component={NavLink} to="/leaderboard"/>
+                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests"/>
+                    <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account"/>
+                    <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser} />
+                </Tabs>
+            </AppBar>
     );
 };
 
