@@ -4,7 +4,7 @@ import Body from "./body/Body";
 import SymbolProvider from "./context/SymbolContext";
 import UserProvider from "./context/UserContext";
 import {responseInterceptor, requestInterceptor} from "./service/interceptor";
-import {createTheme, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import {myTheme} from "./util/MyTheme";
 
 

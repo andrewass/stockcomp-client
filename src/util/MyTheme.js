@@ -19,13 +19,6 @@ const myTheme = createTheme({
                     margin:"10% 40%",
                 }
             }
-        },
-        MuiTab:{
-            styleOverrides:{
-                root:{
-                    color:"inherit"
-                }
-            }
         }
     }
 });
