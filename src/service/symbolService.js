@@ -1,10 +1,13 @@
 import axios from "axios";
 
+
+const baseUrl = process.env.REACT_APP_STOCK_QUOTE_BASE_URL;
+
 const URL = {
-    symbol_suggestions: "http://localhost:8088/stock/suggestions",
-    historic_prices: "http://localhost:8088/stock/historical-quotes",
-    real_time_price: "http://localhost:8088/stock/stock-quote",
-    trending_stocks: "http://localhost:8088/stock/stock-quote-trending"
+    symbol_suggestions: baseUrl+"/stock/suggestions",
+    historic_prices: baseUrl+"/stock/historical-quotes",
+    real_time_price: baseUrl+"/stock/stock-quote",
+    trending_stocks: baseUrl+"/stock/stock-quote-trending"
 };
 
 const getSuggestionsFromQuery = (query) => {

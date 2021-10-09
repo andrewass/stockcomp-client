@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
+
 const URL = {
-    total_investment : "http://localhost:8080/investment/total-investments",
-    symbol_investment : "http://localhost:8080/investment/symbol-investment",
-    total_investment_value : "http://localhost:8080/investment/total-investment-value"
+    total_investment: baseUrl + "/investment/total-investments",
+    symbol_investment: baseUrl + "/investment/symbol-investment",
+    total_investment_value: baseUrl + "/investment/total-investment-value"
 }
 
 const getAllInvestmentsForContest = (contestNumber) => {

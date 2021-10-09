@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
+
 const URL = {
-    upcoming_contests: "http://localhost:8080/contest/upcoming-contests",
-    sign_up: "http://localhost:8080/contest/sign-up",
-    user_participating: "http://localhost:8080/contest/user-participating",
-    remaining_funds: "http://localhost:8080/contest/remaining-funds"
+    upcoming_contests: baseUrl + "/contest/upcoming-contests",
+    sign_up: baseUrl + "/contest/sign-up",
+    user_participating: baseUrl + "/contest/user-participating",
+    remaining_funds: baseUrl + "/contest/remaining-funds"
 };
 
 const getUpcomingContests = () => {

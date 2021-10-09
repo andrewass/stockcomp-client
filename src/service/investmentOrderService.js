@@ -1,13 +1,15 @@
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
+
 const URL = {
-    place_buy_order: "http://localhost:8080/investment-order/place-buy-order",
-    place_sell_order: "http://localhost:8080/investment-order/place-sell-order",
-    delete_active_order: "http://localhost:8080/investment-order/delete-active-order",
-    completed_orders_participant: "http://localhost:8080/investment-order/completed-orders-participant",
-    completed_orders_participant_symbol: "http://localhost:8080/investment-order/completed-orders-symbol-participant",
-    active_orders_participant: "http://localhost:8080/investment-order/active-orders-participant",
-    active_orders_participant_symbol: "http://localhost:8080/investment-order/active-orders-symbol-participant"
+    place_buy_order: baseUrl+"/investment-order/place-buy-order",
+    place_sell_order: baseUrl+"/investment-order/place-sell-order",
+    delete_active_order: baseUrl+"/investment-order/delete-active-order",
+    completed_orders_participant: baseUrl+"/investment-order/completed-orders-participant",
+    completed_orders_participant_symbol: baseUrl+"/investment-order/completed-orders-symbol-participant",
+    active_orders_participant: baseUrl+"/investment-order/active-orders-participant",
+    active_orders_participant_symbol: baseUrl+"/investment-order/active-orders-symbol-participant"
 }
 
 const placeBuyOrder = (request) => {

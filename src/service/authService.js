@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
+
 const URL = {
-    sign_in: "http://localhost:8080/auth/sign-in",
-    sign_up: "http://localhost:8080/auth/sign-up",
-    sign_out: "http://localhost:8080/auth/sign-out",
-    refresh_token: "http://localhost:8080/auth/refresh-token"
+    sign_in: baseUrl+"/auth/sign-in",
+    sign_up: baseUrl+"/auth/sign-up",
+    sign_out: baseUrl+"/auth/sign-out",
+    refresh_token: baseUrl+"/auth/refresh-token"
 };
 
 const signUp = async (username, password, email) => {

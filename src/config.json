@@ -1,0 +1,6 @@
+
+{
+  "ENVIRONMENT": "local",
+  "STOCK_CONTEST_BASE_URL": "http://localhost:8080",
+  "STOCK_QUOTE_BASE_URL": "http://localhost:8088"
+}

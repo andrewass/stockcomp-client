@@ -6,7 +6,7 @@ import {UserList} from "./CustomUser";
 import {authProvider} from "./authProvider";
 import LogoutButton from "./LogoutButton";
 
-const dataProvider = restProvider("http://localhost:8080");
+const dataProvider = restProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
 
 export const AdminPage = () => (
     <Admin dataProvider={dataProvider} authProvider={authProvider} logoutButton={LogoutButton}>
