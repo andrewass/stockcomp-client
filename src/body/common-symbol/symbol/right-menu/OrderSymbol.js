@@ -29,7 +29,8 @@ const OrderSymbol = ({contest, symbol, currentPrice}) => {
 
     return (
         <div>
-            <OrderForm symbol={symbol} contest={contest} currentPrice={currentPrice}/>
+            <OrderForm symbol={symbol} contest={contest}
+                       currentPrice={currentPrice} populateOrderList={populateOrderList}/>
             <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>

@@ -1,12 +1,13 @@
 import React, {useContext, useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
-import {signIn, updateLocalStorage} from "../../service/authService";
+import {signIn} from "../../service/authService";
 import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
 import {InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
+import toast, {Toaster} from "react-hot-toast";
 
 const useStyles = makeStyles({
     root: {
@@ -38,10 +39,17 @@ const SignIn = ({setDisplaySignUp}) => {
 
     const postSignInToServer = async (event) => {
         event.preventDefault();
-        let response = await signIn(username, password);
-        updateLocalStorage("true");
-        setIsSignedIn(true);
-        (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
+        try {
+            let response = await signIn(username, password);
+            console.log(JSON.stringify(response));
+            setIsSignedIn(true);
+            (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
+        } catch (e) {
+            toast.error("Unable to sign in. Verify username and password is correct", {
+                duration: 4000,
+                position: "top-center"
+            });
+        }
     }
 
     return (
@@ -67,6 +75,7 @@ const SignIn = ({setDisplaySignUp}) => {
                        }}/>
             <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
+            <Toaster/>
         </form>
     );
 };

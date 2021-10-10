@@ -5,7 +5,7 @@ import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 
 
@@ -24,8 +24,8 @@ const OperationSelect = ({operationType, setOperationType}) => {
         <FormControl>
             <InputLabel>Operation</InputLabel>
             <Select value={operationType} label="Operation" onChange={event => setOperationType(event.target.value)}>
-                <MenuItem value="BUY">BUY</MenuItem>
-                <MenuItem value="SELL">SELL</MenuItem>
+                <MenuItem value="Buy">Buy</MenuItem>
+                <MenuItem value="Sell">Sell</MenuItem>
             </Select>
         </FormControl>
     );
@@ -44,12 +44,12 @@ const ExpirationSelect = ({expirationTime, setExpirationTime}) => {
     );
 }
 
-const OrderForm = ({symbol, contest, currentPrice}) => {
+const OrderForm = ({symbol, contest, currentPrice, populateOrderList}) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState(Date.now);
     const [orderAmount, setOrderAmount] = useState();
-    const [operationType, setOperationType] = useState("BUY");
+    const [operationType, setOperationType] = useState("Buy");
 
     const createInvestmentOrderRequest = () => {
         return {
@@ -63,12 +63,15 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
     }
 
     const sendOrder = async () => {
-        operationType === "BUY"
+        operationType === "Buy"
             ? await placeBuyOrder(createInvestmentOrderRequest())
             : await placeSellOrder(createInvestmentOrderRequest());
-        toast("This is a toast");
+        populateOrderList();
+        toast.success(operationType+" order for "+symbol.symbol+" submitted",{
+            duration:4000,
+            position:"top-right"
+        });
     }
-
 
     return (
         <form id="submitOrderForm">
