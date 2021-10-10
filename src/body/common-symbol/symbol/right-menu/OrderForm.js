@@ -5,6 +5,7 @@ import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import toast, { Toaster } from 'react-hot-toast';
 import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 
 
@@ -65,6 +66,7 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
         operationType === "BUY"
             ? await placeBuyOrder(createInvestmentOrderRequest())
             : await placeSellOrder(createInvestmentOrderRequest());
+        toast("This is a toast");
     }
 
 
@@ -76,6 +78,7 @@ const OrderForm = ({symbol, contest, currentPrice}) => {
                 <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
                 <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
                 <Button variant="contained" onClick={sendOrder}>Submit</Button>
+                <Toaster/>
             </div>
         </form>
     );
