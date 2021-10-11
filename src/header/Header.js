@@ -8,7 +8,7 @@ import "./header.css";
 import {AppBar, Button, createTheme, Tab, Tabs, ThemeProvider} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
-import {signOut, updateLocalStorage} from "../service/authService";
+import {signOut, setSignedInToLocalStorage} from "../service/authService";
 
 
 const localTheme = createTheme({
@@ -45,7 +45,7 @@ const Header = () => {
     const signOutUser = async () => {
         await signOut()
         setIsSignedIn(false);
-        updateLocalStorage("false");
+        setSignedInToLocalStorage(false);
     };
 
     const handleChange = (event, newValue) => {

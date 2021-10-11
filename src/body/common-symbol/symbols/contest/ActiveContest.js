@@ -4,10 +4,11 @@ import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from
 import CircleIcon from '@mui/icons-material/Circle';
 
 
-const ActiveContest = ({contest}) => {
+const ActiveContest = ({contest, fetchUpcomingContests}) => {
 
     const handleContestSignUp = async (contestNumber) => {
-        signUpForContest(contestNumber)
+        await signUpForContest(contestNumber);
+        fetchUpcomingContests();
     }
 
     const getContestStatus = () => {

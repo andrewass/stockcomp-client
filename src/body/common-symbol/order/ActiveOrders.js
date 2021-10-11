@@ -25,7 +25,7 @@ const ActiveOrders = ({activeOrders, getActiveOrders}) => {
 
     const createListItem = (order) => {
         return (
-            <ListItem sx={{pl: 2}}>
+            <ListItem key={order.orderId} sx={{pl: 2}}>
                 <ListItemText primary={order.symbol + " : "+order.transactionType+" status "
                 + (order.totalAmount-order.remainingAmount) + "/" + order.totalAmount
                 + " . Price " + order.acceptedPrice+" "+order.currency}/>

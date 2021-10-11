@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
-import {signUp, updateLocalStorage} from "../../service/authService";
+import {signUp, setSignedInToLocalStorage} from "../../service/authService";
 import {makeStyles} from "@mui/styles";
 import {InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -55,7 +55,7 @@ const SignUp = ({setDisplaySignUp}) => {
         event.preventDefault();
         if (matchingPasswords()) {
             await signUp(username, password, email)
-            updateLocalStorage("true");
+            setSignedInToLocalStorage(true);
             setIsSignedIn(true);
             history.push("/stocks");
         } else {

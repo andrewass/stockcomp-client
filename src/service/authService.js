@@ -43,11 +43,7 @@ const refreshToken = () => {
     });
 }
 
-const getSignedInUser = () => {
-    return JSON.parse(localStorage.getItem("user"))
-};
-
-const updateLocalStorage = (isSignedIn) => {
+const setSignedInToLocalStorage = (isSignedIn) => {
     localStorage.setItem("isSignedIn", isSignedIn);
 };
 
@@ -56,6 +52,5 @@ export {
     signUp,
     signOut,
     refreshToken,
-    getSignedInUser,
-    updateLocalStorage
+    setSignedInToLocalStorage
 };

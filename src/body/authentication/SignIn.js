@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
-import {signIn} from "../../service/authService";
+import {setSignedInToLocalStorage, signIn} from "../../service/authService";
 import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
 import {InputAdornment, TextField, Typography} from "@mui/material";
@@ -41,8 +41,8 @@ const SignIn = ({setDisplaySignUp}) => {
         event.preventDefault();
         try {
             let response = await signIn(username, password);
-            console.log(JSON.stringify(response));
             setIsSignedIn(true);
+            setSignedInToLocalStorage(true);
             (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
         } catch (e) {
             toast.error("Unable to sign in. Verify username and password is correct", {
@@ -65,14 +65,14 @@ const SignIn = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => updatePassword(e)}
-                       InputProps={{
-                           startAdornment: (
-                               <InputAdornment position="start">
-                                   <LockIcon/>
-                               </InputAdornment>
-                           )
-                       }}/>
+            <TextField sx={{mt: 4}} label="Password" type="password" autoComplete="current-password"
+                       onChange={e => updatePassword(e)} InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <LockIcon/>
+                    </InputAdornment>
+                )
+            }}/>
             <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
             <Toaster/>

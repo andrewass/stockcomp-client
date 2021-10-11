@@ -15,8 +15,7 @@ const InvestmentTotal = ({contest}) => {
     }
 
     useEffect(() => {
-        populateInvestmentList()
-            .catch(error => console.log(error));
+        populateInvestmentList().catch(error => console.log(error));
     }, []);
 
     return (

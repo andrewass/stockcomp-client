@@ -23,8 +23,7 @@ const OrderSymbol = ({contest, symbol, currentPrice}) => {
     }
 
     useEffect(() => {
-        populateOrderList()
-            .catch(error => console.log(error));
+        populateOrderList().catch(error => console.log(error));
     }, []);
 
     return (

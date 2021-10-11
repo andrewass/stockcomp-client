@@ -43,7 +43,7 @@ const Symbols = () => {
             <div id="symbolsBody">
                 <TrendingSymbols/>
                 <div className="rightMenu" id="symbolsRightMenu">
-                    <ActiveContests contests={contestList}/>
+                    <ActiveContests contests={contestList} fetchUpcomingContests={fetchUpcomingContests}/>
                     <PortfolioStatus contest={runningContest}/>
                     <OrderTotal contest={runningContest}/>
                     <InvestmentTotal contest={runningContest}/>

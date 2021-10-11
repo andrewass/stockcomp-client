@@ -21,8 +21,7 @@ const PortfolioStatus = ({contest}) => {
     }
 
     useEffect(() => {
-        fetchParticipantData()
-            .catch(error => console.log(error));
+        fetchParticipantData().catch(error => console.log(error));
     }, []);
 
     return(
