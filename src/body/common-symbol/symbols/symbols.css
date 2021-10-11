@@ -1,10 +1,4 @@
 
-#symbolsBody{
-    display: flex;
-    flex-flow: row nowrap;
-    margin-left: 10%;
-}
-
 @media(max-width:1050px) {
     #symbolsBody{
         display: flex;

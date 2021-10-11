@@ -5,7 +5,7 @@ import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import InvestmentTotal from "./InvestmentTotal";
 import "./symbols.css";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 import {getUpcomingContests} from "../../../service/contestService";
 import SearchField from "../search/SearchField";
 
@@ -38,18 +38,18 @@ const Symbols = () => {
         return <CircularProgress/>
     }
     return (
-        <div id="symbolsPage">
+        <Box id="symbolsPage">
             <SearchField/>
-            <div id="symbolsBody">
+            <Box id="symbolsBody" sx={{display:"flex", flexFlow:"row nowrap", ml:"10%"}}>
                 <TrendingSymbols/>
-                <div className="rightMenu" id="symbolsRightMenu">
+                <Box className="rightMenu" id="symbolsRightMenu" sx={{width:"30%"}}>
                     <ActiveContests contests={contestList} fetchUpcomingContests={fetchUpcomingContests}/>
                     <PortfolioStatus contest={runningContest}/>
                     <OrderTotal contest={runningContest}/>
                     <InvestmentTotal contest={runningContest}/>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

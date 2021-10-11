@@ -3,7 +3,7 @@ import OrderSymbol from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
 import "./symbolRightMenu.css";
 import {getUpcomingContests} from "../../../../service/contestService";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 
 const SymbolRightMenu = ({symbol, currentPrice}) => {
 
@@ -29,10 +29,10 @@ const SymbolRightMenu = ({symbol, currentPrice}) => {
         return <CircularProgress/>
     }
     return (
-        <div id="symbolRightMenu">
+        <Box sx={{width:"30%"}} >
             <InvestmentSymbol contest={activeContest} symbol={symbol}/>
             <OrderSymbol contest={activeContest} symbol={symbol} currentPrice={currentPrice}/>
-        </div>
+        </Box>
     );
 }
 

@@ -4,7 +4,7 @@ import DetailBlock from "./details/DetailBlock";
 import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 import "./symbol.css";
 import {getRealTimePrice} from "../../../service/symbolService";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 import SearchField from "../search/SearchField";
 
 const Symbol = () => {
@@ -31,10 +31,10 @@ const Symbol = () => {
     return (
         <div id="symbolPage">
             <SearchField/>
-            <div id="symbolBody">
+            <Box id="symbolBody" sx={{mt:"3%", display:"flex", flexFlow:"row nowrap"}}>
                 <DetailBlock symbol={selectedSymbol} currentPrice={currentPrice}/>
                 <SymbolRightMenu symbol={selectedSymbol} currentPrice={currentPrice}/>
-            </div>
+            </Box>
         </div>
     );
 }

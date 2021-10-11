@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import "./trendingSymbols.css";
 import SymbolPresentation from "../../SymbolPresentation";
 import {getTrendingStocks} from "../../../../service/symbolService";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress, Grid} from "@mui/material";
 
 const TrendingSymbols = () => {
 
@@ -22,14 +21,17 @@ const TrendingSymbols = () => {
     if (isLoading) {
         return <CircularProgress/>
     }
+
     return (
-        <div id="trendingSymbols">
-            <div id="symbolGrid">
-                    {trendingSymbols.map((symbol) =>
-                        <SymbolPresentation key={symbol.symbol} symbol={symbol}/>
-                    )}
-            </div>
-        </div>
+        <Box sx={{width: "70%"}}>
+            <Grid container rowSpacing={1} columnSpacing={1}>
+                {trendingSymbols.map((symbol) =>
+                    <Grid key={symbol.symbol} item md={6} sm={12}>
+                        <SymbolPresentation  symbol={symbol}/>
+                    </Grid>
+                )}
+            </Grid>
+        </Box>
     );
 }
 
