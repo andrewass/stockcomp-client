@@ -23,7 +23,7 @@ const Symbols = () => {
     const fetchUpcomingContests = async () => {
         const response = await getUpcomingContests();
         const contests = response.data;
-        if(contests){
+        if (contests) {
             setContestList(contests);
             setRunningContest(getContestNumberOfParticipatingContest(contests));
         }
@@ -34,19 +34,29 @@ const Symbols = () => {
         fetchUpcomingContests().catch(error => console.log(error));
     }, []);
 
+    const getParticipantData = () => {
+        if (runningContest) {
+            return (
+                <React.Fragment>
+                    <PortfolioStatus contest={runningContest}/>
+                    <OrderTotal contest={runningContest}/>
+                    <InvestmentTotal contest={runningContest}/>
+                </React.Fragment>
+            )
+        }
+    }
+
     if (isLoading) {
         return <CircularProgress/>
     }
     return (
         <Box id="symbolsPage">
             <SearchField/>
-            <Box id="symbolsBody" sx={{display:"flex", flexFlow:"row nowrap", ml:"10%"}}>
+            <Box id="symbolsBody" sx={{display: "flex", flexFlow: "row nowrap", ml: "10%"}}>
                 <TrendingSymbols/>
-                <Box className="rightMenu" id="symbolsRightMenu" sx={{width:"30%"}}>
+                <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
                     <ActiveContests contests={contestList} fetchUpcomingContests={fetchUpcomingContests}/>
-                    <PortfolioStatus contest={runningContest}/>
-                    <OrderTotal contest={runningContest}/>
-                    <InvestmentTotal contest={runningContest}/>
+                    {getParticipantData()}
                 </Box>
             </Box>
         </Box>

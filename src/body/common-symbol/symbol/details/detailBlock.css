@@ -3,25 +3,6 @@
     margin-left: 40%;
 }
 
-#selectedSymbol{
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-#symbolDescription{
-    width: 70%;
-}
-
-.positivePriceDiff{
-    margin-left: 1rem;
-    color : #26de26;
-}
-
-.negativePriceDiff{
-    margin-left: 0.5rem;
-    color: red;
-}
-
 #priceChart{
     margin-top: 5%;
     margin-right: 10%;
@@ -32,7 +13,7 @@
 }
 
 @media(max-width:1000px) {
-    #detailBlock, #symbolDescription{
+    #detailBlock{
         width: 100%;
     }
 }
