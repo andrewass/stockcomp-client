@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import OrderSymbol from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
-import "./symbolRightMenu.css";
 import {getUpcomingContests} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
 
@@ -27,13 +26,16 @@ const SymbolRightMenu = ({symbol, currentPrice}) => {
 
     if (isLoading) {
         return <CircularProgress/>
+    } else if(activeContest) {
+        return (
+            <Box id="symbolRightMenu" sx={{width: "30%"}}>
+                <InvestmentSymbol contest={activeContest} symbol={symbol}/>
+                <OrderSymbol contest={activeContest} symbol={symbol} currentPrice={currentPrice}/>
+            </Box>
+        );
+    }else {
+        return null;
     }
-    return (
-        <Box sx={{width:"30%"}} >
-            <InvestmentSymbol contest={activeContest} symbol={symbol}/>
-            <OrderSymbol contest={activeContest} symbol={symbol} currentPrice={currentPrice}/>
-        </Box>
-    );
 }
 
 export default SymbolRightMenu;

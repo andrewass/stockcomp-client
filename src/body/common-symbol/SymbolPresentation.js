@@ -25,7 +25,7 @@ const SymbolPresentation = ({symbol}) => {
     }
 
     return (
-        <Card elevation={0} sx={{mt:"1rem", mb:"2rem"}}>
+        <Card elevation={0} id="symbolCard">
             <CardContent>
                 <Typography variant="h5">{symbol.name} ({symbol.symbol})</Typography>
                 <Typography>{getCurrentPrince()}</Typography>

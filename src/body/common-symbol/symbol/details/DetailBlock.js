@@ -1,17 +1,17 @@
 import React from "react";
 import PriceChart from "./PriceChart";
-import "./detailBlock.css";
 import SymbolPresentation from "../../SymbolPresentation";
+import {Box} from "@mui/material";
 
 const DetailBlock = ({symbol, currentPrice}) => {
 
     return (
-        <div id="detailBlock">
-            <div id="symbolDetail">
+        <Box id="detailBlock" display="flex" flexDirection="column" sx={{width:"60%", marginRight:"5%"}}>
+            <Box id="symbolData">
                 <SymbolPresentation symbol={currentPrice}/>
-            </div>
+            </Box>
             <PriceChart symbol={symbol}/>
-        </div>
+        </Box>
     );
 }
 

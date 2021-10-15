@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {getHistoricPrices} from "../../../../service/symbolService";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 
 const PriceChart = ({symbol}) => {
 
@@ -23,7 +23,7 @@ const PriceChart = ({symbol}) => {
         return <CircularProgress/>
     }
     return (
-        <div id="priceChart">
+        <Box id="priceChart" sx={{marginTop:"10%"}}>
             <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={historicPriceList}
                            margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
@@ -33,7 +33,7 @@ const PriceChart = ({symbol}) => {
                     <Tooltip/>
                 </AreaChart>
             </ResponsiveContainer>
-        </div>
+        </Box>
     );
 }
 

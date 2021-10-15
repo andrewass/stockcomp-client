@@ -38,7 +38,7 @@ const InvestmentSymbol = ({contest, symbol}) => {
     else {
 
         return(
-            <Card elevation={0} >
+            <Card elevation={0} id="investmentSymbol">
                 <CardContent>
                     <Typography variant="h5" sx={{pb:"0.5rem"}}>Portfolio Status</Typography>
                     <Typography sx={{pb:"1rem"}}>Remaining funds : {remainingFunds}</Typography>
