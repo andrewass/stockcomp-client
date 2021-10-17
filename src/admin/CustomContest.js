@@ -24,6 +24,7 @@ const ContestList = props => (
             <EmailField source="contestNumber"/>
             <TextField source="running"/>
             <TextField source="completed"/>
+            <TextField source="leaderboardUpdateStatus"/>
             <EditButton/>
         </Datagrid>
     </List>
