@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getAllLeaderboardEntries, getLeaderboardUserEntry} from "../../service/leaderboardService";
 import {CircularProgress} from "@mui/material";
+import LeaderboardEntry from "./LeaderboardEntry";
 
 const Leaderboard = () => {
 
@@ -27,7 +28,7 @@ const Leaderboard = () => {
     return (
         <div>
             <p>Leaderboard</p>
-                {leaderboardEntries.map(entry => <p>Entry</p>
+                {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry}/>
             )}
         </div>
     );
