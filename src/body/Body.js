@@ -3,12 +3,12 @@ import {Route, Switch} from "react-router-dom";
 import Contest from "./contest/Contest";
 import Leaderboard from "./leaderboard/Leaderboard";
 import Symbols from "./common-symbol/symbols/Symbols";
-import UserAccountRead from "./account/UserAccountRead";
 import ProtectedRoute from "../util/ProtectedRoute";
 import {AdminPage} from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
+import UserAccount from "./account/UserAccount";
 
 const Body = () => {
 
@@ -35,7 +35,7 @@ const Body = () => {
                 </ProtectedRoute>
                 <ProtectedRoute path="/account">
                     <Header/>
-                    <UserAccountRead/>
+                    <UserAccount/>
                 </ProtectedRoute>
                 <ProtectedRoute path="*">
                     <Header/>

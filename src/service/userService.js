@@ -7,11 +7,11 @@ const URL = {
     getDetails: baseUrl+"/user/get-details"
 }
 
-const updateUserDetails = async (fullName, country) => {
+const updateUserDetails = async (username, fullName, country) => {
     return axios({
         method: "put",
         url: URL.updateDetails,
-        data: {fullName, country},
+        data: {username, fullName, country},
         withCredentials: true
     });
 };
