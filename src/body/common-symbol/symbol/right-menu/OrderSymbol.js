@@ -3,6 +3,7 @@ import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
 import OrderForm from "./OrderForm";
 import {
+    getActiveOrdersParticipant,
     getActiveOrdersParticipantSymbol,
     getCompletedOrdersParticipantSymbol
 } from "../../../../service/investmentOrderService";
@@ -11,6 +12,11 @@ const OrderSymbol = ({contest, symbol, currentPrice}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
+
+    const getActiveOrders = async () => {
+        const response = await getActiveOrdersParticipant(contest.contestNumber);
+        setActiveOrders(response.data);
+    }
 
     const populateOrderList = async () => {
         if (contest) {
@@ -30,7 +36,7 @@ const OrderSymbol = ({contest, symbol, currentPrice}) => {
         <div>
             <OrderForm symbol={symbol} contest={contest}
                        currentPrice={currentPrice} populateOrderList={populateOrderList}/>
-            <ActiveOrders activeOrders={activeOrders} populateOrderList={populateOrderList}/>
+            <ActiveOrders activeOrders={activeOrders} getActiveOrders={getActiveOrders}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
     );

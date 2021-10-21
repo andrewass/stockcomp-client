@@ -23,10 +23,9 @@ const PriceChart = ({symbol}) => {
         return <CircularProgress/>
     }
     return (
-        <Box id="priceChart" sx={{marginTop:"10%"}}>
+        <Box id="priceChart" sx={{marginTop:"10%", width:"80%"}}>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={historicPriceList}
-                           margin={{top: 20, right: 20, bottom: 20, left: 20,}}>
+                <AreaChart data={historicPriceList}>
                     <XAxis dataKey="date"/>
                     <YAxis/>
                     <Area dataKey="price" stroke="#82ca9d" fill="#82ca9d"/>
