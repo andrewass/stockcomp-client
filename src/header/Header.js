@@ -33,7 +33,7 @@ const localTheme = createTheme({
             styleOverrides: {
                 root: {
                     fontSize: "2.5rem",
-                    color: "white"
+                    color: "#fff"
                 }
             }
         }, MuiTab: {
@@ -41,7 +41,14 @@ const localTheme = createTheme({
                 root: {
                     fontSize: "1rem",
                     margin: "0 0",
-                    color: "white"
+                    color: "#fff"
+                }
+            }
+        }, MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#2196f3",
+                    color: "#fff"
                 }
             }
         }
@@ -83,7 +90,7 @@ const Header = () => {
 
     return (
         <ThemeProvider theme={localTheme}>
-            {isLargeWidth ? renderWideNavBar() : <DropDownMenu/>}
+            {isLargeWidth ? renderWideNavBar() : <DropDownMenu signOutUser={signOutUser}/>}
         </ThemeProvider>
     );
 };
