@@ -10,13 +10,13 @@ const Authentication = () => {
     if (displaySignUp) {
         return (
             <div id="authentication">
-                <SignUp setDisplaySignUp={setDisplaySignUp}/>
+                <SignUp setDisplaySignUp={setDisplaySignUp} />
             </div>
         );
     } else {
         return (
             <div id="authentication">
-                <SignIn setDisplaySignUp={setDisplaySignUp}/>
+                <SignIn setDisplaySignUp={setDisplaySignUp} />
             </div>
         );
     }

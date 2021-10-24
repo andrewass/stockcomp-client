@@ -7,6 +7,12 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {styled} from "@mui/material";
+
+
+const StyledItemIcon = styled(ListItemIcon)({
+    marginRight: "0.5rem"
+});
 
 const DropDownMenu = ({signOutUser}) => {
 
@@ -32,34 +38,34 @@ const DropDownMenu = ({signOutUser}) => {
                         <MenuIcon sx={{fontSize: "3.5rem"}}/>
                     </IconButton>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <MenuItem color="primary" component={NavLink} to={"/stocks"}>
-                            <ListItemIcon>
+                        <MenuItem color="primary" component={NavLink} to={"/stocks"} onClick={handleClose}>
+                            <StyledItemIcon>
                                 <ShowChartIcon/>
-                            </ListItemIcon>
+                            </StyledItemIcon>
                             Stocks
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/leaderboard"}>
-                            <ListItemIcon>
+                        <MenuItem component={NavLink} to={"/leaderboard"} onClick={handleClose}>
+                            <StyledItemIcon>
                                 <LeaderboardIcon/>
-                            </ListItemIcon>
+                            </StyledItemIcon>
                             Lederboard
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/contests"}>
-                            <ListItemIcon>
+                        <MenuItem component={NavLink} to={"/contests"} onClick={handleClose}>
+                            <StyledItemIcon>
                                 <EventIcon/>
-                            </ListItemIcon>
+                            </StyledItemIcon>
                             Contests
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/account"}>
-                            <ListItemIcon>
+                        <MenuItem component={NavLink} to={"/account"} onClick={handleClose}>
+                            <StyledItemIcon>
                                 <AccountCircleIcon/>
-                            </ListItemIcon>
+                            </StyledItemIcon>
                             Account
                         </MenuItem>
                         <MenuItem onClick={signOutUser}>
-                            <ListItemIcon>
+                            <StyledItemIcon>
                                 <LogoutIcon/>
-                            </ListItemIcon>
+                            </StyledItemIcon>
                             Sign Out
                         </MenuItem>
                     </Menu>

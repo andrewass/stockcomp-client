@@ -4,12 +4,12 @@ import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
-import {signUp, setSignedInToLocalStorage} from "../../service/authService";
+import {setSignedInToLocalStorage, signUp} from "../../service/authService";
 import {makeStyles} from "@mui/styles";
 import {InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -17,9 +17,14 @@ const useStyles = makeStyles({
         alignItems: "center",
         margin: "10% auto",
         border: "1px ridge black",
-        width: "30%"
+        [theme.breakpoints.up("md")]: {
+            width: "30%"
+        },
+        [theme.breakpoints.down("md")]: {
+            width: "80%"
+        }
     }
-});
+}));
 
 const SignUp = ({setDisplaySignUp}) => {
 
@@ -101,7 +106,7 @@ const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <Button sx={{mt: 3}} type="submit" variant="contained" >Submit</Button>
+            <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
         </form>
     );

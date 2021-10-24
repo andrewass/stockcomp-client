@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import toast, {Toaster} from "react-hot-toast";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -17,9 +17,14 @@ const useStyles = makeStyles({
         alignItems: "center",
         margin: "10% auto",
         border: "1px ridge black",
-        width: "30%"
+        [theme.breakpoints.up("md")]: {
+            width: "30%"
+        },
+        [theme.breakpoints.down("md")]: {
+            width: "80%"
+        }
     }
-});
+}));
 
 const SignIn = ({setDisplaySignUp}) => {
 
