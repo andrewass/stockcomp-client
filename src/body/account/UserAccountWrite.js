@@ -1,21 +1,24 @@
 import React, {useState} from "react";
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {getData} from "country-list";
-import {Toaster} from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 import Button from "@mui/material/Button";
 import {updateUserDetails} from "../../service/userService";
 
 const countries = getData();
-
 
 const UserAccountWrite = ({userDetails}) => {
 
     const [country, setCountry] = useState(userDetails.country);
     const [fullName, setFullName] = useState(userDetails.fullName);
 
-    const submitUpdatedUserDetails = () => {
-        updateUserDetails(userDetails.username, fullName, country)
+    const submitUpdatedUserDetails = async () => {
+        await updateUserDetails(userDetails.username, fullName, country)
             .catch(error => console.log(error));
+        toast.success("User details successfully updated", {
+            duration: 4000,
+            position: "top-center"
+        });
     }
 
     return (

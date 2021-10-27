@@ -3,9 +3,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useContext} from "react";
-import {UserContext} from "../context/UserContext";
+import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
-import {signOut} from "../service/authService";
+import {signOut} from "../../service/authService";
 
 const LogoutButton = () => {
 

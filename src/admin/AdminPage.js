@@ -4,7 +4,7 @@ import restProvider from "ra-data-simple-rest";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";
 import {UserList} from "./CustomUser";
 import {authProvider} from "./authProvider";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "./button/LogoutButton";
 
 const dataProvider = restProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
 

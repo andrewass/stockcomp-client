@@ -1,20 +1,28 @@
 import React from "react";
 import {
-    BooleanInput,
+    Create,
     Datagrid,
     DateField,
     DateTimeInput,
     Edit,
-    Create,
     EditButton,
     EmailField,
     List,
     NumberInput,
+    SelectInput,
     SimpleForm,
     TextField,
     TextInput
 } from 'react-admin';
+import UpdateLeaderboardButton from "./button/InitLeadboardButton";
 
+
+const contestStatusList = [
+    {id: "Awaiting Start", name: "Awaiting Start"},
+    {id: "Running", name: "Running"},
+    {id: "Stopped", name: "Stopped"},
+    {id: "Completed", name: "Completed"}
+];
 
 const ContestList = props => (
     <List {...props}>
@@ -22,10 +30,10 @@ const ContestList = props => (
             <TextField source="id"/>
             <DateField source="startTime" showTime/>
             <EmailField source="contestNumber"/>
-            <TextField source="running"/>
-            <TextField source="completed"/>
+            <TextField source="contestStatus"/>
             <TextField source="leaderboardUpdateStatus"/>
-            <EditButton/>
+            <UpdateLeaderboardButton/>
+            <EditButton record={props.record}/>
         </Datagrid>
     </List>
 );
@@ -37,8 +45,7 @@ const ContestEdit = props => (
             <TextInput source="id"/>
             <DateTimeInput source="startTime"/>
             <NumberInput source="contestNumber"/>
-            <BooleanInput source="running"/>
-            <BooleanInput source="completed"/>
+            <SelectInput source="contestStatus" choices={contestStatusList}/>
         </SimpleForm>
     </Edit>
 );
