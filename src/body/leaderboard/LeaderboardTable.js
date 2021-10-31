@@ -1,10 +1,10 @@
 import React from "react";
 import {Paper, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow} from "@mui/material";
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
+import LeaderboardEntry from "./LeaderboardEntry";
 
 
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: "#2196f3",
         color: theme.palette.common.white,
@@ -17,8 +17,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const LeaderboardTable = ({leaderboardEntries}) => {
 
     return (
-        <TableContainer component={Paper} sx={{maxWidth:"50%", m:"0 auto", mt:"10%"}}>
-            <Table >
+        <TableContainer component={Paper} sx={{maxWidth: "50%", m: "0 auto", mt: "10%"}}>
+            <Table>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Ranking</StyledTableCell>
@@ -29,15 +29,7 @@ const LeaderboardTable = ({leaderboardEntries}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map((row) => (
-                        <TableRow key={row.name}>
-                            <StyledTableCell>{row.ranking}</StyledTableCell>
-                            <StyledTableCell>{row.username}</StyledTableCell>
-                            <StyledTableCell>{row.country}</StyledTableCell>
-                            <StyledTableCell>{row.score}</StyledTableCell>
-                            <StyledTableCell>n/a</StyledTableCell>
-                        </TableRow>
-                    ))}
+                    {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

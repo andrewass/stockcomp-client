@@ -3,6 +3,7 @@ import {getAllLeaderboardEntries, getLeaderboardUserEntry} from "../../service/l
 import {CircularProgress} from "@mui/material";
 import LeaderboardTable from "./LeaderboardTable";
 
+
 const Leaderboard = () => {
 
     const [leaderboardEntries, setLeaderboardEntries] = useState([]);
@@ -25,10 +26,11 @@ const Leaderboard = () => {
     if (isLoading) {
         return <CircularProgress/>
     }
+
     return (
-        <div>
+        <>
             <LeaderboardTable leaderboardEntries={leaderboardEntries}/>
-        </div>
+        </>
     );
 };
 

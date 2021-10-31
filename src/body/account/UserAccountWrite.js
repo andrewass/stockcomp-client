@@ -32,7 +32,7 @@ const UserAccountWrite = ({userDetails}) => {
                         onChange={event => setCountry(event.target.value)}
                         sx={{minWidth: "15rem"}}>
                     {countries.map((country) => (
-                        <MenuItem value={country.name}>
+                        <MenuItem value={country.code}>
                             {country.name ? country.name : "Select value"}
                         </MenuItem>
                     ))}
