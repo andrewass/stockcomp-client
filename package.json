@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "country-list": "^2.2.0",
     "date-fns": "^2.24.0",
+    "flag-icon-css": "^4.1.4",
     "ra-data-simple-rest": "^3.17.1",
     "react": "^17.0.1",
     "react-admin": "^3.17.1",

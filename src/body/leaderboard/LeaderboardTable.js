@@ -1,15 +1,47 @@
 import React from "react";
-import {Table, TableCell, TableContainer, TableHead} from "@mui/material";
+import {Paper, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow} from "@mui/material";
+import { styled } from '@mui/material/styles';
 
-const LeaderboardTable = () => {
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "#2196f3",
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const LeaderboardTable = ({leaderboardEntries}) => {
 
     return (
-        <TableContainer>
-            <Table>
+        <TableContainer component={Paper} sx={{maxWidth:"50%", m:"0 auto", mt:"10%"}}>
+            <Table >
                 <TableHead>
-                    <TableCell></TableCell>
+                    <TableRow>
+                        <StyledTableCell>Ranking</StyledTableCell>
+                        <StyledTableCell>Username</StyledTableCell>
+                        <StyledTableCell>Country</StyledTableCell>
+                        <StyledTableCell>Score</StyledTableCell>
+                        <StyledTableCell>Medals</StyledTableCell>
+                    </TableRow>
                 </TableHead>
+                <TableBody>
+                    {leaderboardEntries.map((row) => (
+                        <TableRow key={row.name}>
+                            <StyledTableCell>{row.ranking}</StyledTableCell>
+                            <StyledTableCell>{row.username}</StyledTableCell>
+                            <StyledTableCell>{row.country}</StyledTableCell>
+                            <StyledTableCell>{row.score}</StyledTableCell>
+                            <StyledTableCell>n/a</StyledTableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
             </Table>
         </TableContainer>
     );
 }
+
+export default LeaderboardTable;

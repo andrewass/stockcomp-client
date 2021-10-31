@@ -10,7 +10,7 @@ const SymbolRightMenu = ({symbol, currentPrice, isLargeWidth}) => {
     const [isLoading, setLoading] = useState(true);
 
     const getActiveContest = contests => {
-        return contests.find(contest => contest.userParticipating && contest.running);
+        return contests.find(contest => contest.userParticipating && contest.contestStatus === "Running");
     }
 
     const fetchUpcomingContests = async () => {

@@ -10,8 +10,9 @@ const CompletedOrders = ({completedOrders}) => {
     const createListItem = (order) => {
         return (
             <ListItem sx={{pl: 2}}>
-                <ListItemText primary={order.symbol + " : Status " + order.totalAmount + "/"
-                + order.totalAmount + " at price " + order.acceptedPrice}/>
+                <ListItemText primary={order.symbol + " : "+order.transactionType+" status "
+                + (order.totalAmount-order.remainingAmount) + "/" + order.totalAmount
+                + " . Price " + order.acceptedPrice+" "+order.currency}/>
             </ListItem>
         );
     }

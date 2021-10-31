@@ -17,7 +17,7 @@ const Symbols = () => {
     const [isLoading, setLoading] = useState(true);
 
     const getContestNumberOfParticipatingContest = (contestsData) => {
-        return contestsData.find(contest => contest.userParticipating && contest.running);
+        return contestsData.find(contest => contest.userParticipating && contest.contestStatus === "Running");
     }
 
     const fetchUpcomingContests = async () => {

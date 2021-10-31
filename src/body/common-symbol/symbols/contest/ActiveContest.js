@@ -15,8 +15,8 @@ const ActiveContest = ({contest, fetchUpcomingContests}) => {
     const getContestStatus = () => {
         return (
             <Box display="flex">
-                <CircleIcon sx={{color: contest.running ? "green" : "orange", marginRight: 1}}/>
-                <Typography> {contest.running
+                <CircleIcon sx={{color: contest.contestStatus === "Running" ? "green" : "orange", marginRight: 1}}/>
+                <Typography> {contest.contestStatus === "Running"
                     ? "Ending " + format(parseISO(contest.endTime), "yyyy-MM-dd HH:mm")
                     : "Starting " + format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</Typography>
             </Box>
