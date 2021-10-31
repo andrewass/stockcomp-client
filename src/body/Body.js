@@ -1,6 +1,6 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
-import Contest from "./contest/Contest";
+import Contests from "./contests/Contests";
 import Leaderboard from "./leaderboard/Leaderboard";
 import Symbols from "./common-symbol/symbols/Symbols";
 import ProtectedRoute from "../util/ProtectedRoute";
@@ -17,7 +17,7 @@ const Body = () => {
             <Switch>
                 <ProtectedRoute path="/contests">
                     <Header/>
-                    <Contest/>
+                    <Contests/>
                 </ProtectedRoute>
                 <ProtectedRoute path="/leaderboard">
                     <Header/>

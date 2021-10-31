@@ -11,7 +11,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {styled, useTheme} from '@mui/material/styles';
-import LeaderboardEntry from "./LeaderboardEntry";
+import ContestEntry from "./ContestEntry";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -21,7 +21,7 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     }
 }));
 
-const LeaderboardTable = ({leaderboardEntries}) => {
+const ContestTable = ({contests}) => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
@@ -29,21 +29,20 @@ const LeaderboardTable = ({leaderboardEntries}) => {
     return (
         <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
             <Table>
-                <TableHead>
+                <TableHead sx={{backgroundColor:"greenyellow"}}>
                     <TableRow>
-                        <StyledTableCell>Ranking</StyledTableCell>
-                        <StyledTableCell>Username</StyledTableCell>
-                        <StyledTableCell>Country</StyledTableCell>
-                        <StyledTableCell>Score</StyledTableCell>
-                        <StyledTableCell>Medals</StyledTableCell>
+                        <StyledTableCell>Contest</StyledTableCell>
+                        <StyledTableCell>Status</StyledTableCell>
+                        <StyledTableCell>Start Date</StyledTableCell>
+                        <StyledTableCell>Participants</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry}/>)}
+                    {contests.map(contest => <ContestEntry contest={contest}/>)}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 }
 
-export default LeaderboardTable;
+export default ContestTable;

@@ -26,7 +26,6 @@ const Leaderboard = () => {
     if (isLoading) {
         return <CircularProgress/>
     }
-
     return (
         <>
             <LeaderboardTable leaderboardEntries={leaderboardEntries}/>

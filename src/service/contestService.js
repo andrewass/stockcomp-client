@@ -4,6 +4,7 @@ const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
     upcoming_contests: baseUrl + "/contest/upcoming-contests",
+    all_contests: baseUrl + "/contest/all-contests",
     sign_up: baseUrl + "/contest/sign-up",
     user_participating: baseUrl + "/contest/user-participating",
     remaining_funds: baseUrl + "/contest/remaining-funds"
@@ -13,6 +14,14 @@ const getUpcomingContests = () => {
     return axios({
         method: "get",
         url: URL.upcoming_contests,
+        withCredentials: true
+    });
+}
+
+const getAllContests = () => {
+    return axios({
+        method: "get",
+        url: URL.all_contests,
         withCredentials: true
     });
 }
@@ -36,6 +45,6 @@ const getRemainingFunds = contestNumber => {
 }
 
 export {
-    getUpcomingContests, signUpForContest, getRemainingFunds
+    getUpcomingContests, getAllContests, signUpForContest, getRemainingFunds
 }
 
