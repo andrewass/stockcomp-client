@@ -8,7 +8,8 @@ import {AdminPage} from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
-import UserAccount from "./account/UserAccount";
+import UserAccountWrite from "./account/UserAccountWrite";
+import UserAccountRead from "./account/UserAccountRead";
 
 const Body = () => {
 
@@ -33,9 +34,13 @@ const Body = () => {
                 <ProtectedRoute path="/admin">
                     <AdminPage/>
                 </ProtectedRoute>
-                <ProtectedRoute path="/account">
+                <ProtectedRoute path="/account-write">
                     <Header/>
-                    <UserAccount/>
+                    <UserAccountWrite/>
+                </ProtectedRoute>
+                <ProtectedRoute path="/account-read">
+                    <Header/>
+                    <UserAccountRead/>
                 </ProtectedRoute>
                 <ProtectedRoute path="*">
                     <Header/>
