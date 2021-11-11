@@ -1,12 +1,15 @@
 import React from "react";
 import {Box, Typography} from "@mui/material";
+import {useLocation} from "react-router-dom";
 
-const UserAccountRead = ({userDetails}) => {
+const UserAccountRead = () => {
 
+    const data = useLocation();
+    const user = data.state.user;
 
     return (
         <Box>
-            <Typography>User Account Read</Typography>
+            <Typography>User Account Read {JSON.stringify(user)}</Typography>
         </Box>
     );
 

@@ -13,7 +13,7 @@ const LeaderboardEntry = ({entry}) => {
             <TableCell>{entry.ranking}</TableCell>
             <TableCell component={NavLink} to={{
                 pathname: "/account-read",
-                state: {username: entry.username}
+                state: {user: entry}
             }}>
                 {entry.username}
             </TableCell>

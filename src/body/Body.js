@@ -10,6 +10,7 @@ import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
 import UserAccountWrite from "./account/UserAccountWrite";
 import UserAccountRead from "./account/UserAccountRead";
+import ContestDetail from "./contests/contest-detail/ContestDetail";
 
 const Body = () => {
 
@@ -19,6 +20,10 @@ const Body = () => {
                 <ProtectedRoute path="/contests">
                     <Header/>
                     <Contests/>
+                </ProtectedRoute>
+                <ProtectedRoute path="/contest-detail">
+                    <Header/>
+                    <ContestDetail/>
                 </ProtectedRoute>
                 <ProtectedRoute path="/leaderboard">
                     <Header/>
