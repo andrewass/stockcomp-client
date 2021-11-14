@@ -8,7 +8,8 @@ const URL = {
     sign_up: baseUrl + "/contest/sign-up",
     user_participating: baseUrl + "/contest/user-participating",
     remaining_funds: baseUrl + "/contest/remaining-funds",
-    participant_ranking: baseUrl + "/contest/participants-by-rank"
+    participant_ranking: baseUrl + "/contest/participants-by-rank",
+    participant_history: baseUrl + "/contest/participant-history"
 };
 
 const getUpcomingContests = () => {
@@ -54,7 +55,17 @@ const getParticipantRanking = contestNumber => {
     });
 }
 
+const getParticipantHistory = username => {
+    return axios({
+        method: "get",
+        url: URL.participant_history,
+        withCredentials: true,
+        params: {username}
+    });
+}
+
 export {
-    getUpcomingContests, getAllContests, signUpForContest, getRemainingFunds, getParticipantRanking
+    getUpcomingContests, getAllContests, signUpForContest, getRemainingFunds,
+    getParticipantRanking, getParticipantHistory
 }
 

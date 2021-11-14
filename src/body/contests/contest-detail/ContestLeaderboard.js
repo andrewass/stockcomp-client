@@ -51,8 +51,7 @@ const ContestLeaderboard = ({contestNumber}) => {
                         <StyledTableCell>Ranking</StyledTableCell>
                         <StyledTableCell>Username</StyledTableCell>
                         <StyledTableCell>Country</StyledTableCell>
-                        <StyledTableCell>Score</StyledTableCell>
-                        <StyledTableCell>Medals</StyledTableCell>
+                        <StyledTableCell>Total Value</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
