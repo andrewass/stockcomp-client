@@ -15,10 +15,11 @@ const getAllLeaderboardEntries = () => {
     });
 }
 
-const getLeaderboardUserEntry = () => {
+const getLeaderboardUserEntry = (username) => {
     return axios({
         method: "get",
         url: URL.leaderboard_user_entry,
+        params: {username},
         withCredentials: true
     });
 }

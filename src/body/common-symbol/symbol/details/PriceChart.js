@@ -8,7 +8,7 @@ const PriceChart = ({symbol}) => {
     const [historicPriceList, setHistoricPriceList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const setHistoricPrices = async () => {
+    const fetchHistoricPrices = async () => {
         setIsLoading(true);
         const response = await getHistoricPrices(symbol.symbol);
         setHistoricPriceList(response.data);
@@ -16,7 +16,7 @@ const PriceChart = ({symbol}) => {
     }
 
     useEffect(() => {
-        setHistoricPrices().catch(error => console.log(error));
+        fetchHistoricPrices().catch(error => console.log(error));
     }, []);
 
     if (isLoading) {
