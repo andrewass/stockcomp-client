@@ -2,10 +2,10 @@ import React from "react";
 import {Card, CardContent, Typography} from "@mui/material";
 
 
-const SymbolPresentation = ({symbol}) => {
+const SymbolPresentation = ({symbolAndPrice}) => {
 
-    const priceDifference = (symbol.price - symbol.previousClose).toFixed(2);
-    const percentageDifference = ((priceDifference / symbol.previousClose) * 100).toFixed(2);
+    const priceDifference = (symbolAndPrice.price - symbolAndPrice.previousClose).toFixed(2);
+    const percentageDifference = ((priceDifference / symbolAndPrice.previousClose) * 100).toFixed(2);
 
     const getPriceDifferenceUSD = () => {
         return priceDifference >= 0.00 ? "+" + priceDifference : priceDifference;
@@ -16,19 +16,19 @@ const SymbolPresentation = ({symbol}) => {
     }
 
     const getCurrentPrince = () => {
-        if (symbol.currency === "USD") {
-            return <Typography variant="span">{symbol.price} {symbol.currency}</Typography>;
+        if (symbolAndPrice.currency === "USD") {
+            return <Typography variant="span">{symbolAndPrice.price} {symbolAndPrice.currency}</Typography>;
         } else {
             return <Typography variant="span">
-                {symbol.price} {symbol.currency} (USD {symbol.usdPrice.toFixed(2)})
+                {symbolAndPrice.price} {symbolAndPrice.currency} (USD {symbolAndPrice.usdPrice.toFixed(2)})
             </Typography>;
         }
     }
 
     return (
-        <Card elevation={0} id="symbolCard">
+        <Card elevation={0}>
             <CardContent>
-                <Typography variant="h5">{symbol.name} ({symbol.symbol})</Typography>
+                <Typography variant="h5">{symbolAndPrice.name} ({symbolAndPrice.symbol})</Typography>
                 <Typography>{getCurrentPrince()}</Typography>
                 <Typography
                     sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>

@@ -3,14 +3,14 @@ import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recha
 import {getHistoricPrices} from "../../../../service/symbolService";
 import {Box, CircularProgress} from "@mui/material";
 
-const PriceChart = ({currentSymbolAndPrice}) => {
+const PriceChart = ({symbolAndPrice}) => {
 
     const [historicPriceList, setHistoricPriceList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchHistoricPrices = async () => {
         setIsLoading(true);
-        const response = await getHistoricPrices(currentSymbolAndPrice.symbol);
+        const response = await getHistoricPrices(symbolAndPrice.symbol);
         setHistoricPriceList(response.data);
         setIsLoading(false);
     }

@@ -20,6 +20,8 @@ const ContestDetail = () => {
                 return "grey"
             case "Stopped" :
                 return "red"
+            default:
+                console.error("Invalid contest status " + contest.contestStatus);
         }
     }
 
@@ -27,15 +29,15 @@ const ContestDetail = () => {
         return (
             <Box display="flex">
                 <Typography> {contest.contestStatus}</Typography>
-                <CircleIcon sx={{color: getContestStatusColor(), marginLeft:"0.5rem"}}/>
+                <CircleIcon sx={{color: getContestStatusColor(), marginLeft: "0.5rem"}}/>
             </Box>
         );
     }
 
     return (
         <Box>
-            <Card elevation={0} id="symbolCard">
-                <CardContent sx={{ml: "23%", mt:"10%"}}>
+            <Card elevation={0}>
+                <CardContent sx={{ml: "23%", mt: "10%"}}>
                     <Typography variant="h5">Contest {contest.contestNumber}</Typography>
                     <Typography> Start date : {format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</Typography>
                     {getContestStatus()}
