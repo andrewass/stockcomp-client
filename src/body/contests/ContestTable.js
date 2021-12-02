@@ -38,7 +38,7 @@ const ContestTable = ({contests}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {contests.map(contest => <ContestEntry contest={contest}/>)}
+                    {contests.map(contest => <ContestEntry key={contest.contestNumber} contest={contest}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

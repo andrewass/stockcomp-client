@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import SymbolPresentation from "../../SymbolPresentation";
 import {getTrendingStocks} from "../../../../service/symbolService";
 import {Box, CircularProgress, Grid} from "@mui/material";
+import SymbolCard from "./SymbolCard";
 
 const TrendingSymbols = () => {
 
@@ -27,7 +27,7 @@ const TrendingSymbols = () => {
             <Grid container rowSpacing={1} columnSpacing={1}>
                 {trendingSymbols.map((symbol) =>
                     <Grid key={symbol.symbol} item md={6} sm={12}>
-                        <SymbolPresentation  symbol={symbol}/>
+                        <SymbolCard symbol={symbol}/>
                     </Grid>
                 )}
             </Grid>

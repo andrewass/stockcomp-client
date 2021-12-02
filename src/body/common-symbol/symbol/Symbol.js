@@ -35,7 +35,7 @@ const Symbol = () => {
             <Box id="symbolBody"
                  sx={{mt: "3%", display: "flex", justifyContent:"center", alignItems:"center",
                  flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"}}>
-                <DetailBlock symbol={selectedSymbol} currentPrice={currentPrice} isLargeWidth={isLargeWidth}/>
+                <DetailBlock currentSymbolAndPrice={currentPrice} isLargeWidth={isLargeWidth}/>
                 <SymbolRightMenu symbol={selectedSymbol} currentPrice={currentPrice} isLargeWidth={isLargeWidth}/>
             </Box>
         </div>

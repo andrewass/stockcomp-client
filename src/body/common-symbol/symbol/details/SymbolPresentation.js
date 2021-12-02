@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, CardContent, Typography} from "@mui/material";
 
+
 const SymbolPresentation = ({symbol}) => {
 
     const priceDifference = (symbol.price - symbol.previousClose).toFixed(2);
@@ -29,8 +30,10 @@ const SymbolPresentation = ({symbol}) => {
             <CardContent>
                 <Typography variant="h5">{symbol.name} ({symbol.symbol})</Typography>
                 <Typography>{getCurrentPrince()}</Typography>
-                <Typography sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>
-                <Typography sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferencePercentage()}%</Typography>
+                <Typography
+                    sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>
+                <Typography
+                    sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferencePercentage()}%</Typography>
             </CardContent>
         </Card>
     )
