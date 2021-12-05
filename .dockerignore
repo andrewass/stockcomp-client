@@ -1,0 +1,11 @@
+/.gitignore
+/.dockerignore
+/README.md
+/Dockerfile.prod
+/Dockerfile.dev
+/env/
+/kubernetes/
+/node_modules/
+/docker-compose_prod.yml
+/docker-compose_dev.yml
+/build/
