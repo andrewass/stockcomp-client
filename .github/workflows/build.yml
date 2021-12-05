@@ -4,10 +4,12 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
+  STOCK_QUOTE_URL_ARG: REACT_APP_STOCK_QUOTE_BASE_URL=http://stock-analyzer:8088
+  STOCK_CONTEST_URL_ARG: REACT_APP_STOCK_CONTEST_BASE_URL=http://stockcomp-service:8080
 
 jobs:
   build:
@@ -27,6 +29,8 @@ jobs:
         with:
           image: stockclient
           tags: latest
+          dockerfile: Dockerfile.prod
+          buildArgs: ${{ env.STOCK_QUOTE_URL_ARG }}, ${{ env.STOCK_CONTEST_URL_ARG }}
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
