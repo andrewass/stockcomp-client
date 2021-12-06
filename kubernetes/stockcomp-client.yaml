@@ -29,10 +29,28 @@ metadata:
 spec:
   selector:
     app: stockclient
-  type: NodePort
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30010
 
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stockclient-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.stockclient.com
+      http:
+        paths:
+            - pathType: Prefix
+              path: /
+              backend:
+                service:
+                  name: stockclient-service
+                  port:
+                    number: 80
