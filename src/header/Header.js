@@ -1,12 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {AppBar, Button, createTheme, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
-import {NavLink} from "react-router-dom";
-import {UserContext} from "../context/UserContext";
+import {NavLink, useHistory} from "react-router-dom";
 import {setSignedInToLocalStorage, signOut} from "../service/authService";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
@@ -17,14 +16,14 @@ const localTheme = createTheme({
         primary: {
             main: "#2196f3"
         },
-        secondary:{
+        secondary: {
             main: "#fff"
         }
     },
     components: {
         MuiTypography: {
             styleOverrides: {
-                root:{
+                root: {
                     textDecoration: "none"
                 }
             }
@@ -61,22 +60,22 @@ const Header = () => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
-    const {setIsSignedIn} = useContext(UserContext);
+    const history = useHistory();
 
     const signOutUser = async () => {
         await signOut()
-        setIsSignedIn(false);
         setSignedInToLocalStorage(false);
+        history.push("/authentication")
     };
 
     const renderWideNavBar = () => {
-        return(
+        return (
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
-                    <Tab label="STOCK COMP"  color="secondary" component={NavLink} to="/stocks" sx={{fontSize: "3rem"}}/>
+                    <Tab label="STOCK COMP" color="secondary" component={NavLink} to="/stocks" sx={{fontSize: "3rem"}}/>
                     <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/stocks"/>
                     <Tab label="LEADERBOARD" icon={<LeaderboardIcon/>} component={NavLink} to="/leaderboard"/>
-                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests" />
+                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests"/>
                     <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account-write"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>

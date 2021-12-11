@@ -1,8 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import {setSignedInToLocalStorage, signIn} from "../../service/authService";
-import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
 import {InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -32,7 +31,6 @@ const SignIn = ({setDisplaySignUp}) => {
     const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {setIsSignedIn} = useContext(UserContext);
 
     const updateUsername = (event) => {
         setUsername(event.target.value);
@@ -46,7 +44,6 @@ const SignIn = ({setDisplaySignUp}) => {
         event.preventDefault();
         try {
             let response = await signIn(username, password);
-            setIsSignedIn(true);
             setSignedInToLocalStorage(true);
             (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
         } catch (e) {

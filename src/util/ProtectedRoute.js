@@ -1,10 +1,11 @@
-import React, {useContext} from "react";
+import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
-import {UserContext} from "../context/UserContext";
 
 const ProtectedRoute = ({children, ...rest}) => {
 
-    const {isSignedIn} = useContext(UserContext);
+    const [isSignedIn, setSignedIn] = useState(
+        localStorage.getItem("isSignedIn") === "true"
+    );
 
     return (
         <Route {...rest} render={() => {

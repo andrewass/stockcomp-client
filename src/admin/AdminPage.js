@@ -1,12 +1,12 @@
 import React from "react";
 import {Admin, EditGuesser, Resource} from "react-admin";
-import restProvider from "ra-data-simple-rest";
+import simpleRestProvider from "ra-data-simple-rest";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";
 import {UserList} from "./CustomUser";
 import {authProvider} from "./authProvider";
 import LogoutButton from "./button/LogoutButton";
 
-const dataProvider = restProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
+const dataProvider = simpleRestProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
 
 export const AdminPage = () => (
     <Admin dataProvider={dataProvider} authProvider={authProvider} logoutButton={LogoutButton}>

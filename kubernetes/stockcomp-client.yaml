@@ -27,6 +27,7 @@ kind: Service
 metadata:
   name: stockclient-service
 spec:
+  type: NodePort
   selector:
     app: stockclient
   ports:
@@ -44,7 +45,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: www.stockclient.com
+    - host: stockcomp.io
       http:
         paths:
             - pathType: Prefix

@@ -1,8 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import {UserContext} from "../../context/UserContext";
 import {useHistory} from "react-router-dom";
 import {setSignedInToLocalStorage, signUp} from "../../service/authService";
 import {makeStyles} from "@mui/styles";
@@ -29,7 +28,6 @@ const useStyles = makeStyles(theme => ({
 const SignUp = ({setDisplaySignUp}) => {
 
     const classes = useStyles();
-    const {setIsSignedIn} = useContext(UserContext);
     const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -61,7 +59,6 @@ const SignUp = ({setDisplaySignUp}) => {
         if (matchingPasswords()) {
             await signUp(username, password, email)
             setSignedInToLocalStorage(true);
-            setIsSignedIn(true);
             history.push("/stocks");
         } else {
             setPassword("");
