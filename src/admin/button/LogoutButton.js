@@ -3,7 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useHistory} from "react-router-dom";
-import {setSignedInToLocalStorage, signOut} from "../../service/authService";
+import {removeSignedInFromLocalStorage, signOut} from "../../service/authService";
 
 const LogoutButton = () => {
 
@@ -11,7 +11,7 @@ const LogoutButton = () => {
 
     const signOutAdmin = async () => {
         await signOut().catch(error => console.log(error));
-        setSignedInToLocalStorage(false);
+        removeSignedInFromLocalStorage();
         history.go(0);
     }
 

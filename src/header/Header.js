@@ -6,7 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {AppBar, Button, createTheme, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import {NavLink, useHistory} from "react-router-dom";
-import {setSignedInToLocalStorage, signOut} from "../service/authService";
+import {removeSignedInFromLocalStorage, signOut} from "../service/authService";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 
@@ -64,7 +64,7 @@ const Header = () => {
 
     const signOutUser = async () => {
         await signOut()
-        setSignedInToLocalStorage(false);
+        removeSignedInFromLocalStorage()
         history.push("/authentication")
     };
 

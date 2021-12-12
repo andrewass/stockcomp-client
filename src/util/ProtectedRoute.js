@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
+import {LOCALSTORAGE_KEY} from "../service/authService";
 
 const ProtectedRoute = ({children, ...rest}) => {
 
-    const [isSignedIn, setSignedIn] = useState(
-        localStorage.getItem("isSignedIn") === "true"
+    const [isSignedIn] = useState(
+        localStorage.getItem(LOCALSTORAGE_KEY) === "true"
     );
 
     return (

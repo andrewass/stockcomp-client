@@ -44,7 +44,7 @@ const SignIn = ({setDisplaySignUp}) => {
         event.preventDefault();
         try {
             let response = await signIn(username, password);
-            setSignedInToLocalStorage(true);
+            setSignedInToLocalStorage();
             (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
         } catch (e) {
             toast.error("Unable to sign in. Verify username and password is correct", {

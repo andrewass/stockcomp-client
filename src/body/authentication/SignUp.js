@@ -58,7 +58,7 @@ const SignUp = ({setDisplaySignUp}) => {
         event.preventDefault();
         if (matchingPasswords()) {
             await signUp(username, password, email)
-            setSignedInToLocalStorage(true);
+            setSignedInToLocalStorage();
             history.push("/stocks");
         } else {
             setPassword("");
