@@ -9,7 +9,7 @@ const CompletedOrders = ({completedOrders}) => {
 
     const createListItem = (order) => {
         return (
-            <ListItem sx={{pl: 2}}>
+            <ListItem sx={{pl: 2}} key={order.orderId}>
                 <ListItemText primary={order.symbol + " : "+order.transactionType+" status "
                 + (order.totalAmount-order.remainingAmount) + "/" + order.totalAmount
                 + " . Price " + order.acceptedPrice+" "+order.currency}/>

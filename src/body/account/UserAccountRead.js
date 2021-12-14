@@ -42,7 +42,7 @@ const UserAccountRead = () => {
                 <CardContent>
                     <Box display="flex">
                         <Typography variant="h5">{user.username}</Typography>
-                        <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/>
+                        {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : <React.Fragment/>}
                     </Box>
                     <Typography>Medals n/a</Typography>
                     <Typography>Leaderboard rank : {leaderboardEntry.ranking}</Typography>
