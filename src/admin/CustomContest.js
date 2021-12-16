@@ -14,7 +14,9 @@ import {
     TextField,
     TextInput
 } from 'react-admin';
-import UpdateLeaderboardButton from "./button/InitLeadboardButton";
+import UpdateLeaderboardButton from "./button/UpdateLeadboardButton";
+import StartTasksButton from "./button/StartTasksButton";
+import StopTasksButton from "./button/StopTasksButton";
 
 
 const contestStatusList = [
@@ -32,6 +34,8 @@ const ContestList = props => (
             <EmailField source="contestNumber"/>
             <TextField source="contestStatus"/>
             <TextField source="leaderboardUpdateStatus"/>
+            <StartTasksButton/>
+            <StopTasksButton/>
             <UpdateLeaderboardButton/>
             <EditButton record={props.record}/>
         </Datagrid>

@@ -1,15 +1,15 @@
 import React from 'react';
 import Button from "@mui/material/Button";
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import {updateLeaderboard} from "../../service/adminService";
 import toast, {Toaster} from "react-hot-toast";
+import {startInvestmentProcessing, startOrderProcessing} from "../../service/adminService";
 
-const UpdateLeaderboardButton = ({record}) => {
+const StartTasksButton = () => {
 
     const handleClick = (event) => {
         event.stopPropagation();
-        updateLeaderboard(record.contestNumber);
-        toast.success("Leaderboard update initiated", {
+        startOrderProcessing();
+        startInvestmentProcessing();
+        toast.success("Start tasks initiated", {
             duration: 4000,
             position: "top-center"
         });
@@ -18,12 +18,11 @@ const UpdateLeaderboardButton = ({record}) => {
     return (
         <>
             <Button label="Approve" onClick={handleClick}>
-                <LeaderboardIcon sx={{ml: "3rem"}}/>
-                Update Leaderboard
+                Start Tasks
             </Button>
             <Toaster/>
         </>
     );
 }
 
-export default UpdateLeaderboardButton;
+export default StartTasksButton;
