@@ -1,14 +1,13 @@
 import React from 'react';
 import Button from "@mui/material/Button";
 import toast, {Toaster} from "react-hot-toast";
-import {startInvestmentProcessing, startOrderProcessing} from "../../service/adminService";
+import {startContestTasks} from "../../service/adminService";
 
 const StartTasksButton = () => {
 
     const handleClick = (event) => {
         event.stopPropagation();
-        startOrderProcessing();
-        startInvestmentProcessing();
+        startContestTasks().catch(error => console.log(error));
         toast.success("Start tasks initiated", {
             duration: 4000,
             position: "top-center"

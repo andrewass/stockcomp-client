@@ -4,10 +4,8 @@ const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
     update_leaderboard: baseUrl + "/admin/update-leaderboard",
-    start_investment_processing: baseUrl + "/admin/start-investment-processing",
-    stop_investment_processing: baseUrl + "/admin/stop-investment-processing",
-    start_order_processing: baseUrl + "/admin/start-order-processing",
-    stop_order_processing: baseUrl + "/admin/stop-order-processing",
+    start_contest_tasks: baseUrl + "/admin/start-contest-tasks",
+    stop_contest_tasks: baseUrl + "/admin/stop-contest-tasks",
 };
 
 const updateLeaderboard = contestNumber => {
@@ -19,39 +17,22 @@ const updateLeaderboard = contestNumber => {
     });
 }
 
-const startInvestmentProcessing = () => {
+const startContestTasks = () => {
     return axios({
         method: "post",
-        url: URL.start_investment_processing,
+        url: URL.start_contest_tasks,
         withCredentials: true
     });
 }
 
-const stopInvestmentProcessing = () => {
+const stopContestTasks = () => {
     return axios({
         method: "post",
-        url: URL.stop_investment_processing,
-        withCredentials: true
-    });
-}
-
-const startOrderProcessing = () => {
-    return axios({
-        method: "post",
-        url: URL.start_order_processing,
-        withCredentials: true
-    });
-}
-
-const stopOrderProcessing = () => {
-    return axios({
-        method: "post",
-        url: URL.stop_order_processing,
+        url: URL.stop_contest_tasks,
         withCredentials: true
     });
 }
 
 export {
-    updateLeaderboard, startInvestmentProcessing, stopInvestmentProcessing,
-    startOrderProcessing, stopOrderProcessing
+    updateLeaderboard, startContestTasks, stopContestTasks
 }
