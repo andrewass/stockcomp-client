@@ -1,10 +1,10 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    updateDetails: BASE_URL + "/user/update-details",
-    getDetails: BASE_URL+"/user/get-details"
+    updateDetails: CONTEST_BASE_URL + "/user/update-details",
+    getDetails: CONTEST_BASE_URL+"/user/get-details"
 }
 
 const updateUserDetails = async (username, fullName, country) => {

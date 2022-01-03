@@ -1,10 +1,10 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    leaderboard_entries: BASE_URL + "/leaderboard/entries",
-    leaderboard_user_entry: BASE_URL + "/leaderboard/user-entry"
+    leaderboard_entries: CONTEST_BASE_URL + "/leaderboard/entries",
+    leaderboard_user_entry: CONTEST_BASE_URL + "/leaderboard/user-entry"
 }
 
 const getAllLeaderboardEntries = () => {

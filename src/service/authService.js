@@ -1,14 +1,14 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 const LOCALSTORAGE_KEY = "isSignedInStockComp";
 
 const URL = {
-    sign_in: BASE_URL + "/auth/sign-in",
-    sign_up: BASE_URL + "/auth/sign-up",
-    sign_out: BASE_URL + "/auth/sign-out",
-    verify_admin: BASE_URL + "/auth/verify-admin",
-    refresh_token: BASE_URL + "/auth/refresh-token"
+    sign_in: CONTEST_BASE_URL + "/auth/sign-in",
+    sign_up: CONTEST_BASE_URL + "/auth/sign-up",
+    sign_out: CONTEST_BASE_URL + "/auth/sign-out",
+    verify_admin: CONTEST_BASE_URL + "/auth/verify-admin",
+    refresh_token: CONTEST_BASE_URL + "/auth/refresh-token"
 }
 
 const signUp = async (username, password, email) => {

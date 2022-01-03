@@ -1,12 +1,12 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {STOCK_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    symbol_suggestions: BASE_URL+"/stock/suggestions",
-    historic_prices: BASE_URL+"/stock/historical-quotes",
-    real_time_price: BASE_URL+"/stock/stock-quote",
-    trending_stocks: BASE_URL+"/stock/stock-quote-trending"
+    symbol_suggestions: STOCK_BASE_URL+"/stock/suggestions",
+    historic_prices: STOCK_BASE_URL+"/stock/historical-quotes",
+    real_time_price: STOCK_BASE_URL+"/stock/stock-quote",
+    trending_stocks: STOCK_BASE_URL+"/stock/stock-quote-trending"
 };
 
 const getSuggestionsFromQuery = (query) => {

@@ -1,11 +1,11 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    total_investment: BASE_URL + "/investment/total-investments",
-    symbol_investment: BASE_URL + "/investment/symbol-investment",
-    total_investment_value: BASE_URL + "/investment/total-investment-value"
+    total_investment: CONTEST_BASE_URL + "/investment/total-investments",
+    symbol_investment: CONTEST_BASE_URL + "/investment/symbol-investment",
+    total_investment_value: CONTEST_BASE_URL + "/investment/total-investment-value"
 }
 
 const getAllInvestmentsForContest = (contestNumber) => {

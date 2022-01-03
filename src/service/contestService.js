@@ -1,15 +1,15 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    upcoming_contests: BASE_URL + "/contest/upcoming-contests",
-    all_contests: BASE_URL + "/contest/all-contests",
-    sign_up: BASE_URL + "/contest/sign-up",
-    user_participating: BASE_URL + "/contest/user-participating",
-    remaining_funds: BASE_URL + "/contest/remaining-funds",
-    participant_ranking: BASE_URL + "/contest/participants-by-rank",
-    participant_history: BASE_URL + "/contest/participant-history"
+    upcoming_contests: CONTEST_BASE_URL + "/contest/upcoming-contests",
+    all_contests: CONTEST_BASE_URL + "/contest/all-contests",
+    sign_up: CONTEST_BASE_URL + "/contest/sign-up",
+    user_participating: CONTEST_BASE_URL + "/contest/user-participating",
+    remaining_funds: CONTEST_BASE_URL + "/contest/remaining-funds",
+    participant_ranking: CONTEST_BASE_URL + "/contest/participants-by-rank",
+    participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
 
 const getUpcomingContests = () => {

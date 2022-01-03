@@ -1,11 +1,11 @@
 import axios from "axios";
-import {BASE_URL} from "./serviceConfig";
+import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    update_leaderboard: BASE_URL + "/admin/update-leaderboard",
-    start_contest_tasks: BASE_URL + "/admin/start-contest-tasks",
-    stop_contest_tasks: BASE_URL + "/admin/stop-contest-tasks",
+    update_leaderboard: CONTEST_BASE_URL + "/admin/update-leaderboard",
+    start_contest_tasks: CONTEST_BASE_URL + "/admin/start-contest-tasks",
+    stop_contest_tasks: CONTEST_BASE_URL + "/admin/stop-contest-tasks",
 };
 
 const updateLeaderboard = contestNumber => {
