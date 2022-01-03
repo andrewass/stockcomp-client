@@ -1,11 +1,11 @@
 import axios from "axios";
+import {BASE_URL} from "./serviceConfig";
 
-const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
-    total_investment: baseUrl + "/investment/total-investments",
-    symbol_investment: baseUrl + "/investment/symbol-investment",
-    total_investment_value: baseUrl + "/investment/total-investment-value"
+    total_investment: BASE_URL + "/investment/total-investments",
+    symbol_investment: BASE_URL + "/investment/symbol-investment",
+    total_investment_value: BASE_URL + "/investment/total-investment-value"
 }
 
 const getAllInvestmentsForContest = (contestNumber) => {

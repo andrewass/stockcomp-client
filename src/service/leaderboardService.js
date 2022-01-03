@@ -1,10 +1,10 @@
 import axios from "axios";
+import {BASE_URL} from "./serviceConfig";
 
-const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
-    leaderboard_entries: baseUrl + "/leaderboard/entries",
-    leaderboard_user_entry: baseUrl + "/leaderboard/user-entry"
+    leaderboard_entries: BASE_URL + "/leaderboard/entries",
+    leaderboard_user_entry: BASE_URL + "/leaderboard/user-entry"
 }
 
 const getAllLeaderboardEntries = () => {

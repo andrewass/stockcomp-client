@@ -1,10 +1,10 @@
 import axios from "axios";
+import {BASE_URL} from "./serviceConfig";
 
-const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
-    updateDetails: baseUrl + "/user/update-details",
-    getDetails: baseUrl+"/user/get-details"
+    updateDetails: BASE_URL + "/user/update-details",
+    getDetails: BASE_URL+"/user/get-details"
 }
 
 const updateUserDetails = async (username, fullName, country) => {

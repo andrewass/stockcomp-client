@@ -1,11 +1,11 @@
 import axios from "axios";
+import {BASE_URL} from "./serviceConfig";
 
-const baseUrl = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
 const URL = {
-    update_leaderboard: baseUrl + "/admin/update-leaderboard",
-    start_contest_tasks: baseUrl + "/admin/start-contest-tasks",
-    stop_contest_tasks: baseUrl + "/admin/stop-contest-tasks",
+    update_leaderboard: BASE_URL + "/admin/update-leaderboard",
+    start_contest_tasks: BASE_URL + "/admin/start-contest-tasks",
+    stop_contest_tasks: BASE_URL + "/admin/stop-contest-tasks",
 };
 
 const updateLeaderboard = contestNumber => {

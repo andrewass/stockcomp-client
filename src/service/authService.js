@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
+import {BASE_URL} from "./serviceConfig";
 
 const LOCALSTORAGE_KEY = "isSignedInStockComp";
 
