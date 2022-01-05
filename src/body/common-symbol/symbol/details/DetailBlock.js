@@ -1,19 +1,17 @@
 import React from "react";
 import PriceChart from "./PriceChart";
-import SymbolPresentation from "./SymbolPresentation";
-import {Box} from "@mui/material";
 import SymbolStats from "./SymbolStats";
+import {Box} from "@mui/material";
 
-const DetailBlock = ({symbolAndPrice, isLargeWidth}) => {
+const DetailBlock = ({symbol, isLargeWidth}) => {
 
     return (
         <Box id="detailBlock" display="flex" flexDirection="column" alignItems="center"
              sx={{width: isLargeWidth ? "80%" : "100%", margin:"5% 5%"}}>
             <Box id="symbolData">
-                <SymbolPresentation symbolAndPrice={symbolAndPrice}/>
-                <SymbolStats symbolAndPrice={symbolAndPrice}/>
+                <SymbolStats symbol={symbol}/>
             </Box>
-            <PriceChart symbolAndPrice={symbolAndPrice}/>
+            <PriceChart symbol={symbol}/>
         </Box>
     );
 }

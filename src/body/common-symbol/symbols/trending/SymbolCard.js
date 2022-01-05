@@ -25,7 +25,7 @@ const SymbolCard = ({symbol}) => {
         return priceDifference >= 0.00 ? "+" + percentageDifference : percentageDifference;
     }
 
-    const getCurrentPrince = () => {
+    const getCurrentPrice = () => {
         if (symbol.currency === "USD") {
             return <Typography variant="span">{symbol.price} {symbol.currency}</Typography>;
         } else {
@@ -40,7 +40,7 @@ const SymbolCard = ({symbol}) => {
             <CardActionArea onClick={redirectToSymbolDetail}>
                 <CardContent>
                     <Typography variant="h5">{symbol.name} ({symbol.symbol})</Typography>
-                    <Typography>{getCurrentPrince()}</Typography>
+                    <Typography>{getCurrentPrice()}</Typography>
                     <Typography
                         sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>
                     <Typography
