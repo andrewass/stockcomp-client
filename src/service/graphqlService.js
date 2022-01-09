@@ -17,6 +17,9 @@ const GET_STOCK_STATS = gql`
                 symbol
                 stockQuote {
                     price
+                    previousClose
+                    currency
+                    usdPrice
                 }
                 stockStats {
                     priceToEarnings

@@ -13,17 +13,17 @@ const Symbol = () => {
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 
     const [isLoading, setIsLoading] = useState(true);
-    const [currentPrice, setCurrentPrice] = useState();
+    const [symbolStats, setSymbolStats] = useState();
 
-    const getCurrentPrice = async () => {
+    const getSymbolStats = async () => {
         setIsLoading(true);
         let response = await getRealTimePrice(selectedSymbol.symbol);
-        setCurrentPrice(response.data);
+        setSymbolStats(response.data);
         setIsLoading(false);
     }
 
     useEffect(() => {
-        getCurrentPrice().catch(error => console.log(error));
+        getSymbolStats().catch(error => console.log(error));
     }, [selectedSymbol]);
 
     if (isLoading) {
@@ -35,8 +35,8 @@ const Symbol = () => {
             <Box id="symbolBody"
                  sx={{mt: "3%", display: "flex", justifyContent:"center", alignItems:"center",
                  flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"}}>
-                <DetailBlock symbol={selectedSymbol.symbol} isLargeWidth={isLargeWidth}/>
-                <SymbolRightMenu symbol={selectedSymbol} currentPrice={currentPrice} isLargeWidth={isLargeWidth}/>
+                <DetailBlock symbolStats={selectedSymbol} isLargeWidth={isLargeWidth}/>
+                <SymbolRightMenu symbol={selectedSymbol} currentPrice={symbolStats} isLargeWidth={isLargeWidth}/>
             </Box>
         </div>
     );
