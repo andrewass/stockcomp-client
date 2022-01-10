@@ -44,7 +44,7 @@ const ExpirationSelect = ({expirationTime, setExpirationTime}) => {
     );
 }
 
-const OrderForm = ({symbol, contest, currentPrice, populateOrderList}) => {
+const OrderForm = ({symbol, contest, stockQuote, populateOrderList}) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState(Date.now);
@@ -58,7 +58,7 @@ const OrderForm = ({symbol, contest, currentPrice, populateOrderList}) => {
             symbol: symbol.symbol,
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
-            currency : currentPrice.currency,
+            currency : stockQuote.currency,
         }
     }
 
@@ -77,7 +77,7 @@ const OrderForm = ({symbol, contest, currentPrice, populateOrderList}) => {
         <form id="submitOrderForm">
             <div id="orderGrid">
                 <QuantitySelect setOrderAmount={setOrderAmount}/>
-                <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={currentPrice.price}/>
+                <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={stockQuote.price}/>
                 <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
                 <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
                 <Button variant="contained" onClick={sendOrder}>Submit</Button>

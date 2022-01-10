@@ -4,7 +4,7 @@ import InvestmentSymbol from "./InvestmentSymbol";
 import {getUpcomingContests} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
 
-const SymbolRightMenu = ({symbol, currentPrice, isLargeWidth}) => {
+const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
     const [activeContest, setActiveContest] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const SymbolRightMenu = ({symbol, currentPrice, isLargeWidth}) => {
         return (
             <Box id="symbolRightMenu" sx={{width: isLargeWidth ? "30%" :"70%"}}>
                 <InvestmentSymbol contest={activeContest} symbol={symbol}/>
-                <OrderSymbol contest={activeContest} symbol={symbol} currentPrice={currentPrice}/>
+                <OrderSymbol contest={activeContest} symbol={symbol} stockQuote={stockQuote}/>
             </Box>
         );
     }else {

@@ -8,7 +8,7 @@ import {
     getCompletedOrdersParticipantSymbol
 } from "../../../../service/investmentOrderService";
 
-const OrderSymbol = ({contest, symbol, currentPrice}) => {
+const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
     const [completedOrders, setCompletedOrders] = useState([]);
@@ -35,7 +35,7 @@ const OrderSymbol = ({contest, symbol, currentPrice}) => {
     return (
         <div>
             <OrderForm symbol={symbol} contest={contest}
-                       currentPrice={currentPrice} populateOrderList={populateOrderList}/>
+                       stockQuote={stockQuote} populateOrderList={populateOrderList}/>
             <ActiveOrders activeOrders={activeOrders} getActiveOrders={getActiveOrders}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
