@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export const UserContext = React.createContext();
+export const UserContext = React.createContext(undefined);
 
 const UserProvider = (props) => {
 
