@@ -1,41 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useLocation} from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
 import {getParticipantHistory} from "../../service/contestService";
 import {getLeaderboardUserEntry} from "../../service/leaderboardService";
 import ParticipantHistory from "./ParticipantHistory";
+import {useQuery} from "react-query";
+
+
+const fetchParticipantHistory = async (key, username) => {
+    const response = await getParticipantHistory(username);
+    return response.data;
+}
+
+const fetchLeaderboardEntry = async (username) => {
+    const response = await getLeaderboardUserEntry(username);
+    return response.data;
+}
 
 const UserAccountRead = () => {
 
-    const data = useLocation();
-    const user = data.state.user;
+    const location = useLocation();
+    const user = location.state.user;
     const EntryFlag = Flags[user.country];
-    const [historyList, setHistoryList] = useState([]);
-    const [leaderboardEntry, setLeaderboardEntry] = useState();
-    const [isLoadingHistory, setIsLoadingHistory] = useState(true);
-    const [isLoadingUserEntry, setIsLoadingUserEntry] = useState(true);
 
-    const fetchParticipantHistory = async () => {
-        const response = await getParticipantHistory(user.username);
-        setHistoryList(response.data);
-        setIsLoadingHistory(false);
-    }
+    const {isLoading: historyLoading, error: historyError, data: historyData} =
+        useQuery(["participantHistory", user.username], () => fetchParticipantHistory(user.username));
 
-    const fetchLeaderboardEntry = async () => {
-        const response = await getLeaderboardUserEntry(user.username);
-        setLeaderboardEntry(response.data);
-        setIsLoadingUserEntry(false);
-    }
+    const {isLoading: entryLoading, error: entryError, data: entryData} =
+        useQuery(["leaderboardEntry", user.username], () => fetchLeaderboardEntry(user.username));
 
-    useEffect(() => {
-        fetchParticipantHistory().catch(error => console.log(error));
-        fetchLeaderboardEntry().catch(error => console.log(error));
-    }, [])
+    if (historyLoading || entryLoading) return <CircularProgress/>;
 
-    if(isLoadingUserEntry || isLoadingHistory){
-        return <CircularProgress/>
-    }
+    if (historyError || entryError) return `Error! ${historyError ? historyError : entryError}`;
+
     return (
         <Box>
             <Card elevation={0} sx={{marginTop: "10%", marginLeft: "30%"}}>
@@ -45,14 +43,13 @@ const UserAccountRead = () => {
                         {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : <React.Fragment/>}
                     </Box>
                     <Typography>Medals n/a</Typography>
-                    <Typography>Leaderboard rank : {leaderboardEntry.ranking}</Typography>
-                    <Typography>Contest participation : {leaderboardEntry.contestCount}</Typography>
+                    <Typography>Leaderboard rank : {entryData.ranking}</Typography>
+                    <Typography>Contest participation : {entryData.contestCount}</Typography>
                 </CardContent>
             </Card>
-            <ParticipantHistory historyList={historyList}/>
+            <ParticipantHistory historyList={historyData}/>
         </Box>
     );
-
 }
 
 export default UserAccountRead;

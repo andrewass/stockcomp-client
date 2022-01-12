@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {SymbolContext} from "../../../context/SymbolContext";
+import {SymbolContext} from "../../../config/SymbolContext";
 import DetailBlock from "./details/DetailBlock";
 import SymbolRightMenu from "./right-menu/SymbolRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";

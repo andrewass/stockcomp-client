@@ -1,13 +1,14 @@
 import React from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import Body from "./body/Body";
-import SymbolProvider from "./context/SymbolContext";
-import UserProvider from "./context/UserContext";
+import SymbolProvider from "./config/SymbolContext";
+import UserProvider from "./config/UserContext";
 import {ThemeProvider} from "@mui/material";
-import {myTheme} from "./util/MyTheme";
-import {QueryClient, QueryClientProvider} from "react-query";
+import {myTheme} from "./config/MyTheme";
+import {QueryClientProvider} from "react-query";
+import {queryClient} from "./config/QueryConfig";
+import {responseInterceptor, requestInterceptor} from "./service/interceptor";
 
-const queryClient = new QueryClient();
 
 const App = () => {
 

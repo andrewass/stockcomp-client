@@ -11,15 +11,15 @@ const fetchAllContests = async () => {
 
 const Contests = () => {
 
-    const {data: contests, status} = useQuery("allContests", fetchAllContests);
+    const {isLoading, error, data} = useQuery("allContests", fetchAllContests);
 
-    if (status === "error") return <h5>Error fetching contests</h5>
+    if (error) return <h5>Error fetching contests</h5>
 
-    if (status === "loading") return  <CircularProgress/>
+    if (isLoading) return  <CircularProgress/>
 
     return (
         <React.Fragment>
-            <ContestTable contests={contests}/>
+            <ContestTable contests={data}/>
         </React.Fragment>
     );
 };

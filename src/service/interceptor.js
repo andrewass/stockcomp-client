@@ -2,9 +2,9 @@ import axios from "axios";
 import {refreshToken} from "./authService";
 
 
-const requestInterceptor = axios.interceptors.request.use(config => {
-        config.withCredentials = true;
-        return config;
+const requestInterceptor = axios.interceptors.request.use(request => {
+        request.withCredentials = true;
+        return request;
     }
 );
 

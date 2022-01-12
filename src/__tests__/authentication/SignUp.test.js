@@ -2,7 +2,7 @@ import SignUp from "../../body/authentication/SignUp";
 import userEvent from "@testing-library/user-event";
 import {signUp} from "../../service/authService";
 import "@testing-library/jest-dom";
-import UserProvider from "../../context/UserContext";
+import UserProvider from "../../config/UserContext";
 import {act, render, screen} from "@testing-library/react";
 import {BrowserRouter as Router} from "react-router-dom";
 

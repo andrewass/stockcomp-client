@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {SymbolContext} from "../../../../context/SymbolContext";
+import {SymbolContext} from "../../../../config/SymbolContext";
 
 
 const SymbolCard = ({symbol}) => {

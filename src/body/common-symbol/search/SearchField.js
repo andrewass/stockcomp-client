@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {SymbolContext} from "../../../context/SymbolContext";
+import {SymbolContext} from "../../../config/SymbolContext";
 import {getSuggestionsFromQuery} from "../../../service/symbolService";
 import {Autocomplete, Box, TextField} from "@mui/material";
 import {useHistory} from "react-router-dom";
