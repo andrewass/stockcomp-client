@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Admin, EditGuesser, Resource} from "react-admin";
 import simpleRestProvider from "ra-data-simple-rest";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";
@@ -8,32 +8,31 @@ import LogoutButton from "./button/LogoutButton";
 import {verifyUserIsAdmin} from "../service/authService";
 import {CircularProgress} from "@mui/material";
 import {Redirect} from "react-router-dom";
+import {useQuery} from "react-query";
 
 const dataProvider = simpleRestProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
 
 export const AdminPage = () => {
 
-    const [isAdmin, setIsAdmin] = useState(true);
-
     const verifyAdmin = async () => {
         const response = await verifyUserIsAdmin();
-        setIsAdmin(response.data);
+        return response.data;
     }
 
-    useEffect( () => {
-        verifyAdmin().catch(error => console.log(error));
-    }, []);
+    const {isLoading, error, data: isAdmin} = useQuery("verifyAdmin", verifyAdmin);
 
-    if (isAdmin === true) {
+    if (isLoading) return <CircularProgress/>;
+
+    if (error) return `Error! ${error}`;
+
+    if (isAdmin) {
         return (
             <Admin dataProvider={dataProvider} authProvider={authProvider} logoutButton={LogoutButton}>
                 <Resource name="admin/contests" list={ContestList} edit={ContestEdit} create={ContestCreate}/>
                 <Resource name="admin/users" list={UserList} edit={EditGuesser}/>
             </Admin>
         );
-    } else if (isAdmin === false) {
-        return <Redirect to="/symbols"/>;
     } else {
-        return <CircularProgress/>;
+        return <Redirect to="/symbols"/>;
     }
 }

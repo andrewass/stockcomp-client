@@ -1,43 +1,46 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
 import OrderForm from "./OrderForm";
 import {
     getActiveOrdersParticipant,
-    getActiveOrdersParticipantSymbol,
     getCompletedOrdersParticipantSymbol
 } from "../../../../service/investmentOrderService";
+import {useQuery} from "react-query";
+import {CircularProgress} from "@mui/material";
 
 const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
-    const [completedOrders, setCompletedOrders] = useState([]);
 
-    const getActiveOrders = async () => {
-        const response = await getActiveOrdersParticipant(contest.contestNumber);
+    const fetchActiveOrdersSymbol = async () => {
+        const response = await getActiveOrdersParticipant(contest.contestNumber, symbol.symbol);
         setActiveOrders(response.data);
+
+        return response.data;
     }
 
-    const populateOrderList = async () => {
-        if (contest) {
-            let contestNumber = contest.contestNumber;
-            const activeOrderSymbolResponse = await getActiveOrdersParticipantSymbol(contestNumber, symbol.symbol);
-            const completedOrderSymbolResponse = await getCompletedOrdersParticipantSymbol(contestNumber, symbol.symbol);
-            setActiveOrders(activeOrderSymbolResponse.data);
-            setCompletedOrders(completedOrderSymbolResponse.data);
-        }
+    const fetchCompletedOrdersSymbol = async () => {
+        const response = await getCompletedOrdersParticipantSymbol(contest.contestNumber, symbol.symbol);
+        return response.data;
     }
 
-    useEffect(() => {
-        populateOrderList().catch(error => console.log(error));
-    }, []);
+    const {isLoading: activeLoading, error: activeError, data: activeData} =
+        useQuery("activeOrdersSymbol", fetchActiveOrdersSymbol);
+
+    const {isLoading: completedLoading, error: completedError, data: completedData} =
+        useQuery("completedOrdersSymbol", fetchCompletedOrdersSymbol);
+
+    if (activeLoading || completedLoading) return <CircularProgress/>;
+
+    if (activeError || completedError) return `Error! ${activeError ? activeError : completedError}`;
 
     return (
         <div>
             <OrderForm symbol={symbol} contest={contest}
-                       stockQuote={stockQuote} populateOrderList={populateOrderList}/>
-            <ActiveOrders activeOrders={activeOrders} getActiveOrders={getActiveOrders}/>
-            <CompletedOrders completedOrders={completedOrders}/>
+                       stockQuote={stockQuote} populateOrderList={fetchActiveOrdersSymbol}/>
+            <ActiveOrders activeOrders={activeOrders} getActiveOrders={fetchActiveOrdersSymbol}/>
+            <CompletedOrders completedOrders={completedData}/>
         </div>
     );
 }
