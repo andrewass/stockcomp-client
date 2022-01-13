@@ -1,52 +1,42 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Investment from "../../investment/Investment";
 import {getRemainingFunds} from "../../../../service/contestService";
 import {getInvestmentOfSymbol} from "../../../../service/investmentService";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
+import {useQuery} from "react-query";
+
 
 const InvestmentSymbol = ({contest, symbol}) => {
 
-    const [remainingFunds, setRemainingFunds] = useState();
-    const [investment, setInvestment] = useState();
-    const [isLoading, setIsLoading] = useState(true);
-
-    const fetchParticipantData = async () => {
-        if (contest) {
-            const userRemainingFunds = await getRemainingFunds(contest.contestNumber);
-            setRemainingFunds((userRemainingFunds.data).toFixed(2));
-            const investmentResponse = await getInvestmentOfSymbol(contest.contestNumber, symbol.symbol);
-            if (investmentResponse.data) {
-                setInvestment(investmentResponse.data)
-            }
-            setIsLoading(false);
-        }
+    const fetchRemainingFunds = async () => {
+        const response = await getRemainingFunds(contest.contestNumber);
+        return response.data;
     }
 
-
-    const displayInvestment = () => {
-        return investment ? <Investment investment={investment}/> : null;
+    const fetchSymbolInvestment = async () => {
+        const response = await getInvestmentOfSymbol(contest.contestNumber, symbol.symbol);
+        return response.data;
     }
 
+    const {isLoading: fundsLoading, error: fundsError, data: fundsData} =
+        useQuery("remainingFunds", fetchRemainingFunds);
 
-    useEffect(() => {
-        fetchParticipantData().catch(error => console.log(error));
-    }, []);
+    const {isLoading: investmentLoading, error: investmentError, data: investmentData} =
+        useQuery("investmentOfSymbol", fetchSymbolInvestment);
 
-    if (isLoading) {
-        return <CircularProgress/>
-    }
-    else {
+    if (fundsLoading || investmentLoading) return <CircularProgress/>;
 
-        return(
-            <Card elevation={0} id="investmentSymbol">
-                <CardContent>
-                    <Typography variant="h5" sx={{pb:"0.5rem"}}>Portfolio Status</Typography>
-                    <Typography sx={{pb:"1rem"}}>Remaining funds : {remainingFunds}</Typography>
-                    {displayInvestment()}
-                </CardContent>
-            </Card>
-        );
-    }
+    if (fundsError || investmentError) return `Error! ${fundsError ? fundsError : investmentError}`;
+
+    return (
+        <Card elevation={0} id="investmentSymbol">
+            <CardContent>
+                <Typography variant="h5" sx={{pb: "0.5rem"}}>Portfolio Status</Typography>
+                <Typography sx={{pb: "1rem"}}>Remaining funds : {fundsData.toFixed(2)}</Typography>
+                {investmentData ? <Investment investment={investmentData}/> : null}
+            </CardContent>
+        </Card>
+    );
 }
 
 export default InvestmentSymbol;
