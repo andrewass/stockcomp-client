@@ -1,4 +1,3 @@
-import React from "react";
 import {signUpForContest} from "../../../../service/contestService";
 import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';

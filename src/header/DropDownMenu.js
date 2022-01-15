@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {NavLink} from "react-router-dom";
@@ -16,7 +16,7 @@ const StyledItemIcon = styled(ListItemIcon)({
 
 const DropDownMenu = ({signOutUser}) => {
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {

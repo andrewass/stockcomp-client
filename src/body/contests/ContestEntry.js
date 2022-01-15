@@ -1,5 +1,4 @@
 import {TableCell, TableRow} from "@mui/material";
-import React from "react";
 import {format, parseISO} from "date-fns";
 import {NavLink} from "react-router-dom";
 

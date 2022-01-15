@@ -1,4 +1,3 @@
-import React from "react";
 import PriceChart from "./PriceChart";
 import SymbolStats from "./SymbolStats";
 import {Box} from "@mui/material";

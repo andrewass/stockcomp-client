@@ -1,4 +1,3 @@
-import React from "react";
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useLocation} from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
@@ -40,7 +39,7 @@ const UserAccountRead = () => {
                 <CardContent>
                     <Box display="flex">
                         <Typography variant="h5">{user.username}</Typography>
-                        {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : <React.Fragment/>}
+                        {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : null}
                     </Box>
                     <Typography>Medals n/a</Typography>
                     <Typography>Leaderboard rank : {entryData.ranking}</Typography>

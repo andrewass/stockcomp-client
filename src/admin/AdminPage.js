@@ -1,4 +1,3 @@
-import React from "react";
 import {Admin, EditGuesser, Resource} from "react-admin";
 import simpleRestProvider from "ra-data-simple-rest";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";

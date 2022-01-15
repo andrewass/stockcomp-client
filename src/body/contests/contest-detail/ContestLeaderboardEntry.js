@@ -1,6 +1,5 @@
 import {TableCell, TableRow} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import React from "react";
 import Flags from "country-flag-icons/react/3x2";
 
 

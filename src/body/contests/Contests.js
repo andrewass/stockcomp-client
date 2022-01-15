@@ -1,4 +1,3 @@
-import React from "react";
 import {getAllContests} from "../../service/contestService";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
@@ -18,9 +17,9 @@ const Contests = () => {
     if (isLoading) return  <CircularProgress/>
 
     return (
-        <React.Fragment>
+        <>
             <ContestTable contests={data}/>
-        </React.Fragment>
+        </>
     );
 };
 

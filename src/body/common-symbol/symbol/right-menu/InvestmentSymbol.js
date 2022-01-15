@@ -1,4 +1,3 @@
-import React from "react";
 import Investment from "../../investment/Investment";
 import {getRemainingFunds} from "../../../../service/contestService";
 import {getInvestmentOfSymbol} from "../../../../service/investmentService";

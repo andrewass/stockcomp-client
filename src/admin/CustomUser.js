@@ -1,4 +1,3 @@
-import React from "react";
 import {Datagrid, EditButton, EmailField, List, TextField} from 'react-admin';
 
 const UserList = props => (

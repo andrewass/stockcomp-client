@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import TrendingSymbols from "./trending/TrendingSymbols";
 import ActiveContests from "./contest/ActiveContests";
 import PortfolioStatus from "./PortfolioStatus";
@@ -37,11 +37,11 @@ const Symbols = () => {
     const getParticipantData = () => {
         if (runningContest) {
             return (
-                <React.Fragment>
+                <>
                     <PortfolioStatus contest={runningContest}/>
                     <OrderTotal contest={runningContest}/>
                     <InvestmentTotal contest={runningContest}/>
-                </React.Fragment>
+                </>
             )
         }
     }
