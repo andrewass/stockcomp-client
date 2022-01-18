@@ -8,6 +8,7 @@ import {myTheme} from "./config/MyTheme";
 import {QueryClientProvider} from "react-query";
 import {queryClient} from "./config/QueryConfig";
 import {responseInterceptor, requestInterceptor} from "./service/interceptor";
+import {ReactQueryDevtools} from "react-query/devtools";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                     <ThemeProvider theme={myTheme}>
                         <QueryClientProvider client={queryClient}>
                             <Body/>
+                            <ReactQueryDevtools initialIsOpen={false}/>
                         </QueryClientProvider>
                     </ThemeProvider>
                 </SymbolProvider>
