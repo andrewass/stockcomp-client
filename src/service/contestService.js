@@ -5,6 +5,7 @@ import {CONTEST_BASE_URL} from "./serviceConfig";
 const URL = {
     upcoming_contests: CONTEST_BASE_URL + "/contest/upcoming-contests",
     all_contests: CONTEST_BASE_URL + "/contest/all-contests",
+    contests_by_status : CONTEST_BASE_URL + "/contest/contests-by-status",
     sign_up: CONTEST_BASE_URL + "/contest/sign-up",
     user_participating: CONTEST_BASE_URL + "/contest/user-participating",
     remaining_funds: CONTEST_BASE_URL + "/contest/remaining-funds",
@@ -18,6 +19,15 @@ const getUpcomingContests = () => {
         url: URL.upcoming_contests,
         withCredentials: true
     });
+}
+
+const getActiveContests = () => {
+    return axios({
+        method: "post",
+        url: URL.contests_by_status,
+        withCredentials: true,
+        data: ["Running","Stopped"]
+    })
 }
 
 const getAllContests = () => {
@@ -65,7 +75,7 @@ const getParticipantHistory = username => {
 }
 
 export {
-    getUpcomingContests, getAllContests, signUpForContest, getRemainingFunds,
+    getUpcomingContests, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
     getParticipantRanking, getParticipantHistory
 }
 

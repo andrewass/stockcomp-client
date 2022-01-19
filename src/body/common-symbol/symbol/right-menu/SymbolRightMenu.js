@@ -1,21 +1,22 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import OrderSymbol from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
-import {getUpcomingContests} from "../../../../service/contestService";
+import {getActiveContests} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
 
-const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
+export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
     const [activeContest, setActiveContest] = useState();
     const [isLoading, setLoading] = useState(true);
 
     const getActiveContest = contests => {
-        return contests.find(contest => contest.userParticipating && contest.contestStatus === "Running");
+        return contests.find(contest => contest.userParticipating);
     }
 
     const fetchUpcomingContests = async () => {
         setLoading(true)
-        let response = await getUpcomingContests();
+        let response = await getActiveContests();
+        console.log("responsee " + JSON.stringify(response.data));
         setActiveContest(getActiveContest(response.data));
         setLoading(false);
     }
@@ -37,5 +38,3 @@ const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
         return null;
     }
 }
-
-export default SymbolRightMenu;

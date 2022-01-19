@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import TrendingSymbols from "./trending/TrendingSymbols";
+import {TrendingSymbols} from "./trending/TrendingSymbols";
 import ActiveContests from "./contest/ActiveContests";
 import PortfolioStatus from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
