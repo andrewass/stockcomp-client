@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {TrendingSymbols} from "./trending/TrendingSymbols";
 import ActiveContests from "./contest/ActiveContests";
-import PortfolioStatus from "./PortfolioStatus";
+import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
-import InvestmentTotal from "./InvestmentTotal";
+import {InvestmentTotal} from "./InvestmentTotal";
 import "./symbols.css";
 import {Box, CircularProgress} from "@mui/material";
 import {getUpcomingContests} from "../../../service/contestService";

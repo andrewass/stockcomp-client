@@ -1,26 +1,21 @@
-import React, {useEffect, useState} from "react";
 import Investments from "../investment/Investments";
 import {getAllInvestmentsForContest} from "../../../service/investmentService";
+import {useQuery} from "react-query";
+import {CircularProgress} from "@mui/material";
 
 
-const InvestmentTotal = ({contest}) => {
+export const InvestmentTotal = ({contest}) => {
 
-    const [investments, setInvestments] = useState([]);
-
-    const populateInvestmentList = async () => {
-        if (contest) {
-            const fetchedInvestments = await getAllInvestmentsForContest(contest.contestNumber);
-            setInvestments(fetchedInvestments.data);
-        }
+    const fetchAllInvestments = async () => {
+        const response = await getAllInvestmentsForContest(contest.contestNumber);
+        return response.data;
     }
 
-    useEffect(() => {
-        populateInvestmentList().catch(error => console.log(error));
-    }, []);
+    const {isLoading, error, data} = useQuery("getAllInvestments", fetchAllInvestments);
 
-    return (
-        <Investments investments={investments}/>
-    );
+    if (isLoading) return <CircularProgress/>
+
+    if (error) return `Error! ${error}`;
+
+    return <Investments investments={data}/>
 }
-
-export default InvestmentTotal;

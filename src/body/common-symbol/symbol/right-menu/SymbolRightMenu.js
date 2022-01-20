@@ -16,7 +16,6 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
     const fetchUpcomingContests = async () => {
         setLoading(true)
         let response = await getActiveContests();
-        console.log("responsee " + JSON.stringify(response.data));
         setActiveContest(getActiveContest(response.data));
         setLoading(false);
     }
