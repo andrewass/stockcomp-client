@@ -3,10 +3,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import {setSignedInToLocalStorage, signIn} from "../../service/authService";
 import {useHistory} from "react-router-dom";
-import {InputAdornment, TextField, Typography} from "@mui/material";
+import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import toast, {Toaster} from "react-hot-toast";
+import {useMutation} from "react-query";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,41 +26,39 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignIn = ({setDisplaySignUp}) => {
+export const SignIn = ({setDisplaySignUp}) => {
 
     const classes = useStyles();
     const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const updateUsername = (event) => {
-        setUsername(event.target.value);
-    };
-
-    const updatePassword = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const postSignInToServer = async (event) => {
-        event.preventDefault();
-        try {
-            let response = await signIn(username, password);
+    const mutation = useMutation((credentials) => signIn(credentials),{
+        onSuccess: (response) => {
             setSignedInToLocalStorage();
-            (response.data === 'ADMIN') ? history.push("/admin") : history.push("/stocks");
-        } catch (e) {
+            response.data === 'ADMIN' ? history.push("/admin") : history.push("/stocks");
+        },
+        onError: () => {
             toast.error("Unable to sign in. Verify username and password is correct", {
                 duration: 4000,
                 position: "top-center"
             });
         }
+    })
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        mutation.mutate({username, password});
     }
 
+    if (mutation.isLoading) return <CircularProgress/>
+
     return (
-        <form className={classes.root} onSubmit={postSignInToServer} id="signInForm">
+        <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
-            <TextField sx={{mt: 4}} label="Username" onChange={e => updateUsername(e)}
+            <TextField sx={{mt: 4}} label="Username" onChange={e => setUsername(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -68,7 +67,7 @@ const SignIn = ({setDisplaySignUp}) => {
                            )
                        }}/>
             <TextField sx={{mt: 4}} label="Password" type="password" autoComplete="current-password"
-                       onChange={e => updatePassword(e)} InputProps={{
+                       onChange={e => setPassword(e.target.value)} InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
                         <LockIcon/>
@@ -81,5 +80,3 @@ const SignIn = ({setDisplaySignUp}) => {
         </form>
     );
 };
-
-export default SignIn;

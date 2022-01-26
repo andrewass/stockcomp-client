@@ -20,11 +20,11 @@ const signUp = async (username, password, email) => {
     });
 }
 
-const signIn = async (username, password) => {
+const signIn = (credentials) => {
     return axios({
         method: "post",
         url: URL.sign_in,
-        data: {username, password},
+        data: credentials,
         withCredentials: true
     })
 }

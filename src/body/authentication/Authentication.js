@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import SignUp from "./SignUp";
-import SignIn from "./SignIn";
-
+import {SignIn} from "./SignIn";
 
 const Authentication = () => {
 
