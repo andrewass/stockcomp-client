@@ -11,11 +11,11 @@ const URL = {
     refresh_token: CONTEST_BASE_URL + "/auth/refresh-token"
 }
 
-const signUp = async (username, password, email) => {
+const signUp = (credentials) => {
     return axios({
         method: "post",
         url: URL.sign_up,
-        data: {username, password, email},
+        data: credentials,
         withCredentials: true
     });
 }

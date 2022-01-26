@@ -5,8 +5,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import {useHistory} from "react-router-dom";
 import {setSignedInToLocalStorage, signUp} from "../../service/authService";
 import {makeStyles} from "@mui/styles";
-import {InputAdornment, TextField, Typography} from "@mui/material";
+import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
+import {useMutation} from "react-query";
+import toast from "react-hot-toast";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignUp = ({setDisplaySignUp}) => {
+export const SignUp = ({setDisplaySignUp}) => {
 
     const classes = useStyles();
     const history = useHistory();
@@ -38,40 +40,37 @@ const SignUp = ({setDisplaySignUp}) => {
         return password.length > 0 && password === retypedPassword;
     };
 
-    const updateUsername = (event) => {
-        setUsername(event.target.value);
-    };
-
-    const updatePassword = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const updateRetypedPassword = (event) => {
-        setRetypedPassword(event.target.value);
-    };
-
-    const updateEmail = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const postSignUpToServer = async (event) => {
-        event.preventDefault();
-        if (matchingPasswords()) {
-            await signUp(username, password, email)
+    const mutation = useMutation((credentials) => signUp(credentials),{
+        onSuccess: () => {
             setSignedInToLocalStorage();
             history.push("/stocks");
+        },
+        onError: () => {
+            toast.error("Unable to sign up", {
+                duration: 4000,
+                position: "top-center"
+            });
+        }
+    })
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (matchingPasswords()) {
+            mutation.mutate({username, password, email});
         } else {
             setPassword("");
             setRetypedPassword("");
         }
-    };
+    }
+
+    if (mutation.isLoading) return <CircularProgress/>
 
     return (
-        <form className={classes.root} onSubmit={postSignUpToServer} id="signInForm">
+        <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
-            <TextField sx={{mt: 4}} label="Username" onChange={e => updateUsername(e)}
+            <TextField sx={{mt: 4}} label="Username" onChange={e => setUsername(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -79,7 +78,7 @@ const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <TextField sx={{mt: 4}} label="Email" onChange={e => updateEmail(e)}
+            <TextField sx={{mt: 4}} label="Email" onChange={e => setEmail(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -87,7 +86,7 @@ const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => updatePassword(e)}
+            <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => setPassword(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -95,7 +94,8 @@ const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <TextField sx={{mt: 4}} label="Confirm Password" type="password" onChange={e => updateRetypedPassword(e)}
+            <TextField sx={{mt: 4}} label="Confirm Password" type="password"
+                       onChange={e => setRetypedPassword(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -107,6 +107,4 @@ const SignUp = ({setDisplaySignUp}) => {
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
         </form>
     );
-};
-
-export default SignUp;
+}
