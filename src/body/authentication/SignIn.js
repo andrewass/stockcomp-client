@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import toast, {Toaster} from "react-hot-toast";
 import {useMutation} from "react-query";
+import {SignInGoogle} from "./SignInGoogle";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,7 +34,7 @@ export const SignIn = ({setDisplaySignUp}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const mutation = useMutation((credentials) => signIn(credentials),{
+    const mutation = useMutation((credentials) => signIn(credentials), {
         onSuccess: (response) => {
             setSignedInToLocalStorage();
             response.data === 'ADMIN' ? history.push("/admin") : history.push("/stocks");
@@ -76,6 +77,7 @@ export const SignIn = ({setDisplaySignUp}) => {
             }}/>
             <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
+            <SignInGoogle/>
             <Toaster/>
         </form>
     );
