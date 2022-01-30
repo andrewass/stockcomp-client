@@ -1,14 +1,14 @@
 import {ApolloClient, InMemoryCache} from "@apollo/client";
 
-const CONTEST_BASE_URL = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
-const STOCK_BASE_URL = process.env.REACT_APP_STOCK_QUOTE_BASE_URL;
+const OAUTH2_REDIRECT_URL = "http://localhost:3000/";
 
+export const CONTEST_BASE_URL = process.env.REACT_APP_STOCK_CONTEST_BASE_URL;
 
-const graphqlClient = new ApolloClient({
+export const STOCK_BASE_URL = process.env.REACT_APP_STOCK_QUOTE_BASE_URL;
+
+export const GOOGLE_AUTH_URL = CONTEST_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URL;
+
+export const graphqlClient = new ApolloClient({
     uri: STOCK_BASE_URL+"/graphql",
     cache: new InMemoryCache()
 });
-
-export {
-    CONTEST_BASE_URL, STOCK_BASE_URL, graphqlClient
-}

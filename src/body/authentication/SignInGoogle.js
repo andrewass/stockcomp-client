@@ -1,22 +1,16 @@
-import GoogleLogin from "react-google-login";
-
-const handleSuccess = (response) => {
-    console.log(response);
-}
-
-const handleFailure = (error) => {
-    console.log(error);
-}
-
-const clientId = process.env.REACT_APP_OAUTH_CLIENT_ID;
+import Button from "@mui/material/Button";
+import React from "react";
+import {GOOGLE_AUTH_URL} from "../../service/serviceConfig";
+import {Avatar} from "@mui/material";
 
 export const SignInGoogle = () => {
+
     return (
-        <GoogleLogin clientId={clientId}
-                     buttonText={"Sign in with Google"}
-                     onSuccess={handleSuccess}
-                     onFailure={handleFailure}
-                     cookiePolicy={"single_host_origin"}
-        />
+        <div>
+            <Button component="a" href={GOOGLE_AUTH_URL}
+                    startIcon={<Avatar alt="Google icon" src="/../../icons/google-logo.svg"/>}>
+                Sign in with Google
+            </Button>
+        </div>
     );
 }
