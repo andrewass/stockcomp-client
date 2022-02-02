@@ -2,12 +2,28 @@ import {signUpForContest} from "../../../../service/contestService";
 import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import {format, parseISO} from "date-fns";
+import {useMutation} from "react-query";
+import toast from "react-hot-toast";
+import {queryClient} from "../../../../config/QueryConfig";
 
 
 const ActiveContest = ({contest}) => {
 
-    const handleContestSignUp = async (contestNumber) => {
-        await signUpForContest(contestNumber);
+    const mutation = useMutation((contestNumber) => signUpForContest(contestNumber), {
+        onSuccess: () => {
+            queryClient.invalidateQueries("getUpcomingContests")
+                .catch(() => console.log("Error invalidating query getUpcomingContests"));
+        },
+        onError: () => {
+            toast.error("Unable to sign up for contest", {
+                duration: 4000,
+                position: "top-center"
+            });
+        }
+    })
+
+    const handleContestSignUp = () => {
+        mutation.mutate(contest.contestNumber);
     }
 
     const getContestStatus = () => {
