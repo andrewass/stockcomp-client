@@ -7,13 +7,10 @@ import toast from "react-hot-toast";
 import {queryClient} from "../../../../config/QueryConfig";
 
 
-const ActiveContest = ({contest}) => {
+export const ActiveContest = ({contest}) => {
 
     const mutation = useMutation((contestNumber) => signUpForContest(contestNumber), {
-        onSuccess: () => {
-            queryClient.invalidateQueries("getUpcomingContests")
-                .catch(() => console.log("Error invalidating query getUpcomingContests"));
-        },
+        onSuccess: () => queryClient.invalidateQueries("getUpcomingContests"),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
@@ -59,5 +56,3 @@ const ActiveContest = ({contest}) => {
         </ListItem>
     );
 }
-
-export default ActiveContest;

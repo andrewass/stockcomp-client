@@ -1,5 +1,5 @@
 import {useState} from "react";
-import ActiveContest from "./ActiveContest";
+import {ActiveContest} from "./ActiveContest";
 import {Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 

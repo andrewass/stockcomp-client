@@ -1,4 +1,4 @@
-import PriceChart from "./PriceChart";
+import {PriceChart} from "./PriceChart";
 import SymbolStats from "./SymbolStats";
 import {Box} from "@mui/material";
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./orderForm.css";
 import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
@@ -7,6 +7,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
+import {useMutation} from "react-query";
+import {queryClient} from "../../../../config/QueryConfig";
 
 
 const QuantitySelect = ({setOrderAmount}) => {
@@ -44,7 +46,7 @@ const ExpirationSelect = ({expirationTime, setExpirationTime}) => {
     );
 }
 
-const OrderForm = ({symbol, contest, stockQuote, populateOrderList}) => {
+export const OrderForm = ({symbol, contest, stockQuote}) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState();
     const [expirationTime, setExpirationTime] = useState(Date.now);
@@ -58,19 +60,27 @@ const OrderForm = ({symbol, contest, stockQuote, populateOrderList}) => {
             symbol: symbol.symbol,
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
-            currency : stockQuote.currency,
+            currency: stockQuote.currency,
         }
     }
 
-    const sendOrder = async () => {
-        operationType === "Buy"
-            ? await placeBuyOrder(createInvestmentOrderRequest())
-            : await placeSellOrder(createInvestmentOrderRequest());
-        populateOrderList();
-        toast.success(operationType+" order for "+symbol.symbol+" submitted",{
-            duration:4000,
-            position:"top-right"
-        });
+    const mutation = useMutation((request) => operationType === "Buy"
+        ? placeBuyOrder(request)
+        : placeSellOrder(request), {
+        onSuccess: () => {
+            queryClient.invalidateQueries("activeOrdersSymbol");
+            queryClient.invalidateQueries("completedOrdersSymbol");
+        },
+        onError: () => {
+            toast.error("Unable to submit investment order", {
+                duration: 4000,
+                position: "top-center"
+            });
+        }
+    });
+
+    const submitOrder = () => {
+        mutation.mutate(createInvestmentOrderRequest());
     }
 
     return (
@@ -80,11 +90,9 @@ const OrderForm = ({symbol, contest, stockQuote, populateOrderList}) => {
                 <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={stockQuote.price}/>
                 <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
                 <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
-                <Button variant="contained" onClick={sendOrder}>Submit</Button>
+                <Button variant="contained" onClick={submitOrder}>Submit</Button>
                 <Toaster/>
             </div>
         </form>
     );
 }
-
-export default OrderForm;

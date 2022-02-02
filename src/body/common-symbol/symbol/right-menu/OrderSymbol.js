@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
-import OrderForm from "./OrderForm";
+import {OrderForm} from "./OrderForm";
 import {
     getActiveOrdersParticipant,
     getCompletedOrdersParticipantSymbol
@@ -9,7 +9,8 @@ import {
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 
-const OrderSymbol = ({contest, symbol, stockQuote}) => {
+
+export const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
 
@@ -37,12 +38,9 @@ const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     return (
         <div>
-            <OrderForm symbol={symbol} contest={contest}
-                       stockQuote={stockQuote} populateOrderList={fetchActiveOrdersSymbol}/>
+            <OrderForm symbol={symbol} contest={contest} stockQuote={stockQuote} />
             <ActiveOrders activeOrders={activeOrders} getActiveOrders={fetchActiveOrdersSymbol}/>
             <CompletedOrders completedOrders={completedData}/>
         </div>
     );
 }
-
-export default OrderSymbol;

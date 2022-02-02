@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import OrderSymbol from "./OrderSymbol";
+import {OrderSymbol} from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
 import {getActiveContests} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
