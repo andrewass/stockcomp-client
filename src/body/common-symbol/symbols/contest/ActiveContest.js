@@ -4,11 +4,10 @@ import CircleIcon from '@mui/icons-material/Circle';
 import {format, parseISO} from "date-fns";
 
 
-const ActiveContest = ({contest, fetchUpcomingContests}) => {
+const ActiveContest = ({contest}) => {
 
     const handleContestSignUp = async (contestNumber) => {
         await signUpForContest(contestNumber);
-        fetchUpcomingContests();
     }
 
     const getContestStatus = () => {

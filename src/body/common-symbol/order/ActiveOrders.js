@@ -14,13 +14,12 @@ import {
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 
 
-const ActiveOrders = ({activeOrders, getActiveOrders}) => {
+const ActiveOrders = ({activeOrders}) => {
 
     const [open, setOpen] = useState(false);
 
     const deleteOrder = async (orderId) => {
         await deleteActiveOrder(orderId);
-        getActiveOrders();
     }
 
     const createListItem = (order) => {

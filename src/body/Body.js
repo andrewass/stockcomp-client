@@ -1,7 +1,7 @@
 import {Route, Switch} from "react-router-dom";
 import Contests from "./contests/Contests";
 import Leaderboard from "./leaderboard/Leaderboard";
-import Symbols from "./common-symbol/symbols/Symbols";
+import {Symbols} from "./common-symbol/symbols/Symbols";
 import ProtectedRoute from "../config/ProtectedRoute";
 import {AdminPage} from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";

@@ -1,35 +1,36 @@
 import ActiveOrders from "../order/ActiveOrders";
 import CompletedOrders from "../order/CompletedOrders";
-import {useEffect, useState} from "react";
 import {getActiveOrdersParticipant, getCompletedOrdersParticipant} from "../../../service/investmentOrderService";
+import {useQuery} from "react-query";
+import {CircularProgress} from "@mui/material";
 
 
 const OrderTotal = ({contest}) => {
 
-    const [activeOrders, setActiveOrders] = useState([]);
-    const [completedOrders, setCompletedOrders] = useState([]);
-
-    const getActiveOrders = async () => {
+    const fetchActiveOrders = async () => {
         const response = await getActiveOrdersParticipant(contest.contestNumber);
-        setActiveOrders(response.data);
+        return response.data;
     }
 
-    const getCompletedOrders = async () => {
+    const fetchCompletedOrders = async () => {
         const response = await getCompletedOrdersParticipant(contest.contestNumber);
-        setCompletedOrders(response.data);
+        return response.data;
     }
 
-    useEffect(() => {
-        if (contest) {
-            getActiveOrders().catch(error => console.log(error));
-            getCompletedOrders().catch(error => console.log(error));
-        }
-    }, []);
+    const {isLoading: activeLoading, error: activeError, data: activeData} =
+        useQuery("getActiveOrdersParticipant", fetchActiveOrders);
+
+    const {isLoading: completedLoading, error: completedError, data: completedData} =
+        useQuery("getCompletedOrdersParticipant", fetchCompletedOrders);
+
+    if (activeLoading || completedLoading) return <CircularProgress/>
+
+    if (activeError || completedError) return `Error! ${activeError ? activeError : completedError}`;
 
     return (
         <div>
-            <ActiveOrders activeOrders={activeOrders} getActiveOrders={getActiveOrders}/>
-            <CompletedOrders completedOrders={completedOrders}/>
+            <ActiveOrders activeOrders={activeData}/>
+            <CompletedOrders completedOrders={completedData}/>
         </div>
     );
 }

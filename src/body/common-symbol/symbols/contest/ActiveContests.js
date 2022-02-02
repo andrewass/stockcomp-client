@@ -3,7 +3,7 @@ import ActiveContest from "./ActiveContest";
 import {CircularProgress, Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 
-const ActiveContests = ({contests, fetchUpcomingContests}) => {
+const ActiveContests = ({contests}) => {
 
     const [open, setOpen] = useState(true);
 
@@ -18,9 +18,7 @@ const ActiveContests = ({contests, fetchUpcomingContests}) => {
                 </ListItemButton>
                 <Collapse in={open} unmountOnExit>
                     <List>
-                        {contests.map((contest) => <ActiveContest key={contest.contestNumber}
-                                                                  fetchUpcomingContests={fetchUpcomingContests}
-                                                                  contest={contest}/>)}
+                        {contests.map((contest) => <ActiveContest key={contest.contestNumber} contest={contest}/>)}
                     </List>
                 </Collapse>
             </List>
