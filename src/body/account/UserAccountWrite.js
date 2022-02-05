@@ -1,49 +1,56 @@
-import React, {useEffect, useState} from "react";
+import {useState} from "react";
 import {Box, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
 import {getData} from "country-list";
 import toast, {Toaster} from "react-hot-toast";
 import Button from "@mui/material/Button";
 import {getUserDetails, updateUserDetails} from "../../service/userService";
+import {useMutation, useQuery} from "react-query";
+import {queryClient} from "../../config/QueryConfig";
 
 const countries = getData();
 
 const UserAccountWrite = () => {
 
     const [userDetails, setUserDetails] = useState();
-    const [isLoading, setIsLoading] = useState(true);
     const [country, setCountry] = useState();
     const [fullName, setFullName] = useState();
 
-
-    const getUserData = async () => {
+    const fetchUserDetails = async () => {
         const response = await getUserDetails();
-        setUserDetails({
-            username: response.data.username,
-            fullName: response.data.fullName,
-            country: response.data.country
-        });
-        setCountry(response.data.country);
-        setFullName(response.data.fullName);
-        setIsLoading(false);
+        if (!userDetails) {
+            setUserDetails({
+                username: response.data.username,
+                fullName: response.data.fullName,
+                country: response.data.country
+            });
+            setCountry(response.data.country);
+            setFullName(response.data.fullName);
+        }
+
+        return response.data;
     }
 
-    useEffect(() => {
-        getUserData().catch(error => console.log(error));
-    }, []);
+    const mutation = useMutation((credentials) => updateUserDetails(credentials), {
+        onSuccess: () => queryClient.invalidateQueries("getUserDetails"),
+        onError: () => {
+            toast.error("Unable to update user details", {
+                duration: 4000,
+                position: "top-center"
+            });
+        }
+    })
 
-
-    const submitUpdatedUserDetails = async () => {
-        await updateUserDetails(userDetails.username, fullName, country)
-            .catch(error => console.log(error));
-        toast.success("User details successfully updated", {
-            duration: 4000,
-            position: "top-center"
-        });
+    const submitUserDetails = () => {
+        let username = userDetails.username;
+        mutation.mutate({username, fullName, country});
     }
 
-    if (isLoading) {
-        return <CircularProgress/>
-    }
+    const {isLoading, isFetching, error} = useQuery("getUserDetails", fetchUserDetails);
+
+    if (isLoading || isFetching) return <CircularProgress/>
+
+    if (error) return `Error! ${error}`;
+
     return (
         <Box sx={{ml: "30%", mt: "10%"}}>
             <Typography variant="h5">{userDetails.username}</Typography>
@@ -63,7 +70,7 @@ const UserAccountWrite = () => {
                     </Select>
                 </FormControl>
                 <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
-                        onClick={() => submitUpdatedUserDetails()}>
+                        onClick={submitUserDetails}>
                     Update
                 </Button>
                 <Toaster/>
