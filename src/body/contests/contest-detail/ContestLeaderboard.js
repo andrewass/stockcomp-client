@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from "react";
 import {getParticipantRanking} from "../../../service/contestService";
 import {
     CircularProgress,
@@ -14,6 +13,7 @@ import {
 } from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
 import ContestLeaderboardEntry from "./ContestLeaderboardEntry";
+import {useQuery} from "react-query";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -22,27 +22,22 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     }
 }));
 
-const ContestLeaderboard = ({contestNumber}) => {
+export const ContestLeaderboard = ({contestNumber}) => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
-    const [leaderboard, setLeaderboard] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const getLeaderboard = async () => {
+    const fetchParticipantRanking = async () => {
         const response = await getParticipantRanking(contestNumber);
-        setLeaderboard(response.data);
-        setIsLoading(false);
+        return response.data;
     }
 
-    useEffect(() => {
-        getLeaderboard().catch(error => console.log(error))
-    }, [])
+    const {error, isLoading, data} = useQuery("getParticipantRanking", fetchParticipantRanking);
 
-    if (isLoading) {
-        return <CircularProgress/>
-    }
+    if (isLoading) return <CircularProgress/>
+
+    if (error) return `Error! ${error}`;
+
     return (
         <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
             <Table>
@@ -55,11 +50,9 @@ const ContestLeaderboard = ({contestNumber}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboard.map(entry => <ContestLeaderboardEntry entry={entry}/>)}
+                    {data.map(entry => <ContestLeaderboardEntry entry={entry}/>)}
                 </TableBody>
             </Table>
         </TableContainer>
     )
 }
-
-export default ContestLeaderboard;

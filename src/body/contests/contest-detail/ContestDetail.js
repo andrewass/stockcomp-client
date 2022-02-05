@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import ContestLeaderboard from "./ContestLeaderboard";
+import {ContestLeaderboard} from "./ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
 

@@ -26,7 +26,6 @@ const UserAccountWrite = () => {
             setCountry(response.data.country);
             setFullName(response.data.fullName);
         }
-
         return response.data;
     }
 

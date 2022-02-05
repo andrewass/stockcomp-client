@@ -1,36 +1,34 @@
-import React, {useEffect, useState} from "react";
 import {getAllLeaderboardEntries, getLeaderboardUserEntry} from "../../service/leaderboardService";
 import {CircularProgress} from "@mui/material";
 import LeaderboardTable from "./LeaderboardTable";
+import {useQuery} from "react-query";
 
 
-const Leaderboard = () => {
+export const Leaderboard = () => {
 
-    const [leaderboardEntries, setLeaderboardEntries] = useState([]);
-    const [userEntry, setUserEntry] = useState();
-    const [isLoading, setIsLoading] = useState(true);
-
-    const populateLeaderboardEntries = async () => {
-        const leaderboardEntriesResponse = await getAllLeaderboardEntries();
-        const userEntryResponse = await getLeaderboardUserEntry();
-        setLeaderboardEntries(leaderboardEntriesResponse.data);
-        setUserEntry(userEntryResponse.data);
-        setIsLoading(false);
+    const fetchAllLeaderboardEntries = async () => {
+        const response = await getAllLeaderboardEntries();
+        return response.data;
     }
 
-    useEffect(() => {
-        populateLeaderboardEntries().catch(error => console.log(error));
-    }, []);
-
-
-    if (isLoading) {
-        return <CircularProgress/>
+    const fetchUserLeaderboardEntry = async () => {
+        const response = await getLeaderboardUserEntry();
+        return response.data;
     }
+
+    const {loading: allEntriesLoading, error: allEntriesErrror, data: allEntriesData} =
+        useQuery("getAllLeaderboardEntries", fetchAllLeaderboardEntries);
+
+    const {loading: userEntryLoading, error: userEntryError, data: userEntryData} =
+        useQuery("getUserLeaderboardEntry", fetchUserLeaderboardEntry);
+
+    if (allEntriesLoading || userEntryLoading) return <CircularProgress/>
+
+    if (allEntriesErrror || userEntryError) return `Error! ${allEntriesErrror ? allEntriesErrror : userEntryError}`;
+
     return (
         <>
-            <LeaderboardTable leaderboardEntries={leaderboardEntries}/>
+            <LeaderboardTable leaderboardEntries={allEntriesData}/>
         </>
     );
-};
-
-export default Leaderboard;
+}
