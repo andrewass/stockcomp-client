@@ -5,8 +5,7 @@ import {SymbolRightMenu} from "./right-menu/SymbolRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import SearchField from "../search/SearchField";
 import {useTheme} from "@mui/material/styles";
-import {useQuery} from "@apollo/client";
-import {GET_STOCK_STATS} from "../../../service/graphqlService";
+import {useGetSymbolStats} from "../../../service/graphqlService";
 
 const Symbol = () => {
     const theme = useTheme();
@@ -14,9 +13,9 @@ const Symbol = () => {
     const {selectedSymbol} = useContext(SymbolContext);
     const {symbol} = selectedSymbol;
 
-    const {loading, error, data} = useQuery(GET_STOCK_STATS, {variables: {symbol}});
+    const {isLoading, error, data} = useGetSymbolStats(symbol);
 
-    if (loading) return <CircularProgress/>;
+    if (isLoading) return <CircularProgress/>;
 
     if (error) return `Error! ${error}`;
 

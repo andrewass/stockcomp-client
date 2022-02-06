@@ -1,4 +1,4 @@
-import {ApolloClient, InMemoryCache} from "@apollo/client";
+import {GraphQLClient} from "graphql-request";
 
 const OAUTH2_REDIRECT_URL = "http://localhost:3000/";
 
@@ -8,7 +8,4 @@ export const STOCK_BASE_URL = process.env.REACT_APP_STOCK_QUOTE_BASE_URL;
 
 export const GOOGLE_AUTH_URL = CONTEST_BASE_URL + "/oauth2/authorize/google?redirect_uri=" + OAUTH2_REDIRECT_URL;
 
-export const graphqlClient = new ApolloClient({
-    uri: STOCK_BASE_URL+"/graphql",
-    cache: new InMemoryCache()
-});
+export const graphqlClient = new GraphQLClient(STOCK_BASE_URL+"/graphql");

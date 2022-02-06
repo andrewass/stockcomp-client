@@ -59,7 +59,7 @@ export const SignIn = ({setDisplaySignUp}) => {
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
-            <TextField sx={{mt: 4}} label="Username" onChange={e => setUsername(e.target.value)}
+            <TextField sx={{mt: 4}} label="Username" autoComplete="on" onChange={e => setUsername(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
