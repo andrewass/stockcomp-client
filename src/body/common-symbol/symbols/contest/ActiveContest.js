@@ -17,7 +17,7 @@ export const ActiveContest = ({contest}) => {
                 position: "top-center"
             });
         }
-    })
+    });
 
     const handleContestSignUp = () => {
         mutation.mutate(contest.contestNumber);

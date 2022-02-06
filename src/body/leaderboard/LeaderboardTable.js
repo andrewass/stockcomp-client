@@ -20,7 +20,7 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     }
 }));
 
-const LeaderboardTable = ({leaderboardEntries}) => {
+export const LeaderboardTable = ({leaderboardEntries}) => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
@@ -38,11 +38,9 @@ const LeaderboardTable = ({leaderboardEntries}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry}/>)}
+                    {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry} key={entry.username}/>)}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 }
-
-export default LeaderboardTable;

@@ -8,11 +8,8 @@ export const ContestEntry = ({contest}) => {
     return (
         <TableRow key={contest.contestNumber}>
             <TableCell>
-                <NavLink  to={{
-                    pathname: "/contest-detail",
-                    state: {contest: contest}
-                }}>
-                {contest.contestNumber}
+                <NavLink to={{pathname: "/contest-detail", state: {contest: contest}}}>
+                    {contest.contestNumber}
                 </NavLink>
             </TableCell>
             <TableCell>{contest.contestStatus}</TableCell>

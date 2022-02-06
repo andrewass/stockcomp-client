@@ -8,16 +8,15 @@ const LeaderboardEntry = ({entry}) => {
     const EntryFlag = Flags[entry.country];
 
     return (
-        <TableRow key={entry.name}>
+        <TableRow key={entry.username}>
             <TableCell>{entry.ranking}</TableCell>
-            <TableCell component={NavLink} to={{
-                pathname: "/account-read",
-                state: {user: entry}
-            }}>
-                {entry.username}
+            <TableCell>
+                <NavLink to={{pathname: "/account-read", state: {user: entry}}}>
+                    {entry.username}
+                </NavLink>
             </TableCell>
             <TableCell>
-                <EntryFlag style={{width: "2rem"}}/>
+                {EntryFlag ? <EntryFlag style={{width: "2rem"}}/> : <span>n/a</span>}
             </TableCell>
             <TableCell>{entry.score}</TableCell>
             <TableCell>n/a</TableCell>

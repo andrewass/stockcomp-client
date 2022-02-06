@@ -12,7 +12,7 @@ const Contests = () => {
 
     const {isLoading, error, data} = useQuery("allContests", fetchAllContests);
 
-    if (error) return <h5>Error fetching contests</h5>
+    if (error) return `Error! ${error}`;
 
     if (isLoading) return  <CircularProgress/>
 

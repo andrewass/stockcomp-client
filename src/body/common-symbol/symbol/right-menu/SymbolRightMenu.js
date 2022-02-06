@@ -1,39 +1,33 @@
-import {useEffect, useState} from "react";
 import {OrderSymbol} from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
 import {getActiveContests} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
+import {useQuery} from "react-query";
 
 export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
-
-    const [activeContest, setActiveContest] = useState();
-    const [isLoading, setLoading] = useState(true);
 
     const getActiveContest = contests => {
         return contests.find(contest => contest.userParticipating);
     }
 
-    const fetchUpcomingContests = async () => {
-        setLoading(true)
+    const fetchActiveContests = async () => {
         let response = await getActiveContests();
-        setActiveContest(getActiveContest(response.data));
-        setLoading(false);
+        return getActiveContest(response.data);
     }
 
-    useEffect(() => {
-        fetchUpcomingContests().catch(error => console.log(error));
-    }, []);
+    const {isLoading, error, data} = useQuery("getActiveContests", fetchActiveContests);
 
-    if (isLoading) {
-        return <CircularProgress/>
-    } else if(activeContest) {
+    if (isLoading) return <CircularProgress/>
+
+    if (error) return `Error! ${error}`;
+
+    if(data){
         return (
             <Box id="symbolRightMenu" sx={{width: isLargeWidth ? "30%" :"70%"}}>
-                <InvestmentSymbol contest={activeContest} symbol={symbol}/>
-                <OrderSymbol contest={activeContest} symbol={symbol} stockQuote={stockQuote}/>
+                <InvestmentSymbol contest={data} symbol={symbol}/>
+                <OrderSymbol contest={data} symbol={symbol} stockQuote={stockQuote}/>
             </Box>
         );
-    }else {
-        return null;
     }
+    return null;
 }
