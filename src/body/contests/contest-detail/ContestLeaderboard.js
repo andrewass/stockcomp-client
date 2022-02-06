@@ -12,7 +12,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {styled, useTheme} from "@mui/material/styles";
-import ContestLeaderboardEntry from "./ContestLeaderboardEntry";
+import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "react-query";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -50,7 +50,7 @@ export const ContestLeaderboard = ({contestNumber}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(entry => <ContestLeaderboardEntry entry={entry}/>)}
+                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.username}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

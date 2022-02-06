@@ -10,7 +10,7 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {styled, useTheme} from '@mui/material/styles';
-import ContestEntry from "./ContestEntry";
+import {ContestEntry} from "./ContestEntry";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({

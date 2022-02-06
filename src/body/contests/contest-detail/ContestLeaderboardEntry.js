@@ -3,18 +3,20 @@ import {NavLink} from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
 
 
-const ContestLeaderboardEntry = ({entry}) => {
+export const ContestLeaderboardEntry = ({entry}) => {
 
     const EntryFlag = Flags[entry.country];
 
     return (
         <TableRow key={entry.name} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
-            <TableCell component={NavLink} to={{
-                pathname: "/account-read",
-                state: {user: entry}
-            }}>
-                {entry.username}
+            <TableCell>
+                <NavLink to={{
+                    pathname: "/account-read",
+                    state: {user: entry}
+                }}>
+                    {entry.username}
+                </NavLink>
             </TableCell>
             <TableCell>
                 {EntryFlag ? <EntryFlag style={{width: "2rem"}}/> : <span>n/a</span>}
@@ -23,5 +25,3 @@ const ContestLeaderboardEntry = ({entry}) => {
         </TableRow>
     );
 }
-
-export default ContestLeaderboardEntry;

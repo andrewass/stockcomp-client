@@ -8,7 +8,7 @@ import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
 import UserAccountWrite from "./account/UserAccountWrite";
-import UserAccountRead from "./account/UserAccountRead";
+import {UserAccountRead} from "./account/UserAccountRead";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 
 const Body = () => {

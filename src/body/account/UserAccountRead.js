@@ -7,21 +7,21 @@ import ParticipantHistory from "./ParticipantHistory";
 import {useQuery} from "react-query";
 
 
-const fetchParticipantHistory = async (key, username) => {
-    const response = await getParticipantHistory(username);
-    return response.data;
-}
-
-const fetchLeaderboardEntry = async (username) => {
-    const response = await getLeaderboardUserEntry(username);
-    return response.data;
-}
-
-const UserAccountRead = () => {
+export const UserAccountRead = () => {
 
     const location = useLocation();
     const user = location.state.user;
     const EntryFlag = Flags[user.country];
+
+    const fetchParticipantHistory = async (username) => {
+        const response = await getParticipantHistory(username);
+        return response.data;
+    }
+
+    const fetchLeaderboardEntry = async (username) => {
+        const response = await getLeaderboardUserEntry(username);
+        return response.data;
+    }
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
         useQuery(["participantHistory", user.username], () => fetchParticipantHistory(user.username));
@@ -50,5 +50,3 @@ const UserAccountRead = () => {
         </Box>
     );
 }
-
-export default UserAccountRead;
