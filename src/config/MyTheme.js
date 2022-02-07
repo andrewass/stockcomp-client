@@ -19,6 +19,13 @@ const myTheme = createTheme({
                     margin:"10% 40%",
                 }
             }
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: "none"
+                }
+            }
         }
     }
 });

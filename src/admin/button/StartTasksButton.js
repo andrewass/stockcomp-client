@@ -1,9 +1,8 @@
-import React from 'react';
 import Button from "@mui/material/Button";
 import toast, {Toaster} from "react-hot-toast";
 import {startContestTasks} from "../../service/adminService";
 
-const StartTasksButton = () => {
+export const StartTasksButton = () => {
 
     const handleClick = (event) => {
         event.stopPropagation();
@@ -23,5 +22,3 @@ const StartTasksButton = () => {
         </>
     );
 }
-
-export default StartTasksButton;

@@ -3,7 +3,7 @@ import simpleRestProvider from "ra-data-simple-rest";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";
 import {UserList} from "./CustomUser";
 import {authProvider} from "./authProvider";
-import LogoutButton from "./button/LogoutButton";
+import {LogoutButton} from "./button/LogoutButton";
 import {verifyUserIsAdmin} from "../service/authService";
 import {CircularProgress} from "@mui/material";
 import {Redirect} from "react-router-dom";

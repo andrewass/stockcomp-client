@@ -1,14 +1,13 @@
-import React from 'react';
 import Button from "@mui/material/Button";
-import {updateLeaderboard} from "../../service/adminService";
+import {completeContestTasks} from "../../service/adminService";
 import toast, {Toaster} from "react-hot-toast";
 
-const UpdateLeaderboardButton = ({record}) => {
+export const CompleteTasksButton = ({record}) => {
 
     const handleClick = (event) => {
         event.stopPropagation();
-        updateLeaderboard(record.contestNumber);
-        toast.success("Leaderboard update initiated", {
+        completeContestTasks(record.contestNumber);
+        toast.success("Complete contest tasks initiated", {
             duration: 4000,
             position: "top-center"
         });
@@ -17,11 +16,9 @@ const UpdateLeaderboardButton = ({record}) => {
     return (
         <>
             <Button label="Approve" onClick={handleClick}>
-                Update Leaderboard
+                Complete tasks
             </Button>
             <Toaster/>
         </>
     );
 }
-
-export default UpdateLeaderboardButton;

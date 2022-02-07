@@ -3,19 +3,10 @@ import {CONTEST_BASE_URL} from "./serviceConfig";
 
 
 const URL = {
-    update_leaderboard: CONTEST_BASE_URL + "/admin/update-leaderboard",
     start_contest_tasks: CONTEST_BASE_URL + "/admin/start-contest-tasks",
     stop_contest_tasks: CONTEST_BASE_URL + "/admin/stop-contest-tasks",
+    complete_contest_tasks: CONTEST_BASE_URL + "/admin/complete-contest-tasks"
 };
-
-const updateLeaderboard = contestNumber => {
-    return axios({
-        method: "post",
-        url: URL.update_leaderboard,
-        withCredentials: true,
-        params: {contestNumber}
-    });
-}
 
 const startContestTasks = () => {
     return axios({
@@ -33,6 +24,15 @@ const stopContestTasks = () => {
     });
 }
 
+const completeContestTasks = contestNumber => {
+    return axios({
+        method: "post",
+        url: URL.complete_contest_tasks,
+        withCredentials: true,
+        params: {contestNumber}
+    });
+}
+
 export {
-    updateLeaderboard, startContestTasks, stopContestTasks
+    startContestTasks, stopContestTasks, completeContestTasks
 }

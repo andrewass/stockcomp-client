@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {useHistory} from "react-router-dom";
 import {removeSignedInFromLocalStorage, signOut} from "../../service/authService";
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
 
     const history = useHistory();
 
@@ -29,6 +29,4 @@ const LogoutButton = () => {
             }
         />
     );
-};
-
-export default LogoutButton;
+}
