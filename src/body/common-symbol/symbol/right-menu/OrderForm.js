@@ -1,6 +1,6 @@
 import {useState} from "react";
 import "./orderForm.css";
-import {FormControl, InputLabel, Select, TextField} from "@mui/material";
+import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
@@ -10,41 +10,6 @@ import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrder
 import {useMutation} from "react-query";
 import {queryClient} from "../../../../config/QueryConfig";
 
-
-const QuantitySelect = ({setOrderAmount}) => {
-    return <TextField label="Quantity" variant="outlined" defaultValue={1}
-                      onChange={event => setOrderAmount(event.target.value)}/>
-}
-
-const PriceSelect = ({setAcceptedPrice, currentPrice}) => {
-    return <TextField label="Accepted Price" variant="outlined" defaultValue={currentPrice}
-                      onChange={event => setAcceptedPrice(event.target.value)}/>
-}
-
-const OperationSelect = ({operationType, setOperationType}) => {
-    return (
-        <FormControl>
-            <InputLabel>Operation</InputLabel>
-            <Select value={operationType} label="Operation" onChange={event => setOperationType(event.target.value)}>
-                <MenuItem value="Buy">Buy</MenuItem>
-                <MenuItem value="Sell">Sell</MenuItem>
-            </Select>
-        </FormControl>
-    );
-}
-
-const ExpirationSelect = ({expirationTime, setExpirationTime}) => {
-    return (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker
-                renderInput={(props) => <TextField {...props} />}
-                label="Expiration"
-                value={expirationTime}
-                onChange={(newValue) => setExpirationTime(newValue)}
-            />
-        </LocalizationProvider>
-    );
-}
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
 
@@ -86,11 +51,34 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
     return (
         <form id="submitOrderForm">
             <div id="orderGrid">
-                <QuantitySelect setOrderAmount={setOrderAmount}/>
-                <PriceSelect setAcceptedPrice={setAcceptedPrice} currentPrice={stockQuote.price}/>
-                <OperationSelect setOperationType={setOperationType} operationType={operationType}/>
-                <ExpirationSelect setExpirationTime={setExpirationTime} expirationTime={expirationTime}/>
-                <Button variant="contained" onClick={submitOrder}>Submit</Button>
+                <TextField label="Quantity" variant="outlined" defaultValue={1} disabled={mutation.isLoading}
+                           onChange={event => setOrderAmount(event.target.value)}/>
+
+                <TextField label="Accepted Price" variant="outlined" defaultValue={stockQuote.price}
+                           disabled={mutation.isLoading} onChange={event => setAcceptedPrice(event.target.value)}/>
+
+                <FormControl disabled={mutation.isLoading}>
+                    <InputLabel>Operation</InputLabel>
+                    <Select value={operationType} label="Operation"
+                            onChange={event => setOperationType(event.target.value)}>
+                        <MenuItem value="Buy">Buy</MenuItem>
+                        <MenuItem value="Sell">Sell</MenuItem>
+                    </Select>
+                </FormControl>
+
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker disabled={mutation.isLoading}
+                        renderInput={(props) => <TextField {...props} />}
+                        label="Expiration"
+                        value={expirationTime}
+                        onChange={(newValue) => setExpirationTime(newValue)}
+                    />
+                </LocalizationProvider>
+
+                {mutation.isLoading
+                    ? <CircularProgress/>
+                    : <Button variant="contained" onClick={submitOrder}>Submit</Button>
+                }
                 <Toaster/>
             </div>
         </form>

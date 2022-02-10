@@ -52,14 +52,13 @@ export const SignIn = ({setDisplaySignUp}) => {
         mutation.mutate({username, password});
     }
 
-    if (mutation.isLoading) return <CircularProgress/>
-
     return (
         <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
-            <TextField sx={{mt: 4}} label="Username" autoComplete="on" onChange={e => setUsername(e.target.value)}
+            <TextField sx={{mt: 4}} label="Username" autoComplete="on" disabled={mutation.isLoading}
+                       onChange={e => setUsername(e.target.value)}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -68,16 +67,22 @@ export const SignIn = ({setDisplaySignUp}) => {
                            )
                        }}/>
             <TextField sx={{mt: 4}} label="Password" type="password" autoComplete="current-password"
-                       onChange={e => setPassword(e.target.value)} InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                        <LockIcon/>
-                    </InputAdornment>
-                )
-            }}/>
-            <Button sx={{mt: 3}} type="submit" variant="contained">Sign In</Button>
-            <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
-            <SignInGoogle/>
+                       disabled={mutation.isLoading} onChange={e => setPassword(e.target.value)}
+                       InputProps={{
+                           startAdornment: (
+                               <InputAdornment position="start">
+                                   <LockIcon/>
+                               </InputAdornment>
+                           )
+                       }}/>
+            {mutation.isLoading
+                ? <CircularProgress/>
+                : <>
+                    <Button sx={{mt: 3}} type="submit" variant="contained">Sign In</Button>
+                    <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
+                    <SignInGoogle/>
+                </>
+            }
             <Toaster/>
         </form>
     );

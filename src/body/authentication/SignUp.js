@@ -40,7 +40,7 @@ export const SignUp = ({setDisplaySignUp}) => {
         return password.length > 0 && password === retypedPassword;
     };
 
-    const mutation = useMutation((credentials) => signUp(credentials),{
+    const mutation = useMutation((credentials) => signUp(credentials), {
         onSuccess: () => {
             setSignedInToLocalStorage();
             history.push("/stocks");
@@ -63,14 +63,14 @@ export const SignUp = ({setDisplaySignUp}) => {
         }
     }
 
-    if (mutation.isLoading) return <CircularProgress/>
-
     return (
         <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
+
             <TextField sx={{mt: 4}} label="Username" onChange={e => setUsername(e.target.value)}
+                       disabled={mutation.isLoading}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -78,7 +78,9 @@ export const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
+
             <TextField sx={{mt: 4}} label="Email" onChange={e => setEmail(e.target.value)}
+                       disabled={mutation.isLoading}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -86,7 +88,9 @@ export const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
+
             <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => setPassword(e.target.value)}
+                       disabled={mutation.isLoading}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -94,8 +98,10 @@ export const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
+
             <TextField sx={{mt: 4}} label="Confirm Password" type="password"
                        onChange={e => setRetypedPassword(e.target.value)}
+                       disabled={mutation.isLoading}
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -103,8 +109,14 @@ export const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <Button sx={{mt: 3}} type="submit" variant="contained">Sign Up</Button>
-            <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
+
+            {mutation.isLoading
+                ? <CircularProgress/>
+                : <>
+                    <Button sx={{mt: 3}} type="submit" variant="contained">Sign Up</Button>
+                    <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
+                </>
+            }
         </form>
     );
 }
