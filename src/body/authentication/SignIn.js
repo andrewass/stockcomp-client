@@ -75,7 +75,7 @@ export const SignIn = ({setDisplaySignUp}) => {
                     </InputAdornment>
                 )
             }}/>
-            <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
+            <Button sx={{mt: 3}} type="submit" variant="contained">Sign In</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
             <SignInGoogle/>
             <Toaster/>

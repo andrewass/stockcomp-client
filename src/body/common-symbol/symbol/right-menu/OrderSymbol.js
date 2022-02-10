@@ -27,7 +27,7 @@ export const OrderSymbol = ({contest, symbol, stockQuote}) => {
     }
 
     const {isLoading: activeLoading, error: activeError, data: activeData} =
-        useQuery("activeOrdersSymbol", fetchActiveOrdersSymbol);
+        useQuery("getActiveOrdersSymbol", fetchActiveOrdersSymbol);
 
     const {isLoading: completedLoading, error: completedError, data: completedData} =
         useQuery("completedOrdersSymbol", fetchCompletedOrdersSymbol);

@@ -13,21 +13,21 @@ export const UserAccountRead = () => {
     const user = location.state.user;
     const EntryFlag = Flags[user.country];
 
-    const fetchParticipantHistory = async (username) => {
-        const response = await getParticipantHistory(username);
+    const fetchParticipantHistory = async () => {
+        const response = await getParticipantHistory(user.username);
         return response.data;
     }
 
-    const fetchLeaderboardEntry = async (username) => {
-        const response = await getLeaderboardUserEntry(username);
+    const fetchLeaderboardEntry = async () => {
+        const response = await getLeaderboardUserEntry(user.username);
         return response.data;
     }
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
-        useQuery(["participantHistory", user.username], () => fetchParticipantHistory(user.username));
+        useQuery(["participantHistory", user.username], fetchParticipantHistory);
 
     const {isLoading: entryLoading, error: entryError, data: entryData} =
-        useQuery(["leaderboardEntry", user.username], () => fetchLeaderboardEntry(user.username));
+        useQuery(["leaderboardEntry", user.username], fetchLeaderboardEntry);
 
     if (historyLoading || entryLoading) return <CircularProgress/>;
 

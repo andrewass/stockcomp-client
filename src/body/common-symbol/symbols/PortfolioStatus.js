@@ -17,10 +17,10 @@ export const PortfolioStatus = ({contest}) => {
     }
 
     const {isLoading: fundsLoading, error: fundsError, data: fundsData} =
-        useQuery("remainingFunds", fetchRemainingFunds);
+        useQuery("getRemainingFunds", fetchRemainingFunds);
 
     const {isLoading: investmentLoading, error: investmentError, data: investmentData} =
-        useQuery("investmentTotal", fetchTotalValueInvestments);
+        useQuery("getInvestmentTotal", fetchTotalValueInvestments);
 
     if (fundsLoading || investmentLoading) return <CircularProgress/>;
 

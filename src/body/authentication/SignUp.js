@@ -103,7 +103,7 @@ export const SignUp = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
-            <Button sx={{mt: 3}} type="submit" variant="contained">Submit</Button>
+            <Button sx={{mt: 3}} type="submit" variant="contained">Sign Up</Button>
             <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(false)}>Go to sign in</Button>
         </form>
     );

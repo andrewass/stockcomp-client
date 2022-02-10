@@ -12,6 +12,7 @@ import {
     ListItemText, Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
+import {queryClient} from "../../../config/QueryConfig";
 
 
 const ActiveOrders = ({activeOrders}) => {
@@ -20,6 +21,8 @@ const ActiveOrders = ({activeOrders}) => {
 
     const deleteOrder = async (orderId) => {
         await deleteActiveOrder(orderId);
+        await queryClient.invalidateQueries("getActiveOrdersSymbol");
+        await queryClient.invalidateQueries("getActiveOrdersParticipant");
     }
 
     const createListItem = (order) => {

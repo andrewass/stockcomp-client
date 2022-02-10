@@ -4,14 +4,18 @@ import SymbolCard from "./SymbolCard";
 import {useQuery} from "react-query";
 
 
-const fetchTrendingSymbols = async () => {
-    const response = await getTrendingStocks();
-    return response.data;
-}
 
 export const TrendingSymbols = () => {
 
-    const {isLoading, error, data} = useQuery("trendingSymbols", fetchTrendingSymbols)
+    const fetchInterval = 5000
+
+    const fetchTrendingSymbols = async () => {
+        const response = await getTrendingStocks();
+        return response.data;
+    }
+
+    const {isLoading, error, data} = useQuery("getTrendingSymbols", fetchTrendingSymbols,
+        {refetchInterval: fetchInterval})
 
     if (isLoading) return <CircularProgress/>
 
