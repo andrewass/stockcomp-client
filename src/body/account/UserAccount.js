@@ -9,7 +9,7 @@ import {queryClient} from "../../config/QueryConfig";
 
 const countries = getData();
 
-const UserAccountWrite = () => {
+const UserAccount = () => {
 
     const [userDetails, setUserDetails] = useState();
     const [country, setCountry] = useState();
@@ -79,4 +79,4 @@ const UserAccountWrite = () => {
     );
 }
 
-export default UserAccountWrite;
+export default UserAccount;

@@ -7,8 +7,8 @@ import {AdminPage} from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
-import UserAccountWrite from "./account/UserAccountWrite";
-import {UserAccountRead} from "./account/UserAccountRead";
+import UserAccount from "./account/UserAccount";
+import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 
 const Body = () => {
@@ -38,13 +38,13 @@ const Body = () => {
                 <ProtectedRoute path="/admin">
                     <AdminPage/>
                 </ProtectedRoute>
-                <ProtectedRoute path="/account-write">
+                <ProtectedRoute path="/account">
                     <Header/>
-                    <UserAccountWrite/>
+                    <UserAccount/>
                 </ProtectedRoute>
-                <ProtectedRoute path="/account-read">
+                <ProtectedRoute path="/user/:username">
                     <Header/>
-                    <UserAccountRead/>
+                    <UserDetails/>
                 </ProtectedRoute>
                 <ProtectedRoute path="*">
                     <Header/>

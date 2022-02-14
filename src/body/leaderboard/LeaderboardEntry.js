@@ -11,7 +11,7 @@ const LeaderboardEntry = ({entry}) => {
         <TableRow key={entry.username}>
             <TableCell>{entry.ranking}</TableCell>
             <TableCell>
-                <NavLink to={{pathname: "/account-read", state: {user: entry}}}>
+                <NavLink to={`/user/${entry.username}`}>
                     {entry.username}
                 </NavLink>
             </TableCell>

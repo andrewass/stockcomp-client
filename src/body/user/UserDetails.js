@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useLocation, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
 import {getParticipantHistory} from "../../service/contestService";
 import {getLeaderboardUserEntry} from "../../service/leaderboardService";
@@ -7,41 +7,38 @@ import ParticipantHistory from "./ParticipantHistory";
 import {useQuery} from "react-query";
 
 
-export const UserAccountRead = () => {
+export const UserDetails = () => {
 
     const { username } = useParams();
 
-    const location = useLocation();
-    const user = location.state.user;
-    const EntryFlag = Flags[user.country];
-
-
     const fetchParticipantHistory = async () => {
-        const response = await getParticipantHistory(user.username);
+        const response = await getParticipantHistory(username);
         return response.data;
     }
 
     const fetchLeaderboardEntry = async () => {
-        const response = await getLeaderboardUserEntry(user.username);
+        const response = await getLeaderboardUserEntry(username);
         return response.data;
     }
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
-        useQuery(["participantHistory", user.username], fetchParticipantHistory);
+        useQuery(["participantHistory", username], fetchParticipantHistory);
 
     const {isLoading: entryLoading, error: entryError, data: entryData} =
-        useQuery(["leaderboardEntry", user.username], fetchLeaderboardEntry);
+        useQuery(["leaderboardEntry", username], fetchLeaderboardEntry);
 
     if (historyLoading || entryLoading) return <CircularProgress/>;
 
     if (historyError || entryError) return `Error! ${historyError ? historyError : entryError}`;
+
+    const EntryFlag = null;//Flags[user.country];
 
     return (
         <Box>
             <Card elevation={0} sx={{marginTop: "10%", marginLeft: "30%"}}>
                 <CardContent>
                     <Box display="flex">
-                        <Typography variant="h5">{user.username}</Typography>
+                        <Typography variant="h5">{username}</Typography>
                         {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : null}
                     </Box>
                     <Typography>Medals n/a</Typography>
