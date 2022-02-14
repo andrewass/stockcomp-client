@@ -5,7 +5,7 @@ import {SymbolRightMenu} from "./right-menu/SymbolRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import SearchField from "../search/SearchField";
 import {useTheme} from "@mui/material/styles";
-import {useGetSymbolStats} from "../../../service/graphqlService";
+import {useGetSymbolStats} from "../../../service/symbolService";
 
 const Symbol = () => {
     const theme = useTheme();

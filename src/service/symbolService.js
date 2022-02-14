@@ -1,5 +1,7 @@
 import axios from "axios";
-import {STOCK_BASE_URL} from "./serviceConfig";
+import {graphqlClientStockData, STOCK_BASE_URL} from "../config/ServiceConfig";
+import {useQuery} from "react-query";
+import {gql} from "graphql-request";
 
 
 const URL = {
@@ -8,6 +10,28 @@ const URL = {
     real_time_price: STOCK_BASE_URL+"/stock/stock-quote",
     trending_stocks: STOCK_BASE_URL+"/stock/stock-quote-trending"
 };
+
+const useGetSymbolStats = (symbol) => {
+    return useQuery(["getSymbolStats", symbol], async () => {
+        return await graphqlClientStockData.request(
+            gql`
+                query GetStockSymbolStats($symbol: String!) {
+                    stockSymbolStats(symbol: $symbol) {
+                        symbol
+                        stockQuote {
+                            price
+                            previousClose
+                            currency
+                            usdPrice
+                        }
+                        stockStats {
+                            priceToEarnings
+                        }
+                    }
+                }
+            `, {symbol});
+    });
+}
 
 const getSuggestionsFromQuery = (query) => {
     return axios({
@@ -42,5 +66,5 @@ const getTrendingStocks = () => {
 }
 
 export {
-    getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
+    useGetSymbolStats,getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
 };

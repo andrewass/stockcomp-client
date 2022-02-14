@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Flags from "country-flag-icons/react/3x2";
 import {getParticipantHistory} from "../../service/contestService";
 import {getLeaderboardUserEntry} from "../../service/leaderboardService";
@@ -9,9 +9,12 @@ import {useQuery} from "react-query";
 
 export const UserAccountRead = () => {
 
+    const { username } = useParams();
+
     const location = useLocation();
     const user = location.state.user;
     const EntryFlag = Flags[user.country];
+
 
     const fetchParticipantHistory = async () => {
         const response = await getParticipantHistory(user.username);
