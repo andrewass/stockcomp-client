@@ -14,7 +14,7 @@ const SymbolCard = ({symbol}) => {
 
     const redirectToSymbolDetail = () => {
         setSelectedSymbol(symbol);
-        history.push("/symbol-detail");
+        history.push(`/symbol/${symbol.symbol}`);
     }
 
     const getPriceDifferenceUSD = () => {

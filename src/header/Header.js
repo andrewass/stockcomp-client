@@ -76,7 +76,7 @@ const Header = () => {
                     <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/stocks"/>
                     <Tab label="LEADERBOARD" icon={<LeaderboardIcon/>} component={NavLink} to="/leaderboard"/>
                     <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests"/>
-                    <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account-write"/>
+                    <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>
             </AppBar>

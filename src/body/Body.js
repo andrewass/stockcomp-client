@@ -20,7 +20,7 @@ const Body = () => {
                     <Header/>
                     <Contests/>
                 </ProtectedRoute>
-                <ProtectedRoute path="/contest-detail">
+                <ProtectedRoute path="/contest/:contestNumber">
                     <Header/>
                     <ContestDetail/>
                 </ProtectedRoute>
@@ -28,7 +28,7 @@ const Body = () => {
                     <Header/>
                     <Leaderboard/>
                 </ProtectedRoute>
-                <ProtectedRoute path="/symbol-detail">
+                <ProtectedRoute path="/symbol/:symbol">
                     <Header/>
                     <Symbol/>
                 </ProtectedRoute>

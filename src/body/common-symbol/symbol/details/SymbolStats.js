@@ -1,7 +1,7 @@
 import {Card, CardContent, Typography} from "@mui/material";
 
 
-const SymbolStats = ({symbol, quote, stats}) => {
+const SymbolStats = ({symbol, quote}) => {
 
     const priceDifference = (quote.price - quote.previousClose).toFixed(2);
 
@@ -28,7 +28,7 @@ const SymbolStats = ({symbol, quote, stats}) => {
     return (
         <Card elevation={0}>
             <CardContent>
-                <Typography variant="h5">{symbol.name} ({symbol.symbol})</Typography>
+                <Typography variant="h5">{symbol} ({symbol})</Typography>
                 <Typography>{getCurrentPrice()}</Typography>
                 <Typography
                     sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>

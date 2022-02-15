@@ -56,7 +56,7 @@ const DropDownMenu = ({signOutUser}) => {
                             </StyledItemIcon>
                             Contests
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/account-write"} onClick={handleClose}>
+                        <MenuItem component={NavLink} to={"/account"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <AccountCircleIcon/>
                             </StyledItemIcon>

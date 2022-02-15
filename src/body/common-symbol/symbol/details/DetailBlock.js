@@ -2,15 +2,15 @@ import {PriceChart} from "./PriceChart";
 import SymbolStats from "./SymbolStats";
 import {Box} from "@mui/material";
 
-const DetailBlock = ({isLargeWidth, symbol, stockQuote, stockStats}) => {
+const DetailBlock = ({isLargeWidth, symbolDetails}) => {
 
     return (
         <Box id="detailBlock" display="flex" flexDirection="column" alignItems="center"
              sx={{width: isLargeWidth ? "80%" : "100%", margin:"5% 5%"}}>
             <Box id="symbolData">
-                <SymbolStats symbol={symbol} quote={stockQuote} stats={stockStats}/>
+                <SymbolStats symbol={symbolDetails.symbol} quote={symbolDetails.stockQuote} stats={symbolDetails.stockStats}/>
             </Box>
-            <PriceChart symbol={symbol.symbol}/>
+            <PriceChart symbol={symbolDetails.symbol}/>
         </Box>
     );
 }
