@@ -1,11 +1,13 @@
 import {Card, CardContent, Typography} from "@mui/material";
 
 
-const SymbolStats = ({symbol, quote}) => {
+const SymbolInformation = ({symbolDetails}) => {
 
-    const priceDifference = (quote.price - quote.previousClose).toFixed(2);
+    const {symbol, companyName, stockQuote} = symbolDetails;
 
-    const percentageDifference = ((priceDifference / quote.previousClose) * 100).toFixed(2);
+    const priceDifference = (stockQuote.price - stockQuote.previousClose).toFixed(2);
+
+    const percentageDifference = ((priceDifference / stockQuote.previousClose) * 100).toFixed(2);
 
     const getPriceDifferenceUSD = () => {
         return priceDifference >= 0.00 ? "+" + priceDifference : priceDifference;
@@ -16,11 +18,11 @@ const SymbolStats = ({symbol, quote}) => {
     }
 
     const getCurrentPrice = () => {
-        if (quote.currency === "USD") {
-            return <Typography variant="span">{quote.price} {quote.currency}</Typography>;
+        if (stockQuote.currency === "USD") {
+            return <Typography variant="span">{stockQuote.price} {stockQuote.currency}</Typography>;
         } else {
             return <Typography variant="span">
-                {quote.price} {quote.currency} (USD {quote.price})
+                {stockQuote.price} {stockQuote.currency} (USD {stockQuote.price})
             </Typography>;
         }
     }
@@ -28,7 +30,7 @@ const SymbolStats = ({symbol, quote}) => {
     return (
         <Card elevation={0}>
             <CardContent>
-                <Typography variant="h5">{symbol} ({symbol})</Typography>
+                <Typography variant="h5">{companyName} ({symbol})</Typography>
                 <Typography>{getCurrentPrice()}</Typography>
                 <Typography
                     sx={{color: priceDifference >= 0 ? "limegreen" : "red"}}>{getPriceDifferenceUSD()}</Typography>
@@ -39,4 +41,4 @@ const SymbolStats = ({symbol, quote}) => {
     )
 }
 
-export default SymbolStats;
+export default SymbolInformation;

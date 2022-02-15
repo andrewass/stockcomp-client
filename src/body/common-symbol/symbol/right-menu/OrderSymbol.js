@@ -4,7 +4,7 @@ import CompletedOrders from "../../order/CompletedOrders";
 import {OrderForm} from "./OrderForm";
 import {
     getActiveOrdersParticipant,
-    getCompletedOrdersParticipantSymbol
+    getCompletedOrdersSymbolParticipant
 } from "../../../../service/investmentOrderService";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
@@ -15,14 +15,14 @@ export const OrderSymbol = ({contest, symbol, stockQuote}) => {
     const [activeOrders, setActiveOrders] = useState([]);
 
     const fetchActiveOrdersSymbol = async () => {
-        const response = await getActiveOrdersParticipant(contest.contestNumber, symbol.symbol);
+        const response = await getActiveOrdersParticipant(contest.contestNumber, symbol);
         setActiveOrders(response.data);
 
         return response.data;
     }
 
     const fetchCompletedOrdersSymbol = async () => {
-        const response = await getCompletedOrdersParticipantSymbol(contest.contestNumber, symbol.symbol);
+        const response = await getCompletedOrdersSymbolParticipant(contest.contestNumber, symbol);
         return response.data;
     }
 

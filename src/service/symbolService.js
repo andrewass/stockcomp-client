@@ -11,13 +11,14 @@ const URL = {
     trending_stocks: STOCK_BASE_URL+"/stock/stock-quote-trending"
 };
 
-const useGetSymbolStats = (symbol) => {
-    return useQuery(["getSymbolStats", symbol], async () => {
+const useGetStockSymbolInformation = (symbol) => {
+    return useQuery(["getStockSymbolInformation", symbol], async () => {
         return await graphqlClientStockData.request(
             gql`
-                query GetStockSymbolStats($symbol: String!) {
-                    stockSymbolStats(symbol: $symbol) {
+                query GetStockSymbolInformation($symbol: String!) {
+                    stockSymbolInformation(symbol: $symbol) {
                         symbol
+                        companyName
                         stockQuote {
                             price
                             previousClose
@@ -66,5 +67,5 @@ const getTrendingStocks = () => {
 }
 
 export {
-    useGetSymbolStats,getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
+    useGetStockSymbolInformation,getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
 };

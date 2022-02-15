@@ -7,7 +7,7 @@ const URL = {
     place_sell_order: CONTEST_BASE_URL+"/investment-order/place-sell-order",
     delete_active_order: CONTEST_BASE_URL+"/investment-order/delete-active-order",
     completed_orders_participant: CONTEST_BASE_URL+"/investment-order/completed-orders-participant",
-    completed_orders_participant_symbol: CONTEST_BASE_URL+"/investment-order/completed-orders-symbol-participant",
+    completed_orders_symbol_participant: CONTEST_BASE_URL+"/investment-order/completed-orders-symbol-participant",
     active_orders_participant: CONTEST_BASE_URL+"/investment-order/active-orders-participant",
     active_orders_participant_symbol: CONTEST_BASE_URL+"/investment-order/active-orders-symbol-participant"
 }
@@ -49,10 +49,10 @@ const getCompletedOrdersParticipant = (contestNumber) => {
     });
 }
 
-const getCompletedOrdersParticipantSymbol = (contestNumber, symbol) => {
+const getCompletedOrdersSymbolParticipant = (contestNumber, symbol) => {
     return axios({
         method: "get",
-        url: URL.completed_orders_participant_symbol,
+        url: URL.completed_orders_symbol_participant,
         params: {contestNumber, symbol},
         withCredentials: true
     });
@@ -78,6 +78,6 @@ const getActiveOrdersParticipantSymbol = (contestNumber, symbol) => {
 
 export {
     placeBuyOrder, placeSellOrder, deleteActiveOrder,
-    getCompletedOrdersParticipant, getCompletedOrdersParticipantSymbol,
+    getCompletedOrdersParticipant, getCompletedOrdersSymbolParticipant,
     getActiveOrdersParticipant, getActiveOrdersParticipantSymbol
 }

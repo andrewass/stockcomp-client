@@ -13,7 +13,7 @@ const InvestmentSymbol = ({contest, symbol}) => {
     }
 
     const fetchSymbolInvestment = async () => {
-        const response = await getInvestmentOfSymbol(contest.contestNumber, symbol.symbol);
+        const response = await getInvestmentOfSymbol(contest.contestNumber, symbol);
         return response.data;
     }
 
