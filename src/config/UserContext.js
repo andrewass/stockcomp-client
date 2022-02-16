@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 export const UserContext = React.createContext(undefined);
 
-const UserProvider = (props) => {
+export const UserProvider = (props) => {
 
     const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -12,5 +12,3 @@ const UserProvider = (props) => {
         </UserContext.Provider>
     );
 }
-
-export default UserProvider;

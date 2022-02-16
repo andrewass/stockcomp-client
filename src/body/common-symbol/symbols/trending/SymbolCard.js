@@ -1,19 +1,15 @@
-import React, {useContext} from "react";
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useHistory} from "react-router-dom";
-import {SymbolContext} from "../../../../config/SymbolContext";
 
 
 const SymbolCard = ({symbol}) => {
 
-    const {setSelectedSymbol} = useContext(SymbolContext);
     const history = useHistory();
 
     const priceDifference = (symbol.price - symbol.previousClose).toFixed(2);
     const percentageDifference = ((priceDifference / symbol.previousClose) * 100).toFixed(2);
 
     const redirectToSymbolDetail = () => {
-        setSelectedSymbol(symbol);
         history.push(`/symbol/${symbol.symbol}`);
     }
 

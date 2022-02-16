@@ -1,12 +1,10 @@
-import React, {useContext, useState} from "react";
-import {SymbolContext} from "../../../config/SymbolContext";
+import {useState} from "react";
 import {getSuggestionsFromQuery} from "../../../service/symbolService";
 import {Autocomplete, Box, TextField} from "@mui/material";
 import {useHistory} from "react-router-dom";
 
 const SearchField = () => {
 
-    const {setSelectedSymbol} = useContext(SymbolContext);
     const history = useHistory();
     const [suggestionList, setSuggestionList] = useState([]);
 
@@ -20,8 +18,7 @@ const SearchField = () => {
     };
 
     const redirectToSymbolDetail = symbol => {
-        setSelectedSymbol(symbol);
-        history.push("/symbol-detail");
+        history.push(`/symbol/${symbol.symbol}`);
     }
 
     const buildOptionLabel = option => {
@@ -36,9 +33,7 @@ const SearchField = () => {
                 getOptionLabel={option => buildOptionLabel(option)}
                 onChange={(event, value) => redirectToSymbolDetail(value)}
                 onInputChange={(event, value) => getSuggestions(value)}
-                renderInput={params => (
-                    <TextField {...params} label="Search symbols"/>
-                )}
+                renderInput={params => <TextField {...params} label="Search symbols"/>}
             />
         </Box>
     );

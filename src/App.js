@@ -1,8 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import Body from "./body/Body";
-import SymbolProvider from "./config/SymbolContext";
-import UserProvider from "./config/UserContext";
+import {UserProvider} from "./config/UserContext";
 import {ThemeProvider} from "@mui/material";
 import {myTheme} from "./config/MyTheme";
 import {QueryClientProvider} from "react-query";
@@ -16,14 +15,12 @@ const App = () => {
     return (
         <Router>
             <UserProvider>
-                <SymbolProvider>
-                    <ThemeProvider theme={myTheme}>
-                        <QueryClientProvider client={queryClient}>
-                            <Body/>
-                            <ReactQueryDevtools initialIsOpen={false}/>
-                        </QueryClientProvider>
-                    </ThemeProvider>
-                </SymbolProvider>
+                <ThemeProvider theme={myTheme}>
+                    <QueryClientProvider client={queryClient}>
+                        <Body/>
+                        <ReactQueryDevtools initialIsOpen={false}/>
+                    </QueryClientProvider>
+                </ThemeProvider>
             </UserProvider>
         </Router>
     );

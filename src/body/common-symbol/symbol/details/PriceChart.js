@@ -10,7 +10,7 @@ export const PriceChart = ({symbol}) => {
         return response.data;
     }
 
-    const {isLoading, isFetching, error, data} = useQuery("getHistoricPrices", fetchHistoricPrices);
+    const {isLoading, isFetching, error, data} = useQuery(["getHistoricPrices",symbol], fetchHistoricPrices);
 
     if (isLoading || isFetching) return <CircularProgress/>
 

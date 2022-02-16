@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./orderForm.css";
 import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
@@ -13,10 +13,17 @@ import {queryClient} from "../../../../config/QueryConfig";
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
 
-    const [acceptedPrice, setAcceptedPrice] = useState();
+    const [acceptedPrice, setAcceptedPrice] = useState(stockQuote.price);
     const [expirationTime, setExpirationTime] = useState(Date.now);
-    const [orderAmount, setOrderAmount] = useState();
+    const [orderAmount, setOrderAmount] = useState(1);
     const [operationType, setOperationType] = useState("Buy");
+
+    useEffect(() => {
+        setAcceptedPrice(stockQuote.price);
+        setOrderAmount(1);
+        setOperationType("Buy");
+        setExpirationTime(Date.now)
+    },[symbol]);
 
     const createInvestmentOrderRequest = () => {
         return {
@@ -52,9 +59,9 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
         <form id="submitOrderForm">
             <div id="orderGrid">
                 <TextField label="Quantity" variant="outlined" defaultValue={1} disabled={mutation.isLoading}
-                           onChange={event => setOrderAmount(event.target.value)}/>
+                           value={orderAmount} onChange={event => setOrderAmount(event.target.value)}/>
 
-                <TextField label="Accepted Price" variant="outlined" defaultValue={stockQuote.price}
+                <TextField label="Accepted Price" variant="outlined" defaultValue={stockQuote.price} value={acceptedPrice}
                            disabled={mutation.isLoading} onChange={event => setAcceptedPrice(event.target.value)}/>
 
                 <FormControl disabled={mutation.isLoading}>

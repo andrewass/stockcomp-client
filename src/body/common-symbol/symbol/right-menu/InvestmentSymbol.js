@@ -18,10 +18,10 @@ const InvestmentSymbol = ({contest, symbol}) => {
     }
 
     const {isLoading: fundsLoading, error: fundsError, data: fundsData} =
-        useQuery("getRemainingFunds", fetchRemainingFunds);
+        useQuery(["getRemainingFunds", symbol], fetchRemainingFunds);
 
     const {isLoading: investmentLoading, error: investmentError, data: investmentData} =
-        useQuery("getInvestmentOfSymbol", fetchSymbolInvestment);
+        useQuery(["getInvestmentOfSymbol", symbol], fetchSymbolInvestment);
 
     if (fundsLoading || investmentLoading) return <CircularProgress/>;
 
