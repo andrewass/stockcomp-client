@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import React from "react";
-import {GOOGLE_AUTH_URL} from "../../config/ServiceConfig";
+import {GOOGLE_AUTH_URL} from "../../config/serviceConfig";
 import googleLogo from "../../icons/google-logo.svg"
 import {Avatar} from "@mui/material";
 

@@ -1,5 +1,4 @@
 import SignIn from "../../body/authentication/SignIn";
-import UserProvider from "../../config/UserContext";
 import {signIn} from "../../service/authService";
 import "@testing-library/jest-dom";
 import {BrowserRouter as Router} from "react-router-dom";
@@ -11,11 +10,10 @@ jest.mock("../../service/authService");
 describe("Test suite for sign in", () => {
 
     beforeEach(() => {
+            // eslint-disable-next-line testing-library/no-render-in-setup
             render(
                 <Router>
-                    <UserProvider>
-                        <SignIn/>
-                    </UserProvider>
+                    <SignIn/>
                 </Router>
             );
         }
@@ -28,6 +26,7 @@ describe("Test suite for sign in", () => {
 
         userEvent.type(screen.getByPlaceholderText("username"), "testUser");
         userEvent.type(screen.getByPlaceholderText("password"), "testPassword");
+        // eslint-disable-next-line testing-library/no-unnecessary-act
         await act(async () => {
             userEvent.click(screen.getByDisplayValue("Sign In"));
         });

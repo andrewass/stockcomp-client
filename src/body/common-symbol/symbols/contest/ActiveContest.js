@@ -4,7 +4,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import {format, parseISO} from "date-fns";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
-import {queryClient} from "../../../../config/QueryConfig";
+import {queryClient} from "../../../../config/queryConfig";
 
 
 export const ActiveContest = ({contest}) => {

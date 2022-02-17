@@ -10,6 +10,7 @@ const DetailBlock = ({isLargeWidth, symbolDetails}) => {
             <Box id="symbolData">
                 <SymbolInformation symbolDetails={symbolDetails}/>
             </Box>
+
             <PriceChart symbol={symbolDetails.symbol}/>
         </Box>
     );

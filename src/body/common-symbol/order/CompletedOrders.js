@@ -23,6 +23,7 @@ const CompletedOrders = ({completedOrders}) => {
                 <ListItemText primary={<Typography variant="h5">Completed Orders</Typography>} />
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
+
             <Collapse in={open} unmountOnExit>
                 <List>
                     {completedOrders.map((order) => createListItem(order))}

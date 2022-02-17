@@ -5,7 +5,7 @@ import toast, {Toaster} from "react-hot-toast";
 import Button from "@mui/material/Button";
 import {getUserDetails, updateUserDetails} from "../../service/userService";
 import {useMutation, useQuery} from "react-query";
-import {queryClient} from "../../config/QueryConfig";
+import {queryClient} from "../../config/queryConfig";
 
 const countries = getData();
 
@@ -54,8 +54,10 @@ const UserAccount = () => {
         <Box sx={{ml: "30%", mt: "10%"}}>
             <Typography variant="h5">{userDetails.username}</Typography>
             <Box sx={{display: "flex", flexDirection: "column", width: "25%", mt: "3rem"}}>
+
                 <TextField label={userDetails.fullName ? userDetails.fullName : "Full Name"}
                            onChange={event => setFullName(event.target.value)}/>
+
                 <FormControl sx={{mt: "3rem"}}>
                     <InputLabel>Country</InputLabel>
                     <Select value={country ? country : countries[0].name}
@@ -68,10 +70,12 @@ const UserAccount = () => {
                         ))}
                     </Select>
                 </FormControl>
+
                 <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
                         onClick={submitUserDetails}>
                     Update
                 </Button>
+
                 <Toaster/>
             </Box>
         </Box>

@@ -12,7 +12,7 @@ import {
     ListItemText, Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
-import {queryClient} from "../../../config/QueryConfig";
+import {queryClient} from "../../../config/queryConfig";
 
 
 const ActiveOrders = ({activeOrders}) => {
@@ -31,6 +31,7 @@ const ActiveOrders = ({activeOrders}) => {
                 <ListItemText primary={order.symbol + " : "+order.transactionType+" status "
                 + (order.totalAmount-order.remainingAmount) + "/" + order.totalAmount
                 + " . Price " + order.acceptedPrice+" "+order.currency}/>
+
                 <ListItemSecondaryAction>
                     <IconButton aria-label="Delete" onClick={() => deleteOrder(order.orderId)}>
                         <Delete/>
@@ -46,6 +47,7 @@ const ActiveOrders = ({activeOrders}) => {
                 <ListItemText primary={<Typography variant="h5">Active Orders</Typography>} />
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
+
             <Collapse in={open} unmountOnExit>
                 <List>
                     <List>

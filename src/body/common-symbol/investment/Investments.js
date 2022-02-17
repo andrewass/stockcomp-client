@@ -13,6 +13,7 @@ const Investments = ({investments}) => {
                 <ListItemText primary={<Typography variant="h5">Investments</Typography> }/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
+
             <Collapse in={open} unmountOnExit>
                 <List sx={{ml:2}} component="div" disablePadding>
                     {investments.map((investment) => <Investment key={investment.id} investment={investment}/>)}

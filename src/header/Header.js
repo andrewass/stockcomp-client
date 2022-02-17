@@ -4,56 +4,12 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {AppBar, Button, createTheme, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
+import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import {NavLink, useHistory} from "react-router-dom";
 import {removeSignedInFromLocalStorage, signOut} from "../service/authService";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
-
-
-const localTheme = createTheme({
-    palette: {
-        primary: {
-            main: "#2196f3"
-        },
-        secondary: {
-            main: "#fff"
-        }
-    },
-    components: {
-        MuiTypography: {
-            styleOverrides: {
-                root: {
-                    textDecoration: "none"
-                }
-            }
-        },
-        MuiSvgIcon: {
-            styleOverrides: {
-                root: {
-                    fontSize: "2.5rem",
-                    color: "#fff"
-                }
-            }
-        }, MuiTab: {
-            styleOverrides: {
-                root: {
-                    fontSize: "1rem",
-                    margin: "0 0",
-                    color: "#fff"
-                }
-            }
-        }, MuiPaper: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: "#2196f3",
-                    color: "#fff"
-                }
-            }
-        }
-    }
-});
-
+import {localTheme} from "./headerTheme";
 
 const Header = () => {
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, graphqlClientStockData} from "../config/ServiceConfig";
+import {CONTEST_BASE_URL, graphqlClientStockData} from "../config/serviceConfig";
 import {useQuery} from "react-query";
 import {gql} from "graphql-request";
 

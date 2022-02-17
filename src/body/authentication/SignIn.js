@@ -54,9 +54,11 @@ export const SignIn = ({setDisplaySignUp}) => {
 
     return (
         <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
+
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>
+
             <TextField sx={{mt: 4}} label="Username" autoComplete="on" disabled={mutation.isLoading}
                        onChange={e => setUsername(e.target.value)}
                        InputProps={{
@@ -66,6 +68,7 @@ export const SignIn = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
+
             <TextField sx={{mt: 4}} label="Password" type="password" autoComplete="current-password"
                        disabled={mutation.isLoading} onChange={e => setPassword(e.target.value)}
                        InputProps={{
@@ -75,6 +78,7 @@ export const SignIn = ({setDisplaySignUp}) => {
                                </InputAdornment>
                            )
                        }}/>
+
             {mutation.isLoading
                 ? <CircularProgress/>
                 : <>
@@ -83,6 +87,7 @@ export const SignIn = ({setDisplaySignUp}) => {
                     <SignInGoogle/>
                 </>
             }
+
             <Toaster/>
         </form>
     );

@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
 import {useMutation} from "react-query";
-import {queryClient} from "../../../../config/QueryConfig";
+import {queryClient} from "../../../../config/queryConfig";
 
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
