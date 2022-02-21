@@ -58,10 +58,10 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
     return (
         <form id="submitOrderForm">
             <div id="orderGrid">
-                <TextField label="Quantity" variant="outlined" defaultValue={1} disabled={mutation.isLoading}
+                <TextField label="Quantity" variant="outlined" disabled={mutation.isLoading}
                            value={orderAmount} onChange={event => setOrderAmount(event.target.value)}/>
 
-                <TextField label="Accepted Price" variant="outlined" defaultValue={stockQuote.price} value={acceptedPrice}
+                <TextField label="Accepted Price" variant="outlined"  value={acceptedPrice}
                            disabled={mutation.isLoading} onChange={event => setAcceptedPrice(event.target.value)}/>
 
                 <FormControl disabled={mutation.isLoading}>

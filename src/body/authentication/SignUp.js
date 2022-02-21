@@ -70,7 +70,7 @@ export const SignUp = ({setDisplaySignUp}) => {
             </Typography>
 
             <TextField sx={{mt: 4}} label="Username" onChange={e => setUsername(e.target.value)}
-                       disabled={mutation.isLoading}
+                       disabled={mutation.isLoading} autoComplete="off"
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -80,7 +80,7 @@ export const SignUp = ({setDisplaySignUp}) => {
                        }}/>
 
             <TextField sx={{mt: 4}} label="Email" onChange={e => setEmail(e.target.value)}
-                       disabled={mutation.isLoading}
+                       disabled={mutation.isLoading} autoComplete="off"
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -90,7 +90,7 @@ export const SignUp = ({setDisplaySignUp}) => {
                        }}/>
 
             <TextField sx={{mt: 4}} label="Password" type="password" onChange={e => setPassword(e.target.value)}
-                       disabled={mutation.isLoading}
+                       disabled={mutation.isLoading} autoComplete="off"
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">
@@ -101,7 +101,7 @@ export const SignUp = ({setDisplaySignUp}) => {
 
             <TextField sx={{mt: 4}} label="Confirm Password" type="password"
                        onChange={e => setRetypedPassword(e.target.value)}
-                       disabled={mutation.isLoading}
+                       disabled={mutation.isLoading} autoComplete="off"
                        InputProps={{
                            startAdornment: (
                                <InputAdornment position="start">

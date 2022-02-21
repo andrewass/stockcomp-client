@@ -31,7 +31,7 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data} = useQuery("getUpcomingContests", fetchUpcomingContests);
+    const {isLoading, error, data : contests} = useQuery("getUpcomingContests", fetchUpcomingContests);
 
     if (isLoading) return <CircularProgress/>
 
@@ -39,8 +39,8 @@ export const SymbolsRightMenu = () => {
 
     return (
         <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
-            <ActiveContests contests={data}/>
-            {getParticipantData(data)}
+            <ActiveContests contests={contests}/>
+            {getParticipantData(contests)}
         </Box>
     );
 }

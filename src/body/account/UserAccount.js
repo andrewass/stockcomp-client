@@ -60,7 +60,7 @@ const UserAccount = () => {
 
                 <FormControl sx={{mt: "3rem"}}>
                     <InputLabel>Country</InputLabel>
-                    <Select value={country ? country : countries[0].name}
+                    <Select value={country ? country : ""}
                             label="Country" onChange={event => setCountry(event.target.value)}
                             sx={{minWidth: "15rem"}}>
                         {countries.map((country) => (
@@ -79,7 +79,6 @@ const UserAccount = () => {
                 <Toaster/>
             </Box>
         </Box>
-
     );
 }
 

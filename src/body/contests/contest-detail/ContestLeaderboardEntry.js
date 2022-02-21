@@ -11,7 +11,7 @@ export const ContestLeaderboardEntry = ({entry}) => {
         <TableRow key={entry.name} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
             <TableCell>
-                <Link to={{pathname: "/account-read", state: {user: entry}}}>
+                <Link to={`/user/${entry.username}`}>
                     {entry.username}
                 </Link>
             </TableCell>
