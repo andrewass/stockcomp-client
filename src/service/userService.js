@@ -32,7 +32,7 @@ const useGetUserDetailsSimple = (username) => {
         return await graphqlClientStockData.request(
             gql`
                 query GetUserDetailsSimple($username: String!) {
-                    getUserDetails(username: $username){
+                    userDetails(username: $username){
                         id
                         username
                         fullName

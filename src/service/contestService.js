@@ -1,5 +1,7 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL, graphqlClientContest} from "../config/serviceConfig";
+import {useQuery} from "react-query";
+import {gql} from "graphql-request";
 
 
 const URL = {
@@ -12,6 +14,21 @@ const URL = {
     participant_ranking: CONTEST_BASE_URL + "/contest/participants-by-rank",
     participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
+
+const useGetContest = (contestNumber) => {
+    return useQuery(["getContest", contestNumber], async () => {
+        return await graphqlClientContest.request(
+            gql`
+                query GetContest($contestNumber: Int!) {
+                    contest(contestNumber: $contestNumber){
+                        startTime
+                        participantCount
+                        contestStatus
+                    }
+                }
+            `, {contestNumber});
+    });
+}
 
 const getUpcomingContests = () => {
     return axios({
@@ -76,6 +93,6 @@ const getParticipantHistory = username => {
 
 export {
     getUpcomingContests, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
-    getParticipantRanking, getParticipantHistory
+    getParticipantRanking, getParticipantHistory, useGetContest
 }
 
