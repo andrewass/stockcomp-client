@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import "./orderForm.css";
 import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
@@ -13,47 +13,49 @@ import {queryClient} from "../../../../config/queryConfig";
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
 
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 7);
+
     const [acceptedPrice, setAcceptedPrice] = useState(stockQuote.price);
-    const [expirationTime, setExpirationTime] = useState(Date.now);
+    const [expirationTime, setExpirationTime] = useState(expirationDate.toISOString());
     const [orderAmount, setOrderAmount] = useState(1);
     const [operationType, setOperationType] = useState("Buy");
-
-    useEffect(() => {
-        setAcceptedPrice(stockQuote.price);
-        setOrderAmount(1);
-        setOperationType("Buy");
-        setExpirationTime(Date.now)
-    },[symbol]);
 
     const createInvestmentOrderRequest = () => {
         return {
             expirationTime: expirationTime,
             acceptedPrice: parseFloat(acceptedPrice),
-            symbol: symbol.symbol,
+            symbol: symbol,
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
             currency: stockQuote.currency,
         }
     }
 
-    const mutation = useMutation((request) => operationType === "Buy"
-        ? placeBuyOrder(request)
-        : placeSellOrder(request), {
+    const placeOrder = async () => {
+        const request = createInvestmentOrderRequest();
+        if (operationType === "Buy") {
+            await placeBuyOrder(request);
+        } else {
+            await placeSellOrder(request);
+        }
+    }
+
+
+    const mutation = useMutation(placeOrder, {
         onSuccess: () => {
-            queryClient.invalidateQueries("activeOrdersSymbol");
-            queryClient.invalidateQueries("completedOrdersSymbol");
+            queryClient.invalidateQueries("getActiveOrdersSymbol");
+            queryClient.invalidateQueries("getCompletedOrdersSymbol");
+            toast.success("Successfully submitted order for symbol " + symbol);
         },
         onError: () => {
             toast.error("Unable to submit investment order", {
                 duration: 4000,
                 position: "top-center"
             });
-        }
+        },
     });
 
-    const submitOrder = () => {
-        mutation.mutate(createInvestmentOrderRequest());
-    }
 
     return (
         <form id="submitOrderForm">
@@ -61,7 +63,7 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
                 <TextField label="Quantity" variant="outlined" disabled={mutation.isLoading}
                            value={orderAmount} onChange={event => setOrderAmount(event.target.value)}/>
 
-                <TextField label="Accepted Price" variant="outlined"  value={acceptedPrice}
+                <TextField label="Accepted Price" variant="outlined" value={acceptedPrice}
                            disabled={mutation.isLoading} onChange={event => setAcceptedPrice(event.target.value)}/>
 
                 <FormControl disabled={mutation.isLoading}>
@@ -75,16 +77,16 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker disabled={mutation.isLoading}
-                        renderInput={(props) => <TextField {...props} />}
-                        label="Expiration"
-                        value={expirationTime}
-                        onChange={(newValue) => setExpirationTime(newValue)}
+                                    renderInput={(props) => <TextField {...props} />}
+                                    label="Expiration"
+                                    value={expirationTime}
+                                    onChange={newValue => setExpirationTime(newValue)}
                     />
                 </LocalizationProvider>
 
                 {mutation.isLoading
                     ? <CircularProgress/>
-                    : <Button variant="contained" onClick={submitOrder}>Submit</Button>
+                    : <Button variant="contained" onClick={mutation.mutate}>Submit</Button>
                 }
                 <Toaster/>
             </div>

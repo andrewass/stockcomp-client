@@ -30,7 +30,7 @@ export const OrderSymbol = ({contest, symbol, stockQuote}) => {
         useQuery("getActiveOrdersSymbol", fetchActiveOrdersSymbol);
 
     const {isLoading: completedLoading, error: completedError, data: completedData} =
-        useQuery("completedOrdersSymbol", fetchCompletedOrdersSymbol);
+        useQuery("getCompletedOrdersSymbol", fetchCompletedOrdersSymbol);
 
     if (activeLoading || completedLoading) return <CircularProgress/>;
 

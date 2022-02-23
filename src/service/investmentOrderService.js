@@ -1,7 +1,6 @@
 import axios from "axios";
 import {CONTEST_BASE_URL} from "../config/serviceConfig";
 
-
 const URL = {
     place_buy_order: CONTEST_BASE_URL+"/investment-order/place-buy-order",
     place_sell_order: CONTEST_BASE_URL+"/investment-order/place-sell-order",
@@ -12,7 +11,7 @@ const URL = {
     active_orders_participant_symbol: CONTEST_BASE_URL+"/investment-order/active-orders-symbol-participant"
 }
 
-const placeBuyOrder = (request) => {
+const placeBuyOrder = async (request) => {
     return axios({
         method: "post",
         url: URL.place_buy_order,
@@ -21,7 +20,7 @@ const placeBuyOrder = (request) => {
     })
 }
 
-const placeSellOrder = (request) => {
+const placeSellOrder = async (request) => {
     return axios({
         method: "post",
         url: URL.place_sell_order,
