@@ -15,7 +15,7 @@ const Investments = ({investments}) => {
             </ListItemButton>
 
             <Collapse in={open} unmountOnExit>
-                <List sx={{ml:2}} component="div" disablePadding>
+                <List sx={{width: "100%", maxHeight: "20rem", overflow: "auto", ml:2}}component="div" disablePadding>
                     {investments.map((investment) => <Investment key={investment.id} investment={investment}/>)}
                 </List>
             </Collapse>

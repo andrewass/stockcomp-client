@@ -28,10 +28,10 @@ const OrderTotal = ({contest}) => {
     if (activeError || completedError) return `Error! ${activeError ? activeError : completedError}`;
 
     return (
-        <div>
+        <>
             <ActiveOrders activeOrders={activeData}/>
             <CompletedOrders completedOrders={completedData}/>
-        </div>
+        </>
     );
 }
 

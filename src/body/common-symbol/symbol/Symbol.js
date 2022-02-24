@@ -24,7 +24,7 @@ const Symbol = () => {
             <SearchField/>
             <Box id="symbolBody"
                  sx={{
-                     mt: "3%", display: "flex", justifyContent: "center", alignItems: "center",
+                     mt: "3%", display: "flex", justifyContent: "center",
                      flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
                  }}>
                 <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={data.stockSymbolInformation}/>

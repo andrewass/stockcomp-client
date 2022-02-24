@@ -23,7 +23,8 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
     if(data){
         return (
-            <Box id="symbolRightMenu" sx={{width: isLargeWidth ? "30%" :"70%"}}>
+            <Box id="symbolRightMenu" display="flex" flexDirection="column"
+                 sx={{width: isLargeWidth ? "30%" :"70%", ml:"2rem"}}>
                 <InvestmentSymbol contest={data} symbol={symbol}/>
                 <OrderSymbol contest={data} symbol={symbol} stockQuote={stockQuote}/>
             </Box>

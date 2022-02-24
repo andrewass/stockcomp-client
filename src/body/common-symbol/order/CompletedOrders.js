@@ -10,22 +10,21 @@ const CompletedOrders = ({completedOrders}) => {
     const createListItem = (order) => {
         return (
             <ListItem sx={{pl: 2}} key={order.orderId}>
-                <ListItemText primary={order.symbol + " : "+order.transactionType+" status "
-                + (order.totalAmount-order.remainingAmount) + "/" + order.totalAmount
-                + " . Price " + order.acceptedPrice+" "+order.currency}/>
+                <ListItemText primary={order.symbol + " : " + order.transactionType + " status "
+                    + (order.totalAmount - order.remainingAmount) + "/" + order.totalAmount
+                    + " . Price " + order.acceptedPrice + " " + order.currency}/>
             </ListItem>
         );
     }
 
     return (
-        <List sx={{width:"100%"}}>
-            <ListItemButton sx={{p:0}} onClick={() => setOpen(!open)}>
-                <ListItemText primary={<Typography variant="h5">Completed Orders</Typography>} />
+        <List>
+            <ListItemButton sx={{p: 0}} onClick={() => setOpen(!open)}>
+                <ListItemText primary={<Typography variant="h5">Completed Orders</Typography>}/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
-
             <Collapse in={open} unmountOnExit>
-                <List>
+                <List sx={{width: "100%", maxHeight: "15rem", overflow: "auto"}}>
                     {completedOrders.map((order) => createListItem(order))}
                 </List>
             </Collapse>

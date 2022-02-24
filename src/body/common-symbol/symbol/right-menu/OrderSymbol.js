@@ -3,7 +3,7 @@ import ActiveOrders from "../../order/ActiveOrders";
 import CompletedOrders from "../../order/CompletedOrders";
 import {OrderForm} from "./OrderForm";
 import {
-    getActiveOrdersParticipant,
+    getActiveOrdersParticipantSymbol,
     getCompletedOrdersSymbolParticipant
 } from "../../../../service/investmentOrderService";
 import {useQuery} from "react-query";
@@ -15,7 +15,7 @@ export const OrderSymbol = ({contest, symbol, stockQuote}) => {
     const [activeOrders, setActiveOrders] = useState([]);
 
     const fetchActiveOrdersSymbol = async () => {
-        const response = await getActiveOrdersParticipant(contest.contestNumber, symbol);
+        const response = await getActiveOrdersParticipantSymbol(contest.contestNumber, symbol);
         setActiveOrders(response.data);
 
         return response.data;
