@@ -3,20 +3,26 @@ import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/materia
 import {ContestLeaderboard} from "./ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
-import {useGetContest} from "../../../service/contestService";
+import {getContest} from "../../../service/contestService";
+import {useQuery} from "react-query";
 
 
 const ContestDetail = () => {
 
     const {contestNumber} = useParams();
 
-    const {isLoading,data,error} = useGetContest(contestNumber);
+    const fetchContestByContestNumber = async () => {
+        const response = await getContest(contestNumber);
+        return response.data.data;
+    }
+
+    const {isLoading,data,error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
 
     if (isLoading) return <CircularProgress/>;
 
     if (error) return `Error! ${error}`;
 
-    const contest = data.contest;
+    const {contest} = data;
 
     const getContestStatusColor = () => {
         switch (contest.contestStatus) {

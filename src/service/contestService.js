@@ -1,13 +1,11 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, graphqlClientContest} from "../config/serviceConfig";
-import {useQuery} from "react-query";
-import {gql} from "graphql-request";
+import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
 const URL = {
     upcoming_contests: CONTEST_BASE_URL + "/contest/upcoming-contests",
     all_contests: CONTEST_BASE_URL + "/contest/all-contests",
-    contests_by_status : CONTEST_BASE_URL + "/contest/contests-by-status",
+    contests_by_status: CONTEST_BASE_URL + "/contest/contests-by-status",
     sign_up: CONTEST_BASE_URL + "/contest/sign-up",
     user_participating: CONTEST_BASE_URL + "/contest/user-participating",
     remaining_funds: CONTEST_BASE_URL + "/contest/remaining-funds",
@@ -15,20 +13,25 @@ const URL = {
     participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
 
-const useGetContest = (contestNumber) => {
-    return useQuery(["getContest", contestNumber], async () => {
-        return await graphqlClientContest.request(
-            gql`
-                query GetContest($contestNumber: Int!) {
-                    contest(contestNumber: $contestNumber){
-                        startTime
-                        participantCount
-                        contestStatus
-                    }
-                }
-            `, {contestNumber});
+const contestQuery = (contestNumber) => ({
+    "query": `query GetContest($contestNumber: Int!) {
+        contest(contestNumber: $contestNumber){
+            startTime
+            participantCount
+            contestStatus
+        }
+    }`,
+    "variables": {contestNumber}
+});
+
+const getContest = (contestNumber) => {
+    return axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: contestQuery(contestNumber)
     });
 }
+
 
 const getUpcomingContests = () => {
     return axios({
@@ -43,7 +46,7 @@ const getActiveContests = () => {
         method: "post",
         url: URL.contests_by_status,
         withCredentials: true,
-        data: ["Running","Stopped"]
+        data: ["Running", "Stopped"]
     })
 }
 
@@ -93,6 +96,6 @@ const getParticipantHistory = username => {
 
 export {
     getUpcomingContests, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
-    getParticipantRanking, getParticipantHistory, useGetContest
+    getParticipantRanking, getParticipantHistory, getContest
 }
 
