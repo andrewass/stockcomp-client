@@ -60,9 +60,8 @@ const UserAccount = () => {
 
                 <FormControl sx={{mt: "3rem"}}>
                     <InputLabel>Country</InputLabel>
-                    <Select value={country ? country : ""}
-                            label="Country" onChange={event => setCountry(event.target.value)}
-                            sx={{minWidth: "15rem"}}>
+                    <Select value={country ? country : ""} sx={{minWidth: "15rem"}}
+                            label="Country" onChange={event => setCountry(event.target.value)}>
                         {countries.map((country) => (
                             <MenuItem key={country.code} value={country.code}>
                                 {country.name ? country.name : "Select value"}

@@ -1,19 +1,29 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL, graphqlClientContest} from "../config/serviceConfig";
+import {useQuery} from "react-query";
+import {gql} from "graphql-request";
 
 
 const URL = {
     leaderboard_entries: CONTEST_BASE_URL + "/leaderboard/entries",
     leaderboard_user_entry: CONTEST_BASE_URL + "/leaderboard/user-entry"
 }
-
-const getAllLeaderboardEntries = () => {
-    return axios({
-        method: "get",
-        url: URL.leaderboard_entries,
-        withCredentials: true
+const useGetSortedLeaderboardEntries = () => {
+    return useQuery("getSortedLeaderboardEntries", async () => {
+        return await graphqlClientContest.request(
+            gql`
+                query GetSortedLeaderboardEntries {
+                    sortedLeaderboardEntries{
+                        ranking
+                        score
+                        username
+                        country
+                    }
+                }
+            `);
     });
 }
+
 
 const getLeaderboardUserEntry = (username) => {
     return axios({
@@ -24,6 +34,4 @@ const getLeaderboardUserEntry = (username) => {
     });
 }
 
-export {
-    getAllLeaderboardEntries, getLeaderboardUserEntry
-}
+export {useGetSortedLeaderboardEntries, getLeaderboardUserEntry}
