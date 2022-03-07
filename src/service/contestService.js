@@ -32,6 +32,27 @@ const getContest = contestNumber => {
     });
 }
 
+const contestsQuery = statusList => ({
+    "query": `query contests($statusList: [ContestStatus!]) {
+        contests(statusList: $statusList){
+            contestNumber
+            contestStatus
+            participantCount
+            startTime
+        }
+    }`,
+    "variables": {statusList}
+});
+
+const getContests = statusList => {
+    return axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: contestsQuery(statusList)
+    });
+}
+
+
 const signUpContestMutation = contestNumber => ({
     "query": `mutation signUpContest($contestNumber: Int!) {
         signUpContest(contestNumber: $contestNumber)
@@ -47,17 +68,19 @@ const signUpForContest = contestNumber => {
     });
 }
 
-const contestParticipantsQuery = (statusList) => ({
+const contestParticipantsQuery = statusList => ({
     "query": `query contestParticipants($statusList: [ContestStatus!]) {
         contestParticipants(statusList: $statusList){
             contest {
                 contestNumber
                 contestStatus
+                participantCount
                 startTime
                 endTime
             }
             participant {
                 username
+                rank
             }
         }
     }`,
@@ -79,14 +102,6 @@ const getActiveContests = () => {
         withCredentials: true,
         data: ["Running", "Stopped"]
     })
-}
-
-const getAllContests = () => {
-    return axios({
-        method: "get",
-        url: URL.all_contests,
-        withCredentials: true
-    });
 }
 
 const getRemainingFunds = contestNumber => {
@@ -117,7 +132,7 @@ const getParticipantHistory = username => {
 }
 
 export {
-    getContestParticipantsByStatus, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
+    getContestParticipantsByStatus, getContests, getActiveContests, signUpForContest, getRemainingFunds,
     getParticipantRanking, getParticipantHistory, getContest
 }
 

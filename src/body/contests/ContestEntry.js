@@ -1,6 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {format, parseISO} from "date-fns";
 import {Link} from "react-router-dom";
+import {decodeMap} from "../../util/constants";
 
 
 export const ContestEntry = ({contest}) => {
@@ -12,7 +13,7 @@ export const ContestEntry = ({contest}) => {
                     {contest.contestNumber}
                 </Link>
             </TableCell>
-            <TableCell>{contest.contestStatus}</TableCell>
+            <TableCell>{decodeMap.get(contest.contestStatus)}</TableCell>
             <TableCell>{format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</TableCell>
             <TableCell>{contest.participantCount}</TableCell>
         </TableRow>

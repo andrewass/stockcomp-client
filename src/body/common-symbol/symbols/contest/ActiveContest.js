@@ -5,7 +5,7 @@ import {format, parseISO} from "date-fns";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
 import {queryClient} from "../../../../config/queryConfig";
-import {CONTEST_STATUS} from "../../../../service/constants";
+import {CONTEST_STATUS} from "../../../../util/constants";
 
 
 export const ActiveContest = ({contestParticipant}) => {
@@ -39,9 +39,9 @@ export const ActiveContest = ({contestParticipant}) => {
     }
 
     const getParticipantStatus = () => {
-        if (contest.rank) {
-            return <ListItemText primary={"Rank " + contest.rank + " / " + contest.participantCount}/>
-        } else if (contest.userParticipating) {
+        if (participant.rank) {
+            return <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
+        } else if (participant) {
             return <ListItemText primary={"Signed Up"} sx={{p: 0}}/>
         } else {
             return <Button onClick={() => handleContestSignUp(contest.contestNumber)}>Sign Up</Button>

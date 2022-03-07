@@ -5,7 +5,7 @@ import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "./InvestmentTotal";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../../../service/constants";
+import {CONTEST_STATUS} from "../../../util/constants";
 
 
 export const SymbolsRightMenu = () => {
@@ -22,13 +22,14 @@ export const SymbolsRightMenu = () => {
     }
 
     const getParticipantData = (contests) => {
-        const runningContest = getRunningContestsWithUserParticipation(contests);
-        if (runningContest) {
+        const contestParticipant = getRunningContestsWithUserParticipation(contests);
+        if (contestParticipant) {
+            let {contest, participant} = contestParticipant
             return (
                 <>
-                    <PortfolioStatus contest={runningContest}/>
-                    <OrderTotal contest={runningContest}/>
-                    <InvestmentTotal contest={runningContest}/>
+                    <PortfolioStatus contest={contest} participant={participant}/>
+                    <OrderTotal contest={contest} participant={participant}/>
+                    <InvestmentTotal contest={contest} participant={participant}/>
                 </>
             )
         }
