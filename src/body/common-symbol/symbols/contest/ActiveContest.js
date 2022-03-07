@@ -5,9 +5,12 @@ import {format, parseISO} from "date-fns";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
 import {queryClient} from "../../../../config/queryConfig";
+import {CONTEST_STATUS} from "../../../../service/constants";
 
 
-export const ActiveContest = ({contest}) => {
+export const ActiveContest = ({contestParticipant}) => {
+
+    const {contest, participant} = contestParticipant;
 
     const mutation = useMutation((contestNumber) => signUpForContest(contestNumber), {
         onSuccess: () => queryClient.invalidateQueries("getUpcomingContests"),
@@ -26,8 +29,9 @@ export const ActiveContest = ({contest}) => {
     const getContestStatus = () => {
         return (
             <Box display="flex">
-                <CircleIcon sx={{color: contest.contestStatus === "Running" ? "green" : "orange", marginRight: 1}}/>
-                <Typography> {contest.contestStatus === "Running"
+                <CircleIcon sx={{color: contest.contestStatus === CONTEST_STATUS.RUNNING
+                        ? "green" : "orange", marginRight: 1}}/>
+                <Typography> {contest.contestStatus === CONTEST_STATUS.RUNNING
                     ? "Ending " + format(parseISO(contest.endTime), "yyyy-MM-dd HH:mm")
                     : "Starting " + format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</Typography>
             </Box>

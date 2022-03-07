@@ -1,21 +1,24 @@
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveContests} from "./contest/ActiveContests";
-import {getUpcomingContests} from "../../../service/contestService";
+import {getContestParticipantsByStatus} from "../../../service/contestService";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "./InvestmentTotal";
 import {useQuery} from "react-query";
+import {CONTEST_STATUS} from "../../../service/constants";
 
 
 export const SymbolsRightMenu = () => {
 
     const getRunningContestsWithUserParticipation = (contests) => {
-        return contests.find(contest => contest.userParticipating && contest.contestStatus === "Running");
+        return contests.find(contest => contest.participant);
     }
 
-    const fetchUpcomingContests = async () => {
-        const response = await getUpcomingContests();
-        return response.data;
+    const fetchActiveContestParticipants = async () => {
+        const response = await getContestParticipantsByStatus(
+            [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
+        );
+        return response.data.data.contestParticipants;
     }
 
     const getParticipantData = (contests) => {
@@ -31,7 +34,7 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data : contests} = useQuery("getUpcomingContests", fetchUpcomingContests);
+    const {isLoading, error, data: contests} = useQuery("getActiveContestParticipants", fetchActiveContestParticipants);
 
     if (isLoading) return <CircularProgress/>
 

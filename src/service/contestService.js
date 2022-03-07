@@ -13,8 +13,8 @@ const URL = {
     participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
 
-const contestQuery = (contestNumber) => ({
-    "query": `query GetContest($contestNumber: Int!) {
+const contestQuery = contestNumber => ({
+    "query": `query contest($contestNumber: Int!) {
         contest(contestNumber: $contestNumber){
             startTime
             participantCount
@@ -24,7 +24,7 @@ const contestQuery = (contestNumber) => ({
     "variables": {contestNumber}
 });
 
-const getContest = (contestNumber) => {
+const getContest = contestNumber => {
     return axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
@@ -32,12 +32,43 @@ const getContest = (contestNumber) => {
     });
 }
 
+const signUpContestMutation = contestNumber => ({
+    "query": `mutation signUpContest($contestNumber: Int!) {
+        signUpContest(contestNumber: $contestNumber)
+    }`,
+    "variables": {contestNumber}
+});
 
-const getUpcomingContests = () => {
+const signUpForContest = contestNumber => {
     return axios({
-        method: "get",
-        url: URL.upcoming_contests,
-        withCredentials: true
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: signUpContestMutation(contestNumber)
+    });
+}
+
+const contestParticipantsQuery = (statusList) => ({
+    "query": `query contestParticipants($statusList: [ContestStatus!]) {
+        contestParticipants(statusList: $statusList){
+            contest {
+                contestNumber
+                contestStatus
+                startTime
+                endTime
+            }
+            participant {
+                username
+            }
+        }
+    }`,
+    "variables": {statusList}
+});
+
+const getContestParticipantsByStatus = statusList => {
+    return axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: contestParticipantsQuery(statusList)
     });
 }
 
@@ -55,15 +86,6 @@ const getAllContests = () => {
         method: "get",
         url: URL.all_contests,
         withCredentials: true
-    });
-}
-
-const signUpForContest = contestNumber => {
-    return axios({
-        method: "post",
-        url: URL.sign_up,
-        withCredentials: true,
-        params: {contestNumber}
     });
 }
 
@@ -95,7 +117,7 @@ const getParticipantHistory = username => {
 }
 
 export {
-    getUpcomingContests, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
+    getContestParticipantsByStatus, getAllContests, getActiveContests, signUpForContest, getRemainingFunds,
     getParticipantRanking, getParticipantHistory, getContest
 }
 

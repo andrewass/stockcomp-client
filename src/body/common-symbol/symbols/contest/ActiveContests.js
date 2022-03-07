@@ -15,7 +15,9 @@ export const ActiveContests = ({contests}) => {
             </ListItemButton>
             <Collapse in={open} unmountOnExit>
                 <List>
-                    {contests.map((contest) => <ActiveContest key={contest.contestNumber} contest={contest}/>)}
+                    {contests.map((contestParticipant) =>
+                        <ActiveContest key={contestParticipant.contest.contestNumber}
+                                       contestParticipant={contestParticipant}/>)}
                 </List>
             </Collapse>
         </List>
