@@ -10,11 +10,9 @@ import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 
 
-export const OrderSymbol = ({contestParticipant, symbol, stockQuote}) => {
+export const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     const [activeOrders, setActiveOrders] = useState([]);
-
-    const {contest, participant} = contestParticipant;
 
     const fetchActiveOrdersSymbol = async () => {
         const response = await getActiveOrdersParticipantSymbol(contest.contestNumber, symbol);

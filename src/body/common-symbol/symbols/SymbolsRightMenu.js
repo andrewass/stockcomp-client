@@ -24,7 +24,7 @@ export const SymbolsRightMenu = () => {
     const getParticipantData = (contests) => {
         const contestParticipant = getRunningContestsWithUserParticipation(contests);
         if (contestParticipant) {
-            let {contest, participant} = contestParticipant
+            const {contest, participant} = contestParticipant
             return (
                 <>
                     <PortfolioStatus contest={contest} participant={participant}/>
@@ -35,7 +35,8 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data: contests} = useQuery("getContestParticipantsSymbols", fetchActiveContestParticipants);
+    const {isLoading, error, data: contests} =
+        useQuery("getContestParticipantsSymbols", fetchActiveContestParticipants);
 
     if (isLoading) return <CircularProgress/>
 

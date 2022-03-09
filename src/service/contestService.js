@@ -3,12 +3,6 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
 const URL = {
-    upcoming_contests: CONTEST_BASE_URL + "/contest/upcoming-contests",
-    all_contests: CONTEST_BASE_URL + "/contest/all-contests",
-    contests_by_status: CONTEST_BASE_URL + "/contest/contests-by-status",
-    sign_up: CONTEST_BASE_URL + "/contest/sign-up",
-    user_participating: CONTEST_BASE_URL + "/contest/user-participating",
-    remaining_funds: CONTEST_BASE_URL + "/contest/remaining-funds",
     participant_ranking: CONTEST_BASE_URL + "/contest/participants-by-rank",
     participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
@@ -81,6 +75,8 @@ const contestParticipantsQuery = statusList => ({
             participant {
                 username
                 rank
+                totalValue
+                remainingFunds
             }
         }
     }`,
@@ -92,15 +88,6 @@ const getContestParticipants = statusList => {
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: contestParticipantsQuery(statusList)
-    });
-}
-
-const getRemainingFunds = contestNumber => {
-    return axios({
-        method: "get",
-        url: URL.remaining_funds,
-        withCredentials: true,
-        params: {contestNumber}
     });
 }
 
@@ -123,7 +110,7 @@ const getParticipantHistory = username => {
 }
 
 export {
-    getContestParticipants, getContests, signUpForContest, getRemainingFunds,
+    getContestParticipants, getContests, signUpForContest,
     getParticipantRanking, getParticipantHistory, getContest
 }
 

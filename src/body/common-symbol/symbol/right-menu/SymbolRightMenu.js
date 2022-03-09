@@ -24,11 +24,12 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
     if (error) return `Error! ${error}`;
 
     if(contestParticipant){
+        const {contest, participant} = contestParticipant
         return (
             <Box id="symbolRightMenu" display="flex" flexDirection="column"
                  sx={{width: isLargeWidth ? "30%" :"70%", ml:"2rem"}}>
-                <InvestmentSymbol contestParticipant={contestParticipant} symbol={symbol}/>
-                <OrderSymbol contestParticipant={contestParticipant} symbol={symbol} stockQuote={stockQuote}/>
+                <InvestmentSymbol contest={contest} participant={participant} symbol={symbol}/>
+                <OrderSymbol contest={contest} symbol={symbol} stockQuote={stockQuote}/>
             </Box>
         );
     }
