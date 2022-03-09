@@ -1,6 +1,6 @@
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveContests} from "./contest/ActiveContests";
-import {getContestParticipantsByStatus} from "../../../service/contestService";
+import {getContestParticipants} from "../../../service/contestService";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "./InvestmentTotal";
@@ -15,7 +15,7 @@ export const SymbolsRightMenu = () => {
     }
 
     const fetchActiveContestParticipants = async () => {
-        const response = await getContestParticipantsByStatus(
+        const response = await getContestParticipants(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         );
         return response.data.data.contestParticipants;
@@ -35,7 +35,7 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data: contests} = useQuery("getActiveContestParticipants", fetchActiveContestParticipants);
+    const {isLoading, error, data: contests} = useQuery("getContestParticipantsSymbols", fetchActiveContestParticipants);
 
     if (isLoading) return <CircularProgress/>
 

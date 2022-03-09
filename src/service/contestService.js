@@ -87,21 +87,12 @@ const contestParticipantsQuery = statusList => ({
     "variables": {statusList}
 });
 
-const getContestParticipantsByStatus = statusList => {
+const getContestParticipants = statusList => {
     return axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: contestParticipantsQuery(statusList)
     });
-}
-
-const getActiveContests = () => {
-    return axios({
-        method: "post",
-        url: URL.contests_by_status,
-        withCredentials: true,
-        data: ["Running", "Stopped"]
-    })
 }
 
 const getRemainingFunds = contestNumber => {
@@ -132,7 +123,7 @@ const getParticipantHistory = username => {
 }
 
 export {
-    getContestParticipantsByStatus, getContests, getActiveContests, signUpForContest, getRemainingFunds,
+    getContestParticipants, getContests, signUpForContest, getRemainingFunds,
     getParticipantRanking, getParticipantHistory, getContest
 }
 

@@ -1,32 +1,34 @@
 import {OrderSymbol} from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
-import {getActiveContests} from "../../../../service/contestService";
+import {getContestParticipants} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
+import {CONTEST_STATUS} from "../../../../util/constants";
 
 export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
-    const getActiveContest = contests => {
-        return contests.find(contest => contest.userParticipating);
+    const getActiveContestParticipant = ({contestParticipants}) => {
+        return contestParticipants.find(contest => contest.participant);
     }
 
-    const fetchActiveContests = async () => {
-        let response = await getActiveContests();
-        return getActiveContest(response.data);
+    const fetchActiveContestParticipants = async () => {
+        let response = await getContestParticipants([CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]);
+        return getActiveContestParticipant(response.data.data);
     }
 
-    const {isLoading, error, data} = useQuery("getActiveContests", fetchActiveContests);
+    const {isLoading, error, data : contestParticipant} =
+        useQuery("getContestParticipantsSymbol", fetchActiveContestParticipants);
 
     if (isLoading) return <CircularProgress/>
 
     if (error) return `Error! ${error}`;
 
-    if(data){
+    if(contestParticipant){
         return (
             <Box id="symbolRightMenu" display="flex" flexDirection="column"
                  sx={{width: isLargeWidth ? "30%" :"70%", ml:"2rem"}}>
-                <InvestmentSymbol contest={data} symbol={symbol}/>
-                <OrderSymbol contest={data} symbol={symbol} stockQuote={stockQuote}/>
+                <InvestmentSymbol contestParticipant={contestParticipant} symbol={symbol}/>
+                <OrderSymbol contestParticipant={contestParticipant} symbol={symbol} stockQuote={stockQuote}/>
             </Box>
         );
     }

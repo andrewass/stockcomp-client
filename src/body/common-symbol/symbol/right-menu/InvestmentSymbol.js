@@ -5,7 +5,9 @@ import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 
 
-const InvestmentSymbol = ({contest, symbol}) => {
+const InvestmentSymbol = ({contestParticipant, symbol}) => {
+
+    const {contest, participant} = contestParticipant;
 
     const fetchRemainingFunds = async () => {
         const response = await getRemainingFunds(contest.contestNumber);
