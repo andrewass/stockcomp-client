@@ -26,12 +26,14 @@ const sortedLeaderBoardQuery = {
     }`
 }
 
-const getSortedLeaderboardEntries = () => {
-    return axios({
+const getSortedLeaderboardEntries = async () => {
+    const response = await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: sortedLeaderBoardQuery
     });
+    return response.data.data;
+
 }
 
 export {getLeaderboardUserEntry, getSortedLeaderboardEntries}

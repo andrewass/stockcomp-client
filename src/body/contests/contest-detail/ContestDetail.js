@@ -12,11 +12,10 @@ const ContestDetail = () => {
     const {contestNumber} = useParams();
 
     const fetchContestByContestNumber = async () => {
-        const response = await getContest(contestNumber);
-        return response.data.data;
+        return await getContest(contestNumber);
     }
 
-    const {isLoading,data,error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
+    const {isLoading, data, error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
 
     if (isLoading) return <CircularProgress/>;
 

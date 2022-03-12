@@ -14,8 +14,7 @@ export const Leaderboard = () => {
     }
 
     const fetchSortedLeaderboardEntries = async () => {
-        const response = await getSortedLeaderboardEntries();
-        return response.data.data;
+        return await getSortedLeaderboardEntries();
     }
 
     const {isLoading: entriesLoading, error: entriesError, data: entriesData} =

@@ -4,22 +4,19 @@ import {CircularProgress} from "@mui/material";
 import ContestTable from "./ContestTable";
 
 const fetchAllContests = async () => {
-    const response = await getContests([]);
-    return response.data.data.contests;
+    return await getContests([]);
 }
 
 const Contests = () => {
 
-    const {isLoading, error, data : contests} = useQuery("getAllContests", fetchAllContests);
+    const {isLoading, error, data: contests} = useQuery("getAllContests", fetchAllContests);
 
     if (error) return `Error! ${error}`;
 
-    if (isLoading) return  <CircularProgress/>
+    if (isLoading) return <CircularProgress/>
 
     return (
-        <>
-            <ContestTable contests={contests}/>
-        </>
+        <ContestTable contests={contests}/>
     );
 };
 

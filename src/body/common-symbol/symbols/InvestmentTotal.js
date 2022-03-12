@@ -1,5 +1,5 @@
 import Investments from "../investment/Investments";
-import {getAllInvestmentsForContest} from "../../../service/investmentService";
+import {getInvestments} from "../../../service/investmentService";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 
@@ -7,15 +7,14 @@ import {CircularProgress} from "@mui/material";
 export const InvestmentTotal = ({contest}) => {
 
     const fetchAllInvestments = async () => {
-        const response = await getAllInvestmentsForContest(contest.contestNumber);
-        return response.data;
+        return await getInvestments(contest.contestNumber);
     }
 
-    const {isLoading, error, data} = useQuery("getAllInvestments", fetchAllInvestments);
+    const {isLoading, error, data: investments} = useQuery("getAllInvestments", fetchAllInvestments);
 
     if (isLoading) return <CircularProgress/>
 
     if (error) return `Error! ${error}`;
 
-    return <Investments investments={data}/>
+    return <Investments investments={investments}/>
 }

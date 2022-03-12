@@ -18,12 +18,13 @@ const contestQuery = contestNumber => ({
     "variables": {contestNumber}
 });
 
-const getContest = contestNumber => {
-    return axios({
+const getContest = async (contestNumber) => {
+    const response = await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: contestQuery(contestNumber)
     });
+    return response.data.data;
 }
 
 const contestsQuery = statusList => ({
@@ -38,12 +39,13 @@ const contestsQuery = statusList => ({
     "variables": {statusList}
 });
 
-const getContests = statusList => {
-    return axios({
+const getContests = async (statusList) => {
+    const response =  await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: contestsQuery(statusList)
     });
+    return response.data.data.contests;
 }
 
 const signUpContestMutation = contestNumber => ({

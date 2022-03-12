@@ -16,7 +16,7 @@ const Investments = ({investments}) => {
 
             <Collapse in={open} unmountOnExit>
                 <List sx={{width: "100%", maxHeight: "20rem", overflow: "auto", ml:2}}component="div" disablePadding>
-                    {investments.map((investment) => <Investment key={investment.id} investment={investment}/>)}
+                    {investments.map((investment) => <Investment key={investment.symbol} investment={investment}/>)}
                 </List>
             </Collapse>
         </List>

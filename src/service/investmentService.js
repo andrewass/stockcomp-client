@@ -8,13 +8,26 @@ const URL = {
     total_investment_value: CONTEST_BASE_URL + "/investment/total-investment-value"
 }
 
-const getAllInvestmentsForContest = (contestNumber) => {
-    return axios({
-        method: "get",
-        url: URL.total_investment,
-        params: {contestNumber},
-        withCredentials: true
+const investmentsQuery = contestNumber => ({
+    "query": `query investments($contestNumber: Int!) {
+        investments(contestNumber: $contestNumber){
+            symbol
+            amount
+            averageUnitCost
+            totalValue
+            totalProfit
+        }
+    }`,
+    "variables": {contestNumber}
+});
+
+const getInvestments = async (contestNumber) => {
+    const response = await axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: investmentsQuery(contestNumber)
     });
+    return response.data.data.investments;
 }
 
 const investmentQuery = (symbol, contestNumber) => ({
@@ -49,5 +62,5 @@ const getTotalValueInvestments = contestNumber => {
 }
 
 export {
-    getAllInvestmentsForContest, getTotalValueInvestments, getInvestment
+    getTotalValueInvestments, getInvestment, getInvestments
 }
