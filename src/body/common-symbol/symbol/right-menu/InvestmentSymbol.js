@@ -1,5 +1,5 @@
 import Investment from "../../investment/Investment";
-import {getInvestmentOfSymbol} from "../../../../service/investmentService";
+import {getInvestment} from "../../../../service/investmentService";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 
@@ -8,12 +8,11 @@ const InvestmentSymbol = ({contest,participant, symbol}) => {
 
     const {remainingFunds} = participant;
 
-    const fetchSymbolInvestment = async () => {
-        const response = await getInvestmentOfSymbol(contest.contestNumber, symbol);
-        return response.data;
+    const fetchSymbolInvestment = () => {
+        return getInvestment(symbol, contest.contestNumber);
     }
 
-    const {isLoading: investmentLoading, error: investmentError, data: investmentData} =
+    const {isLoading: investmentLoading, error: investmentError, data: investment} =
         useQuery(["getInvestmentOfSymbol", symbol], fetchSymbolInvestment);
 
     if (investmentLoading) return <CircularProgress/>;
@@ -29,7 +28,7 @@ const InvestmentSymbol = ({contest,participant, symbol}) => {
                 <Typography sx={{pb: "1rem"}}>
                     Remaining funds : {remainingFunds.toFixed(2)}
                 </Typography>
-                {investmentData ? <Investment investment={investmentData}/> : null}
+                {investment ? <Investment investment={investment}/> : null}
             </CardContent>
         </Card>
     );

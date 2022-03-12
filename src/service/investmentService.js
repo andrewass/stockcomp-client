@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
 const URL = {
@@ -17,13 +17,26 @@ const getAllInvestmentsForContest = (contestNumber) => {
     });
 }
 
-const getInvestmentOfSymbol = (contestNumber, symbol) => {
-    return axios({
-        method: "get",
-        url: URL.symbol_investment,
-        withCredentials: true,
-        params: {contestNumber, symbol}
+const investmentQuery = (symbol, contestNumber) => ({
+    "query": `query investment($symbol: String!, $contestNumber: Int!) {
+        investment(symbol: $symbol, contestNumber: $contestNumber){
+            symbol
+            amount
+            averageUnitCost
+            totalValue
+            totalProfit
+        }
+    }`,
+    "variables": {symbol, contestNumber}
+});
+
+const getInvestment = async (symbol, contestNumber) => {
+    const response = await axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: investmentQuery(symbol, contestNumber)
     });
+    return response.data.data.investment;
 }
 
 const getTotalValueInvestments = contestNumber => {
@@ -36,5 +49,5 @@ const getTotalValueInvestments = contestNumber => {
 }
 
 export {
-    getAllInvestmentsForContest, getInvestmentOfSymbol, getTotalValueInvestments
+    getAllInvestmentsForContest, getTotalValueInvestments, getInvestment
 }

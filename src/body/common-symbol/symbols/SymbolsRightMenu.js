@@ -15,10 +15,9 @@ export const SymbolsRightMenu = () => {
     }
 
     const fetchActiveContestParticipants = async () => {
-        const response = await getContestParticipants(
+        return await getContestParticipants(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         );
-        return response.data.data.contestParticipants;
     }
 
     const getParticipantData = (contests) => {
@@ -35,7 +34,7 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data: contests} =
+    const {isLoading, error, data: contestParticipants} =
         useQuery("getContestParticipantsSymbols", fetchActiveContestParticipants);
 
     if (isLoading) return <CircularProgress/>
@@ -44,8 +43,8 @@ export const SymbolsRightMenu = () => {
 
     return (
         <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
-            <ActiveContests contests={contests}/>
-            {getParticipantData(contests)}
+            <ActiveContests contests={contestParticipants}/>
+            {getParticipantData(contestParticipants)}
         </Box>
     );
 }
