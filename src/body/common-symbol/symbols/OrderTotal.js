@@ -1,26 +1,27 @@
 import ActiveOrders from "../order/ActiveOrders";
 import CompletedOrders from "../order/CompletedOrders";
-import {getActiveOrdersParticipant, getCompletedOrdersParticipant} from "../../../service/investmentOrderService";
+import {getInvestmentOrders} from "../../../service/investmentOrderService";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
+import {ORDER_STATUS} from "../../../util/constants";
 
 
 const OrderTotal = ({contest}) => {
 
+    const {contestNumber} = contest;
+
     const fetchActiveOrders = async () => {
-        const response = await getActiveOrdersParticipant(contest.contestNumber);
-        return response.data;
+        return await getInvestmentOrders(contestNumber, [ORDER_STATUS.ACTIVE]);
     }
 
     const fetchCompletedOrders = async () => {
-        const response = await getCompletedOrdersParticipant(contest.contestNumber);
-        return response.data;
+        return await getInvestmentOrders(contestNumber, [ORDER_STATUS.COMPLETED]);
     }
 
-    const {isLoading: activeLoading, error: activeError, data: activeData} =
+    const {isLoading: activeLoading, error: activeError, data: activeOrders} =
         useQuery("getActiveOrdersParticipant", fetchActiveOrders);
 
-    const {isLoading: completedLoading, error: completedError, data: completedData} =
+    const {isLoading: completedLoading, error: completedError, data: completedOrders} =
         useQuery("getCompletedOrdersParticipant", fetchCompletedOrders);
 
     if (activeLoading || completedLoading) return <CircularProgress/>
@@ -29,8 +30,8 @@ const OrderTotal = ({contest}) => {
 
     return (
         <>
-            <ActiveOrders activeOrders={activeData}/>
-            <CompletedOrders completedOrders={completedData}/>
+            <ActiveOrders activeOrders={activeOrders}/>
+            <CompletedOrders completedOrders={completedOrders}/>
         </>
     );
 }

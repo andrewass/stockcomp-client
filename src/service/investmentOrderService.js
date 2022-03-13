@@ -1,14 +1,10 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 const URL = {
     place_buy_order: CONTEST_BASE_URL+"/investment-order/place-buy-order",
     place_sell_order: CONTEST_BASE_URL+"/investment-order/place-sell-order",
-    delete_active_order: CONTEST_BASE_URL+"/investment-order/delete-active-order",
-    completed_orders_participant: CONTEST_BASE_URL+"/investment-order/completed-orders-participant",
-    completed_orders_symbol_participant: CONTEST_BASE_URL+"/investment-order/completed-orders-symbol-participant",
-    active_orders_participant: CONTEST_BASE_URL+"/investment-order/active-orders-participant",
-    active_orders_participant_symbol: CONTEST_BASE_URL+"/investment-order/active-orders-symbol-participant"
+    delete_active_order: CONTEST_BASE_URL+"/investment-order/delete-active-order"
 }
 
 const placeBuyOrder = async (request) => {
@@ -38,45 +34,57 @@ const deleteActiveOrder = (orderId) => {
     });
 }
 
+const investmentOrdersQuery = (contestNumber, statusList) => ({
+    "query": `query investmentOrders($contestNumber: Int!, $statusList: [OrderStatus!]) {
+        investmentOrders(contestNumber: $contestNumber, statusList: $statusList){
+            orderId
+            orderStatus
+            remainingAmount
+            totalAmount
+            transactionType
+            symbol
+            acceptedPrice
+            currency
+        }
+    }`,
+    "variables": {contestNumber, statusList}
+});
 
-const getCompletedOrdersParticipant = (contestNumber) => {
-    return axios({
-        method: "get",
-        url: URL.completed_orders_participant,
-        params: {contestNumber},
-        withCredentials: true
+const getInvestmentOrders = async (contestNumber, statusList) => {
+    const response = await axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: investmentOrdersQuery(contestNumber, statusList)
     });
+    return response.data.data.investmentOrders;
 }
 
-const getCompletedOrdersSymbolParticipant = (contestNumber, symbol) => {
-    return axios({
-        method: "get",
-        url: URL.completed_orders_symbol_participant,
-        params: {contestNumber, symbol},
-        withCredentials: true
-    });
-}
+const investmentOrdersSymbolQuery = (symbol, contestNumber, statusList) => ({
+    "query": `query investmentOrdersSymbol($symbol: String!, $contestNumber: Int!, $statusList: [OrderStatus!]) {
+        investmentOrdersSymbol(symbol: $symbol, contestNumber: $contestNumber, statusList: $statusList){
+            orderId
+            orderStatus
+            remainingAmount
+            totalAmount
+            transactionType
+            symbol
+            acceptedPrice
+            currency
+        }
+    }`,
+    "variables": {symbol, contestNumber, statusList}
+});
 
-const getActiveOrdersParticipant = (contestNumber) => {
-    return axios({
-        method: "get",
-        url: URL.active_orders_participant,
-        params: {contestNumber},
-        withCredentials: true
+const getInvestmentOrdersSymbol = async (symbol, contestNumber, statusList) => {
+    const response = await axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: investmentOrdersSymbolQuery(symbol, contestNumber, statusList)
     });
-}
-
-const getActiveOrdersParticipantSymbol = (contestNumber, symbol) => {
-    return axios({
-        method: "get",
-        url: URL.active_orders_participant_symbol,
-        params: {contestNumber, symbol},
-        withCredentials: true
-    });
+    return response.data.data.investmentOrdersSymbol;
 }
 
 export {
     placeBuyOrder, placeSellOrder, deleteActiveOrder,
-    getCompletedOrdersParticipant, getCompletedOrdersSymbolParticipant,
-    getActiveOrdersParticipant, getActiveOrdersParticipantSymbol
+    getInvestmentOrders, getInvestmentOrdersSymbol
 }

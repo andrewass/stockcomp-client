@@ -5,6 +5,13 @@ const CONTEST_STATUS = {
     COMPLETED: "COMPLETED"
 }
 
+const ORDER_STATUS = {
+    ACTIVE: "ACTIVE",
+    COMPLETED: "COMPLETED",
+    FAILED: "FAILED",
+    TERMINATED: "TERMINATED"
+}
+
 const decodeMap = new Map([
     [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
     [CONTEST_STATUS.RUNNING, "Running"],
@@ -14,6 +21,6 @@ const decodeMap = new Map([
 
 
 export {
-    CONTEST_STATUS, decodeMap
+    CONTEST_STATUS, ORDER_STATUS, decodeMap
 }
 
