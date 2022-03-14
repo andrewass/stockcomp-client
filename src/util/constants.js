@@ -12,6 +12,11 @@ const ORDER_STATUS = {
     TERMINATED: "TERMINATED"
 }
 
+const TRANSACTION_TYPE = {
+    SELL: "SELL",
+    BUY: "BUY"
+}
+
 const decodeMap = new Map([
     [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
     [CONTEST_STATUS.RUNNING, "Running"],
@@ -19,8 +24,13 @@ const decodeMap = new Map([
     [CONTEST_STATUS.COMPLETED, "Completed"]
 ]);
 
+const codeMap = new Map([
+    ["Buy", TRANSACTION_TYPE.BUY],
+    ["Sell", TRANSACTION_TYPE.SELL]
+]);
+
 
 export {
-    CONTEST_STATUS, ORDER_STATUS, decodeMap
+    CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE, decodeMap, codeMap
 }
 

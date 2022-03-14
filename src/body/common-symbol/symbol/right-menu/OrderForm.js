@@ -6,9 +6,10 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
-import {placeBuyOrder, placeSellOrder} from "../../../../service/investmentOrderService";
+import {placeInvestmentOrder} from "../../../../service/investmentOrderService";
 import {useMutation} from "react-query";
 import {queryClient} from "../../../../config/queryConfig";
+import {codeMap} from "../../../../util/constants";
 
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
@@ -29,18 +30,13 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
             currency: stockQuote.currency,
+            transactionType: codeMap.get(operationType)
         }
     }
 
     const placeOrder = async () => {
-        const request = createInvestmentOrderRequest();
-        if (operationType === "Buy") {
-            await placeBuyOrder(request);
-        } else {
-            await placeSellOrder(request);
-        }
+        await placeInvestmentOrder(createInvestmentOrderRequest());
     }
-
 
     const mutation = useMutation(placeOrder, {
         onSuccess: () => {
