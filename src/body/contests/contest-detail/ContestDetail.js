@@ -5,6 +5,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
 import {getContest} from "../../../service/contestService";
 import {useQuery} from "react-query";
+import {CONTEST_STATUS} from "../../../util/constants";
 
 
 const ContestDetail = () => {
@@ -25,13 +26,13 @@ const ContestDetail = () => {
 
     const getContestStatusColor = () => {
         switch (contest.contestStatus) {
-            case "Running" :
+            case CONTEST_STATUS.RUNNING :
                 return "orange"
-            case "Completed" :
+            case CONTEST_STATUS.COMPLETED :
                 return "green"
-            case "Awaiting Start" :
+            case CONTEST_STATUS.AWAITING_START :
                 return "grey"
-            case "Stopped" :
+            case CONTEST_STATUS.STOPPED :
                 return "red"
             default:
                 console.error("Invalid contest status " + contest.contestStatus);

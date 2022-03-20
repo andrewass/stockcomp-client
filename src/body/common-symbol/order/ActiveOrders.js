@@ -1,4 +1,4 @@
-import {deleteActiveOrder} from "../../../service/investmentOrderService";
+import {deleteInvestmentOrder} from "../../../service/investmentOrderService";
 import React, {useState} from "react";
 import {
     Collapse,
@@ -19,7 +19,7 @@ const ActiveOrders = ({activeOrders}) => {
     const [open, setOpen] = useState(false);
 
     const deleteOrder = async (orderId) => {
-        await deleteActiveOrder(orderId);
+        await deleteInvestmentOrder(orderId);
         await queryClient.invalidateQueries("getActiveOrdersSymbol");
         await queryClient.invalidateQueries("getActiveOrdersParticipant");
     }

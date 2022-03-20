@@ -1,9 +1,6 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
+import {GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
-const URL = {
-    delete_active_order: CONTEST_BASE_URL+"/investment-order/delete-active-order"
-}
 
 const placeInvestmentOrderMutation = input => ({
     "query": `mutation placeInvestmentOrder($input: OrderInput!) {
@@ -20,13 +17,18 @@ const placeInvestmentOrder = request => {
     });
 }
 
+const deleteInvestmentOrderMutation = orderId => ({
+    "query": `mutation deleteInvestmentOrder($orderId: Long!) {
+        deleteInvestmentOrder(orderId: $orderId)
+    }`,
+    "variables": {orderId}
+});
 
-const deleteActiveOrder = (orderId) => {
+const deleteInvestmentOrder = orderId => {
     return axios({
         method: "post",
-        url: URL.delete_active_order,
-        params: {orderId},
-        withCredentials: true
+        url: GRAPHQL_CONTEST_URL,
+        data: deleteInvestmentOrderMutation(orderId)
     });
 }
 
@@ -81,6 +83,6 @@ const getInvestmentOrdersSymbol = async (symbol, contestNumber, statusList) => {
 }
 
 export {
-    placeInvestmentOrder, deleteActiveOrder,
+    placeInvestmentOrder, deleteInvestmentOrder,
     getInvestmentOrders, getInvestmentOrdersSymbol
 }

@@ -1,5 +1,5 @@
 import {Admin, EditGuesser, Resource} from "react-admin";
-import simpleRestProvider from "ra-data-simple-rest";
+import buildGraphQLProvider from "ra-data-graphql-simple";
 import {ContestCreate, ContestEdit, ContestList} from "./CustomContest";
 import {UserList} from "./CustomUser";
 import {authProvider} from "./authProvider";
@@ -8,10 +8,20 @@ import {verifyUserIsAdmin} from "../service/authService";
 import {CircularProgress} from "@mui/material";
 import {Redirect} from "react-router-dom";
 import {useQuery} from "react-query";
+import {useEffect, useState} from "react";
 
-const dataProvider = simpleRestProvider(process.env.REACT_APP_STOCK_CONTEST_BASE_URL);
 
 export const AdminPage = () => {
+
+    const [dataProvider, setDataProvider] = useState(null);
+
+    useEffect(() => {
+        buildGraphQLProvider({
+            clientOptions: {uri: process.env.REACT_APP_STOCK_CONTEST_BASE_URL + "/graphql"},
+            buildQuery: ""
+        })
+            .then(graphQlDataProvider => setDataProvider(() => graphQlDataProvider));
+    }, []);
 
     const verifyAdmin = async () => {
         const response = await verifyUserIsAdmin();
@@ -20,15 +30,15 @@ export const AdminPage = () => {
 
     const {isLoading, error, data: isAdmin} = useQuery("verifyAdmin", verifyAdmin);
 
-    if (isLoading) return <CircularProgress/>;
+    if (isLoading || !dataProvider) return <CircularProgress/>;
 
     if (error) return `Error! ${error}`;
 
     if (isAdmin) {
         return (
             <Admin dataProvider={dataProvider} authProvider={authProvider} logoutButton={LogoutButton}>
-                <Resource name="admin/contests" list={ContestList} edit={ContestEdit} create={ContestCreate}/>
-                <Resource name="admin/users" list={UserList} edit={EditGuesser}/>
+                <Resource name="Contest" list={ContestList} edit={ContestEdit} create={ContestCreate}/>
+                <Resource name="User" list={UserList} edit={EditGuesser}/>
             </Admin>
         );
     } else {
