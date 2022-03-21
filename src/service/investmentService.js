@@ -21,7 +21,7 @@ const investmentsQuery = contestNumber => ({
     "variables": {contestNumber}
 });
 
-const getInvestments = async (contestNumber) => {
+const getInvestments = async contestNumber => {
     const response = await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,

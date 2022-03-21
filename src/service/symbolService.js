@@ -11,7 +11,7 @@ const URL = {
     trending_stocks: STOCK_BASE_URL+"/stock/stock-quote-trending"
 };
 
-const useGetStockSymbolInformation = (symbol) => {
+const useGetStockSymbolInformation = symbol => {
     return useQuery(["getStockSymbolInformation", symbol], async () => {
         return await graphqlClientStockData.request(
             gql`
@@ -34,7 +34,7 @@ const useGetStockSymbolInformation = (symbol) => {
     });
 }
 
-const getSuggestionsFromQuery = (query) => {
+const getSuggestionsFromQuery = query => {
     return axios({
         method: "get",
         url: URL.symbol_suggestions+"/"+query,
@@ -42,7 +42,7 @@ const getSuggestionsFromQuery = (query) => {
     });
 }
 
-const getHistoricPrices = (symbol) => {
+const getHistoricPrices = symbol => {
     return axios({
         method: "get",
         url: URL.historic_prices+"/"+symbol,
@@ -50,7 +50,7 @@ const getHistoricPrices = (symbol) => {
     });
 }
 
-const getRealTimePrice = (symbol) => {
+const getRealTimePrice = symbol => {
     return axios({
         method: "get",
         url: URL.real_time_price+"/"+symbol,

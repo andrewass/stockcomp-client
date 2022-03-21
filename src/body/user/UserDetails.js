@@ -1,15 +1,14 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import Flags from "country-flag-icons/react/3x2";
 import {getParticipantHistory} from "../../service/contestService";
-import {getLeaderboardUserEntry} from "../../service/leaderboardService";
+import {getLeaderboardEntry} from "../../service/leaderboardService";
 import ParticipantHistory from "./ParticipantHistory";
 import {useQuery} from "react-query";
 
 
 export const UserDetails = () => {
 
-    const { username } = useParams();
+    const {username} = useParams();
 
     const fetchParticipantHistory = async () => {
         const response = await getParticipantHistory(username);
@@ -17,8 +16,7 @@ export const UserDetails = () => {
     }
 
     const fetchLeaderboardEntry = async () => {
-        const response = await getLeaderboardUserEntry(username);
-        return response.data;
+        return getLeaderboardEntry(username);
     }
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
@@ -31,7 +29,8 @@ export const UserDetails = () => {
 
     if (historyError || entryError) return `Error! ${historyError ? historyError : entryError}`;
 
-    const EntryFlag = null;//Flags[user.country];
+    //TODO: Fix Flags[user.country];
+    const EntryFlag = null;
 
     return (
         <Box>

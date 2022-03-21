@@ -39,10 +39,8 @@ export const ActiveContest = ({contestParticipant}) => {
     }
 
     const getParticipantStatus = () => {
-        if (participant.rank) {
+        if (participant) {
             return <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-        } else if (participant) {
-            return <ListItemText primary={"Signed Up"} sx={{p: 0}}/>
         } else {
             return <Button onClick={() => handleContestSignUp(contest.contestNumber)}>Sign Up</Button>
         }

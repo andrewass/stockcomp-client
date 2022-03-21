@@ -1,4 +1,4 @@
-import {getParticipantRanking} from "../../../service/contestService";
+import {getSortedParticipants} from "../../../service/contestService";
 import {
     CircularProgress,
     Paper,
@@ -27,9 +27,8 @@ export const ContestLeaderboard = ({contestNumber}) => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
-    const fetchParticipantRanking = async () => {
-        const response = await getParticipantRanking(contestNumber);
-        return response.data;
+    const fetchParticipantRanking = () => {
+        return getSortedParticipants(contestNumber);
     }
 
     const {error, isLoading, data} = useQuery("getParticipantRanking", fetchParticipantRanking);

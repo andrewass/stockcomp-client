@@ -1,18 +1,26 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
+import {GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
-const URL = {
-    leaderboard_user_entry: CONTEST_BASE_URL + "/leaderboard/user-entry"
-}
+const leaderboardEntryQuery = username => ({
+    "query": `query investments($username: String) {
+        investments(username: $username){
+            ranking
+            score
+            username
+            country
+        }
+    }`,
+    "variables": {username}
+});
 
-const getLeaderboardUserEntry = (username) => {
-    return axios({
-        method: "get",
-        url: URL.leaderboard_user_entry,
-        params: {username},
-        withCredentials: true
+const getLeaderboardEntry = async username => {
+    const response = await axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: leaderboardEntryQuery(username)
     });
+    return response.data.data;
 }
 
 const sortedLeaderBoardQuery = {
@@ -33,7 +41,6 @@ const getSortedLeaderboardEntries = async () => {
         data: sortedLeaderBoardQuery
     });
     return response.data.data;
-
 }
 
-export {getLeaderboardUserEntry, getSortedLeaderboardEntries}
+export {getLeaderboardEntry, getSortedLeaderboardEntries}

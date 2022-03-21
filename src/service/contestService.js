@@ -3,7 +3,6 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
 const URL = {
-    participant_ranking: CONTEST_BASE_URL + "/contest/participants-by-rank",
     participant_history: CONTEST_BASE_URL + "/contest/participant-history"
 };
 
@@ -84,7 +83,7 @@ const contestParticipantsQuery = statusList => ({
     "variables": {statusList}
 });
 
-const getContestParticipants = async (statusList) => {
+const getContestParticipants = async statusList => {
     const response = await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
@@ -93,13 +92,24 @@ const getContestParticipants = async (statusList) => {
     return response.data.data.contestParticipants;
 }
 
-const getParticipantRanking = contestNumber => {
-    return axios({
-        method: "get",
-        url: URL.participant_ranking,
-        withCredentials: true,
-        params: {contestNumber}
+const sortedParticipantsQuery = contestNumber => ({
+    "query": `query sortedParticipants($contestNumber: Int!) {
+        sortedParticipants(contestNumber: $contestNumber){
+            username
+            rank
+            totalValue
+        }
+    }`,
+    "variables": {contestNumber}
+});
+
+const getSortedParticipants = async contestNumber => {
+    const response =  axios({
+        method: "post",
+        url: GRAPHQL_CONTEST_URL,
+        data: sortedParticipantsQuery(contestNumber)
     });
+    return response.data.data.sortedParticipants;
 }
 
 const getParticipantHistory = username => {
@@ -113,6 +123,6 @@ const getParticipantHistory = username => {
 
 export {
     getContestParticipants, getContests, signUpForContest,
-    getParticipantRanking, getParticipantHistory, getContest
+    getSortedParticipants, getParticipantHistory, getContest
 }
 
