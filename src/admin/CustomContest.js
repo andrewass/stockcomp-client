@@ -16,13 +16,14 @@ import {
 import {CompleteTasksButton} from "./button/CompleteTasksButton";
 import {StartTasksButton} from "./button/StartTasksButton";
 import {StopTasksButton} from "./button/StopTasksButton";
+import {CONTEST_STATUS, decodeMap} from "../util/constants";
 
 
 const contestStatusList = [
-    {id: "Awaiting Start", name: "Awaiting Start"},
-    {id: "Running", name: "Running"},
-    {id: "Stopped", name: "Stopped"},
-    {id: "Completed", name: "Completed"}
+    {id: CONTEST_STATUS.AWAITING_START, name: decodeMap.get(CONTEST_STATUS.AWAITING_START)},
+    {id: CONTEST_STATUS.RUNNING, name: decodeMap.get(CONTEST_STATUS.RUNNING)},
+    {id: CONTEST_STATUS.STOPPED, name: decodeMap.get(CONTEST_STATUS.STOPPED)},
+    {id: CONTEST_STATUS.COMPLETED, name: decodeMap.get(CONTEST_STATUS.COMPLETED)}
 ];
 
 const ContestList = props => (

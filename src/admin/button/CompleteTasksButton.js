@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import {completeContestTasks} from "../../service/admin/adminService";
+import {completeContestTasks} from "../../service/adminService";
 import toast, {Toaster} from "react-hot-toast";
 
 export const CompleteTasksButton = ({record}) => {

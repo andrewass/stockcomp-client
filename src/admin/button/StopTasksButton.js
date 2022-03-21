@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import toast, {Toaster} from "react-hot-toast";
-import {stopContestTasks} from "../../service/admin/adminService";
+import {stopContestTasks} from "../../service/adminService";
 
 export const StopTasksButton = () => {
 
