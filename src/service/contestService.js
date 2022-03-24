@@ -104,7 +104,7 @@ const sortedParticipantsQuery = contestNumber => ({
 });
 
 const getSortedParticipants = async contestNumber => {
-    const response =  axios({
+    const response =  await axios({
         method: "post",
         url: GRAPHQL_CONTEST_URL,
         data: sortedParticipantsQuery(contestNumber)
@@ -112,13 +112,14 @@ const getSortedParticipants = async contestNumber => {
     return response.data.data.sortedParticipants;
 }
 
-const getParticipantHistory = username => {
-    return axios({
+const getParticipantHistory = async username => {
+    const response = await axios({
         method: "get",
         url: URL.participant_history,
         withCredentials: true,
         params: {username}
     });
+    return response;
 }
 
 export {
