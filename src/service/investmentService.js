@@ -24,7 +24,7 @@ const investmentsQuery = contestNumber => ({
 const getInvestments = async contestNumber => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getInvestments",
         data: investmentsQuery(contestNumber)
     });
     return response.data.data.investments;
@@ -46,7 +46,7 @@ const investmentQuery = (symbol, contestNumber) => ({
 const getInvestment = async (symbol, contestNumber) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getInvestment",
         data: investmentQuery(symbol, contestNumber)
     });
     return response.data.data.investment;

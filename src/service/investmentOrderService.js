@@ -12,7 +12,7 @@ const placeInvestmentOrderMutation = input => ({
 const placeInvestmentOrder = request => {
     return axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=placeInvestmentOrder",
         data: placeInvestmentOrderMutation(request)
     });
 }
@@ -27,7 +27,7 @@ const deleteInvestmentOrderMutation = orderId => ({
 const deleteInvestmentOrder = orderId => {
     return axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=deleteInvestmentOrder",
         data: deleteInvestmentOrderMutation(orderId)
     });
 }
@@ -51,7 +51,7 @@ const investmentOrdersQuery = (contestNumber, statusList) => ({
 const getInvestmentOrders = async (contestNumber, statusList) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getInvestmentOrders",
         data: investmentOrdersQuery(contestNumber, statusList)
     });
     return response.data.data.investmentOrders;
@@ -76,7 +76,7 @@ const investmentOrdersSymbolQuery = (symbol, contestNumber, statusList) => ({
 const getInvestmentOrdersSymbol = async (symbol, contestNumber, statusList) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getInvestmentOrdersSymbol",
         data: investmentOrdersSymbolQuery(symbol, contestNumber, statusList)
     });
     return response.data.data.investmentOrdersSymbol;

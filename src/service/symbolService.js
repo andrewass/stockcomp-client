@@ -31,7 +31,7 @@ const stockSymbolInformationQuery = symbol => ({
 const getStockSymbolInformation = async symbol => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_STOCK_URL,
+        url: GRAPHQL_STOCK_URL+"?op=symbolInformation",
         data: stockSymbolInformationQuery(symbol)
     });
     return response.data.data.stockSymbolInformation;

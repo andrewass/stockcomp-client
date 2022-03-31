@@ -20,7 +20,7 @@ const contestQuery = contestNumber => ({
 const getContest = async (contestNumber) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getContest",
         data: contestQuery(contestNumber)
     });
     return response.data.data;
@@ -41,7 +41,7 @@ const contestsQuery = statusList => ({
 const getContests = async (statusList) => {
     const response =  await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getContests",
         data: contestsQuery(statusList)
     });
     return response.data.data.contests;
@@ -57,7 +57,7 @@ const signUpContestMutation = contestNumber => ({
 const signUpForContest = contestNumber => {
     return axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=signUpContest",
         data: signUpContestMutation(contestNumber)
     });
 }
@@ -86,7 +86,7 @@ const contestParticipantsQuery = statusList => ({
 const getContestParticipants = async statusList => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getContestParticipants",
         data: contestParticipantsQuery(statusList)
     });
     return response.data.data.contestParticipants;
@@ -106,7 +106,7 @@ const sortedParticipantsQuery = contestNumber => ({
 const getSortedParticipants = async contestNumber => {
     const response =  await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL,
+        url: GRAPHQL_CONTEST_URL+"?op=getSortedParticipants",
         data: sortedParticipantsQuery(contestNumber)
     });
     return response.data.data.sortedParticipants;
