@@ -1,11 +1,11 @@
 import {useState} from "react";
 import {getSuggestionsFromQuery} from "../../../service/symbolService";
 import {Autocomplete, Box, TextField} from "@mui/material";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const SearchField = () => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const [suggestionList, setSuggestionList] = useState([]);
 
     const getSuggestions = async (value) => {
@@ -18,7 +18,7 @@ const SearchField = () => {
     };
 
     const redirectToSymbolDetail = symbol => {
-        history.push(`/symbol/${symbol.symbol}`);
+        navigate(`/symbol/${symbol.symbol}`);
     }
 
     const buildOptionLabel = option => {

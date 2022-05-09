@@ -1,9 +1,9 @@
-import {Route, Switch} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Contests from "./contests/Contests";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {Symbols} from "./common-symbol/symbols/Symbols";
 import ProtectedRoute from "../config/ProtectedRoute";
-import {AdminPage} from "../admin/AdminPage";
+import AdminPage from "../admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
@@ -15,7 +15,7 @@ const Body = () => {
 
     return (
         <div>
-            <Switch>
+            <Routes>
                 <ProtectedRoute path="/contests">
                     <Header/>
                     <Contests/>
@@ -50,7 +50,7 @@ const Body = () => {
                     <Header/>
                     <Symbols/>
                 </ProtectedRoute>
-            </Switch>
+            </Routes>
         </div>
     );
 }

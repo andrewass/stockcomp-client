@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {setSignedInToLocalStorage, signUp} from "../../service/authService";
 import {makeStyles} from "@mui/styles";
 import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 export const SignUp = ({setDisplaySignUp}) => {
 
     const classes = useStyles();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
@@ -43,7 +43,7 @@ export const SignUp = ({setDisplaySignUp}) => {
     const mutation = useMutation((credentials) => signUp(credentials), {
         onSuccess: () => {
             setSignedInToLocalStorage();
-            history.push("/stocks");
+            navigate("/stocks");
         },
         onError: () => {
             toast.error("Unable to sign up", {

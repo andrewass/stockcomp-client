@@ -5,7 +5,7 @@ import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {removeSignedInFromLocalStorage, signOut} from "../service/authService";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
@@ -16,12 +16,12 @@ const Header = () => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const signOutUser = async () => {
         await signOut()
         removeSignedInFromLocalStorage()
-        history.push("/authentication")
+        navigate("/authentication")
     };
 
     const renderWideNavBar = () => {

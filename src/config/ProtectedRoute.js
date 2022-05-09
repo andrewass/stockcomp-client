@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Redirect, Route} from "react-router-dom";
+import {Navigate, Route} from "react-router-dom";
 import {LOCALSTORAGE_KEY} from "../service/authService";
 
 const ProtectedRoute = ({children, ...rest}) => {
@@ -10,7 +10,7 @@ const ProtectedRoute = ({children, ...rest}) => {
 
     return (
         <Route {...rest} render={() => {
-            return isSignedIn ? children : <Redirect to="/authentication"/>
+            return isSignedIn ? children : <Navigate to="/authentication"/>
         }}/>
     );
 }

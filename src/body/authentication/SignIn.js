@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import {setSignedInToLocalStorage, signIn} from "../../service/authService";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
@@ -30,14 +30,14 @@ const useStyles = makeStyles(theme => ({
 export const SignIn = ({setDisplaySignUp}) => {
 
     const classes = useStyles();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const mutation = useMutation((credentials) => signIn(credentials), {
         onSuccess: (response) => {
             setSignedInToLocalStorage();
-            response.data === 'ADMIN' ? history.push("/admin") : history.push("/stocks");
+            response.data === 'ADMIN' ? navigate("/admin") : navigate("/stocks");
         },
         onError: () => {
             toast.error("Unable to sign in. Verify username and password is correct", {

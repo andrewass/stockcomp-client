@@ -1,16 +1,16 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 const SymbolCard = ({symbol}) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const priceDifference = (symbol.price - symbol.previousClose).toFixed(2);
     const percentageDifference = ((priceDifference / symbol.previousClose) * 100).toFixed(2);
 
     const redirectToSymbolDetail = () => {
-        history.push(`/symbol/${symbol.symbol}`);
+        navigate(`/symbol/${symbol.symbol}`);
     }
 
     const getPriceDifferenceUSD = () => {
