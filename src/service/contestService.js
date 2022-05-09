@@ -3,8 +3,9 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 
 const URL = {
-    participant_history: CONTEST_BASE_URL + "/contest/participant-history"
-};
+    participant_history: CONTEST_BASE_URL + "/contest/participant-history",
+    contest_participants: CONTEST_BASE_URL + "/contest/contest-participants"
+}
 
 const contestQuery = contestNumber => ({
     "query": `query contest($contestNumber: Int!) {
@@ -62,34 +63,15 @@ const signUpForContest = contestNumber => {
     });
 }
 
-const contestParticipantsQuery = statusList => ({
-    "query": `query contestParticipants($statusList: [ContestStatus!]) {
-        contestParticipants(statusList: $statusList){
-            contest {
-                contestNumber
-                contestStatus
-                participantCount
-                startTime
-                endTime
-            }
-            participant {
-                username
-                rank
-                totalValue
-                remainingFunds
-            }
-        }
-    }`,
-    "variables": {statusList}
-});
-
 const getContestParticipants = async statusList => {
+    console.log("Status list is "+statusList)
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getContestParticipants",
-        data: contestParticipantsQuery(statusList)
+        url: URL.contest_participants,
+        data: statusList,
+        withCredentials: true
     });
-    return response.data.data.contestParticipants;
+    return response.data;
 }
 
 const sortedParticipantsQuery = contestNumber => ({

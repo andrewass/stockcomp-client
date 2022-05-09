@@ -87,7 +87,6 @@ export const SignIn = ({setDisplaySignUp}) => {
                     <SignInGoogle/>
                 </>
             }
-
             <Toaster/>
         </form>
     );

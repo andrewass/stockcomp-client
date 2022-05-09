@@ -4,8 +4,7 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 const URL = {
     total_investment: CONTEST_BASE_URL + "/investment/total-investments",
-    symbol_investment: CONTEST_BASE_URL + "/investment/symbol-investment",
-    total_investment_value: CONTEST_BASE_URL + "/investment/total-investment-value"
+    symbol_investment: CONTEST_BASE_URL + "/investment/symbol-investment"
 }
 
 const investmentsQuery = contestNumber => ({
@@ -52,15 +51,5 @@ const getInvestment = async (symbol, contestNumber) => {
     return response.data.data.investment;
 }
 
-const getTotalValueInvestments = contestNumber => {
-    return axios({
-        method: "get",
-        url: URL.total_investment_value,
-        withCredentials: true,
-        params: {contestNumber}
-    });
-}
 
-export {
-    getTotalValueInvestments, getInvestment, getInvestments
-}
+export {getInvestment, getInvestments}
