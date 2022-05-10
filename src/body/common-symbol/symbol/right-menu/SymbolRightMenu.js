@@ -1,6 +1,6 @@
 import {OrderSymbol} from "./OrderSymbol";
 import InvestmentSymbol from "./InvestmentSymbol";
-import {getContestParticipants} from "../../../../service/contestService";
+import {getContestParticipations} from "../../../../service/contestService";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../../util/constants";
@@ -12,7 +12,7 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
     }
 
     const fetchActiveContestParticipants = async () => {
-        const contestParticipants = await getContestParticipants([CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]);
+        const contestParticipants = await getContestParticipations([CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]);
         return getActiveContestParticipant(contestParticipants);
     }
 

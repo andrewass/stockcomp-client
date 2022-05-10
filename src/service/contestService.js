@@ -4,7 +4,8 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
 
 const URL = {
     participant_history: CONTEST_BASE_URL + "/contest/participant-history",
-    contest_participants: CONTEST_BASE_URL + "/contest/contest-participants"
+    contest_participations: CONTEST_BASE_URL + "/contest/contest-participations",
+    contest_sign_up: CONTEST_BASE_URL + "/contest/sign-up"
 }
 
 const contestQuery = contestNumber => ({
@@ -48,26 +49,19 @@ const getContests = async (statusList) => {
     return response.data.data.contests;
 }
 
-const signUpContestMutation = contestNumber => ({
-    "query": `mutation signUpContest($contestNumber: Int!) {
-        signUpContest(contestNumber: $contestNumber)
-    }`,
-    "variables": {contestNumber}
-});
-
 const signUpForContest = contestNumber => {
     return axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=signUpContest",
-        data: signUpContestMutation(contestNumber)
+        url: URL.contest_sign_up,
+        params: {contestNumber},
+        withCredentials: true
     });
 }
 
-const getContestParticipants = async statusList => {
-    console.log("Status list is "+statusList)
+const getContestParticipations = async statusList => {
     const response = await axios({
         method: "post",
-        url: URL.contest_participants,
+        url: URL.contest_participations,
         data: statusList,
         withCredentials: true
     });
@@ -105,7 +99,7 @@ const getParticipantHistory = async username => {
 }
 
 export {
-    getContestParticipants, getContests, signUpForContest,
+    getContestParticipations, getContests, signUpForContest,
     getSortedParticipants, getParticipantHistory, getContest
 }
 

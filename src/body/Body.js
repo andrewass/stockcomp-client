@@ -3,13 +3,15 @@ import Contests from "./contests/Contests";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {Symbols} from "./common-symbol/symbols/Symbols";
 import ProtectedRoute from "../config/ProtectedRoute";
-import AdminPage from "../admin/AdminPage";
+import AdminPage from "./admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
 import UserAccount from "./account/UserAccount";
 import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
+import {AdminHeader} from "../header/AdminHeader";
+import {AdminContests} from "./admin/AdminContests";
 
 const Body = () => {
 
@@ -62,15 +64,6 @@ const Body = () => {
                 />
 
                 <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute>
-                            <AdminPage/>
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
                     path="/account"
                     element={
                         <ProtectedRoute>
@@ -106,6 +99,26 @@ const Body = () => {
                         <ProtectedRoute>
                             <Header/>
                             <Symbols/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminHeader/>
+                            <AdminPage/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin-contests"
+                    element={
+                        <ProtectedRoute>
+                            <AdminHeader/>
+                            <AdminContests/>
                         </ProtectedRoute>
                     }
                 />

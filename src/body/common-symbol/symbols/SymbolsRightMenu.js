@@ -1,6 +1,6 @@
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveContests} from "./contest/ActiveContests";
-import {getContestParticipants} from "../../../service/contestService";
+import {getContestParticipations} from "../../../service/contestService";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "./InvestmentTotal";
@@ -15,7 +15,7 @@ export const SymbolsRightMenu = () => {
     }
 
     const fetchActiveContestParticipants = async () => {
-        return await getContestParticipants(
+        return await getContestParticipations(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         );
     }
