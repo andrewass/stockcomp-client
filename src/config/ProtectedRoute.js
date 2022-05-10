@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import {Navigate, Route} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {LOCALSTORAGE_KEY} from "../service/authService";
 
-const ProtectedRoute = ({children, ...rest}) => {
+const ProtectedRoute = ({children}) => {
 
     const [isSignedIn] = useState(
         localStorage.getItem(LOCALSTORAGE_KEY) === "true"
     );
 
-    return (
-        <Route {...rest} render={() => {
-            return isSignedIn ? children : <Navigate to="/authentication"/>
-        }}/>
-    );
+    if(!isSignedIn){
+        return <Navigate to="/authentication"/>
+    }
+    return children;
 }
 
 export default ProtectedRoute;

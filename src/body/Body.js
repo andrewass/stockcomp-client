@@ -16,40 +16,99 @@ const Body = () => {
     return (
         <div>
             <Routes>
-                <ProtectedRoute path="/contests">
-                    <Header/>
-                    <Contests/>
-                </ProtectedRoute>
-                <ProtectedRoute path="/contest/:contestNumber">
-                    <Header/>
-                    <ContestDetail/>
-                </ProtectedRoute>
-                <ProtectedRoute path="/leaderboard">
-                    <Header/>
-                    <Leaderboard/>
-                </ProtectedRoute>
-                <ProtectedRoute path="/symbol/:symbol">
-                    <Header/>
-                    <Symbol/>
-                </ProtectedRoute>
-                <Route path="/authentication">
-                    <Authentication/>
-                </Route>
-                <ProtectedRoute path="/admin">
-                    <AdminPage/>
-                </ProtectedRoute>
-                <ProtectedRoute path="/account">
-                    <Header/>
-                    <UserAccount/>
-                </ProtectedRoute>
-                <ProtectedRoute path="/user/:username">
-                    <Header/>
-                    <UserDetails/>
-                </ProtectedRoute>
-                <ProtectedRoute path="*">
-                    <Header/>
-                    <Symbols/>
-                </ProtectedRoute>
+                <Route
+                    path="/authentication"
+                    element={<Authentication/>}
+                />
+
+                <Route
+                    path="/contests"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <Contests/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/contest/:contestNumber"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <ContestDetail/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/leaderboard"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <Leaderboard/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/symbol/:symbol"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <Symbol/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminPage/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/account"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <UserAccount/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/account"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <UserAccount/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/user/:username"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <UserDetails/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="*"
+                    element={
+                        <ProtectedRoute>
+                            <Header/>
+                            <Symbols/>
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
         </div>
     );
