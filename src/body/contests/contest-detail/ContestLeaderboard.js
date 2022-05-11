@@ -1,4 +1,4 @@
-import {getSortedParticipants} from "../../../service/contestService";
+import {getSortedParticipants} from "../../../service/participantService";
 import {
     CircularProgress,
     Paper,

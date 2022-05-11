@@ -12,17 +12,15 @@ const ContestDetail = () => {
 
     const {contestNumber} = useParams();
 
-    const fetchContestByContestNumber = async () => {
-        return await getContest(contestNumber);
+    const fetchContestByContestNumber = () => {
+        return getContest(contestNumber);
     }
 
-    const {isLoading, data, error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
+    const {isLoading, data : contest , error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
 
     if (isLoading) return <CircularProgress/>;
 
     if (error) return `Error! ${error}`;
-
-    const {contest} = data;
 
     const getContestStatusColor = () => {
         switch (contest.contestStatus) {

@@ -1,52 +1,33 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../config/serviceConfig";
 
 
 const URL = {
     participant_history: CONTEST_BASE_URL + "/contest/participant-history",
     contest_participations: CONTEST_BASE_URL + "/contest/contest-participations",
-    contest_sign_up: CONTEST_BASE_URL + "/contest/sign-up"
+    contest_sign_up: CONTEST_BASE_URL + "/contest/sign-up",
+    get_by_status: CONTEST_BASE_URL + "/contest/get-by-status",
+    get_by_number: CONTEST_BASE_URL + "/contest/get-by-number"
 }
-
-const contestQuery = contestNumber => ({
-    "query": `query contest($contestNumber: Int!) {
-        contest(contestNumber: $contestNumber){
-            startTime
-            participantCount
-            contestStatus
-        }
-    }`,
-    "variables": {contestNumber}
-});
 
 const getContest = async (contestNumber) => {
     const response = await axios({
-        method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getContest",
-        data: contestQuery(contestNumber)
+        method: "get",
+        url: URL.get_by_number,
+        params: {contestNumber},
+        withCredentials: true
     });
-    return response.data.data;
+    return response.data;
 }
 
-const contestsQuery = statusList => ({
-    "query": `query contests($statusList: [ContestStatus!]) {
-        contests(statusList: $statusList){
-            contestNumber
-            contestStatus
-            participantCount
-            startTime
-        }
-    }`,
-    "variables": {statusList}
-});
-
 const getContests = async (statusList) => {
-    const response =  await axios({
+    const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getContests",
-        data: contestsQuery(statusList)
+        url: URL.get_by_status,
+        data: statusList,
+        withCredentials: true
     });
-    return response.data.data.contests;
+    return response.data;
 }
 
 const signUpForContest = contestNumber => {
@@ -68,26 +49,6 @@ const getContestParticipations = async statusList => {
     return response.data;
 }
 
-const sortedParticipantsQuery = contestNumber => ({
-    "query": `query sortedParticipants($contestNumber: Int!) {
-        sortedParticipants(contestNumber: $contestNumber){
-            username
-            rank
-            totalValue
-        }
-    }`,
-    "variables": {contestNumber}
-});
-
-const getSortedParticipants = async contestNumber => {
-    const response =  await axios({
-        method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getSortedParticipants",
-        data: sortedParticipantsQuery(contestNumber)
-    });
-    return response.data.data.sortedParticipants;
-}
-
 const getParticipantHistory = async username => {
     const response = await axios({
         method: "get",
@@ -100,6 +61,6 @@ const getParticipantHistory = async username => {
 
 export {
     getContestParticipations, getContests, signUpForContest,
-    getSortedParticipants, getParticipantHistory, getContest
+    getParticipantHistory, getContest
 }
 

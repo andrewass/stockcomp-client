@@ -5,9 +5,8 @@ import {useQuery} from "react-query";
 
 export const PriceChart = ({symbol}) => {
 
-    const fetchHistoricPrices = async () => {
-        const response = await getHistoricPrices(symbol);
-        return response.data;
+    const fetchHistoricPrices = () => {
+        return getHistoricPrices(symbol);
     }
 
     const {isLoading, isFetching, error, data} = useQuery(["getHistoricPrices",symbol], fetchHistoricPrices);
