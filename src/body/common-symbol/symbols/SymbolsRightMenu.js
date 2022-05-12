@@ -1,29 +1,39 @@
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveContests} from "./contest/ActiveContests";
-import {getContestParticipations} from "../../../service/contestService";
+import {getContests} from "../../../service/contestService";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "./InvestmentTotal";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../util/constants";
+import {getParticipant} from "../../../service/participantService";
 
 
 export const SymbolsRightMenu = () => {
 
-    const getRunningContestsWithUserParticipation = (contests) => {
-        return contests.find(contest => contest.participant);
-    }
-
-    const fetchActiveContestParticipants = async () => {
-        return await getContestParticipations(
+    const fetchActiveContest = async () => {
+        const contests = await getContests(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         );
+        return contests.find(contest => contest !== undefined)
     }
 
-    const getParticipantData = (contests) => {
-        const contestParticipant = getRunningContestsWithUserParticipation(contests);
-        if (contestParticipant) {
-            const {contest, participant} = contestParticipant
+    const fetchParticipant = async () => {
+        return await getParticipant(contest.contestNumber);
+    }
+
+    const {isLoading: loadingContest, error: contestError, data: contest} =
+        useQuery("getActiveContest", fetchActiveContest);
+
+    const {isLoading: loadingParticipant, error: participantError, data: participant} =
+        useQuery("getParticipant", fetchParticipant, {enabled: !!contest,})
+
+    if (loadingContest || loadingParticipant) return <CircularProgress/>
+
+    if (contestError || participantError) return `Error! ${contestError ? contestError : participantError}`;
+
+    const getParticipantData = () => {
+        if (participant) {
             return (
                 <>
                     <PortfolioStatus contest={contest} participant={participant}/>
@@ -34,17 +44,10 @@ export const SymbolsRightMenu = () => {
         }
     }
 
-    const {isLoading, error, data: contestParticipants} =
-        useQuery("getContestParticipantsSymbols", fetchActiveContestParticipants);
-
-    if (isLoading) return <CircularProgress/>
-
-    if (error) return `Error! ${error}`;
-
     return (
         <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
-            <ActiveContests contests={contestParticipants}/>
-            {getParticipantData(contestParticipants)}
+            <ActiveContests contests={[contest]}/>
+            {getParticipantData()}
         </Box>
     );
 }

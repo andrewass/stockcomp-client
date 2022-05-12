@@ -1,4 +1,4 @@
-import {getLeaderboardEntry, getSortedLeaderboardEntries} from "../../service/leaderboardService";
+import {getLeaderboardEntry, getSortedLeaderboardEntries} from "./client/leaderboardClient";
 import {CircularProgress} from "@mui/material";
 import {LeaderboardTable} from "./LeaderboardTable";
 import {useQuery} from "react-query";
@@ -14,7 +14,7 @@ export const Leaderboard = () => {
         return getSortedLeaderboardEntries();
     }
 
-    const {isLoading: entriesLoading, error: entriesError, data: entriesData} =
+    const {isLoading: entriesLoading, error: entriesError, data: leaderboardEntries} =
         useQuery("getSortedLeaderboardEntries", fetchSortedLeaderboardEntries);
 
     const {isLoading: userEntryLoading, error: userEntryError, data: userEntryData} =
@@ -26,7 +26,7 @@ export const Leaderboard = () => {
 
     return (
         <>
-            <LeaderboardTable leaderboardEntries={entriesData.sortedLeaderboardEntries}/>
+            <LeaderboardTable leaderboardEntries={leaderboardEntries}/>
         </>
     );
 }
