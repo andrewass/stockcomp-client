@@ -1,4 +1,4 @@
-import {deleteInvestmentOrder} from "../../../service/investmentOrderService";
+import {deleteInvestmentOrder} from "./client/investmentOrderClient";
 import React, {useState} from "react";
 import {
     Collapse,
@@ -11,7 +11,7 @@ import {
     Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
-import {queryClient} from "../../../config/queryConfig";
+import {queryClient} from "../../config/queryConfig";
 
 
 const ActiveOrders = ({activeOrders}) => {

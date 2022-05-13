@@ -1,12 +1,12 @@
 import {Box, CircularProgress} from "@mui/material";
-import {ActiveContests} from "./contest/ActiveContests";
 import {getContests} from "../../../service/contestService";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
-import {InvestmentTotal} from "./InvestmentTotal";
+import {InvestmentTotal} from "../investment/InvestmentTotal";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../util/constants";
 import {getParticipant} from "../../../service/participantService";
+import {ActiveContest} from "./contest/ActiveContest";
 
 
 export const SymbolsRightMenu = () => {
@@ -46,7 +46,7 @@ export const SymbolsRightMenu = () => {
 
     return (
         <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
-            <ActiveContests contests={[contest]}/>
+            <ActiveContest contest={contest} participant={participant}/>
             {getParticipantData()}
         </Box>
     );

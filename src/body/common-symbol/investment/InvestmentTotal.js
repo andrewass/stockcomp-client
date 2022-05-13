@@ -1,5 +1,5 @@
-import Investments from "../investment/Investments";
-import {getInvestments} from "../../../service/investmentService";
+import Investments from "./Investments";
+import {getInvestments} from "./client/investmentService";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 

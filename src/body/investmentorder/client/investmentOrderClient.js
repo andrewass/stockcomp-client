@@ -1,5 +1,9 @@
 import axios from "axios";
-import {GRAPHQL_CONTEST_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../../../config/serviceConfig";
+
+const URL = {
+    get_investment_orders: CONTEST_BASE_URL + "/investmentorder/get-by-status",
+}
 
 
 const placeInvestmentOrderMutation = input => ({
@@ -32,29 +36,13 @@ const deleteInvestmentOrder = orderId => {
     });
 }
 
-const investmentOrdersQuery = (contestNumber, statusList) => ({
-    "query": `query investmentOrders($contestNumber: Int!, $statusList: [OrderStatus!]) {
-        investmentOrders(contestNumber: $contestNumber, statusList: $statusList){
-            orderId
-            orderStatus
-            remainingAmount
-            totalAmount
-            transactionType
-            symbol
-            acceptedPrice
-            currency
-        }
-    }`,
-    "variables": {contestNumber, statusList}
-});
-
 const getInvestmentOrders = async (contestNumber, statusList) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getInvestmentOrders",
-        data: investmentOrdersQuery(contestNumber, statusList)
+        url: URL.get_investment_orders,
+        data: {contestNumber, statusList}
     });
-    return response.data.data.investmentOrders;
+    return response.data;
 }
 
 const investmentOrdersSymbolQuery = (symbol, contestNumber, statusList) => ({

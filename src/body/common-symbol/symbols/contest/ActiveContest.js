@@ -8,9 +8,7 @@ import {queryClient} from "../../../../config/queryConfig";
 import {CONTEST_STATUS} from "../../../../util/constants";
 
 
-export const ActiveContest = ({contestParticipant}) => {
-
-    const {contest, participant} = contestParticipant;
+export const ActiveContest = ({contest, participant}) => {
 
     const mutation = useMutation((contestNumber) => signUpForContest(contestNumber), {
         onSuccess: () => queryClient.invalidateQueries("getUpcomingContests"),
@@ -29,8 +27,10 @@ export const ActiveContest = ({contestParticipant}) => {
     const getContestStatus = () => {
         return (
             <Box display="flex">
-                <CircleIcon sx={{color: contest.contestStatus === CONTEST_STATUS.RUNNING
-                        ? "green" : "orange", marginRight: 1}}/>
+                <CircleIcon sx={{
+                    color: contest.contestStatus === CONTEST_STATUS.RUNNING
+                        ? "green" : "orange", marginRight: 1
+                }}/>
                 <Typography> {contest.contestStatus === CONTEST_STATUS.RUNNING
                     ? "Ending " + format(parseISO(contest.endTime), "yyyy-MM-dd HH:mm")
                     : "Starting " + format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</Typography>
@@ -47,14 +47,12 @@ export const ActiveContest = ({contestParticipant}) => {
     }
 
     return (
-        <ListItem sx={{p: 0, pl: 2}}>
-            <Card elevation={0}>
-                <CardContent>
-                    <Typography variant="h6">Contest {contest.contestNumber}</Typography>
-                    {getContestStatus()}
-                    {getParticipantStatus()}
-                </CardContent>
-            </Card>
-        </ListItem>
+        <Card elevation={0}>
+            <CardContent>
+                <Typography variant="h6">Contest {contest.contestNumber}</Typography>
+                {getContestStatus()}
+                {getParticipantStatus()}
+            </CardContent>
+        </Card>
     );
 }
