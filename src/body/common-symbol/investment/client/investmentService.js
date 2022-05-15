@@ -3,30 +3,17 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../../../../config/serviceC
 
 
 const URL = {
-    total_investment: CONTEST_BASE_URL + "/investment/total-investments",
+    all_investments: CONTEST_BASE_URL + "/investment/get-all",
     symbol_investment: CONTEST_BASE_URL + "/investment/symbol-investment"
 }
 
-const investmentsQuery = contestNumber => ({
-    "query": `query investments($contestNumber: Int!) {
-        investments(contestNumber: $contestNumber){
-            symbol
-            amount
-            averageUnitCost
-            totalValue
-            totalProfit
-        }
-    }`,
-    "variables": {contestNumber}
-});
-
-const getInvestments = async contestNumber => {
+const getAllInvestments = async contestNumber => {
     const response = await axios({
-        method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getInvestments",
-        data: investmentsQuery(contestNumber)
+        method: "get",
+        url: URL.all_investments,
+        params: {contestNumber}
     });
-    return response.data.data.investments;
+    return response.data;
 }
 
 const investmentQuery = (symbol, contestNumber) => ({
@@ -52,4 +39,4 @@ const getInvestment = async (symbol, contestNumber) => {
 }
 
 
-export {getInvestment, getInvestments}
+export {getInvestment, getAllInvestments}

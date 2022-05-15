@@ -3,6 +3,7 @@ import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../../../config/serviceConf
 
 const URL = {
     get_investment_orders: CONTEST_BASE_URL + "/investmentorder/get-by-status",
+    get_investment_orders_symbol : CONTEST_BASE_URL + "/investmentorder/get-by-status-symbol"
 }
 
 
@@ -45,29 +46,13 @@ const getInvestmentOrders = async (contestNumber, statusList) => {
     return response.data;
 }
 
-const investmentOrdersSymbolQuery = (symbol, contestNumber, statusList) => ({
-    "query": `query investmentOrdersSymbol($symbol: String!, $contestNumber: Int!, $statusList: [OrderStatus!]) {
-        investmentOrdersSymbol(symbol: $symbol, contestNumber: $contestNumber, statusList: $statusList){
-            orderId
-            orderStatus
-            remainingAmount
-            totalAmount
-            transactionType
-            symbol
-            acceptedPrice
-            currency
-        }
-    }`,
-    "variables": {symbol, contestNumber, statusList}
-});
-
 const getInvestmentOrdersSymbol = async (symbol, contestNumber, statusList) => {
     const response = await axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=getInvestmentOrdersSymbol",
-        data: investmentOrdersSymbolQuery(symbol, contestNumber, statusList)
+        url: URL.get_investment_orders_symbol,
+        data: {contestNumber, statusList, symbol}
     });
-    return response.data.data.investmentOrdersSymbol;
+    return response.data;
 }
 
 export {

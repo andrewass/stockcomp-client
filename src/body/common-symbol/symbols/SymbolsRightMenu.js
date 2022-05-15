@@ -40,7 +40,7 @@ export const SymbolsRightMenu = () => {
                     <OrderTotal contest={contest} participant={participant}/>
                     <InvestmentTotal contest={contest} participant={participant}/>
                 </>
-            )
+            );
         }
     }
 
