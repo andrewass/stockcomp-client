@@ -1,10 +1,10 @@
 import Investment from "./Investment";
-import {getInvestment} from "./client/investmentService";
+import {getInvestment} from "./client/investmentClient";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 
 
-const InvestmentSymbol = ({contest,participant, symbol}) => {
+const InvestmentSymbol = ({contest, participant, symbol}) => {
 
     const {remainingFunds} = participant;
 
@@ -13,7 +13,7 @@ const InvestmentSymbol = ({contest,participant, symbol}) => {
     }
 
     const {isLoading: investmentLoading, error: investmentError, data: investment} =
-        useQuery(["getInvestmentOfSymbol", symbol], fetchSymbolInvestment);
+        useQuery("getInvestmentOfSymbol", fetchSymbolInvestment);
 
     if (investmentLoading) return <CircularProgress/>;
 

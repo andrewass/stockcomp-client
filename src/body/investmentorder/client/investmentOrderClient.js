@@ -1,39 +1,26 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, GRAPHQL_CONTEST_URL} from "../../../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../../../config/serviceConfig";
 
 const URL = {
     get_investment_orders: CONTEST_BASE_URL + "/investmentorder/get-by-status",
-    get_investment_orders_symbol : CONTEST_BASE_URL + "/investmentorder/get-by-status-symbol"
+    get_investment_orders_symbol: CONTEST_BASE_URL + "/investmentorder/get-by-status-symbol",
+    place_investment_order: CONTEST_BASE_URL + "/investmentorder/place-order",
+    delete_investment_order: CONTEST_BASE_URL + "/investmentorder/delete-order"
 }
-
-
-const placeInvestmentOrderMutation = input => ({
-    "query": `mutation placeInvestmentOrder($input: OrderInput!) {
-        placeInvestmentOrder(input: $input)
-    }`,
-    "variables": {input}
-});
 
 const placeInvestmentOrder = request => {
     return axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=placeInvestmentOrder",
-        data: placeInvestmentOrderMutation(request)
+        url: URL.place_investment_order,
+        data: request
     });
 }
 
-const deleteInvestmentOrderMutation = orderId => ({
-    "query": `mutation deleteInvestmentOrder($orderId: Long!) {
-        deleteInvestmentOrder(orderId: $orderId)
-    }`,
-    "variables": {orderId}
-});
-
 const deleteInvestmentOrder = orderId => {
-    return axios({
+    return  axios({
         method: "post",
-        url: GRAPHQL_CONTEST_URL+"?op=deleteInvestmentOrder",
-        data: deleteInvestmentOrderMutation(orderId)
+        url: URL.delete_investment_order,
+        params: {orderId}
     });
 }
 
