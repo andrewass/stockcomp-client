@@ -1,6 +1,6 @@
 import {OrderSymbol} from "./OrderSymbol";
 import InvestmentSymbol from "../../investment/InvestmentSymbol";
-import {getContests} from "../../../../service/contestService";
+import {getContests} from "../../../contests/client/contestClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../../util/constants";

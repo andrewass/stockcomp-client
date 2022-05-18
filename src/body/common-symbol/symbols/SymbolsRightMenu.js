@@ -1,5 +1,5 @@
 import {Box, CircularProgress} from "@mui/material";
-import {getContests} from "../../../service/contestService";
+import {getContests} from "../../contests/client/contestClient";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "../investment/InvestmentTotal";

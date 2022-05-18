@@ -1,4 +1,4 @@
-import {signUpForContest} from "../../../../service/contestService";
+import {signUpForContest} from "../../../contests/client/contestClient";
 import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import {format, parseISO} from "date-fns";

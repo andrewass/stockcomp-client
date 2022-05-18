@@ -1,4 +1,4 @@
-import {getContests} from "../../service/contestService";
+import {getContests} from "./client/contestClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 import ContestTable from "./ContestTable";

@@ -3,7 +3,7 @@ import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/materia
 import {ContestLeaderboard} from "./ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
-import {getContest} from "../../../service/contestService";
+import {getContest} from "../client/contestClient";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../util/constants";
 

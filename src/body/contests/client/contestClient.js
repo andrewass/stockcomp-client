@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../../../config/serviceConfig";
 
 
 const URL = {
@@ -39,16 +39,6 @@ const signUpForContest = contestNumber => {
     });
 }
 
-const getContestParticipations = async statusList => {
-    const response = await axios({
-        method: "post",
-        url: URL.contest_participations,
-        data: statusList,
-        withCredentials: true
-    });
-    return response.data;
-}
-
 const getParticipantHistory = async username => {
     const response = await axios({
         method: "get",
@@ -60,7 +50,7 @@ const getParticipantHistory = async username => {
 }
 
 export {
-    getContestParticipations, getContests, signUpForContest,
+    getContests, signUpForContest,
     getParticipantHistory, getContest
 }
 

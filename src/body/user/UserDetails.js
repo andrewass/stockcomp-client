@@ -1,6 +1,6 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import {getParticipantHistory} from "../../service/contestService";
+import {getParticipantHistory} from "../contests/client/contestClient";
 import {getLeaderboardEntry} from "../leaderboard/client/leaderboardClient";
 import ParticipantHistory from "./ParticipantHistory";
 import {useQuery} from "react-query";

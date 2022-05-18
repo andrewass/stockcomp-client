@@ -11,7 +11,7 @@ import UserAccount from "./account/UserAccount";
 import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 import {AdminHeader} from "../header/AdminHeader";
-import {AdminContests} from "./admin/AdminContests";
+import {AdminContests} from "./admin/contests/AdminContests";
 
 const Body = () => {
 
