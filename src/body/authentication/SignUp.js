@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -64,7 +64,7 @@ export const SignUp = ({setDisplaySignUp}) => {
     }
 
     return (
-        <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
+        <form className={classes.root} onSubmit={handleSubmit} id="signUpForm">
             <Typography variant="h4" sx={{mt: 4}}>
                 STOCK COMP
             </Typography>

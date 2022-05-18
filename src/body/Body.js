@@ -12,6 +12,7 @@ import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 import {AdminHeader} from "../header/AdminHeader";
 import {AdminContests} from "./admin/contests/AdminContests";
+import AdminCreateContest from "./admin/contests/AdminCreateContest";
 
 const Body = () => {
 
@@ -114,11 +115,21 @@ const Body = () => {
                 />
 
                 <Route
-                    path="/admin-contests"
+                    path="/admin/contests"
                     element={
                         <ProtectedRoute>
                             <AdminHeader/>
                             <AdminContests/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/contests/create"
+                    element={
+                        <ProtectedRoute>
+                            <AdminHeader/>
+                            <AdminCreateContest/>
                         </ProtectedRoute>
                     }
                 />

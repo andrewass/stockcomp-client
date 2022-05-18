@@ -40,13 +40,13 @@ const signUpForContest = contestNumber => {
 }
 
 const getParticipantHistory = async username => {
-    const response = await axios({
+    const response  = await axios({
         method: "get",
         url: URL.participant_history,
         withCredentials: true,
         params: {username}
     });
-    return response;
+    return response.data;
 }
 
 export {

@@ -26,7 +26,7 @@ export const AdminHeader = () => {
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
                     <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin" sx={{fontSize: "3rem"}}/>
-                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin-contests"/>
+                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin/contests"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>
             </AppBar>

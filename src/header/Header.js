@@ -19,9 +19,9 @@ const Header = () => {
     const navigate = useNavigate();
 
     const signOutUser = async () => {
-        await signOut()
-        removeSignedInFromLocalStorage()
-        navigate("/authentication")
+        await signOut();
+        removeSignedInFromLocalStorage();
+        navigate("/authentication");
     };
 
     const renderWideNavBar = () => {
