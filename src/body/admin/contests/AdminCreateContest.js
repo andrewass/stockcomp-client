@@ -6,9 +6,12 @@ import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
+import {createContest} from "../adminClient";
 
 const AdminCreateContest = () => {
 
+    const navigate = useNavigate();
     const classes = useStyles();
     const [number, setNumber] = useState();
     const [startTime, setStartTime] = useState();
@@ -20,11 +23,13 @@ const AdminCreateContest = () => {
         }
     }
 
-    const createContest  = async () => {
-        await createContest(getCreateContestRequest())
+    const submitContestCreation  = async event => {
+        event.preventDefault();
+        await createContest(getCreateContestRequest());
+        navigate("/admin/contests");
     }
 
-    const mutation = useMutation(createContest, {
+    const mutation = useMutation(submitContestCreation, {
         onSuccess: () => {
             toast.success("Successfully created contest", {duration: 4000, position: "top-center"});
         },
@@ -34,7 +39,7 @@ const AdminCreateContest = () => {
     });
 
     return (
-        <form className={classes.root} onSubmit={createContest}>
+        <form className={classes.root} onSubmit={submitContestCreation}>
             <TextField label="Contest Number" variant="outlined" onChange={e => setNumber(e.target.value)}/>
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
