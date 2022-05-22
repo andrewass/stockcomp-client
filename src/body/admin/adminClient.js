@@ -18,7 +18,7 @@ const createContest = request => {
 
 const updateContest = request => {
     return axios({
-        method: "post",
+        method: "put",
         url: URL.update_contest,
         data: request
     });

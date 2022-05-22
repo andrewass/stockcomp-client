@@ -9,20 +9,24 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {updateContest} from "../adminClient";
 import {queryClient} from "../../../config/queryConfig";
 import MenuItem from "@mui/material/MenuItem";
+import {contestStatusMap} from "../../../util/constants";
 
 const AdminUpdateContest = () => {
 
     const contest = useLocation().state;
-
     const navigate = useNavigate();
     const classes = useStyles();
-    const [contestStatus, setContestStatus] = useState(contest.contestStatus);
+    const [contestStatus, setContestStatus] = useState(contestStatusMap.get(contest.contestStatus));
     const [startTime, setStartTime] = useState(contest.startTime);
+
+    function getStatusCode(value) {
+        return [...contestStatusMap].find(([key, val]) => val === value)[0];
+    }
 
     const getUpdateContestRequest = () => {
         return {
             contestNumber: contest.contestNumber,
-            contestStatus: contestStatus,
+            contestStatus: getStatusCode(contestStatus),
             startTime: startTime,
         }
     }
@@ -47,11 +51,10 @@ const AdminUpdateContest = () => {
             />
 
             <FormControl disabled={updateMutation.isLoading}>
-                <InputLabel>Operation</InputLabel>
+                <InputLabel>Status</InputLabel>
                 <Select value={contestStatus} label="Status"
                         onChange={event => setContestStatus(event.target.value)}>
-                    <MenuItem value="Buy">Buy</MenuItem>
-                    <MenuItem value="Sell">Sell</MenuItem>
+                    {[...contestStatusMap].map(([key, val]) => <MenuItem key={val} value={val}>{val}</MenuItem>)}
                 </Select>
             </FormControl>
 
@@ -68,7 +71,7 @@ const AdminUpdateContest = () => {
                 Update
             </Button>
         </form>
-    )
+    );
 }
 
 export default AdminUpdateContest;
