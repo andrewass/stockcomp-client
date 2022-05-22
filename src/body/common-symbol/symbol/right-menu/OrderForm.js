@@ -9,7 +9,7 @@ import toast, {Toaster} from 'react-hot-toast';
 import {placeInvestmentOrder} from "../../../investmentorder/client/investmentOrderClient";
 import {useMutation} from "react-query";
 import {queryClient} from "../../../../config/queryConfig";
-import {codeMap} from "../../../../util/constants";
+import {codeMapTransaction} from "../../../../util/constants";
 
 
 export const OrderForm = ({symbol, contest, stockQuote}) => {
@@ -30,7 +30,7 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
             amount: parseInt(orderAmount),
             contestNumber: contest.contestNumber,
             currency: stockQuote.currency,
-            transactionType: codeMap.get(operationType)
+            transactionType: codeMapTransaction.get(operationType)
         }
     }
 

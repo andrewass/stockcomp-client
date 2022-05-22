@@ -22,7 +22,7 @@ const AdminContestTable = ({contests}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {contests.map(contest => <AdminContestRow contest={contest}/>)}
+                    {contests.map(contest => <AdminContestRow key={contest.contestNumber} contest={contest}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

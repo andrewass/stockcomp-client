@@ -5,9 +5,9 @@ import {useStyles} from "../../authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
-import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import {createContest} from "../adminClient";
+import {queryClient} from "../../../config/queryConfig";
 
 const AdminCreateContest = () => {
 
@@ -23,27 +23,25 @@ const AdminCreateContest = () => {
         }
     }
 
-    const submitContestCreation  = async event => {
+    const submitContestCreation = async event => {
         event.preventDefault();
-        await createContest(getCreateContestRequest());
-        navigate("/admin/contests");
+        createContest(getCreateContestRequest());
     }
 
-    const mutation = useMutation(submitContestCreation, {
-        onSuccess: () => {
-            toast.success("Successfully created contest", {duration: 4000, position: "top-center"});
+    const createMutation = useMutation(submitContestCreation, {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries("getAllContests");
+            navigate("/admin/contests");
         },
-        onError: () => {
-            toast.error("Unable to create contest", {duration: 4000, position: "top-center"});
-        },
+        onError: (error) => console.log(error)
     });
 
     return (
-        <form className={classes.root} onSubmit={submitContestCreation}>
+        <form className={classes.root} onSubmit={createMutation.mutate}>
             <TextField label="Contest Number" variant="outlined" onChange={e => setNumber(e.target.value)}/>
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker disabled={mutation.isLoading}
+                <DateTimePicker disabled={createMutation.isLoading}
                                 renderInput={(props) => <TextField {...props} />}
                                 label="Starting Time"
                                 value={startTime}

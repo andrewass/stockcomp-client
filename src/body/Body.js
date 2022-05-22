@@ -7,12 +7,13 @@ import AdminPage from "./admin/AdminPage";
 import Symbol from "./common-symbol/symbol/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
-import UserAccount from "./account/UserAccount";
+import UserAccount from "./user/UserAccount";
 import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 import {AdminHeader} from "../header/AdminHeader";
 import {AdminContests} from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
+import AdminUpdateContest from "./admin/contests/AdminUpdateContest";
 
 const Body = () => {
 
@@ -130,6 +131,16 @@ const Body = () => {
                         <ProtectedRoute>
                             <AdminHeader/>
                             <AdminCreateContest/>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/contests/update"
+                    element={
+                        <ProtectedRoute>
+                            <AdminHeader/>
+                            <AdminUpdateContest/>
                         </ProtectedRoute>
                     }
                 />

@@ -8,25 +8,25 @@ const URL = {
     delete_contest: CONTEST_BASE_URL + "/contest/delete",
 }
 
-const createContest = async request => {
-    await axios({
+const createContest = request => {
+    return axios({
         method: "post",
         url: URL.create_contest,
         data: request
     });
 }
 
-const updateContest = async request => {
-    await axios({
+const updateContest = request => {
+    return axios({
         method: "post",
         url: URL.update_contest,
         data: request
     });
 }
 
-const deleteContest = async contestNumber => {
-    await axios({
-        method: "post",
+const deleteContest = contestNumber => {
+    return axios({
+        method: "delete",
         url: URL.delete_contest,
         params: {contestNumber}
     });

@@ -25,7 +25,7 @@ export const AdminContests = () => {
             <AdminContestTable contests={contests}/>
 
             <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
-                    onClick={() => {navigate("/admin/contests/create")}}>
+                    onClick={() => navigate("/admin/contests/create")}>
                 Create Contest
             </Button>
         </div>

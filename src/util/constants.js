@@ -17,20 +17,19 @@ const TRANSACTION_TYPE = {
     BUY: "BUY"
 }
 
-const decodeMap = new Map([
+const contestStatusMap = new Map([
     [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
     [CONTEST_STATUS.RUNNING, "Running"],
     [CONTEST_STATUS.STOPPED, "Stopped"],
     [CONTEST_STATUS.COMPLETED, "Completed"]
 ]);
 
-const codeMap = new Map([
+const codeMapTransaction = new Map([
     ["Buy", TRANSACTION_TYPE.BUY],
     ["Sell", TRANSACTION_TYPE.SELL]
 ]);
 
-
 export {
-    CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE, decodeMap, codeMap
+    CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE, contestStatusMap, codeMapTransaction
 }
 
