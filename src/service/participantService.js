@@ -3,7 +3,7 @@ import {CONTEST_BASE_URL} from "../config/serviceConfig";
 
 const URL = {
     sorted_participants: CONTEST_BASE_URL + "/participant/sorted-participants",
-    get_participant: CONTEST_BASE_URL + "/participant/by-contest"
+    get_participant: CONTEST_BASE_URL + "/participant/participant-by-contest"
 }
 
 const getParticipant = async contestNumber => {

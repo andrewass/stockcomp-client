@@ -5,7 +5,7 @@ import {CONTEST_BASE_URL} from "../../../config/serviceConfig";
 const URL = {
     participant_history: CONTEST_BASE_URL + "/contest/participant-history",
     contest_participations: CONTEST_BASE_URL + "/contest/contest-participations",
-    contest_sign_up: CONTEST_BASE_URL + "/contest/sign-up",
+    contest_sign_up: CONTEST_BASE_URL + "/contest/sign-up-participant",
     get_by_status: CONTEST_BASE_URL + "/contest/get-by-status",
     get_by_number: CONTEST_BASE_URL + "/contest/get-by-number"
 }
