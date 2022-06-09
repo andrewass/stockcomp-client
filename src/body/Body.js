@@ -4,7 +4,7 @@ import {Leaderboard} from "./leaderboard/Leaderboard";
 import {Symbols} from "./common-symbol/symbols/Symbols";
 import ProtectedRoute from "../config/ProtectedRoute";
 import AdminPage from "./admin/AdminPage";
-import Symbol from "./common-symbol/symbol/Symbol";
+import Symbol from "../pages/Symbol";
 import Header from "../header/Header";
 import Authentication from "./authentication/Authentication";
 import UserAccount from "./user/UserAccount";

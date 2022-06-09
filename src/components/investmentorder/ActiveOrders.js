@@ -1,4 +1,4 @@
-import {deleteInvestmentOrder} from "./client/investmentOrderClient";
+import {deleteInvestmentOrder} from "../../body/investmentorder/client/investmentOrderClient";
 import React, {useState} from "react";
 import {
     Collapse,

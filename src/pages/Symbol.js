@@ -1,9 +1,9 @@
-import DetailBlock from "./details/DetailBlock";
-import {SymbolRightMenu} from "./right-menu/SymbolRightMenu";
+import DetailBlock from "../body/common-symbol/symbol/details/DetailBlock";
+import {SymbolRightMenu} from "../components/symbol/SymbolRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
-import SearchField from "../search/SearchField";
+import SearchField from "../body/common-symbol/search/SearchField";
 import {useTheme} from "@mui/material/styles";
-import {getStockSymbolInformation} from "../../../service/symbolService";
+import {getStockSymbolInformation} from "../service/symbolService";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 
@@ -16,14 +16,14 @@ const Symbol = () => {
         return getStockSymbolInformation(symbol);
     }
 
-    const {isLoading, data: stockSymbolInformation, error} =
+    const {isLoading, data: symbolDetails, error} =
         useQuery("getStockSymbolInformation", fetchStockSymbolInformation);
 
     if (isLoading) return <CircularProgress/>;
 
     if (error) return `Error! ${error}`;
 
-    const {stockQuote} = stockSymbolInformation;
+    const {stockQuote} = symbolDetails;
 
     return (
         <div id="symbolPage">
@@ -33,7 +33,7 @@ const Symbol = () => {
                      mt: "3%", display: "flex", justifyContent: "center",
                      flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
                  }}>
-                <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={stockSymbolInformation}/>
+                <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails}/>
                 <SymbolRightMenu symbol={symbol} stockQuote={stockQuote} isLargeWidth={isLargeWidth}/>
             </Box>
         </div>

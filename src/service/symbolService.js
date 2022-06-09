@@ -13,8 +13,8 @@ const URL = {
 const getStockSymbolInformation = async symbol => {
     const response = await axios({
         method: "get",
-        url: URL.symbol_information + "/" + symbol,
-        withCredentials: true
+        url: URL.symbol_information,
+        params: {symbol}
     });
     return response.data;
 }
@@ -22,36 +22,26 @@ const getStockSymbolInformation = async symbol => {
 const getSuggestionsFromQuery = query => {
     return axios({
         method: "get",
-        url: URL.symbol_suggestions + "/" + query,
-        withCredentials: true
+        url: URL.symbol_suggestions + "/" + query
     });
 }
 
 const getHistoricPrices = async symbol => {
     const response = await axios({
         method: "get",
-        url: URL.historic_prices + "/" + symbol,
-        withCredentials: true
+        url: URL.historic_prices,
+        params: {symbol}
     });
     return response.data;
-}
-
-const getRealTimePrice = symbol => {
-    return axios({
-        method: "get",
-        url: URL.real_time_price + "/" + symbol,
-        withCredentials: true
-    });
 }
 
 const getTrendingStocks = () => {
     return axios({
         method: "get",
-        url: URL.trending_stocks,
-        withCredentials: true
+        url: URL.trending_stocks
     });
 }
 
 export {
-    getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices, getRealTimePrice, getTrendingStocks
+    getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices, getTrendingStocks
 };

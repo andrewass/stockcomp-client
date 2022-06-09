@@ -1,5 +1,5 @@
 import {PriceChart} from "./PriceChart";
-import SymbolInformation from "./SymbolInformation";
+import SymbolDetails from "./SymbolDetails";
 import {Box} from "@mui/material";
 
 const DetailBlock = ({isLargeWidth, symbolDetails}) => {
@@ -8,7 +8,7 @@ const DetailBlock = ({isLargeWidth, symbolDetails}) => {
         <Box id="detailBlock" display="flex" flexDirection="column" alignItems="center"
              sx={{width: isLargeWidth ? "80%" : "100%", margin:"5% 5%"}}>
             <Box id="symbolData">
-                <SymbolInformation symbolDetails={symbolDetails}/>
+                <SymbolDetails symbolDetails={symbolDetails}/>
             </Box>
 
             <PriceChart symbol={symbolDetails.symbol}/>

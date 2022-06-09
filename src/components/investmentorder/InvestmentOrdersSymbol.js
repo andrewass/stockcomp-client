@@ -1,13 +1,13 @@
-import ActiveOrders from "../../../investmentorder/ActiveOrders";
-import CompletedOrders from "../../../investmentorder/CompletedOrders";
-import {OrderForm} from "./OrderForm";
-import {getInvestmentOrdersSymbol} from "../../../investmentorder/client/investmentOrderClient";
+import ActiveOrders from "./ActiveOrders";
+import CompletedOrders from "./CompletedOrders";
+import {InvestmentOrderForm} from "./InvestmentOrderForm";
+import {getInvestmentOrdersSymbol} from "../../body/investmentorder/client/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import {ORDER_STATUS} from "../../../../util/constants";
+import {ORDER_STATUS} from "../../util/constants";
 
 
-export const OrderSymbol = ({contest, symbol, stockQuote}) => {
+export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}) => {
 
     const {contestNumber} = contest;
 
@@ -31,7 +31,7 @@ export const OrderSymbol = ({contest, symbol, stockQuote}) => {
 
     return (
         <div>
-            <OrderForm symbol={symbol} contest={contest} stockQuote={stockQuote}/>
+            <InvestmentOrderForm symbol={symbol} contest={contest} stockQuote={stockQuote}/>
             <ActiveOrders activeOrders={activeOrders}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>

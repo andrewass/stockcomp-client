@@ -1,5 +1,5 @@
-import ActiveOrders from "../../investmentorder/ActiveOrders";
-import CompletedOrders from "../../investmentorder/CompletedOrders";
+import ActiveOrders from "../../../components/investmentorder/ActiveOrders";
+import CompletedOrders from "../../../components/investmentorder/CompletedOrders";
 import {getInvestmentOrders} from "../../investmentorder/client/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";

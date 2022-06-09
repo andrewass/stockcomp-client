@@ -1,10 +1,10 @@
-import {OrderSymbol} from "./OrderSymbol";
-import InvestmentSymbol from "../../investment/InvestmentSymbol";
-import {getContests} from "../../../contests/client/contestClient";
+import {InvestmentOrdersSymbol} from "../investmentorder/InvestmentOrdersSymbol";
+import InvestmentSymbol from "../../body/common-symbol/investment/InvestmentSymbol";
+import {getContests} from "../../body/contests/client/contestClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../../../../util/constants";
-import {getParticipant} from "../../../../service/participantService";
+import {CONTEST_STATUS} from "../../util/constants";
+import {getParticipant} from "../../service/participantService";
 
 export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
@@ -23,7 +23,7 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
         useQuery("getActiveContestSymbol", fetchActiveContest);
 
     const {isLoading: loadingParticipant, error: participantError, data: participant} =
-        useQuery("getParticipantSymbol", fetchParticipant, {enabled: !!contest,})
+        useQuery("getParticipantSymbol", fetchParticipant, {enabled: !!contest})
 
     if (loadingContest || loadingParticipant) return <CircularProgress/>
 
@@ -34,7 +34,7 @@ export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
             <Box id="symbolRightMenu" display="flex" flexDirection="column"
                  sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem"}}>
                 <InvestmentSymbol contest={contest} participant={participant} symbol={symbol}/>
-                <OrderSymbol contest={contest} symbol={symbol} stockQuote={stockQuote}/>
+                <InvestmentOrdersSymbol contest={contest} symbol={symbol} stockQuote={stockQuote}/>
             </Box>
         );
     }

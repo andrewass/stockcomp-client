@@ -1,26 +1,30 @@
-import {useState} from "react";
-import "./orderForm.css";
+import {useEffect, useState} from "react";
+import "./investmentOrderForm.css";
 import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
-import {placeInvestmentOrder} from "../../../investmentorder/client/investmentOrderClient";
+import {placeInvestmentOrder} from "../../body/investmentorder/client/investmentOrderClient";
 import {useMutation} from "react-query";
-import {queryClient} from "../../../../config/queryConfig";
-import {codeMapTransaction} from "../../../../util/constants";
+import {queryClient} from "../../config/queryConfig";
+import {codeMapTransaction} from "../../util/constants";
 
 
-export const OrderForm = ({symbol, contest, stockQuote}) => {
+export const InvestmentOrderForm = ({symbol, contest, stockQuote}) => {
 
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 7);
-
-    const [acceptedPrice, setAcceptedPrice] = useState(stockQuote.price);
-    const [expirationTime, setExpirationTime] = useState(expirationDate.toISOString());
+    const [acceptedPrice, setAcceptedPrice] = useState();
+    const [expirationTime, setExpirationTime] = useState();
     const [orderAmount, setOrderAmount] = useState(1);
     const [operationType, setOperationType] = useState("Buy");
+
+    useEffect(() => {
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 7);
+        setExpirationTime(expirationDate.toISOString());
+        setAcceptedPrice(stockQuote.price);
+    }, [stockQuote]);
 
     const createInvestmentOrderRequest = () => {
         return {
@@ -51,7 +55,6 @@ export const OrderForm = ({symbol, contest, stockQuote}) => {
             });
         },
     });
-
 
     return (
         <form id="submitOrderForm">
