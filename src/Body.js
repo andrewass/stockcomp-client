@@ -1,19 +1,19 @@
 import {Route, Routes} from "react-router-dom";
-import Contests from "./contests/Contests";
-import Leaderboard from "../pages/Leaderboard";
-import TrendingSymbols from "../pages/TrendingSymbols";
-import ProtectedRoute from "../config/ProtectedRoute";
-import AdminPage from "../pages/AdminPage";
-import SymbolDetails from "../pages/SymbolDetails";
-import Header from "../header/Header";
-import Authentication from "../pages/Authentication";
-import UserAccount from "./user/UserAccount";
-import {UserDetails} from "./user/UserDetails";
-import ContestDetail from "./contests/contest-detail/ContestDetail";
-import {AdminHeader} from "../header/AdminHeader";
-import {AdminContests} from "../components/admin/AdminContests";
-import AdminCreateContest from "../components/admin/AdminCreateContest";
-import AdminUpdateContest from "../components/admin/AdminUpdateContest";
+import Contests from "./body/contests/Contests";
+import Leaderboard from "./pages/Leaderboard";
+import TrendingSymbols from "./pages/TrendingSymbols";
+import ProtectedRoute from "./config/ProtectedRoute";
+import AdminBoard from "./pages/AdminBoard";
+import SymbolDetails from "./pages/SymbolDetails";
+import Header from "./components/header/Header";
+import Authentication from "./pages/Authentication";
+import UserAccount from "./pages/UserAccount";
+import UserDetails from "./pages/UserDetails";
+import ContestDetail from "./body/contests/contest-detail/ContestDetail";
+import {AdminHeader} from "./components/header/AdminHeader";
+import {AdminContests} from "./components/admin/AdminContests";
+import AdminCreateContest from "./pages/AdminCreateContest";
+import AdminUpdateContest from "./pages/AdminUpdateContest";
 
 const Body = () => {
 
@@ -76,16 +76,6 @@ const Body = () => {
                 />
 
                 <Route
-                    path="/account"
-                    element={
-                        <ProtectedRoute>
-                            <Header/>
-                            <UserAccount/>
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
                     path="/user/:username"
                     element={
                         <ProtectedRoute>
@@ -110,7 +100,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <AdminHeader/>
-                            <AdminPage/>
+                            <AdminBoard/>
                         </ProtectedRoute>
                     }
                 />

@@ -1,9 +1,9 @@
 
-const AdminPage = () => {
+const AdminBoard = () => {
 
     return(
         <p>Admin Page</p>
     );
 }
 
-export default AdminPage;
+export default AdminBoard;

@@ -5,7 +5,7 @@ import OrderTotal from "./OrderTotal";
 import {InvestmentTotal} from "../../../components/investment/InvestmentTotal";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../util/constants";
-import {getParticipant} from "../../../service/participantService";
+import {getParticipant} from "../../../api/participantClient";
 import {ActiveContest} from "./contest/ActiveContest";
 
 

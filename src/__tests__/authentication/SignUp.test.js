@@ -1,6 +1,6 @@
 import SignUp from "../../components/authentication/SignUp";
 import userEvent from "@testing-library/user-event";
-import {signUp} from "../../service/authService";
+import {signUp} from "../../api/authClient";
 import "@testing-library/jest-dom";
 import {act, render, screen} from "@testing-library/react";
 import {BrowserRouter as Router} from "react-router-dom";

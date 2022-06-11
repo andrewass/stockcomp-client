@@ -3,9 +3,9 @@ import {Box, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextFi
 import {getData} from "country-list";
 import toast, {Toaster} from "react-hot-toast";
 import Button from "@mui/material/Button";
-import {getUserDetails, updateUserDetails} from "../../service/userService";
+import {getUserDetails, updateUserDetails} from "../api/userClient";
 import {useMutation, useQuery} from "react-query";
-import {queryClient} from "../../config/queryConfig";
+import {queryClient} from "../config/queryConfig";
 
 const countries = getData();
 

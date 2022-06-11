@@ -1,9 +1,9 @@
 import DetailBlock from "../body/common-symbol/symbol/details/DetailBlock";
 import {SymbolRightMenu} from "../components/symbol/SymbolRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
-import SearchField from "../body/common-symbol/search/SearchField";
+import SearchField from "../components/search/SearchField";
 import {useTheme} from "@mui/material/styles";
-import {getStockSymbolInformation} from "../service/symbolService";
+import {getStockSymbolInformation} from "../api/symbolClient";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 

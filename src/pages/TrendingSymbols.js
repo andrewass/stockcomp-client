@@ -1,8 +1,8 @@
-import {getTrendingStocks} from "../service/symbolService";
+import {getTrendingStocks} from "../api/symbolClient";
 import {Box, CircularProgress, Grid} from "@mui/material";
 import SymbolCard from "../body/common-symbol/symbols/trending/SymbolCard";
 import {useQuery} from "react-query";
-import SearchField from "../body/common-symbol/search/SearchField";
+import SearchField from "../components/search/SearchField";
 
 
 const TrendingSymbols = () => {

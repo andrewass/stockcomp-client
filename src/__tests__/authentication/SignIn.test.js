@@ -1,5 +1,5 @@
 import SignIn from "../../components/authentication/SignIn";
-import {signIn} from "../../service/authService";
+import {signIn} from "../../api/authClient";
 import "@testing-library/jest-dom";
 import {BrowserRouter as Router} from "react-router-dom";
 import {act, render, screen} from "@testing-library/react";

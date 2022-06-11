@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
-import {setSignedInToLocalStorage, signIn} from "../../service/authService";
+import {setSignedInToLocalStorage, signIn} from "../../api/authClient";
 import {useNavigate} from "react-router-dom";
 import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";

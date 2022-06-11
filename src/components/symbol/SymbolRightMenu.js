@@ -4,7 +4,7 @@ import {getContests} from "../../api/contestClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../util/constants";
-import {getParticipant} from "../../service/participantService";
+import {getParticipant} from "../../api/participantClient";
 
 export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 

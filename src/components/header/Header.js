@@ -6,7 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import {NavLink, useNavigate} from "react-router-dom";
-import {removeSignedInFromLocalStorage, signOut} from "../service/authService";
+import {removeSignedInFromLocalStorage, signOut} from "../../api/authClient";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 import {localTheme} from "./headerTheme";

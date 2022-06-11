@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {getSuggestionsFromQuery} from "../../../service/symbolService";
+import {getSuggestionsFromQuery} from "../../api/symbolClient";
 import {Autocomplete, Box, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 

@@ -1,12 +1,12 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import {getParticipantHistory} from "../../api/contestClient";
-import {getLeaderboardEntry} from "../../api/leaderboardClient";
-import ParticipantHistory from "./ParticipantHistory";
+import {getParticipantHistory} from "../api/contestClient";
+import {getLeaderboardEntry} from "../api/leaderboardClient";
+import ParticipantHistory from "../components/participant/ParticipantHistory";
 import {useQuery} from "react-query";
 
 
-export const UserDetails = () => {
+const UserDetails = () => {
 
     const {username} = useParams();
 
@@ -49,3 +49,5 @@ export const UserDetails = () => {
         </Box>
     );
 }
+
+export default UserDetails;

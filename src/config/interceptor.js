@@ -1,5 +1,5 @@
 import axios from "axios";
-import {refreshToken} from "./authService";
+import {refreshToken} from "../api/authClient";
 
 let isRefreshingToken = false;
 let requestQueue = [];

@@ -1,5 +1,5 @@
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {getHistoricPrices} from "../../../../service/symbolService";
+import {getHistoricPrices} from "../../../../api/symbolClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 

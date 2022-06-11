@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Navigate} from "react-router-dom";
-import {LOCALSTORAGE_KEY} from "../service/authService";
+import {LOCALSTORAGE_KEY} from "../api/authClient";
 
 const ProtectedRoute = ({children}) => {
 

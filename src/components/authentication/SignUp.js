@@ -3,7 +3,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import EmailIcon from '@mui/icons-material/Email';
 import {useNavigate} from "react-router-dom";
-import {setSignedInToLocalStorage, signUp} from "../../service/authService";
+import {setSignedInToLocalStorage, signUp} from "../../api/authClient";
 import {makeStyles} from "@mui/styles";
 import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";

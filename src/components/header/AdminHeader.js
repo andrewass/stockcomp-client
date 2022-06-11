@@ -2,7 +2,7 @@ import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import React, {useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {removeSignedInFromLocalStorage, signOut} from "../service/authService";
+import {removeSignedInFromLocalStorage, signOut} from "../../api/authClient";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {localTheme} from "./headerTheme";
