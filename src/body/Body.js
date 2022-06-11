@@ -11,9 +11,9 @@ import UserAccount from "./user/UserAccount";
 import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
 import {AdminHeader} from "../header/AdminHeader";
-import {AdminContests} from "./admin/contests/AdminContests";
-import AdminCreateContest from "./admin/contests/AdminCreateContest";
-import AdminUpdateContest from "./admin/contests/AdminUpdateContest";
+import {AdminContests} from "../components/admin/AdminContests";
+import AdminCreateContest from "../components/admin/AdminCreateContest";
+import AdminUpdateContest from "../components/admin/AdminUpdateContest";
 
 const Body = () => {
 

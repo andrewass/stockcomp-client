@@ -3,7 +3,7 @@ import {Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/mat
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import Investment from "./Investment";
 
-const Investments = ({investments}) => {
+const InvestmentList = ({investments}) => {
 
     const [open, setOpen] = useState(false);
 
@@ -23,4 +23,4 @@ const Investments = ({investments}) => {
     );
 }
 
-export default Investments;
+export default InvestmentList;

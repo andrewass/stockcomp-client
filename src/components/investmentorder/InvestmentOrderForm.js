@@ -6,7 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
-import {placeInvestmentOrder} from "../../body/investmentorder/client/investmentOrderClient";
+import {placeInvestmentOrder} from "../../api/investmentOrderClient";
 import {useMutation} from "react-query";
 import {queryClient} from "../../config/queryConfig";
 import {codeMapTransaction} from "../../util/constants";

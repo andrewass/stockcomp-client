@@ -1,5 +1,5 @@
-import Investments from "./Investments";
-import {getAllInvestments} from "./client/investmentClient";
+import InvestmentList from "./InvestmentList";
+import {getAllInvestments} from "../../body/common-symbol/investment/client/investmentClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 
@@ -16,5 +16,5 @@ export const InvestmentTotal = ({contest}) => {
 
     if (error) return `Error! ${error}`;
 
-    return <Investments investments={investments}/>
+    return <InvestmentList investments={investments}/>
 }

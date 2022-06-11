@@ -1,6 +1,6 @@
-import {getLeaderboardEntry, getSortedLeaderboardEntries} from "../body/leaderboard/client/leaderboardClient";
+import {getLeaderboardEntry, getSortedLeaderboardEntries} from "../api/leaderboardClient";
 import {CircularProgress} from "@mui/material";
-import {LeaderboardTable} from "../body/leaderboard/LeaderboardTable";
+import {LeaderboardTable} from "../components/leaderboard/LeaderboardTable";
 import {useQuery} from "react-query";
 
 

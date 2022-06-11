@@ -1,5 +1,5 @@
 import {useQuery} from "react-query";
-import {getContests} from "../../contests/client/contestClient";
+import {getContests} from "../../api/contestClient";
 import {CircularProgress} from "@mui/material";
 import AdminContestTable from "./AdminContestTable";
 import Button from "@mui/material/Button";

@@ -1,5 +1,5 @@
 import Investment from "./Investment";
-import {getInvestment} from "./client/investmentClient";
+import {getInvestment} from "../../body/common-symbol/investment/client/investmentClient";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 

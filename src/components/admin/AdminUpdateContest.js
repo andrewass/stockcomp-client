@@ -1,15 +1,15 @@
 import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
-import {useStyles} from "../../../components/authentication/SignUp";
+import {useStyles} from "../authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
-import {updateContest} from "../adminClient";
-import {queryClient} from "../../../config/queryConfig";
+import {updateContest} from "../../api/adminClient";
+import {queryClient} from "../../config/queryConfig";
 import MenuItem from "@mui/material/MenuItem";
-import {contestStatusMap} from "../../../util/constants";
+import {contestStatusMap} from "../../util/constants";
 
 const AdminUpdateContest = () => {
 

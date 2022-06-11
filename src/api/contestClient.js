@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../../../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../config/serviceConfig";
 
 
 const URL = {

@@ -1,13 +1,13 @@
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
-import {useStyles} from "../../../components/authentication/SignUp";
+import {useStyles} from "../authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
-import {createContest} from "../adminClient";
-import {queryClient} from "../../../config/queryConfig";
+import {createContest} from "../../api/adminClient";
+import {queryClient} from "../../config/queryConfig";
 
 const AdminCreateContest = () => {
 

@@ -1,8 +1,8 @@
 import {Box, CircularProgress} from "@mui/material";
-import {getContests} from "../../contests/client/contestClient";
+import {getContests} from "../../../api/contestClient";
 import {PortfolioStatus} from "./PortfolioStatus";
 import OrderTotal from "./OrderTotal";
-import {InvestmentTotal} from "../investment/InvestmentTotal";
+import {InvestmentTotal} from "../../../components/investment/InvestmentTotal";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../../util/constants";
 import {getParticipant} from "../../../service/participantService";

@@ -3,8 +3,8 @@ import TableCell from "@mui/material/TableCell";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from "@mui/material";
-import {deleteContest} from "../adminClient";
-import {queryClient} from "../../../config/queryConfig";
+import {deleteContest} from "../../api/adminClient";
+import {queryClient} from "../../config/queryConfig";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
 
