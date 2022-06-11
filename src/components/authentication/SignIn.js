@@ -37,7 +37,7 @@ export const SignIn = ({setDisplaySignUp}) => {
     const mutation = useMutation((credentials) => signIn(credentials), {
         onSuccess: (response) => {
             setSignedInToLocalStorage();
-            response.data === 'ADMIN' ? navigate("/admin") : navigate("/stocks");
+            response.data === 'ADMIN' ? navigate("/admin/contests") : navigate("/stocks");
         },
         onError: () => {
             toast.error("Unable to sign in. Verify username and password is correct", {

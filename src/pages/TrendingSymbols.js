@@ -1,13 +1,16 @@
 import {getTrendingStocks} from "../api/symbolClient";
-import {Box, CircularProgress, Grid} from "@mui/material";
-import SymbolCard from "../body/common-symbol/symbols/trending/SymbolCard";
+import {Box, CircularProgress, Grid, useMediaQuery} from "@mui/material";
+import SymbolCard from "../components/trendingsymbols/SymbolCard";
 import {useQuery} from "react-query";
 import SearchField from "../components/search/SearchField";
+import {TrendingSymbolsRightMenu} from "../components/trendingsymbols/TrendingSymbolsRightMenu";
+import {useTheme} from "@mui/material/styles";
+import {FETCH_QUOTE_INTERVAL} from "../util/constants";
 
 
 const TrendingSymbols = () => {
-
-    const fetchInterval = 5000
+    const theme = useTheme();
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 
     const fetchTrendingSymbols = async () => {
         const response = await getTrendingStocks();
@@ -15,16 +18,19 @@ const TrendingSymbols = () => {
     }
 
     const {isLoading, error, data} = useQuery("getTrendingSymbols", fetchTrendingSymbols,
-        {refetchInterval: fetchInterval})
+        {refetchInterval: FETCH_QUOTE_INTERVAL})
 
     if (isLoading) return <CircularProgress/>
 
     if (error) return `Error! ${error}`;
 
     return (
-        <div id="trendingSymbols">
+        <Box>
             <SearchField/>
-            <Box sx={{width: "70%"}}>
+            <Box sx={{
+                m: "3% 5%", display: "flex", justifyContent: "center",
+                flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
+            }}>
                 <Grid container rowSpacing={1} columnSpacing={1}>
                     {data.map((symbol) =>
                         <Grid key={symbol.symbol} item md={6} sm={12}>
@@ -32,8 +38,9 @@ const TrendingSymbols = () => {
                         </Grid>
                     )}
                 </Grid>
+                <TrendingSymbolsRightMenu/>
             </Box>
-        </div>
+        </Box>
     );
 }
 

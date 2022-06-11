@@ -1,11 +1,11 @@
-import {signUpForContest} from "../../../../api/contestClient";
 import {Box, Button, Card, CardContent, ListItem, ListItemText, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import {format, parseISO} from "date-fns";
 import {useMutation} from "react-query";
 import toast from "react-hot-toast";
-import {queryClient} from "../../../../config/queryConfig";
-import {CONTEST_STATUS} from "../../../../util/constants";
+import {queryClient} from "../../config/queryConfig";
+import {CONTEST_STATUS} from "../../util/constants";
+import {signUpForContest} from "../../api/contestClient";
 
 
 export const ActiveContest = ({contest, participant}) => {

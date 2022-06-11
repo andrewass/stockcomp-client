@@ -1,12 +1,12 @@
-import ActiveOrders from "../../../components/investmentorder/ActiveOrders";
-import CompletedOrders from "../../../components/investmentorder/CompletedOrders";
-import {getInvestmentOrders} from "../../../api/investmentOrderClient";
+import ActiveOrders from "./ActiveOrders";
+import CompletedOrders from "./CompletedOrders";
+import {getInvestmentOrders} from "../../api/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import {ORDER_STATUS} from "../../../util/constants";
+import {ORDER_STATUS} from "../../util/constants";
 
 
-const OrderTotal = ({contest}) => {
+const InvestmentOrderTotal = ({contest}) => {
 
     const {contestNumber} = contest;
 
@@ -36,4 +36,4 @@ const OrderTotal = ({contest}) => {
     );
 }
 
-export default OrderTotal;
+export default InvestmentOrderTotal;

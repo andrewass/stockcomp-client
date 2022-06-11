@@ -1,17 +1,16 @@
 import {Route, Routes} from "react-router-dom";
-import Contests from "./body/contests/Contests";
+import Contests from "./pages/Contests";
 import Leaderboard from "./pages/Leaderboard";
 import TrendingSymbols from "./pages/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
-import AdminBoard from "./pages/AdminBoard";
 import SymbolDetails from "./pages/SymbolDetails";
 import Header from "./components/header/Header";
 import Authentication from "./pages/Authentication";
-import UserAccount from "./pages/UserAccount";
+import AccountSettings from "./pages/AccountSettings";
 import UserDetails from "./pages/UserDetails";
-import ContestDetail from "./body/contests/contest-detail/ContestDetail";
+import ContestDetails from "./pages/ContestDetails";
 import {AdminHeader} from "./components/header/AdminHeader";
-import {AdminContests} from "./components/admin/AdminContests";
+import AdminContests from "./pages/AdminContests";
 import AdminCreateContest from "./pages/AdminCreateContest";
 import AdminUpdateContest from "./pages/AdminUpdateContest";
 
@@ -40,7 +39,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <ContestDetail/>
+                            <ContestDetails/>
                         </ProtectedRoute>
                     }
                 />
@@ -70,7 +69,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <UserAccount/>
+                            <AccountSettings/>
                         </ProtectedRoute>
                     }
                 />
@@ -91,16 +90,6 @@ const Body = () => {
                         <ProtectedRoute>
                             <Header/>
                             <TrendingSymbols/>
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute>
-                            <AdminHeader/>
-                            <AdminBoard/>
                         </ProtectedRoute>
                     }
                 />

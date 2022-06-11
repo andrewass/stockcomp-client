@@ -1,5 +1,5 @@
-import DetailBlock from "../body/common-symbol/symbol/details/DetailBlock";
-import {SymbolRightMenu} from "../components/symbol/SymbolRightMenu";
+import DetailBlock from "../components/symboldetails/DetailBlock";
+import {SymbolDetailsRightMenu} from "../components/symboldetails/SymbolDetailsRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import SearchField from "../components/search/SearchField";
 import {useTheme} from "@mui/material/styles";
@@ -28,13 +28,12 @@ const SymbolDetails = () => {
     return (
         <div id="symbolPage">
             <SearchField/>
-            <Box id="symbolBody"
-                 sx={{
-                     mt: "3%", display: "flex", justifyContent: "center",
-                     flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
-                 }}>
+            <Box sx={{
+                mt: "3%", display: "flex", justifyContent: "center",
+                flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
+            }}>
                 <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails}/>
-                <SymbolRightMenu symbol={symbol} stockQuote={stockQuote} isLargeWidth={isLargeWidth}/>
+                <SymbolDetailsRightMenu symbol={symbol} stockQuote={stockQuote} isLargeWidth={isLargeWidth}/>
             </Box>
         </div>
     );

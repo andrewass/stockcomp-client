@@ -1,7 +1,7 @@
 import {Card, CardContent, Typography} from "@mui/material";
 
 
-const SymbolDetails = ({symbolDetails}) => {
+const SymbolInformation = ({symbolDetails}) => {
 
     const {symbol, companyName, stockQuote} = symbolDetails;
     const {priceChange, percentageChange} = stockQuote;
@@ -36,4 +36,4 @@ const SymbolDetails = ({symbolDetails}) => {
     )
 }
 
-export default SymbolDetails;
+export default SymbolInformation;

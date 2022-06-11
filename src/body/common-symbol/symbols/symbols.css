@@ -1,8 +1,0 @@
-
-@media(max-width:1050px) {
-    #symbolsBody{
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: flex-start;
-    }
-}

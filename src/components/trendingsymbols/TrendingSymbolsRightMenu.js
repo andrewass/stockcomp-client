@@ -1,15 +1,15 @@
 import {Box, CircularProgress} from "@mui/material";
-import {getContests} from "../../../api/contestClient";
-import {PortfolioStatus} from "./PortfolioStatus";
-import OrderTotal from "./OrderTotal";
-import {InvestmentTotal} from "../../../components/investment/InvestmentTotal";
+import {getContests} from "../../api/contestClient";
+import {PortfolioStatus} from "../participant/PortfolioStatus";
+import InvestmentOrderTotal from "../investmentorder/InvestmentOrderTotal";
+import {InvestmentTotal} from "../investment/InvestmentTotal";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../../../util/constants";
-import {getParticipant} from "../../../api/participantClient";
-import {ActiveContest} from "./contest/ActiveContest";
+import {CONTEST_STATUS} from "../../util/constants";
+import {getParticipant} from "../../api/participantClient";
+import {ActiveContest} from "../contest/ActiveContest";
 
 
-export const SymbolsRightMenu = () => {
+export const TrendingSymbolsRightMenu = () => {
 
     const fetchActiveContest = async () => {
         const contests = await getContests(
@@ -37,7 +37,7 @@ export const SymbolsRightMenu = () => {
             return (
                 <>
                     <PortfolioStatus contest={contest} participant={participant}/>
-                    <OrderTotal contest={contest} participant={participant}/>
+                    <InvestmentOrderTotal contest={contest} participant={participant}/>
                     <InvestmentTotal contest={contest} participant={participant}/>
                 </>
             );

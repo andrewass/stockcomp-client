@@ -29,7 +29,10 @@ const codeMapTransaction = new Map([
     ["Sell", TRANSACTION_TYPE.SELL]
 ]);
 
+const FETCH_QUOTE_INTERVAL = 5000;
+
 export {
-    CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE, contestStatusMap, codeMapTransaction
+    CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE,
+    FETCH_QUOTE_INTERVAL, contestStatusMap, codeMapTransaction,
 }
 

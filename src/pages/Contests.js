@@ -1,7 +1,7 @@
-import {getContests} from "../../api/contestClient";
+import {getContests} from "../api/contestClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import ContestTable from "./ContestTable";
+import ContestTable from "../components/contest/ContestTable";
 
 const fetchAllContests = async () => {
     return await getContests([]);

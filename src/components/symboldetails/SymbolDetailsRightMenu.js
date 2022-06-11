@@ -6,7 +6,7 @@ import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../util/constants";
 import {getParticipant} from "../../api/participantClient";
 
-export const SymbolRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
+export const SymbolDetailsRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
     const fetchActiveContest = async () => {
         const contests = await getContests(

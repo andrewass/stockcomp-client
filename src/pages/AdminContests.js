@@ -1,11 +1,12 @@
 import {useQuery} from "react-query";
-import {getContests} from "../../api/contestClient";
+import {getContests} from "../api/contestClient";
 import {CircularProgress} from "@mui/material";
-import AdminContestTable from "./AdminContestTable";
+import AdminContestTable from "../components/admin/AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 
-export const AdminContests = () => {
+
+const AdminContests = () => {
 
     const navigate = useNavigate();
 
@@ -31,3 +32,5 @@ export const AdminContests = () => {
         </div>
     );
 }
+
+export default AdminContests;

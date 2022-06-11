@@ -1,4 +1,4 @@
-import {getSortedParticipants} from "../../../api/participantClient";
+import {getSortedParticipants} from "../../api/participantClient";
 import {
     CircularProgress,
     Paper,

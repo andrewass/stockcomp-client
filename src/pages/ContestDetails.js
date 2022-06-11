@@ -1,14 +1,14 @@
 import {useParams} from "react-router-dom";
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {ContestLeaderboard} from "./ContestLeaderboard";
+import {ContestLeaderboard} from "../components/contest/ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
-import {getContest} from "../../../api/contestClient";
+import {getContest} from "../api/contestClient";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../../../util/constants";
+import {CONTEST_STATUS} from "../util/constants";
 
 
-const ContestDetail = () => {
+const ContestDetails = () => {
 
     const {contestNumber} = useParams();
 
@@ -61,4 +61,4 @@ const ContestDetail = () => {
     )
 }
 
-export default ContestDetail;
+export default ContestDetails;
