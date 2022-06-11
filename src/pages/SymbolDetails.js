@@ -7,7 +7,7 @@ import {getStockSymbolInformation} from "../service/symbolService";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 
-const Symbol = () => {
+const SymbolDetails = () => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const {symbol} = useParams();
@@ -40,4 +40,4 @@ const Symbol = () => {
     );
 }
 
-export default Symbol;
+export default SymbolDetails;

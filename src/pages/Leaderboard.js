@@ -1,10 +1,10 @@
-import {getLeaderboardEntry, getSortedLeaderboardEntries} from "./client/leaderboardClient";
+import {getLeaderboardEntry, getSortedLeaderboardEntries} from "../body/leaderboard/client/leaderboardClient";
 import {CircularProgress} from "@mui/material";
-import {LeaderboardTable} from "./LeaderboardTable";
+import {LeaderboardTable} from "../body/leaderboard/LeaderboardTable";
 import {useQuery} from "react-query";
 
 
-export const Leaderboard = () => {
+const Leaderboard = () => {
 
     const fetchUserLeaderboardEntry = () => {
         return getLeaderboardEntry();
@@ -30,3 +30,5 @@ export const Leaderboard = () => {
         </>
     );
 }
+
+export default Leaderboard;

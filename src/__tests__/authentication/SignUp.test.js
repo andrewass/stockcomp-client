@@ -1,4 +1,4 @@
-import SignUp from "../../body/authentication/SignUp";
+import SignUp from "../../components/authentication/SignUp";
 import userEvent from "@testing-library/user-event";
 import {signUp} from "../../service/authService";
 import "@testing-library/jest-dom";

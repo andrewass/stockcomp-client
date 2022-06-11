@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import toast, {Toaster} from "react-hot-toast";
 import {useMutation} from "react-query";
-import {SignInGoogle} from "./SignInGoogle";
+import {SignInGoogle} from "../../body/authentication/SignInGoogle";
 
 const useStyles = makeStyles(theme => ({
     root: {

@@ -1,12 +1,12 @@
 import {Route, Routes} from "react-router-dom";
 import Contests from "./contests/Contests";
-import {Leaderboard} from "./leaderboard/Leaderboard";
-import {Symbols} from "./common-symbol/symbols/Symbols";
+import Leaderboard from "../pages/Leaderboard";
+import TrendingSymbols from "../pages/TrendingSymbols";
 import ProtectedRoute from "../config/ProtectedRoute";
-import AdminPage from "./admin/AdminPage";
-import Symbol from "../pages/Symbol";
+import AdminPage from "../pages/AdminPage";
+import SymbolDetails from "../pages/SymbolDetails";
 import Header from "../header/Header";
-import Authentication from "./authentication/Authentication";
+import Authentication from "../pages/Authentication";
 import UserAccount from "./user/UserAccount";
 import {UserDetails} from "./user/UserDetails";
 import ContestDetail from "./contests/contest-detail/ContestDetail";
@@ -60,7 +60,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <Symbol/>
+                            <SymbolDetails/>
                         </ProtectedRoute>
                     }
                 />
@@ -100,7 +100,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <Symbols/>
+                            <TrendingSymbols/>
                         </ProtectedRoute>
                     }
                 />

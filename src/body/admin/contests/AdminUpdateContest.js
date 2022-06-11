@@ -1,7 +1,7 @@
 import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
-import {useStyles} from "../../authentication/SignUp";
+import {useStyles} from "../../../components/authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
