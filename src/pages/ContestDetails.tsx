@@ -6,21 +6,24 @@ import {format, parseISO} from "date-fns";
 import {getContest} from "../api/contestClient";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../util/constants";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 
 const ContestDetails = () => {
 
-    const {contestNumber} = useParams();
+    const {contestNumber} =  useParams<{contestNumber: string}>()
 
     const fetchContestByContestNumber = () => {
-        return getContest(contestNumber);
+        return getContest(parseInt(contestNumber!))
     }
 
-    const {isLoading, data : contest , error} = useQuery("getContestByContestNumber", fetchContestByContestNumber);
+    const {isLoading, data : contest , error} =
+        useQuery("getContestByContestNumber", fetchContestByContestNumber)
 
-    if (isLoading) return <CircularProgress/>;
+    if (isLoading) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error || !contest)
+        return <ErrorComponent errorMessage={error ? error as string : `Contest ${contestNumber} not found`}/>
 
     const getContestStatusColor = () => {
         switch (contest.contestStatus) {
@@ -33,7 +36,7 @@ const ContestDetails = () => {
             case CONTEST_STATUS.STOPPED :
                 return "red"
             default:
-                console.error("Invalid contest status " + contest.contestStatus);
+                console.error("Invalid contest status " + contest.contestStatus)
         }
     }
 
@@ -43,7 +46,7 @@ const ContestDetails = () => {
                 <Typography> {contest.contestStatus}</Typography>
                 <CircleIcon sx={{color: getContestStatusColor(), marginLeft: "0.5rem"}}/>
             </Box>
-        );
+        )
     }
 
     return (
@@ -61,4 +64,4 @@ const ContestDetails = () => {
     )
 }
 
-export default ContestDetails;
+export default ContestDetails

@@ -28,7 +28,7 @@ const TrendingSymbols = () => {
         <Box>
             <SearchField/>
             <Box sx={{
-                m: "3% 5%", display: "flex", justifyContent: "center",
+                m: "3% 5%", display: "flex", alignItems: "flex-start",
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
                 <Grid container rowSpacing={1} columnSpacing={1}>

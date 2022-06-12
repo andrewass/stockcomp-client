@@ -11,7 +11,7 @@ const URL = {
     get_by_number: CONTEST_BASE_URL + "/contest/get-by-number"
 }
 
-const getContest = async (contestNumber: number) => {
+const getContest = async (contestNumber: number) : Promise<Contest> => {
     const response = await axios({
         method: "get",
         url: URL.get_by_number,

@@ -17,7 +17,7 @@ const placeInvestmentOrder = request => {
 }
 
 const deleteInvestmentOrder = orderId => {
-    return  axios({
+    return axios({
         method: "post",
         url: URL.delete_investment_order,
         params: {orderId}

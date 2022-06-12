@@ -5,29 +5,38 @@ import {getInvestmentOrdersSymbol} from "../../api/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 import {ORDER_STATUS} from "../../util/constants";
+import {Contest} from "../../types/contest";
+import {StockQuote} from "../../types/symbol";
+import ErrorComponent from "../common/ErrorComponent";
 
+interface Props {
+    contest: Contest
+    symbol: Symbol
+    stockQuote: StockQuote
+}
 
-export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}) => {
+export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}: Props) => {
 
-    const {contestNumber} = contest;
+    const {contestNumber} = contest
 
     const fetchActiveOrdersSymbol = async () => {
-        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.ACTIVE]);
+        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.ACTIVE])
     }
 
     const fetchCompletedOrdersSymbol = async () => {
-        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.COMPLETED]);
+        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.COMPLETED])
     }
 
     const {isLoading: activeLoading, error: activeError, data: activeOrders} =
-        useQuery("getActiveOrdersSymbol", fetchActiveOrdersSymbol);
+        useQuery("getActiveOrdersSymbol", fetchActiveOrdersSymbol)
 
     const {isLoading: completedLoading, error: completedError, data: completedOrders} =
-        useQuery("getCompletedOrdersSymbol", fetchCompletedOrdersSymbol);
+        useQuery("getCompletedOrdersSymbol", fetchCompletedOrdersSymbol)
 
-    if (activeLoading || completedLoading) return <CircularProgress/>;
+    if (activeLoading || completedLoading) return <CircularProgress/>
 
-    if (activeError || completedError) return `Error! ${activeError ? activeError : completedError}`;
+    if (activeError || completedError)
+        return <ErrorComponent errorMessage={activeError ? activeError as string : completedError as string}/>
 
     return (
         <div>
@@ -35,5 +44,5 @@ export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}) => {
             <ActiveOrders activeOrders={activeOrders}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
-    );
+    )
 }

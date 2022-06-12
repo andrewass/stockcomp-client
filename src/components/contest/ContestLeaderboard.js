@@ -14,6 +14,7 @@ import {
 import {styled, useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "react-query";
+import ErrorComponent from "../common/ErrorComponent";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,7 +36,7 @@ export const ContestLeaderboard = ({contestNumber}) => {
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error) return <ErrorComponent errorMessage={error} />
 
     return (
         <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>

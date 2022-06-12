@@ -31,9 +31,8 @@ const InvestmentOrderTotal = ({contest}: Props) => {
 
     if (activeLoading || completedLoading) return <CircularProgress/>
 
-    if (activeError || completedError) return <ErrorComponent errorMessage={
-        activeError ? activeError as string : completedError as string
-    }/>
+    if (activeError || completedError)
+        return <ErrorComponent errorMessage={activeError ? activeError as string : completedError as string}/>
 
     return (
         <>

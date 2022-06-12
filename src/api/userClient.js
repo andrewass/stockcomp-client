@@ -1,7 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL, graphqlClientStockData} from "../config/serviceConfig";
-import {useQuery} from "react-query";
-import {gql} from "graphql-request";
+import {CONTEST_BASE_URL} from "../config/serviceConfig";
 
 
 const URL = {
@@ -27,21 +25,6 @@ const getUserDetails = (username) => {
     });
 }
 
-const useGetUserDetailsSimple = (username) => {
-    return useQuery(["getUserDetailsSimple", username], async () => {
-        return await graphqlClientStockData.request(
-            gql`
-                query GetUserDetailsSimple($username: String!) {
-                    userDetails(username: $username){
-                        id
-                        username
-                        fullName
-                        country
-                    }
-                }
-            `, {username});
-    });
-}
 export {
-    updateUserDetails, getUserDetails, useGetUserDetailsSimple
+    updateUserDetails, getUserDetails
 }
