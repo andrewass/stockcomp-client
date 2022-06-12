@@ -12,19 +12,24 @@ import {
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 import {queryClient} from "../../config/queryConfig";
+import {InvestmentOrder} from "../../types/investmentorder";
 
 
-const ActiveOrders = ({activeOrders}) => {
+interface Props {
+    activeOrders : InvestmentOrder[]
+}
 
-    const [open, setOpen] = useState(false);
+const ActiveOrders = ({activeOrders} : Props) => {
 
-    const deleteOrder = async (orderId) => {
-        await deleteInvestmentOrder(orderId);
-        await queryClient.invalidateQueries("getActiveOrdersSymbol");
-        await queryClient.invalidateQueries("getActiveOrdersParticipant");
+    const [open, setOpen] = useState(false)
+
+    const deleteOrder = async (orderId : number) => {
+        await deleteInvestmentOrder(orderId)
+        await queryClient.invalidateQueries("getActiveOrdersSymbol")
+        await queryClient.invalidateQueries("getActiveOrdersParticipant")
     }
 
-    const createListItem = (order) => {
+    const createListItem = (order : InvestmentOrder) => {
         return (
             <ListItem key={order.orderId} sx={{pl: 2}}>
                 <ListItemText primary={order.symbol + " : " + order.transactionType + " status "
@@ -37,7 +42,7 @@ const ActiveOrders = ({activeOrders}) => {
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
-        );
+        )
     }
 
     return (
@@ -53,7 +58,7 @@ const ActiveOrders = ({activeOrders}) => {
                 </List>
             </Collapse>
         </List>
-    );
+    )
 }
 
-export default ActiveOrders;
+export default ActiveOrders

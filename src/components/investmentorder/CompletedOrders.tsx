@@ -1,20 +1,25 @@
 import React, {useState} from "react";
 import {Collapse, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
+import {InvestmentOrder} from "../../types/investmentorder";
 
 
-const CompletedOrders = ({completedOrders}) => {
+interface Props {
+    completedOrders: InvestmentOrder[]
+}
 
-    const [open, setOpen] = useState(false);
+const CompletedOrders = ({completedOrders} : Props) => {
 
-    const createListItem = (order) => {
+    const [open, setOpen] = useState(false)
+
+    const createListItem = (order : InvestmentOrder) => {
         return (
             <ListItem sx={{pl: 2}} key={order.orderId}>
                 <ListItemText primary={order.symbol + " : " + order.transactionType + " status "
                     + (order.totalAmount - order.remainingAmount) + "/" + order.totalAmount
                     + " . Price " + order.acceptedPrice + " " + order.currency}/>
             </ListItem>
-        );
+        )
     }
 
     return (
@@ -29,7 +34,7 @@ const CompletedOrders = ({completedOrders}) => {
                 </List>
             </Collapse>
         </List>
-    );
+    )
 }
 
-export default CompletedOrders;
+export default CompletedOrders

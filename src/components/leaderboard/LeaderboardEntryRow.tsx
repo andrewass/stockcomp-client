@@ -1,11 +1,13 @@
 import {TableCell, TableRow} from "@mui/material";
-import Flags from 'country-flag-icons/react/3x2'
 import {NavLink} from "react-router-dom";
+import {LeaderboardEntry} from "../../types/leaderboard";
+import ReactCountryFlag from "react-country-flag";
 
+interface Props{
+    entry : LeaderboardEntry
+}
 
-const LeaderboardEntry = ({entry}) => {
-
-    const EntryFlag = Flags[entry.country];
+const LeaderboardEntryRow = ({entry} : Props) => {
 
     return (
         <TableRow key={entry.username}>
@@ -16,12 +18,12 @@ const LeaderboardEntry = ({entry}) => {
                 </NavLink>
             </TableCell>
             <TableCell>
-                {EntryFlag ? <EntryFlag style={{width: "2rem"}}/> : <span>n/a</span>}
+                <ReactCountryFlag countryCode="US" svg />
             </TableCell>
             <TableCell>{entry.score}</TableCell>
             <TableCell>n/a</TableCell>
         </TableRow>
-    );
+    )
 }
 
-export default LeaderboardEntry;
+export default LeaderboardEntryRow

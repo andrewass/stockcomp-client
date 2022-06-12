@@ -10,7 +10,8 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {styled, useTheme} from '@mui/material/styles';
-import LeaderboardEntry from "./LeaderboardEntry";
+import LeaderboardEntryRow from "./LeaderboardEntryRow";
+import {LeaderboardEntry} from "../../types/leaderboard";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -18,9 +19,13 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
         backgroundColor: "#2196f3",
         color: theme.palette.common.white,
     }
-}));
+}))
 
-export const LeaderboardTable = ({leaderboardEntries}) => {
+interface Props{
+    leaderboardEntries: LeaderboardEntry[]
+}
+
+export const LeaderboardTable = ({leaderboardEntries} : Props) => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
@@ -38,7 +43,7 @@ export const LeaderboardTable = ({leaderboardEntries}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map(entry => <LeaderboardEntry entry={entry} key={entry.username}/>)}
+                    {leaderboardEntries.map(entry => <LeaderboardEntryRow entry={entry} key={entry.username}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

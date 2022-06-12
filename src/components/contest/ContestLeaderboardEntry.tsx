@@ -1,14 +1,17 @@
 import {TableCell, TableRow} from "@mui/material";
 import {Link} from "react-router-dom";
-import Flags from "country-flag-icons/react/3x2";
+import ReactCountryFlag from "react-country-flag";
+import {LeaderboardEntry} from "../../types/leaderboard";
+import {Participant} from "../../types/participant";
 
+interface Props{
+    entry : Participant
+}
 
-export const ContestLeaderboardEntry = ({entry}) => {
-
-    const EntryFlag = Flags[entry.country];
+export const ContestLeaderboardEntry = ({entry} : Props) => {
 
     return (
-        <TableRow key={entry.name} sx={{height: "4rem"}}>
+        <TableRow key={entry.username} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
             <TableCell>
                 <Link to={`/user/${entry.username}`}>
@@ -16,7 +19,7 @@ export const ContestLeaderboardEntry = ({entry}) => {
                 </Link>
             </TableCell>
             <TableCell>
-                {EntryFlag ? <EntryFlag style={{width: "2rem"}}/> : <span>n/a</span>}
+                <ReactCountryFlag countryCode="US" svg />
             </TableCell>
             <TableCell>{entry.totalValue.toFixed(2)} USD</TableCell>
         </TableRow>
