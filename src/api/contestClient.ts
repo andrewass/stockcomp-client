@@ -1,5 +1,6 @@
 import axios from "axios";
 import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {Contest} from "../types/contest";
 
 
 const URL = {
@@ -10,43 +11,39 @@ const URL = {
     get_by_number: CONTEST_BASE_URL + "/contest/get-by-number"
 }
 
-const getContest = async (contestNumber) => {
+const getContest = async (contestNumber: number) => {
     const response = await axios({
         method: "get",
         url: URL.get_by_number,
-        params: {contestNumber},
-        withCredentials: true
-    });
-    return response.data;
+        params: {contestNumber}
+    })
+    return response.data
 }
 
-const getContests = async (statusList) => {
+const getContests = async (statusList: string[]): Promise<Contest[]> => {
     const response = await axios({
         method: "post",
         url: URL.get_by_status,
-        data: statusList,
-        withCredentials: true
-    });
-    return response.data;
+        data: statusList
+    })
+    return response.data
 }
 
-const signUpForContest = contestNumber => {
+const signUpForContest = (contestNumber: number) => {
     return axios({
         method: "post",
         url: URL.contest_sign_up,
-        params: {contestNumber},
-        withCredentials: true
-    });
+        params: {contestNumber}
+    })
 }
 
-const getParticipantHistory = async username => {
-    const response  = await axios({
+const getParticipantHistory = async (username: string)  => {
+    const response = await axios({
         method: "get",
         url: URL.participant_history,
-        withCredentials: true,
         params: {username}
-    });
-    return response.data;
+    })
+    return response.data
 }
 
 export {

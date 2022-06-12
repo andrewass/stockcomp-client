@@ -14,33 +14,33 @@ export const TrendingSymbolsRightMenu = () => {
     const fetchActiveContest = async () => {
         const contests = await getContests(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
-        );
+        )
         return contests.find(contest => contest !== undefined)
     }
 
     const fetchParticipant = async () => {
-        return await getParticipant(contest.contestNumber);
+        return await getParticipant(contest!.contestNumber)
     }
 
     const {isLoading: loadingContest, error: contestError, data: contest} =
         useQuery("getActiveContest", fetchActiveContest);
 
     const {isLoading: loadingParticipant, error: participantError, data: participant} =
-        useQuery("getParticipant", fetchParticipant, {enabled: !!contest,})
+        useQuery("getParticipant", fetchParticipant, {enabled: !!contest})
 
     if (loadingContest || loadingParticipant) return <CircularProgress/>
 
-    if (contestError || participantError) return `Error! ${contestError ? contestError : participantError}`;
+    if (contestError || participantError) return `Error! ${contestError ? contestError : participantError}`
 
     const getParticipantData = () => {
         if (participant) {
             return (
                 <>
-                    <PortfolioStatus contest={contest} participant={participant}/>
-                    <InvestmentOrderTotal contest={contest} participant={participant}/>
-                    <InvestmentTotal contest={contest} participant={participant}/>
+                    <PortfolioStatus participant={participant}/>
+                    <InvestmentOrderTotal contest={contest!}/>
+                    <InvestmentTotal contest={contest!}/>
                 </>
-            );
+            )
         }
     }
 
@@ -49,5 +49,5 @@ export const TrendingSymbolsRightMenu = () => {
             <ActiveContest contest={contest} participant={participant}/>
             {getParticipantData()}
         </Box>
-    );
+    )
 }

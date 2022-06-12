@@ -1,9 +1,13 @@
 import {Card, CardContent, Divider, Typography} from "@mui/material";
+import {Participant} from "../../types/participant";
 
+interface Props{
+    participant: Participant
+}
 
-export const PortfolioStatus = ({participant}) => {
+export const PortfolioStatus = ({participant}: Props) => {
 
-    const {remainingFunds, totalValue, totalInvestmentValue} = participant;
+    const {remainingFunds, totalValue, totalInvestmentValue} = participant
 
     return (
         <Card elevation={0} sx={{mt: "1rem", mb: "2rem"}}>
