@@ -1,8 +1,12 @@
 import {Box, Typography} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {Participant} from "../../types/participant";
 
+interface Props{
+    historyList: Participant[]
+}
 
-const ParticipantHistory = ({historyList}) => {
+const ParticipantHistory = ({historyList}: Props) => {
 
     return (
         <Box id="participantHistory" sx={{marginTop: "10%", marginLeft:"10%", width: "80%"}}>

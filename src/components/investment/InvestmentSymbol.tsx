@@ -1,10 +1,17 @@
-import Investment from "./Investment";
+import InvestmentDetails from "./InvestmentDetails";
 import {getInvestment} from "../../api/investmentClient";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
+import {Contest} from "../../types/contest";
+import {Participant} from "../../types/participant";
 
+interface Props{
+    contest: Contest
+    participant: Participant
+    symbol: string
+}
 
-const InvestmentSymbol = ({contest, participant, symbol}) => {
+const InvestmentSymbol = ({contest, participant, symbol}: Props) => {
 
     const {remainingFunds} = participant;
 
@@ -28,7 +35,7 @@ const InvestmentSymbol = ({contest, participant, symbol}) => {
                 <Typography sx={{pb: "1rem"}}>
                     Remaining funds : {remainingFunds.toFixed(2)}
                 </Typography>
-                {investment ? <Investment investment={investment}/> : null}
+                {investment ? <InvestmentDetails investment={investment}/> : null}
             </CardContent>
         </Card>
     );

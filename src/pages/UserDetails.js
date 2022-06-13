@@ -29,7 +29,6 @@ const UserDetails = () => {
 
     if (historyError || entryError) return `Error! ${historyError ? historyError : entryError}`;
 
-    //TODO: Fix Flags[user.country];
     const EntryFlag = null;
 
     return (

@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import {Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import Investment from "./Investment";
+import InvestmentDetails from "./InvestmentDetails";
+import {Investment} from "../../types/investment";
 
-const InvestmentList = ({investments}) => {
+interface Props{
+    investments: Investment[]
+}
+
+const InvestmentList = ({investments}: Props) => {
 
     const [open, setOpen] = useState(false);
 
@@ -16,7 +21,7 @@ const InvestmentList = ({investments}) => {
 
             <Collapse in={open} unmountOnExit>
                 <List sx={{width: "100%", maxHeight: "20rem", overflow: "auto", ml:2}}component="div" disablePadding>
-                    {investments.map((investment) => <Investment key={investment.symbol} investment={investment}/>)}
+                    {investments.map((investment) => <InvestmentDetails key={investment.symbol} investment={investment}/>)}
                 </List>
             </Collapse>
         </List>

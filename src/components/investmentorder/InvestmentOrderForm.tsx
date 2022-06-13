@@ -10,12 +10,19 @@ import {placeInvestmentOrder} from "../../api/investmentOrderClient";
 import {useMutation} from "react-query";
 import {queryClient} from "../../config/queryConfig";
 import {codeMapTransaction} from "../../util/constants";
+import {StockQuote} from "../../types/symbol";
+import {Contest} from "../../types/contest";
 
+interface Props{
+    symbol: string
+    contest: Contest
+    stockQuote: StockQuote
+}
 
-export const InvestmentOrderForm = ({symbol, contest, stockQuote}) => {
+export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
 
-    const [acceptedPrice, setAcceptedPrice] = useState();
-    const [expirationTime, setExpirationTime] = useState();
+    const [acceptedPrice, setAcceptedPrice] = useState(0.00);
+    const [expirationTime, setExpirationTime] = useState("");
     const [orderAmount, setOrderAmount] = useState(1);
     const [operationType, setOperationType] = useState("Buy");
 
@@ -29,9 +36,9 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}) => {
     const createInvestmentOrderRequest = () => {
         return {
             expirationTime: expirationTime,
-            acceptedPrice: parseFloat(acceptedPrice),
+            acceptedPrice: acceptedPrice,
             symbol: symbol,
-            amount: parseInt(orderAmount),
+            amount: orderAmount,
             contestNumber: contest.contestNumber,
             currency: stockQuote.currency,
             transactionType: codeMapTransaction.get(operationType)
@@ -60,10 +67,11 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}) => {
         <form id="submitOrderForm">
             <div id="orderGrid">
                 <TextField label="Quantity" variant="outlined" disabled={mutation.isLoading}
-                           value={orderAmount} onChange={event => setOrderAmount(event.target.value)}/>
+                           value={orderAmount} onChange={event => setOrderAmount(parseInt(event.target.value))}/>
 
                 <TextField label="Accepted Price" variant="outlined" value={acceptedPrice}
-                           disabled={mutation.isLoading} onChange={event => setAcceptedPrice(event.target.value)}/>
+                           disabled={mutation.isLoading}
+                           onChange={event => setAcceptedPrice(parseFloat(event.target.value))}/>
 
                 <FormControl disabled={mutation.isLoading}>
                     <InputLabel>Operation</InputLabel>
@@ -79,13 +87,13 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}) => {
                                     renderInput={(props) => <TextField {...props} />}
                                     label="Expiration"
                                     value={expirationTime}
-                                    onChange={newValue => setExpirationTime(newValue)}
+                                    onChange={newValue => setExpirationTime(newValue!)}
                     />
                 </LocalizationProvider>
 
                 {mutation.isLoading
                     ? <CircularProgress/>
-                    : <Button variant="contained" onClick={mutation.mutate}>Submit</Button>
+                    : <Button variant="contained" onClick={() => mutation.mutate}>Submit</Button>
                 }
                 <Toaster/>
             </div>

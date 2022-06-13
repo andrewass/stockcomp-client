@@ -1,16 +1,21 @@
 import {Card, CardContent, Typography} from "@mui/material";
+import {Investment} from "../../types/investment";
 
-const Investment = ({investment}) => {
+interface Props{
+    investment: Investment
+}
+
+const InvestmentDetails = ({investment}: Props) => {
 
     const {symbol, amount, totalProfit, totalValue} = investment;
 
     const displayInvestmentProfit = () => {
         if (totalProfit >= 0) {
-            return <Typography variant="span" sx={{color:"limegreen"}}>
+            return <Typography display="inline" sx={{color:"limegreen"}}>
                 +{totalProfit.toFixed(2)} USD
             </Typography>
         } else {
-            return <Typography variant="span" sx={{color:"red"}}>
+            return <Typography display= "inline" sx={{color:"red"}}>
                 {totalProfit.toFixed(2)} USD
             </Typography>
         }
@@ -28,4 +33,4 @@ const Investment = ({investment}) => {
     );
 }
 
-export default Investment;
+export default InvestmentDetails;

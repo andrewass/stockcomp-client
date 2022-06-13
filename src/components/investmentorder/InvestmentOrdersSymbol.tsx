@@ -11,7 +11,7 @@ import ErrorComponent from "../common/ErrorComponent";
 
 interface Props {
     contest: Contest
-    symbol: Symbol
+    symbol: string
     stockQuote: StockQuote
 }
 
