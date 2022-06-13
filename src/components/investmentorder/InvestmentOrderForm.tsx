@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import "./investmentOrderForm.css";
 import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/lab";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers"
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -93,7 +93,7 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
 
                 {mutation.isLoading
                     ? <CircularProgress/>
-                    : <Button variant="contained" onClick={() => mutation.mutate}>Submit</Button>
+                    : <Button variant="contained" onClick={() => mutation.mutate()}>Submit</Button>
                 }
                 <Toaster/>
             </div>
