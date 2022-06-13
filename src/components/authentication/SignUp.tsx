@@ -27,7 +27,17 @@ export const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const SignUp = ({setDisplaySignUp}) => {
+interface Props {
+    setDisplaySignUp: (value: boolean) => void
+}
+
+interface MutationParams {
+    username: string
+    password: string
+    email: string
+}
+
+export const SignUp = ({setDisplaySignUp}: Props) => {
 
     const classes = useStyles();
     const navigate = useNavigate();
@@ -40,7 +50,7 @@ export const SignUp = ({setDisplaySignUp}) => {
         return password.length > 0 && password === retypedPassword;
     };
 
-    const mutation = useMutation((credentials) => signUp(credentials), {
+    const mutation = useMutation<any, any, MutationParams>((credentials) => signUp(credentials), {
         onSuccess: () => {
             setSignedInToLocalStorage();
             navigate("/stocks");
@@ -53,7 +63,7 @@ export const SignUp = ({setDisplaySignUp}) => {
         }
     })
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
         event.preventDefault();
         if (matchingPasswords()) {
             mutation.mutate({username, password, email});

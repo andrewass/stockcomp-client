@@ -29,13 +29,13 @@ const SymbolCard = ({symbol}: Props) => {
     const getCurrentPrice = () => {
         if (symbol.currency === "USD") {
             return (
-                <Typography display="inline">
+                <Typography component="span" display="inline">
                     {symbol.price} {symbol.currency}
                 </Typography>
             );
         } else {
             return (
-                <Typography display="inline">
+                <Typography component="span" display="inline">
                     {symbol.price} {symbol.currency} (USD {symbol.usdPrice.toFixed(2)})
                 </Typography>
             );

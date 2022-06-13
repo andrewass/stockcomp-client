@@ -31,6 +31,9 @@
     "web-vitals": "^2.1.4",
     "websocket": "^1.0.34"
   },
+  "devDependencies": {
+    "msw": "^0.42.1"
+  },
   "scripts": {
     "start-local": "env-cmd -f env/.env.localhost react-scripts start",
     "start": "react-scripts start",

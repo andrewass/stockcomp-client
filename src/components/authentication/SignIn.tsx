@@ -9,6 +9,13 @@ import {makeStyles} from "@mui/styles";
 import toast, {Toaster} from "react-hot-toast";
 import {useMutation} from "react-query";
 import {SignInGoogle} from "./SignInGoogle";
+import {Theme} from '@mui/material/styles';
+
+
+declare module "@mui/styles/defaultTheme" {
+    interface DefaultTheme extends Theme {
+    }
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,27 +34,37 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const SignIn = ({setDisplaySignUp}) => {
+interface Props {
+    setDisplaySignUp: (value: boolean) => void
+}
+
+interface MutationParams {
+    username: string
+    password: string
+}
+
+export const SignIn = ({setDisplaySignUp}: Props) => {
 
     const classes = useStyles();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const mutation = useMutation((credentials) => signIn(credentials), {
-        onSuccess: (response) => {
-            setSignedInToLocalStorage();
-            response.data === 'ADMIN' ? navigate("/admin/contests") : navigate("/stocks");
-        },
-        onError: () => {
-            toast.error("Unable to sign in. Verify username and password is correct", {
-                duration: 4000,
-                position: "top-center"
-            });
-        }
-    })
+    const mutation = useMutation<any, any, MutationParams>(
+        (credentials) => signIn(credentials), {
+            onSuccess: (response) => {
+                setSignedInToLocalStorage();
+                response.data === 'ADMIN' ? navigate("/admin/contests") : navigate("/stocks");
+            },
+            onError: () => {
+                toast.error("Unable to sign in. Verify username and password is correct", {
+                    duration: 4000,
+                    position: "top-center"
+                });
+            }
+        })
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
         event.preventDefault();
         mutation.mutate({username, password});
     }
