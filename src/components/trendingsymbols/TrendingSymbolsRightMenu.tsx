@@ -7,6 +7,7 @@ import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../util/constants";
 import {getParticipant} from "../../api/participantClient";
 import {ActiveContest} from "../contest/ActiveContest";
+import ErrorComponent from "../common/ErrorComponent";
 
 
 export const TrendingSymbolsRightMenu = () => {
@@ -18,19 +19,20 @@ export const TrendingSymbolsRightMenu = () => {
         return contests.find(contest => contest !== undefined)
     }
 
-    const fetchParticipant = async () => {
-        return await getParticipant(contest!.contestNumber)
+    const fetchParticipant = () => {
+        return getParticipant(contest!.contestNumber)
     }
 
     const {isLoading: loadingContest, error: contestError, data: contest} =
-        useQuery("getActiveContest", fetchActiveContest);
+        useQuery("getActiveContest", fetchActiveContest)
 
     const {isLoading: loadingParticipant, error: participantError, data: participant} =
         useQuery("getParticipant", fetchParticipant, {enabled: !!contest})
 
     if (loadingContest || loadingParticipant) return <CircularProgress/>
 
-    if (contestError || participantError) return `Error! ${contestError ? contestError : participantError}`
+    if (contestError || participantError)
+        return <ErrorComponent errorMessage={contestError ? contestError as string : participantError as string}/>
 
     const getParticipantData = () => {
         if (participant) {

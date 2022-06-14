@@ -17,19 +17,19 @@ const TRANSACTION_TYPE = {
     BUY: "BUY"
 }
 
-const contestStatusMap = new Map([
+const contestStatusMap = new Map<string, string>([
     [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
     [CONTEST_STATUS.RUNNING, "Running"],
     [CONTEST_STATUS.STOPPED, "Stopped"],
     [CONTEST_STATUS.COMPLETED, "Completed"]
-]);
+])
 
-const codeMapTransaction = new Map([
+const codeMapTransaction = new Map<string, string>([
     ["Buy", TRANSACTION_TYPE.BUY],
     ["Sell", TRANSACTION_TYPE.SELL]
-]);
+])
 
-const FETCH_QUOTE_INTERVAL = 5000;
+const FETCH_QUOTE_INTERVAL = 5000
 
 export {
     CONTEST_STATUS, ORDER_STATUS, TRANSACTION_TYPE,

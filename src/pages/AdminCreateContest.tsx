@@ -1,6 +1,6 @@
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {useStyles} from "../components/authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -11,41 +11,41 @@ import {queryClient} from "../config/queryConfig";
 
 const AdminCreateContest = () => {
 
-    const navigate = useNavigate();
-    const classes = useStyles();
-    const [number, setNumber] = useState();
-    const [startTime, setStartTime] = useState();
+    const navigate = useNavigate()
+    const classes = useStyles()
+    const [number, setNumber] = useState<number>()
+    const [startTime, setStartTime] = useState<string>()
 
     const getCreateContestRequest = () => {
         return {
-            contestNumber: parseInt(number),
+            contestNumber: number,
             startTime: startTime,
         }
     }
 
-    const submitContestCreation = async event => {
-        event.preventDefault();
-        createContest(getCreateContestRequest());
+    const submitContestCreation = async (event: FormEvent<HTMLElement>) => {
+        event.preventDefault()
+        createContest(getCreateContestRequest())
     }
 
     const createMutation = useMutation(submitContestCreation, {
         onSuccess: async () => {
-            await queryClient.invalidateQueries("getAllContests");
-            navigate("/admin/contests");
+            await queryClient.invalidateQueries("getAllContests")
+            navigate("/admin/contests")
         },
         onError: (error) => console.log(error)
-    });
+    })
 
     return (
         <form className={classes.root} onSubmit={createMutation.mutate}>
-            <TextField label="Contest Number" variant="outlined" onChange={e => setNumber(e.target.value)}/>
+            <TextField label="Contest Number" variant="outlined" onChange={e => setNumber(parseInt(e.target.value))}/>
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker disabled={createMutation.isLoading}
                                 renderInput={(props) => <TextField {...props} />}
                                 label="Starting Time"
                                 value={startTime}
-                                onChange={newValue => setStartTime(newValue)}
+                                onChange={newValue => setStartTime(newValue!)}
                 />
             </LocalizationProvider>
 
@@ -56,4 +56,4 @@ const AdminCreateContest = () => {
     )
 }
 
-export default AdminCreateContest;
+export default AdminCreateContest

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {STOCK_BASE_URL} from "../config/serviceConfig";
+import {StockQuote, StockSymbol} from "../types/symbol";
 
 
 const URL = {
@@ -8,40 +9,41 @@ const URL = {
     historic_prices: STOCK_BASE_URL + "/stock/historical-quotes",
     real_time_price: STOCK_BASE_URL + "/stock/stock-quote",
     trending_stocks: STOCK_BASE_URL + "/stock/stock-quote-trending"
-};
+}
 
-const getStockSymbolInformation = async symbol => {
+const getStockSymbolInformation = async (symbol: string) => {
     const response = await axios({
         method: "get",
         url: URL.symbol_information,
         params: {symbol}
-    });
-    return response.data;
+    })
+    return response.data
 }
 
-const getSuggestionsFromQuery = query => {
+const getSuggestionsFromQuery = (query: string) => {
     return axios({
         method: "get",
         url: URL.symbol_suggestions + "/" + query
-    });
+    })
 }
 
-const getHistoricPrices = async symbol => {
+const getHistoricPrices = async (symbol: string) : Promise<StockQuote[]> => {
     const response = await axios({
         method: "get",
         url: URL.historic_prices,
         params: {symbol}
-    });
-    return response.data;
+    })
+    return response.data
 }
 
-const getTrendingStocks = () => {
-    return axios({
+const getTrendingStocks = async () : Promise<StockSymbol[]>  => {
+    const response = await axios({
         method: "get",
         url: URL.trending_stocks
-    });
+    })
+    return response.data
 }
 
 export {
     getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices, getTrendingStocks
-};
+}

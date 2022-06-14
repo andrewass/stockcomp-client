@@ -6,23 +6,24 @@ import SearchField from "../components/search/SearchField";
 import {TrendingSymbolsRightMenu} from "../components/trendingsymbols/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {FETCH_QUOTE_INTERVAL} from "../util/constants";
+import {StockSymbol} from "../types/symbol";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 
 const TrendingSymbols = () => {
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
+    const theme = useTheme()
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
 
-    const fetchTrendingSymbols = async () => {
-        const response = await getTrendingStocks();
-        return response.data;
+    const fetchTrendingSymbols = (): Promise<StockSymbol[]> => {
+        return getTrendingStocks()
     }
 
-    const {isLoading, error, data} = useQuery("getTrendingSymbols", fetchTrendingSymbols,
+    const {isLoading, error, data: symbols} = useQuery("getTrendingSymbols", fetchTrendingSymbols,
         {refetchInterval: FETCH_QUOTE_INTERVAL})
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error || !symbols) return <ErrorComponent errorMessage={error as string} />
 
     return (
         <Box>
@@ -32,7 +33,7 @@ const TrendingSymbols = () => {
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
                 <Grid container rowSpacing={1} columnSpacing={1}>
-                    {data.map((symbol) =>
+                    {symbols.map((symbol) =>
                         <Grid key={symbol.symbol} item md={6} sm={12}>
                             <SymbolCard symbol={symbol}/>
                         </Grid>
@@ -41,7 +42,7 @@ const TrendingSymbols = () => {
                 <TrendingSymbolsRightMenu/>
             </Box>
         </Box>
-    );
+    )
 }
 
-export default TrendingSymbols;
+export default TrendingSymbols
