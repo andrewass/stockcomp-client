@@ -1,42 +1,47 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {StockSymbol} from "../../types/symbol";
+import {StockPrice} from "../../types/symbol";
 
 interface Props{
-    symbol: StockSymbol
+    stockPrice: StockPrice
 }
 
-const SymbolCard = ({symbol}: Props) => {
+const SymbolCard = ({stockPrice}: Props) => {
+
+    const {
+        currency, percentageChange, symbol, name,
+        price, usdPrice, priceChange
+    } = stockPrice
 
     const navigate = useNavigate();
 
     const redirectToSymbolDetail = () => {
-        navigate(`/symbol/${symbol.symbol}`);
+        navigate(`/symbol/${symbol}`);
     }
 
     const getPriceDifferenceUSD = () => {
-        return symbol.priceChange >= 0.00
-            ? "+" + symbol.priceChange.toFixed(2)
-            : symbol.priceChange.toFixed(2);
+        return priceChange >= 0.00
+            ? "+" + priceChange.toFixed(2)
+            : priceChange.toFixed(2);
     }
 
     const getPriceDifferencePercentage = () => {
-        return symbol.percentageChange >= 0.00
-            ? "+" + symbol.percentageChange.toFixed(2)
-            : symbol.percentageChange.toFixed(2);
+        return percentageChange >= 0.00
+            ? "+" + percentageChange.toFixed(2)
+            : percentageChange.toFixed(2);
     }
 
     const getCurrentPrice = () => {
-        if (symbol.currency === "USD") {
+        if (currency === "USD") {
             return (
-                <Typography component="span" display="inline">
-                    {symbol.price} {symbol.currency}
+                <Typography display="inline">
+                    {price} {currency}
                 </Typography>
             );
         } else {
             return (
-                <Typography component="span" display="inline">
-                    {symbol.price} {symbol.currency} (USD {symbol.usdPrice.toFixed(2)})
+                <Typography display="inline">
+                    {price} {currency} (USD {usdPrice.toFixed(2)})
                 </Typography>
             );
         }
@@ -47,15 +52,15 @@ const SymbolCard = ({symbol}: Props) => {
             <CardActionArea onClick={redirectToSymbolDetail}>
                 <CardContent>
                     <Typography variant="h5">
-                        {symbol.name} ({symbol.symbol})
+                        {name} ({symbol})
                     </Typography>
                     <Typography>
                         {getCurrentPrice()}
                     </Typography>
-                    <Typography sx={{color: symbol.priceChange >= 0 ? "limegreen" : "red"}}>
+                    <Typography sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>
                         {getPriceDifferenceUSD()}
                     </Typography>
-                    <Typography sx={{color: symbol.percentageChange >= 0 ? "limegreen" : "red"}}>
+                    <Typography sx={{color: percentageChange >= 0 ? "limegreen" : "red"}}>
                         {getPriceDifferencePercentage()}%
                     </Typography>
                 </CardContent>

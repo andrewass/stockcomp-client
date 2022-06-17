@@ -1,6 +1,6 @@
 import axios from "axios";
 import {STOCK_BASE_URL} from "../config/serviceConfig";
-import {StockQuote, StockSymbol} from "../types/symbol";
+import {StockQuote, StockPrice} from "../types/symbol";
 
 
 const URL = {
@@ -36,7 +36,7 @@ const getHistoricPrices = async (symbol: string) : Promise<StockQuote[]> => {
     return response.data
 }
 
-const getTrendingStocks = async () : Promise<StockSymbol[]>  => {
+const getTrendingStocks = async () : Promise<StockPrice[]>  => {
     const response = await axios({
         method: "get",
         url: URL.trending_stocks

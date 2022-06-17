@@ -1,17 +1,23 @@
 import {Card, CardContent, Typography} from "@mui/material";
+import {StockDetails} from "../../types/symbol";
 
+interface Props {
+    symbolInformation: StockDetails
+}
 
-const SymbolInformation = ({symbolDetails}) => {
+const SymbolStats = ({symbolInformation}: Props) => {
 
-    const {symbol, companyName, stockQuote} = symbolDetails;
-    const {priceChange, percentageChange} = stockQuote;
+    const {stockQuote, symbol, description} = symbolInformation
+    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
 
     const getCurrentPrice = () => {
-        if (stockQuote.currency === "USD") {
-            return <Typography variant="span">{stockQuote.price} {stockQuote.currency}</Typography>;
+        if (currency === "USD") {
+            return <Typography display="inline">
+                {price} {currency}
+            </Typography>;
         } else {
-            return <Typography variant="span">
-                {stockQuote.price} {stockQuote.currency} (USD {stockQuote.price})
+            return <Typography display="inline">
+                {price} {currency} (USD {usdPrice})
             </Typography>;
         }
     }
@@ -20,7 +26,7 @@ const SymbolInformation = ({symbolDetails}) => {
         <Card elevation={0}>
             <CardContent>
                 <Typography variant="h5">
-                    {companyName} ({symbol})
+                    {description} ({symbol})
                 </Typography>
                 <Typography>
                     {getCurrentPrice()}
@@ -36,4 +42,4 @@ const SymbolInformation = ({symbolDetails}) => {
     )
 }
 
-export default SymbolInformation;
+export default SymbolStats;

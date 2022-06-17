@@ -34,6 +34,9 @@
   "devDependencies": {
     "msw": "^0.42.1"
   },
+  "jest": {
+    "resetMocks": false
+  },
   "scripts": {
     "start-local": "env-cmd -f env/.env.localhost react-scripts start",
     "start": "react-scripts start",
