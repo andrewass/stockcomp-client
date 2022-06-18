@@ -31,7 +31,7 @@ const SymbolCard = ({stockPrice}: Props) => {
             : percentageChange.toFixed(2);
     }
 
-    const getCurrentPrice = () => {
+    const displayCurrentPrice = () => {
         if (currency === "USD") {
             return (
                 <Typography display="inline">
@@ -54,12 +54,13 @@ const SymbolCard = ({stockPrice}: Props) => {
                     <Typography variant="h5">
                         {name} ({symbol})
                     </Typography>
-                    <Typography>
-                        {getCurrentPrice()}
-                    </Typography>
+
+                    {displayCurrentPrice()}
+
                     <Typography sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>
                         {getPriceDifferenceUSD()}
                     </Typography>
+
                     <Typography sx={{color: percentageChange >= 0 ? "limegreen" : "red"}}>
                         {getPriceDifferencePercentage()}%
                     </Typography>

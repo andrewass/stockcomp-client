@@ -8,12 +8,12 @@ const SearchField = () => {
     const navigate = useNavigate();
     const [suggestionList, setSuggestionList] = useState([]);
 
-    const getSuggestions = async (value) => {
-        if (value === "") {
+    const getSuggestions = async (query) => {
+        if (query === "") {
             setSuggestionList([]);
         } else {
-            const response = await getSuggestionsFromQuery(value);
-            setSuggestionList(response.data);
+            const suggestions = await getSuggestionsFromQuery(query);
+            setSuggestionList(suggestions);
         }
     };
 

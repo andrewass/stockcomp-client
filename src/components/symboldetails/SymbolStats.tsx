@@ -32,11 +32,12 @@ const SymbolStats = ({symbolInformation}: Props) => {
                     {getCurrentPrice()}
                 </Typography>
                 <Typography
-                    sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{priceChange.toFixed(2)}
+                    sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{priceChange.toFixed(2)} {currency}
                 </Typography>
                 <Typography
                     sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{percentageChange.toFixed(2)}%
                 </Typography>
+
             </CardContent>
         </Card>
     )

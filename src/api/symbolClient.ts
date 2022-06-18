@@ -20,11 +20,13 @@ const getStockSymbolInformation = async (symbol: string) => {
     return response.data
 }
 
-const getSuggestionsFromQuery = (query: string) => {
-    return axios({
+const getSuggestionsFromQuery = async (symbol: string) => {
+    const response = await axios({
         method: "get",
-        url: URL.symbol_suggestions + "/" + query
+        url: URL.symbol_suggestions,
+        params: {query: symbol}
     })
+    return response.data
 }
 
 const getHistoricPrices = async (symbol: string) : Promise<StockQuote[]> => {
