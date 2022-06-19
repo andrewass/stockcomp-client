@@ -50,9 +50,9 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
     }
 
     const mutation = useMutation(placeOrder, {
-        onSuccess: () => {
-            queryClient.invalidateQueries("getActiveOrdersSymbol");
-            queryClient.invalidateQueries("getCompletedOrdersSymbol");
+        onSuccess: async () => {
+            await queryClient.invalidateQueries("getActiveOrdersSymbol");
+            await queryClient.invalidateQueries("getCompletedOrdersSymbol");
             toast.success("Successfully submitted order for symbol " + symbol);
         },
         onError: () => {

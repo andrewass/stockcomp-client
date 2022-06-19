@@ -7,4 +7,5 @@ export interface InvestmentOrder {
     symbol: string
     transactionType: string
     currency: string
+    expirationTime: number
 }

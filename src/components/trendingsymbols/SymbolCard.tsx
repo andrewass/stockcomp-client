@@ -1,17 +1,16 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {StockPrice} from "../../types/symbol";
+import {Stock} from "../../types/symbol";
 
-interface Props{
-    stockPrice: StockPrice
+interface Props {
+    stock: Stock
 }
 
-const SymbolCard = ({stockPrice}: Props) => {
+const SymbolCard = ({stock}: Props) => {
 
-    const {
-        currency, percentageChange, symbol, name,
-        price, usdPrice, priceChange
-    } = stockPrice
+    const {symbol, description, stockQuote} = stock
+
+    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
 
     const navigate = useNavigate();
 
@@ -52,7 +51,7 @@ const SymbolCard = ({stockPrice}: Props) => {
             <CardActionArea onClick={redirectToSymbolDetail}>
                 <CardContent>
                     <Typography variant="h5">
-                        {name} ({symbol})
+                        {description} ({symbol})
                     </Typography>
 
                     {displayCurrentPrice()}

@@ -1,24 +1,28 @@
-import {Box, Card, CardContent, Typography} from "@mui/material";
-import {StockDetails} from "../../types/symbol";
+import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
+import {Stock} from "../../types/symbol";
 
 interface Props {
-    symbolInformation: StockDetails
+    symbolDetails: Stock
 }
 
-const SymbolStats = ({symbolInformation}: Props) => {
+const SymbolStats = ({symbolDetails}: Props) => {
 
-    const {stockQuote, symbol, description} = symbolInformation
+    const {stockQuote, symbol, description} = symbolDetails
     const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
 
     const getCurrentPrice = () => {
         if (currency === "USD") {
-            return <Typography display="inline">
-                {price} {currency}
-            </Typography>;
+            return (
+                <Typography display="inline">
+                    {price} {currency}
+                </Typography>
+            )
         } else {
-            return <Typography display="inline">
-                {price} {currency} (USD {usdPrice})
-            </Typography>;
+            return (
+                <Typography display="inline">
+                    {price} {currency} (USD {usdPrice})
+                </Typography>
+            )
         }
     }
 
@@ -41,11 +45,20 @@ const SymbolStats = ({symbolInformation}: Props) => {
                     </Typography>
                 </Box>
 
-                <Box>
-                    <Typography >
-
-                    </Typography>
-                </Box>
+                <Grid container rowSpacing={2} columnSpacing={2}>
+                    <Grid key="temp1" item xs={6}>
+                        temp val 1
+                    </Grid>
+                    <Grid key="temp2" item xs={6}>
+                        temp val 2
+                    </Grid>
+                    <Grid key="temp3" item xs={6}>
+                        temp val 3
+                    </Grid>
+                    <Grid key="temp4" item xs={6}>
+                        temp val 4
+                    </Grid>
+                </Grid>
             </CardContent>
         </Card>
     )

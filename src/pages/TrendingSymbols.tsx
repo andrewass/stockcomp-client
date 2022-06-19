@@ -6,15 +6,15 @@ import SearchField from "../components/search/SearchField";
 import {TrendingSymbolsRightMenu} from "../components/trendingsymbols/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {FETCH_QUOTE_INTERVAL} from "../util/constants";
-import {StockPrice} from "../types/symbol";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {Stock} from "../types/symbol";
 
 
 const TrendingSymbols = () => {
     const theme = useTheme()
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
 
-    const fetchTrendingSymbols = (): Promise<StockPrice[]> => {
+    const fetchTrendingSymbols = (): Promise<Stock[]> => {
         return getTrendingStocks()
     }
 
@@ -35,7 +35,7 @@ const TrendingSymbols = () => {
                 <Grid container rowSpacing={1} columnSpacing={1}>
                     {symbols.map((symbol) =>
                         <Grid key={symbol.symbol} item md={6} sm={12}>
-                            <SymbolCard stockPrice={symbol}/>
+                            <SymbolCard stock={symbol}/>
                         </Grid>
                     )}
                 </Grid>
