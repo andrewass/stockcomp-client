@@ -5,6 +5,7 @@ import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 import {CONTEST_STATUS} from "../../util/constants";
 import {getParticipant} from "../../api/participantClient";
+import ErrorComponent from "../common/ErrorComponent";
 
 export const SymbolDetailsRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
@@ -27,7 +28,8 @@ export const SymbolDetailsRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 
     if (loadingContest || loadingParticipant) return <CircularProgress/>
 
-    if (contestError || participantError) return `Error! ${contestError ? contestError : participantError}`;
+    if (contestError || participantError)
+        return <ErrorComponent errorMessage={contestError ? contestError : participantError}/>;
 
     if (participant) {
         return (

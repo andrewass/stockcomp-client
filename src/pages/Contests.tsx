@@ -3,8 +3,9 @@ import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 import ContestTable from "../components/contest/ContestTable";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {Contest} from "../types/contest";
 
-const fetchAllContests = async () => {
+const fetchAllContests = async () : Promise<Contest[]> => {
     return await getContests([])
 }
 
@@ -17,7 +18,7 @@ const Contests = () => {
     if (isLoading) return <CircularProgress/>
 
     return (
-        <ContestTable contests={contests}/>
+        <ContestTable contests={contests!}/>
     )
 }
 

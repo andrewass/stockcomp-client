@@ -1,4 +1,4 @@
-import {Card, CardContent, Typography} from "@mui/material";
+import {Box, Card, CardContent, Typography} from "@mui/material";
 import {StockDetails} from "../../types/symbol";
 
 interface Props {
@@ -25,19 +25,27 @@ const SymbolStats = ({symbolInformation}: Props) => {
     return (
         <Card elevation={0}>
             <CardContent>
-                <Typography variant="h5">
-                    {description} ({symbol})
-                </Typography>
-                <Typography>
-                    {getCurrentPrice()}
-                </Typography>
-                <Typography
-                    sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{priceChange.toFixed(2)} {currency}
-                </Typography>
-                <Typography
-                    sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{percentageChange.toFixed(2)}%
-                </Typography>
+                <Box>
+                    <Typography variant="h5">
+                        {description} ({symbol})
+                    </Typography>
 
+                    {getCurrentPrice()}
+
+                    <Typography
+                        sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{priceChange.toFixed(2)} {currency}
+                    </Typography>
+
+                    <Typography
+                        sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{percentageChange.toFixed(2)}%
+                    </Typography>
+                </Box>
+
+                <Box>
+                    <Typography >
+
+                    </Typography>
+                </Box>
             </CardContent>
         </Card>
     )

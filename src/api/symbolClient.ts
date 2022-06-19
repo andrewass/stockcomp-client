@@ -20,11 +20,11 @@ const getStockSymbolInformation = async (symbol: string) => {
     return response.data
 }
 
-const getSuggestionsFromQuery = async (symbol: string) => {
+const getSuggestionsFromQuery = async (query: string) => {
     const response = await axios({
         method: "get",
         url: URL.symbol_suggestions,
-        params: {query: symbol}
+        params: {query}
     })
     return response.data
 }

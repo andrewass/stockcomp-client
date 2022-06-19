@@ -3,7 +3,11 @@ import {getHistoricPrices} from "../../api/symbolClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 
-export const PriceChart = ({symbol}) => {
+interface Props{
+    symbol: string
+}
+
+export const PriceChart = ({symbol}: Props) => {
 
     const fetchHistoricPrices = () => {
         return getHistoricPrices(symbol);

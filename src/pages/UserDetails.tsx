@@ -4,32 +4,31 @@ import {getParticipantHistory} from "../api/contestClient";
 import {getLeaderboardEntry} from "../api/leaderboardClient";
 import ParticipantHistory from "../components/participant/ParticipantHistory";
 import {useQuery} from "react-query";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 
 const UserDetails = () => {
 
-    const {username} = useParams();
+    const {username} = useParams<{username: string}>()
 
-    const fetchParticipantHistory = async () => {
-        const response = await getParticipantHistory(username);
-        return response.data;
+    const fetchParticipantHistory = () => {
+        return getParticipantHistory(username!)
     }
 
-    const fetchLeaderboardEntry = async () => {
-        return getLeaderboardEntry(username);
+    const fetchLeaderboardEntry = () => {
+        return getLeaderboardEntry(username)
     }
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
-        useQuery(["participantHistory", username], fetchParticipantHistory);
+        useQuery(["participantHistory", username], fetchParticipantHistory)
 
     const {isLoading: entryLoading, error: entryError, data: entryData} =
-        useQuery(["leaderboardEntry", username], fetchLeaderboardEntry);
+        useQuery(["leaderboardEntry", username], fetchLeaderboardEntry)
 
-    if (historyLoading || entryLoading) return <CircularProgress/>;
+    if (historyLoading || entryLoading) return <CircularProgress/>
 
-    if (historyError || entryError) return `Error! ${historyError ? historyError : entryError}`;
-
-    const EntryFlag = null;
+    if (historyError || entryError)
+        return <ErrorComponent errorMessage={historyError ? historyError as string : entryError as string} />
 
     return (
         <Box>
@@ -37,7 +36,6 @@ const UserDetails = () => {
                 <CardContent>
                     <Box display="flex">
                         <Typography variant="h5">{username}</Typography>
-                        {EntryFlag ? <EntryFlag style={{width: "2rem", marginLeft: "1rem"}}/> : null}
                     </Box>
                     <Typography>Medals n/a</Typography>
                     <Typography>Leaderboard rank : {entryData.ranking}</Typography>
@@ -46,7 +44,7 @@ const UserDetails = () => {
             </Card>
             <ParticipantHistory historyList={historyData}/>
         </Box>
-    );
+    )
 }
 
-export default UserDetails;
+export default UserDetails

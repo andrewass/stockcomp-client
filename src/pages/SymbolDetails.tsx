@@ -6,27 +6,28 @@ import {useTheme} from "@mui/material/styles";
 import {getStockSymbolInformation} from "../api/symbolClient";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 const SymbolDetails = () => {
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
-    const {symbol} = useParams();
+    const theme = useTheme()
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
+    const {symbol} = useParams<{symbol: string}>()
 
     const fetchStockSymbolInformation = () => {
-        return getStockSymbolInformation(symbol);
+        return getStockSymbolInformation(symbol!)
     }
 
     const {isLoading, data: symbolDetails, error} =
-        useQuery("getStockSymbolInformation", fetchStockSymbolInformation);
+        useQuery("getStockSymbolInformation", fetchStockSymbolInformation)
 
-    if (isLoading) return <CircularProgress/>;
+    if (isLoading) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error) return <ErrorComponent errorMessage={error as string} />
 
-    const {stockQuote} = symbolDetails;
+    const {stockQuote} = symbolDetails
 
     return (
-        <div id="symbolPage">
+        <>
             <SearchField/>
             <Box sx={{
                 mt: "3%", display: "flex", justifyContent: "center",
@@ -35,8 +36,8 @@ const SymbolDetails = () => {
                 <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails}/>
                 <SymbolDetailsRightMenu symbol={symbol} stockQuote={stockQuote} isLargeWidth={isLargeWidth}/>
             </Box>
-        </div>
-    );
+        </>
+    )
 }
 
-export default SymbolDetails;
+export default SymbolDetails

@@ -11,11 +11,11 @@ const InvestmentDetails = ({investment}: Props) => {
 
     const displayInvestmentProfit = () => {
         if (totalProfit >= 0) {
-            return <Typography display="inline" sx={{color:"limegreen"}}>
+            return <Typography display="inline" component="span" sx={{color:"limegreen"}}>
                 +{totalProfit.toFixed(2)} USD
             </Typography>
         } else {
-            return <Typography display= "inline" sx={{color:"red"}}>
+            return <Typography display= "inline" component="span" sx={{color:"red"}}>
                 {totalProfit.toFixed(2)} USD
             </Typography>
         }
@@ -27,7 +27,7 @@ const InvestmentDetails = ({investment}: Props) => {
                 <Typography variant="h6">{symbol}</Typography>
                 <Typography>Amount invested : {amount}</Typography>
                 <Typography>Investment value : {totalValue.toFixed(2)} USD</Typography>
-                <Typography>Investment profit : {displayInvestmentProfit()}</Typography>
+                <Typography>Investment profit: {displayInvestmentProfit()}</Typography>
             </CardContent>
         </Card>
     );
