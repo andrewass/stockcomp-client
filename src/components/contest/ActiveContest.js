@@ -5,23 +5,23 @@ import {useMutation} from "react-query";
 import toast from "react-hot-toast";
 import {queryClient} from "../../config/queryConfig";
 import {CONTEST_STATUS} from "../../util/constants";
-import {signUpForContest} from "../../api/contestClient";
+import {signUpParticipant} from "../../api/participantClient";
 
 
 export const ActiveContest = ({contest, participant}) => {
 
-    const mutation = useMutation((contestNumber) => signUpForContest(contestNumber), {
-        onSuccess: () => queryClient.invalidateQueries("getUpcomingContests"),
+    const mutation = useMutation((contestNumber) => signUpParticipant(contestNumber), {
+        onSuccess: () => queryClient.invalidateQueries("getActiveContest"),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
                 position: "top-center"
-            });
+            })
         }
-    });
+    })
 
     const handleContestSignUp = () => {
-        mutation.mutate(contest.contestNumber);
+        mutation.mutate(contest.contestNumber)
     }
 
     const getContestStatus = () => {

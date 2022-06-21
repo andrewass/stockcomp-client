@@ -6,12 +6,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AdminContestRow from "./AdminContestRow";
+import {Contest} from "../../types/contest";
 
+interface Props{
+    contests: Contest[]
+}
 
-const AdminContestTable = ({contests}) => {
+const AdminContestTable = ({contests}: Props) => {
 
     return (
-        <TableContainer component={Paper} sx={{width: "60%", m: "0 auto", mt: "10%"}}>
+        <TableContainer component={Paper} sx={{mt: "10%"}}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -19,6 +23,8 @@ const AdminContestTable = ({contests}) => {
                         <TableCell>Start time</TableCell>
                         <TableCell>Contest Status</TableCell>
                         <TableCell>Leaderboard Update Status</TableCell>
+                        <TableCell>Edit</TableCell>
+                        <TableCell>Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -26,7 +32,7 @@ const AdminContestTable = ({contests}) => {
                 </TableBody>
             </Table>
         </TableContainer>
-    );
+    )
 }
 
-export default AdminContestTable;
+export default AdminContestTable

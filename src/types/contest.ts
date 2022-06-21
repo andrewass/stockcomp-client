@@ -4,5 +4,6 @@ export interface Contest{
     contestStatus: string
     startTime: string
     participantCount: number
+    leaderboardUpdateStatus: string
 }
 

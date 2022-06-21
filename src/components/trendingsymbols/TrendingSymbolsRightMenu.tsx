@@ -46,10 +46,14 @@ export const TrendingSymbolsRightMenu = () => {
         }
     }
 
-    return (
-        <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
-            <ActiveContest contest={contest} participant={participant}/>
-            {getParticipantData()}
-        </Box>
-    )
+    if (contest) {
+        return (
+            <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
+                <ActiveContest contest={contest} participant={participant}/>
+                {getParticipantData()}
+            </Box>
+        )
+    } else {
+        return <></>
+    }
 }

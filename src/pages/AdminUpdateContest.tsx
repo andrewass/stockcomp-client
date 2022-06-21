@@ -2,7 +2,7 @@ import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {FormEvent, useState} from "react";
 import {useStyles} from "../components/authentication/SignUp";
-import {DateTimePicker, LocalizationProvider} from "@mui/lab";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -12,14 +12,13 @@ import MenuItem from "@mui/material/MenuItem";
 import {contestStatusMap} from "../util/constants";
 import {Contest} from "../types/contest";
 
+
 const AdminUpdateContest = () => {
 
-    const location = useLocation()
-    const state = location.state as {contest: Contest}
-    const {contest} = state
-
+    const {state} = useLocation()
     const navigate = useNavigate()
     const classes = useStyles()
+    const contest = state as Contest
 
     const [contestStatus, setContestStatus] = useState(contestStatusMap.get(contest.contestStatus))
     const [startTime, setStartTime] = useState(contest.startTime)
@@ -52,10 +51,10 @@ const AdminUpdateContest = () => {
     return (
         <form className={classes.root} onSubmit={updateMutation.mutate}>
             <TextField label="Contest Number" variant="outlined" defaultValue={contest.contestNumber}
-                       InputProps={{readOnly: true}}
+                       InputProps={{readOnly: true}} sx={{mt:"1rem"}}
             />
 
-            <FormControl disabled={updateMutation.isLoading}>
+            <FormControl disabled={updateMutation.isLoading} sx={{m:"1rem 0"}}>
                 <InputLabel>Status</InputLabel>
                 <Select value={contestStatus} label="Status"
                         onChange={event => setContestStatus(event.target.value)}>
@@ -66,13 +65,12 @@ const AdminUpdateContest = () => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker disabled={updateMutation.isLoading}
                                 renderInput={(props) => <TextField {...props} />}
-                                label="Starting Time"
-                                value={startTime}
+                                label="Starting Time" value={startTime}
                                 onChange={newValue => setStartTime(newValue as string)}
                 />
             </LocalizationProvider>
 
-            <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}} type="submit">
+            <Button variant="outlined" sx={{m: "1rem 0", maxWidth: "10rem"}} type="submit">
                 Update
             </Button>
         </form>

@@ -7,8 +7,9 @@ interface Props {
 
 const SymbolStats = ({symbolDetails}: Props) => {
 
-    const {stockQuote, symbol, description} = symbolDetails
+    const {stockQuote,stockStats, symbol, description} = symbolDetails
     const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
+    const {annualDividendYieldPercent, earningsPerShare, priceToEarnings, priceToBook} = stockStats!
 
     const getCurrentPrice = () => {
         if (currency === "USD") {
@@ -45,18 +46,26 @@ const SymbolStats = ({symbolDetails}: Props) => {
                     </Typography>
                 </Box>
 
-                <Grid container rowSpacing={2} columnSpacing={2}>
+                <Grid container rowSpacing={2} columnSpacing={2} sx={{mt:"1rem"}}>
                     <Grid key="temp1" item xs={6}>
-                        temp val 1
+                        <Typography>
+                            Annual Dividend Yield: {annualDividendYieldPercent.toFixed(2)}%
+                        </Typography>
                     </Grid>
                     <Grid key="temp2" item xs={6}>
-                        temp val 2
+                        <Typography>
+                            Earnings Per Share: {earningsPerShare.toFixed(2)} {currency}
+                        </Typography>
                     </Grid>
                     <Grid key="temp3" item xs={6}>
-                        temp val 3
+                        <Typography>
+                           Price/Earnings: {priceToEarnings.toFixed(2)}
+                        </Typography>
                     </Grid>
                     <Grid key="temp4" item xs={6}>
-                        temp val 4
+                        <Typography>
+                            Price/Book: {priceToBook.toFixed(2)}
+                        </Typography>
                     </Grid>
                 </Grid>
             </CardContent>

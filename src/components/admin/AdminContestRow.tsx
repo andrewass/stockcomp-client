@@ -7,15 +7,20 @@ import {deleteContest} from "../../api/adminClient";
 import {queryClient} from "../../config/queryConfig";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
+import {Contest} from "../../types/contest";
 
-const AdminContestRow = ({contest}) => {
+interface Props{
+    contest: Contest
+}
+
+const AdminContestRow = ({contest}: Props) => {
 
     const deleteMutation = useMutation(() => deleteContest(contest.contestNumber), {
         onSuccess: () => queryClient.invalidateQueries("getAllContests"),
         onError: (error) => console.log(error)
-    });
+    })
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     return (
         <TableRow key={contest.contestNumber}>
@@ -24,17 +29,17 @@ const AdminContestRow = ({contest}) => {
             <TableCell>{contest.contestStatus}</TableCell>
             <TableCell>{contest.leaderboardUpdateStatus}</TableCell>
             <TableCell>
-                <IconButton onClick={() => navigate("/admin/contests/update", {state:  contest})}>
+                <IconButton onClick={() => navigate("/admin/contests/update", {state: contest})}>
                     <EditIcon/>
                 </IconButton>
             </TableCell>
             <TableCell>
-                <IconButton onClick={deleteMutation.mutate}>
+                <IconButton onClick={() => deleteMutation.mutate()}>
                     <DeleteForeverIcon/>
                 </IconButton>
             </TableCell>
         </TableRow>
-    );
+    )
 }
 
-export default AdminContestRow;
+export default AdminContestRow

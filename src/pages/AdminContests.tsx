@@ -1,9 +1,10 @@
 import {useQuery} from "react-query";
 import {getContests} from "../api/contestClient";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 import AdminContestTable from "../components/admin/AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import {Contest} from "../types/contest";
 
 
 const AdminContests = () => {
@@ -22,14 +23,13 @@ const AdminContests = () => {
     if (error) return `Error! ${error}`;
 
     return (
-        <div>
-            <AdminContestTable contests={contests}/>
-
+        <Box display="flex" flexDirection="column">
+            <AdminContestTable contests={contests as Contest[]}/>
             <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
                     onClick={() => navigate("/admin/contests/create")}>
                 Create Contest
             </Button>
-        </div>
+        </Box>
     );
 }
 

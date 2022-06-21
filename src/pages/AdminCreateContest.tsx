@@ -2,7 +2,7 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {FormEvent, useState} from "react";
 import {useStyles} from "../components/authentication/SignUp";
-import {DateTimePicker, LocalizationProvider} from "@mui/lab";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
@@ -38,7 +38,8 @@ const AdminCreateContest = () => {
 
     return (
         <form className={classes.root} onSubmit={createMutation.mutate}>
-            <TextField label="Contest Number" variant="outlined" onChange={e => setNumber(parseInt(e.target.value))}/>
+            <TextField label="Contest Number" variant="outlined" sx={{m: "1rem 0"}}
+                       onChange={e => setNumber(parseInt(e.target.value))}/>
 
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker disabled={createMutation.isLoading}
@@ -49,8 +50,8 @@ const AdminCreateContest = () => {
                 />
             </LocalizationProvider>
 
-            <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}} type="submit">
-                Update
+            <Button variant="outlined" sx={{m: "1rem 0", maxWidth: "10rem"}} type="submit">
+                Create
             </Button>
         </form>
     )
