@@ -1,110 +1,31 @@
-import React, {useState} from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LockIcon from '@mui/icons-material/Lock';
-import {setSignedInToLocalStorage, signIn} from "../../api/authClient";
-import {useNavigate} from "react-router-dom";
-import {CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
-import Button from "@mui/material/Button";
-import {makeStyles} from "@mui/styles";
-import toast, {Toaster} from "react-hot-toast";
-import {useMutation} from "react-query";
-import {SignInGoogle} from "./SignInGoogle";
-import {Theme} from '@mui/material/styles';
+import {useAuth} from "react-oidc-context";
 
+export const SignIn = () => {
+    const auth = useAuth();
 
-declare module "@mui/styles/defaultTheme" {
-    interface DefaultTheme extends Theme {
-    }
-}
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "10% auto",
-        border: "1px ridge black",
-        [theme.breakpoints.up("md")]: {
-            width: "30%"
-        },
-        [theme.breakpoints.down("md")]: {
-            width: "80%"
-        }
-    }
-}));
-
-interface Props {
-    setDisplaySignUp: (value: boolean) => void
-}
-
-interface MutationParams {
-    username: string
-    password: string
-}
-
-export const SignIn = ({setDisplaySignUp}: Props) => {
-
-    const classes = useStyles();
-    const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    const mutation = useMutation<any, any, MutationParams>(
-        (credentials) => signIn(credentials), {
-            onSuccess: (response) => {
-                setSignedInToLocalStorage();
-                response.data === 'ADMIN' ? navigate("/admin/contests") : navigate("/stocks");
-            },
-            onError: () => {
-                toast.error("Unable to sign in. Verify username and password is correct", {
-                    duration: 4000,
-                    position: "top-center"
-                });
-            }
-        })
-
-    const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
-        event.preventDefault();
-        mutation.mutate({username, password});
+    switch (auth.activeNavigator) {
+        case "signinSilent":
+            return <div>Signing you in...</div>;
+        case "signoutRedirect":
+            return <div>Signing you out...</div>;
     }
 
-    return (
-        <form className={classes.root} onSubmit={handleSubmit} id="signInForm">
+    if (auth.isLoading) {
+        return <div>Loading...</div>;
+    }
 
-            <Typography variant="h4" sx={{mt: 4}}>
-                STOCK COMP
-            </Typography>
+    if (auth.error) {
+        return <div>Oops... {auth.error.message}</div>;
+    }
 
-            <TextField sx={{mt: 4}} label="Username" autoComplete="on" disabled={mutation.isLoading}
-                       onChange={e => setUsername(e.target.value)}
-                       InputProps={{
-                           startAdornment: (
-                               <InputAdornment position="start">
-                                   <AccountCircleIcon/>
-                               </InputAdornment>
-                           )
-                       }}/>
+    if (auth.isAuthenticated) {
+        return (
+            <div>
+                Hello {auth.user?.profile.sub}{" "}
+                <button onClick={() => void auth.removeUser()}>Log out</button>
+            </div>
+        );
+    }
 
-            <TextField sx={{mt: 4}} label="Password" type="password" autoComplete="current-password"
-                       disabled={mutation.isLoading} onChange={e => setPassword(e.target.value)}
-                       InputProps={{
-                           startAdornment: (
-                               <InputAdornment position="start">
-                                   <LockIcon/>
-                               </InputAdornment>
-                           )
-                       }}/>
-
-            {mutation.isLoading
-                ? <CircularProgress/>
-                : <>
-                    <Button sx={{mt: 3}} type="submit" variant="contained">Sign In</Button>
-                    <Button sx={{mt: 1, mb: 1}} onClick={() => setDisplaySignUp(true)}>Go to sign up</Button>
-                    <SignInGoogle/>
-                </>
-            }
-            <Toaster/>
-        </form>
-    );
+    return <button onClick={() => void auth.signinRedirect()}>Log in</button>;
 };

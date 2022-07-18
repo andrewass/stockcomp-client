@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import {FormEvent, useState} from "react";
 import {useStyles} from "../components/authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
 import {createContest} from "../api/adminClient";

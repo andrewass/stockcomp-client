@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react";
 import "./investmentOrderForm.css";
-import {CircularProgress, FormControl, InputLabel, Select, TextField} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers"
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import MenuItem from "@mui/material/MenuItem";
+import {CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {placeInvestmentOrder} from "../../api/investmentOrderClient";
