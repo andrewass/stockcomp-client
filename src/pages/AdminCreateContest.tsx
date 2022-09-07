@@ -1,7 +1,6 @@
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {FormEvent, useState} from "react";
-import {useStyles} from "../components/authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {useMutation} from "react-query";
@@ -12,7 +11,6 @@ import {queryClient} from "../config/queryConfig";
 const AdminCreateContest = () => {
 
     const navigate = useNavigate()
-    const classes = useStyles()
     const [number, setNumber] = useState<number>()
     const [startTime, setStartTime] = useState<string>()
 
@@ -37,7 +35,7 @@ const AdminCreateContest = () => {
     })
 
     return (
-        <form className={classes.root} onSubmit={createMutation.mutate}>
+        <form onSubmit={createMutation.mutate}>
             <TextField label="Contest Number" variant="outlined" sx={{m: "1rem 0"}}
                        onChange={e => setNumber(parseInt(e.target.value))}/>
 

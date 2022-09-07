@@ -1,17 +1,19 @@
-import React, {useState} from "react";
-import {Navigate} from "react-router-dom";
-import {LOCALSTORAGE_KEY} from "../api/authClient";
+import {useAuth} from "react-oidc-context";
+import {CircularProgress} from "@mui/material";
+import ErrorComponent from "../components/common/ErrorComponent";
 
 const ProtectedRoute = ({children}) => {
 
-    const [isSignedIn] = useState(
-        localStorage.getItem(LOCALSTORAGE_KEY) === "true"
-    );
+    const auth = useAuth();
 
-    if(!isSignedIn){
-        return <Navigate to="/authentication"/>
+    if (auth.isLoading) {
+        return <CircularProgress/>
     }
-    return children;
+    if (auth.isAuthenticated){
+        return children;
+    }
+    auth.signinRedirect().catch(error => <ErrorComponent errorMessage={error}/>);
+    return <></>
 }
 
 export default ProtectedRoute;

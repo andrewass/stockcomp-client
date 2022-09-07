@@ -1,6 +1,10 @@
 import {useAuth} from "react-oidc-context";
 
-export const SignIn = () => {
+interface Props {
+    setDisplaySignUp: (value: boolean) => void
+}
+
+export const SignIn = ({setDisplaySignUp}: Props) => {
     const auth = useAuth();
 
     switch (auth.activeNavigator) {

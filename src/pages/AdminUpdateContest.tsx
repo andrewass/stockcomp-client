@@ -1,7 +1,6 @@
 import {FormControl, InputLabel, Select, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {FormEvent, useState} from "react";
-import {useStyles} from "../components/authentication/SignUp";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {useMutation} from "react-query";
@@ -17,7 +16,6 @@ const AdminUpdateContest = () => {
 
     const {state} = useLocation()
     const navigate = useNavigate()
-    const classes = useStyles()
     const contest = state as Contest
 
     const [contestStatus, setContestStatus] = useState(contestStatusMap.get(contest.contestStatus))
@@ -49,7 +47,7 @@ const AdminUpdateContest = () => {
     })
 
     return (
-        <form className={classes.root} onSubmit={updateMutation.mutate}>
+        <form onSubmit={updateMutation.mutate}>
             <TextField label="Contest Number" variant="outlined" defaultValue={contest.contestNumber}
                        InputProps={{readOnly: true}} sx={{mt:"1rem"}}
             />

@@ -8,15 +8,10 @@ import {queryClient} from "./config/queryConfig";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {AuthProvider} from "react-oidc-context";
 import {responseInterceptor, requestInterceptor} from "./config/interceptor";
+import {oidcConfig} from "./config/oidc";
 
 
 const App = () => {
-
-    const oidcConfig = {
-        authority: "http://localhost:8089",
-        client_id: "stockcomp-client",
-        redirect_uri: "http://localhost:8000/symbols"
-    };
 
     return (
         <Router>
