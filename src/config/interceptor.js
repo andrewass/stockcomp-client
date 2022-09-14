@@ -1,13 +1,5 @@
 import axios from "axios";
-import {refreshToken} from "../api/authClient";
 
-let isRefreshingToken = false;
-let requestQueue = [];
-
-const resendRequests = () => {
-    requestQueue.forEach(config => axios.request(config));
-    requestQueue = [];
-}
 
 const requestInterceptor = axios.interceptors.request.use(request => {
         request.withCredentials = true;
@@ -20,18 +12,9 @@ const requestInterceptor = axios.interceptors.request.use(request => {
 const responseInterceptor = axios.interceptors.response.use(response => {
         return response;
     }, async error => {
-        const {config, response: {status}} = error
-        if (status === 401) {
-            requestQueue.push(config)
-            if (!isRefreshingToken) {
-                isRefreshingToken = true;
-                await refreshToken();
-                isRefreshingToken = false;
-                resendRequests();
-            }
-        } else {
-            return Promise.reject(error);
-        }
+        console.log(JSON.stringify(error))
+        return Promise.reject(error);
+
     }
 );
 

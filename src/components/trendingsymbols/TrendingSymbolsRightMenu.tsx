@@ -1,40 +1,41 @@
-import {Box, CircularProgress} from "@mui/material";
-import {getContests} from "../../api/contestClient";
-import {PortfolioStatus} from "../participant/PortfolioStatus";
-import InvestmentOrderTotal from "../investmentorder/InvestmentOrderTotal";
-import {InvestmentTotal} from "../investment/InvestmentTotal";
-import {useQuery} from "react-query";
+import {CircularProgress} from "@mui/material";
+import {getContestsConfig} from "../../api/contestClient";
 import {CONTEST_STATUS} from "../../util/constants";
-import {getParticipant} from "../../api/participantClient";
-import {ActiveContest} from "../contest/ActiveContest";
 import ErrorComponent from "../common/ErrorComponent";
+import {useApiRequest} from "../../api/useApiRequest";
 
 
 export const TrendingSymbolsRightMenu = () => {
 
+    /*
     const fetchActiveContest = async () => {
         const contests = await getContests(
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         )
         return contests.find(contest => contest !== undefined)
     }
-
     const fetchParticipant = () => {
         return getParticipant(contest!.contestNumber)
     }
+     */
+
 
     const {isLoading: loadingContest, error: contestError, data: contest} =
-        useQuery("getActiveContest", fetchActiveContest)
+        useApiRequest(getContestsConfig(
+            [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]))
 
+    /*
     const {isLoading: loadingParticipant, error: participantError, data: participant} =
         useQuery("getParticipant", fetchParticipant, {enabled: !!contest})
+     */
 
-    if (loadingContest || loadingParticipant) return <CircularProgress/>
+    if (loadingContest) return <CircularProgress/>
 
-    if (contestError || participantError)
-        return <ErrorComponent errorMessage={contestError ? contestError as string : participantError as string}/>
+    if (contestError)
+        return <ErrorComponent errorMessage={contestError ? contestError as string : ""}/>
 
     const getParticipantData = () => {
+        /*
         if (participant) {
             return (
                 <>
@@ -44,15 +45,19 @@ export const TrendingSymbolsRightMenu = () => {
                 </>
             )
         }
+         */
     }
 
     if (contest) {
+        return <></>
+        /*
         return (
             <Box className="rightMenu" id="symbolsRightMenu" sx={{width: "30%"}}>
                 <ActiveContest contest={contest} participant={participant}/>
                 {getParticipantData()}
             </Box>
         )
+         */
     } else {
         return <></>
     }

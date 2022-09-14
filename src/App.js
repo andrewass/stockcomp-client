@@ -8,18 +8,18 @@ import {queryClient} from "./config/queryConfig";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {AuthProvider} from "react-oidc-context";
 import {responseInterceptor, requestInterceptor} from "./config/interceptor";
-import {oidcConfig} from "./config/oidc";
+import {oidcConfig, onSignInCallback} from "./config/oidcConfig";
 
 
 const App = () => {
 
     return (
         <Router>
-            <AuthProvider {...oidcConfig}>
+            <AuthProvider {...oidcConfig} onSigninCallback={onSignInCallback}>
                 <ThemeProvider theme={myTheme}>
                     <QueryClientProvider client={queryClient}>
-                        <Body/>
-                        <ReactQueryDevtools initialIsOpen={false}/>
+                            <Body/>
+                            <ReactQueryDevtools initialIsOpen={false}/>
                     </QueryClientProvider>
                 </ThemeProvider>
             </AuthProvider>
