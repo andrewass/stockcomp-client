@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.9
+    container_name: "traefik"
+    command:
+      # Traefik listens for incoming traffic on port 80
+      - --entrypoints.web.address=:80
+      # Only services that have Traefik enabled will be added to the routing configuration
+      - --providers.docker.exposedbydefault=false
+      - --api.insecure=true
+      - --providers.docker.network=compose_network
+      # Use Docker as a provider
+      - --providers.docker=true
+      - --log.level=info
+    ports:
+      - "80:80"
+      - "8081:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=PathPrefix(`/whoami{regex:$$|/.*}`)"
+
+networks:
+  default:
+    driver: bridge
+    name: compose_network

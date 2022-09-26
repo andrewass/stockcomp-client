@@ -1,5 +1,5 @@
 import axios from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../config/properties";
 
 const URL = {
     participant_sign_up: CONTEST_BASE_URL + "/participant/sign-up-participant",

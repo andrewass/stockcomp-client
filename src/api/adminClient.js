@@ -1,4 +1,4 @@
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../config/properties";
 import axios from "axios";
 
 

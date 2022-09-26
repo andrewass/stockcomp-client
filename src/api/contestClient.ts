@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig} from "axios";
-import {CONTEST_BASE_URL} from "../config/serviceConfig";
+import {CONTEST_BASE_URL} from "../config/properties";
 import {Contest} from "../types/contest";
 
 

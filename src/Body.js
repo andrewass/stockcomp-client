@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import Contests from "./pages/Contests";
 import Leaderboard from "./pages/Leaderboard";
-import TrendingSymbols from "./pages/TrendingSymbols";
+import TrendingSymbols from "./components/trendingsymbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
 import SymbolDetails from "./pages/SymbolDetails";
 import Header from "./components/header/Header";

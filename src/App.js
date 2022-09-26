@@ -7,12 +7,10 @@ import {QueryClientProvider} from "react-query";
 import {queryClient} from "./config/queryConfig";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {AuthProvider} from "react-oidc-context";
-import {responseInterceptor, requestInterceptor} from "./config/interceptor";
 import {oidcConfig, onSignInCallback} from "./config/oidcConfig";
 
 
 const App = () => {
-
     return (
         <Router>
             <AuthProvider {...oidcConfig} onSigninCallback={onSignInCallback}>

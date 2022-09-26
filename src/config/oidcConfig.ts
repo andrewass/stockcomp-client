@@ -1,9 +1,10 @@
 import {User} from "oidc-client-ts";
+import {AUTH_SERVER_URL, CLIENT_ID, REDIRECT_URI} from "./properties";
 
 export const oidcConfig = {
-    authority: "http://localhost:8089",
-    client_id: "XVlBzgbaiCMRAjWwhTHctcuAxhxKQF",
-    redirect_uri: "http://localhost:8000/symbols",
+    authority: AUTH_SERVER_URL,
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
 };
 
 export const onSignInCallback = (_user: User | void): void => {

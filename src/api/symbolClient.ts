@@ -1,5 +1,5 @@
 import axios from "axios";
-import {STOCK_BASE_URL} from "../config/serviceConfig";
+import {STOCK_BASE_URL} from "../config/properties";
 import {Stock, HistoricalQuote} from "../types/symbol";
 
 

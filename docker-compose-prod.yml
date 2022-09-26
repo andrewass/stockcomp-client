@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile.prod
       args:
-        REACT_APP_STOCK_QUOTE_BASE_URL: "http://localhost:8088"
-        REACT_APP_STOCK_CONTEST_BASE_URL: "http://localhost:8080"
+        REACT_APP_STOCK_QUOTE_BASE_URL: "<>"
+        REACT_APP_STOCK_CONTEST_BASE_URL: "<>"
     container_name: stock-client
     restart: on-failure
     ports:
