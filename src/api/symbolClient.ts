@@ -5,7 +5,7 @@ import {Stock, HistoricalQuote} from "../types/symbol";
 
 const URL = {
     symbol_suggestions: STOCK_BASE_URL + "/stock/suggestions",
-    symbol_information: STOCK_BASE_URL + "/stock/symbol-information",
+    symbol_information: STOCK_BASE_URL + "/stock/symbols-information",
     historic_prices: STOCK_BASE_URL + "/stock/historical-quotes",
     real_time_price: STOCK_BASE_URL + "/stock/stock-quote",
     trending_stocks: STOCK_BASE_URL + "/stock/stock-quote-trending"

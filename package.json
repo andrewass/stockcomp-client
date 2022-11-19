@@ -41,10 +41,10 @@
     "resetMocks": false
   },
   "scripts": {
-    "dev-local": "env-cmd -f env/.env.localhost next dev",
     "start": "next start",
     "build": "next build",
-    "dev": "next dev"
+    "dev": "next dev",
+    "lint": "next lint"
   },
   "eslintConfig": {
     "extends": [

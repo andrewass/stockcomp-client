@@ -4,7 +4,7 @@ import {CONTEST_BASE_URL} from "../config/properties";
 
 const URL = {
     all_investments: CONTEST_BASE_URL + "/investment/get-all",
-    symbol_investment: CONTEST_BASE_URL + "/investment/get-by-symbol"
+    symbol_investment: CONTEST_BASE_URL + "/investment/get-by-symbols"
 }
 
 const getAllInvestments = async contestNumber => {

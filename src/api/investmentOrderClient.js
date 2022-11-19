@@ -3,7 +3,7 @@ import {CONTEST_BASE_URL} from "../config/properties";
 
 const URL = {
     get_investment_orders: CONTEST_BASE_URL + "/investmentorder/get-by-status",
-    get_investment_orders_symbol: CONTEST_BASE_URL + "/investmentorder/get-by-status-symbol",
+    get_investment_orders_symbol: CONTEST_BASE_URL + "/investmentorder/get-by-status-symbols",
     place_investment_order: CONTEST_BASE_URL + "/investmentorder/place-order",
     delete_investment_order: CONTEST_BASE_URL + "/investmentorder/delete-order"
 }

@@ -52,7 +52,7 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
         onSuccess: async () => {
             await queryClient.invalidateQueries("getActiveOrdersSymbol");
             await queryClient.invalidateQueries("getCompletedOrdersSymbol");
-            toast.success("Successfully submitted order for symbol " + symbol);
+            toast.success("Successfully submitted order for symbols " + symbol);
         },
         onError: () => {
             toast.error("Unable to submit investment order", {
