@@ -1,6 +1,8 @@
 import Head from "next/head";
+import {SessionProvider} from "next-auth/react";
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({Component, pageProps: {session, ...pageProps}}) {
+
     return (
         <div>
             <Head>
@@ -9,7 +11,9 @@ export default function MyApp({ Component, pageProps }) {
                 <meta name="theme-color" content="#000000"/>
                 <meta name="description" content="Web site created using next"/>
             </Head>
-            <Component {...pageProps} />
+            <SessionProvider session={session}>
+                <Component {...pageProps} />
+            </SessionProvider>
         </div>
     )
 }

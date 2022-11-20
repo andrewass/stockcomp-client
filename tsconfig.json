@@ -22,7 +22,7 @@
     "incremental": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*","types/**/*.ts", "**/*.ts", "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
