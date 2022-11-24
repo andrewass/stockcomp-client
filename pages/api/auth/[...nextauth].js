@@ -1,21 +1,18 @@
 import NextAuth from "next-auth"
 
 export const authOptions = {
-    // Configure one or more authentication providers
     providers: [
         {
             id: "custom-oauth2",
             name: "CustomOauth2",
             type: "oauth",
             version: "2.0",
-            token: process.env.AUTH_SERVER_URL + "/token",
-            authorization: process.env.AUTH_SERVER_URL + "/authorize",
+            idToken: true,
+            wellKnown: process.env.AUTH_SERVER_URL+"/.well-known/openid-configuration",
             requestTokenUrl: "",
-            userInfo: "",
+            params: {grant_type: "authorization_code"},
+            userInfo: process.env.AUTH_SERVER_URL+"/user/info",
             async profile(profile, tokens) {
-                // You can use the tokens, in case you want to fetch more profile information
-                // For example several OAuth providers do not return email by default.
-                // Depending on your provider, will have tokens like `access_token`, `id_token` and or `refresh_token`
                 return {
                     id: profile.id,
                     name: profile.name,
@@ -23,6 +20,7 @@ export const authOptions = {
                     image: profile.picture
                 }
             },
+            issuer: process.env.AUTH_SERVER_URL,
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET
         }
