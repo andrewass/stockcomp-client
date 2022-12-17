@@ -1,13 +1,13 @@
-import {getTrendingStocks} from "../../api/symbolClient";
+import {getTrendingStocks} from "../api/symbolClient";
 import {Box, CircularProgress, Grid, useMediaQuery} from "@mui/material";
 import SymbolCard from "./SymbolCard";
 import {useQuery} from "react-query";
-import SearchField from "../search/SearchField";
+import SearchField from "../components/search/SearchField";
 import {TrendingSymbolsRightMenu} from "./TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
-import {FETCH_QUOTE_INTERVAL} from "../../util/constants";
-import ErrorComponent from "../common/ErrorComponent";
-import {Stock} from "../../types/symbol";
+import {FETCH_QUOTE_INTERVAL} from "../util/constants";
+import ErrorComponent from "../components/common/ErrorComponent";
+import {Stock} from "../types/symbol";
 
 
 const TrendingSymbols = () => {

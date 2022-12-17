@@ -1,57 +1,54 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stockcomp-client
-  labels:
-    app: stockclient
+  name: stockcomp-client-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: stockclient
+      app: stockcomp-client
   template:
     metadata:
       labels:
-        app: stockclient
+        app: stockcomp-client
     spec:
       containers:
-        - name: stockclient
-          image: ghcr.io/andrewass/stockclient:latest
+        - name: stockcomp-client
+          image: stockcomp-client-image
           ports:
-            - containerPort: 80
+            - containerPort: 3000
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: stockclient-service
+  name: stockcomp-client-service
 spec:
   type: NodePort
   selector:
-    app: stockclient
+    app: stockcomp-client
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30455
 
 ---
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: stockclient-ingress
-  namespace: default
+  name: stockcomp-client-ingress
 spec:
   ingressClassName: nginx
   rules:
-    - host: stockcomp.io
+    - host: "stockcompclient.io"
       http:
         paths:
-            - pathType: Prefix
-              path: /
-              backend:
-                service:
-                  name: stockclient-service
-                  port:
-                    number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: stockcomp-client-service
+                port:
+                  number: 3000

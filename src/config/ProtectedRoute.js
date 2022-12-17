@@ -1,6 +1,5 @@
 import {useAuth} from "react-oidc-context";
 import {CircularProgress} from "@mui/material";
-import ErrorComponent from "../components/common/ErrorComponent";
 
 const ProtectedRoute = ({children}) => {
     const auth = useAuth();
@@ -10,8 +9,7 @@ const ProtectedRoute = ({children}) => {
     if (auth.isAuthenticated) {
         return children;
     }
-    auth.signinRedirect().catch(error => <ErrorComponent errorMessage={error}/>);
-
+    auth.signinRedirect().catch(error => console.log("Error: "+error));
     return <></>
 }
 
