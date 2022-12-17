@@ -16,7 +16,9 @@ export default function HomePage() {
     return (
         <>
             Not signed in <br/>
-            <button onClick={() => signIn()}>Sign in</button>
+            <button onClick={() => signIn("custom-oauth2")}>
+                Sign in
+            </button>
         </>
     )
 
@@ -34,8 +36,8 @@ export default function HomePage() {
 }
 
 
-export async function getServerSideProps(){
-    const res = await fetch(process.env.BASE_URL+"/api/symbols/trendingsymbols")
+export async function getServerSideProps() {
+    //const res = await fetch(process.env.BASE_URL + "/api/symbols/trendingsymbols")
     const result = "value"
     return {props: {result}}
 }

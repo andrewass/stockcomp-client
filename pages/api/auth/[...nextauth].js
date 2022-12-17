@@ -8,10 +8,10 @@ export const authOptions = {
             type: "oauth",
             version: "2.0",
             idToken: true,
-            wellKnown: process.env.AUTH_SERVER_URL + "/.well-known/openid-configuration",
+            wellKnown: "http://auth-backend-service:8089/.well-known/openid-configuration",
             requestTokenUrl: "",
             params: {grant_type: "authorization_code"},
-            userInfo: process.env.AUTH_SERVER_URL + "/user/info",
+            userInfo: "http://auth-backend-service:8089/user/info",
             async profile(profile, tokens) {
                 return {
                     id: profile.id,
@@ -20,7 +20,7 @@ export const authOptions = {
                     image: profile.picture
                 }
             },
-            issuer: process.env.AUTH_SERVER_URL,
+            issuer: "http://auth-backend-service:8089",
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET
         }
@@ -34,7 +34,8 @@ export const authOptions = {
             }
             return token
         }
-    }
+    },
+    debug: true
 }
 
 export default NextAuth(authOptions)

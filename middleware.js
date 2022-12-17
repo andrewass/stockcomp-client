@@ -4,6 +4,8 @@ export { default } from "next-auth/middleware"
 
 
 export async function middleware(req) {
-    const {accessToken} = await getToken({req})
-    console.log("A-T is "+accessToken)
+    const response = await getToken({req})
+    if(response){
+        const bearerToken = response.accessToken
+    }
 }
