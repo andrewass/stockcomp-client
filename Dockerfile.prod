@@ -1,0 +1,21 @@
+#Stage 1 : Install and build react project by creating a build folder
+FROM node:16.13.1-alpine3.13 as react-build
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install --legacy-peer-deps
+
+COPY . .
+
+EXPOSE 80
+
+RUN npm run build
+
+
+
+#Stage 2 : Set up Nginx web server and copy the content of the build folder into the html folder on Nginx
+FROM nginx:stable-alpine
+
+COPY --from=react-build /app/build /usr/share/nginx/html
