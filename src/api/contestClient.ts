@@ -1,6 +1,7 @@
-import axios, {AxiosRequestConfig} from "axios";
+import axios from "axios";
 import {CONTEST_BASE_URL} from "../config/properties";
 import {Contest} from "../types/contest";
+import {axiosContest} from "../config/axiosConfig";
 
 
 export const URL = {
@@ -28,7 +29,7 @@ const getContestConfig = (contestNumber: number) => {
 }
 
 const getContests = async (statusList: string[]): Promise<Contest[]> => {
-    const response = await axios({
+    const response = await axiosContest({
         method: "post",
         url: URL.get_by_status,
         data: statusList
@@ -57,4 +58,3 @@ const getParticipantHistory = async (username: string) => {
 export {
     getContests, getParticipantHistory, getContest, getContestConfig, getContestsConfig
 }
-
