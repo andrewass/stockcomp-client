@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stockcomp-client-deployment
+  name: stockcomp-client
 spec:
   replicas: 1
   selector:
