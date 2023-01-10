@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import {getUserDetails, updateUserDetails} from "../api/userClient";
 import {useMutation, useQuery} from "react-query";
 import {queryClient} from "../config/queryConfig";
+import {useApiWrapper} from "../config/axiosWrapper";
+import {getUserDetailsConfig} from "./api/userApi";
 
 const countries = getData();
 
@@ -14,19 +16,19 @@ const AccountSettings = () => {
     const [userDetails, setUserDetails] = useState();
     const [country, setCountry] = useState();
     const [fullName, setFullName] = useState();
+    const {apiGet} = useApiWrapper()
 
     const fetchUserDetails = async () => {
-        const response = await getUserDetails();
+        const response = await apiGet(getUserDetailsConfig());
         if (!userDetails) {
             setUserDetails({
-                username: response.data.username,
-                fullName: response.data.fullName,
-                country: response.data.country
+                username: response.username,
+                fullName: response.fullName,
+                country: response.country
             });
-            setCountry(response.data.country);
-            setFullName(response.data.fullName);
+            setCountry(response.country);
+            setFullName(response.fullName);
         }
-        return response.data;
     }
 
     const mutation = useMutation((credentials) => updateUserDetails(credentials), {

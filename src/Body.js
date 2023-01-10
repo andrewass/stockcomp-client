@@ -6,7 +6,7 @@ import ProtectedRoute from "./config/ProtectedRoute";
 import SymbolDetails from "./pages/SymbolDetails";
 import Header from "./components/header/Header";
 import Authentication from "./pages/Authentication";
-import AccountSettings from "./pages/AccountSettings";
+import AccountSettings from "./user/AccountSettings";
 import UserDetails from "./pages/UserDetails";
 import ContestDetails from "./pages/ContestDetails";
 import {AdminHeader} from "./components/header/AdminHeader";
