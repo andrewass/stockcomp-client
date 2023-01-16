@@ -1,17 +1,18 @@
 import {useState} from "react";
-import {Box, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
+import {Avatar, Box, Card, CardContent, CardMedia, CircularProgress, Typography} from "@mui/material";
 import {getData} from "country-list";
-import toast, {Toaster} from "react-hot-toast";
-import Button from "@mui/material/Button";
+import toast from "react-hot-toast";
 import {getUserDetails, updateUserDetails} from "../api/userClient";
 import {useMutation, useQuery} from "react-query";
 import {queryClient} from "../config/queryConfig";
-import {useApiWrapper} from "../config/axiosWrapper";
+import {useApiWrapper} from "../config/apiWrapper";
 import {getUserDetailsConfig} from "./api/userApi";
+import background from "../images/background.jpg"
+import {deepPurple} from "@mui/material/colors";
 
 const countries = getData();
 
-const AccountSettings = () => {
+const UserSettings = () => {
 
     const [userDetails, setUserDetails] = useState();
     const [country, setCountry] = useState();
@@ -29,6 +30,7 @@ const AccountSettings = () => {
             setCountry(response.country);
             setFullName(response.fullName);
         }
+        return response
     }
 
     const mutation = useMutation((credentials) => updateUserDetails(credentials), {
@@ -53,34 +55,31 @@ const AccountSettings = () => {
     if (error) return `Error! ${error}`;
 
     return (
-        <Box sx={{ml: "30%", mt: "10%"}}>
-            <Typography variant="h5">{userDetails.username}</Typography>
-            <Box sx={{display: "flex", flexDirection: "column", width: "25%", mt: "3rem"}}>
-
-                <TextField label={userDetails.fullName ? userDetails.fullName : "Full Name"}
-                           onChange={event => setFullName(event.target.value)}/>
-
-                <FormControl sx={{mt: "3rem"}}>
-                    <InputLabel>Country</InputLabel>
-                    <Select value={country ? country : ""} sx={{minWidth: "15rem"}}
-                            label="Country" onChange={event => setCountry(event.target.value)}>
-                        {countries.map((country) => (
-                            <MenuItem key={country.code} value={country.code}>
-                                {country.name ? country.name : "Select value"}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-
-                <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
-                        onClick={submitUserDetails}>
-                    Update
-                </Button>
-
-                <Toaster/>
-            </Box>
+        <Box>
+            <Card sx={{width: "400px"}}>
+                <CardMedia
+                    sx={{height: "140px"}}
+                    image={background}
+                    title="user profile background"
+                />
+                <CardContent>
+                    <Avatar sx={{
+                        width: 56, height: 56, bgcolor: deepPurple[500]
+                    }}>OP</Avatar>
+                    <Typography>
+                        {userDetails.username}
+                    </Typography>
+                </CardContent>
+            </Card>
+            <Card sx={{width: "400px", mt: "40px"}}>
+                <CardContent>
+                    <Typography>
+                        Another card
+                    </Typography>
+                </CardContent>
+            </Card>
         </Box>
     );
 }
 
-export default AccountSettings;
+export default UserSettings;

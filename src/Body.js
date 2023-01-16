@@ -6,13 +6,13 @@ import ProtectedRoute from "./config/ProtectedRoute";
 import SymbolDetails from "./pages/SymbolDetails";
 import Header from "./components/header/Header";
 import Authentication from "./pages/Authentication";
-import AccountSettings from "./user/AccountSettings";
+import UserSettings from "./user/UserSettings";
 import UserDetails from "./pages/UserDetails";
 import ContestDetails from "./pages/ContestDetails";
 import {AdminHeader} from "./components/header/AdminHeader";
-import AdminContests from "./pages/AdminContests";
-import AdminCreateContest from "./pages/AdminCreateContest";
-import AdminUpdateContest from "./pages/AdminUpdateContest";
+import AdminContests from "./admin/AdminContests";
+import AdminCreateContest from "./admin/AdminCreateContest";
+import AdminUpdateContest from "./admin/AdminUpdateContest";
 
 const Body = () => {
 
@@ -69,7 +69,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <AccountSettings/>
+                            <UserSettings/>
                         </ProtectedRoute>
                     }
                 />
