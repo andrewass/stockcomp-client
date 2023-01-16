@@ -1,6 +1,6 @@
 import {useQuery} from "react-query";
 import {Box, CircularProgress} from "@mui/material";
-import AdminContestTable from "../components/admin/AdminContestTable";
+import AdminContestTable from "./AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {Contest} from "../types/contest";
@@ -12,7 +12,7 @@ const AdminContests = () => {
     const navigate = useNavigate();
     const {apiGet} = useApiWrapper()
 
-    const {isLoading, error, data: contests} = useQuery("getAllContests",
+    const {isLoading, error, data: contests} = useQuery("getAllContestsAdmin",
         () => apiGet(getContestsAdminConfig([])));
 
     if (isLoading) return <CircularProgress/>

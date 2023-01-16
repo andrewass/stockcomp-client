@@ -1,5 +1,6 @@
 import {CONTEST_BASE_URL} from "../../config/properties";
 import {CreateContestInput} from "../AdminCreateContest";
+import {UpdateContestInput} from "../AdminUpdateContest";
 
 
 export const getContestsAdminConfig = (statusList: string[]) => {
@@ -14,6 +15,22 @@ export const getCreateContestConfig = (contestData: CreateContestInput) => {
     return {
         method: "post",
         url: CONTEST_BASE_URL + "/contest/create",
+        data: contestData
+    }
+}
+
+export const getDeleteContestConfig = (contestNumber: number) => {
+    return {
+        method: "delete",
+        url: CONTEST_BASE_URL + "/contest/delete",
+        params: {contestNumber}
+    }
+}
+
+export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
+    return {
+        method: "put",
+        url: CONTEST_BASE_URL + "/contest/update",
         data: contestData
     }
 }

@@ -7,8 +7,9 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getCreateContestConfig} from "./api/adminApi";
+import Button from "@mui/material/Button";
 
-const useStyles = makeStyles(theme => ({
+const useFormStyles = makeStyles(theme => ({
     root: {
         display: "flex",
         flexDirection: "column",
@@ -34,7 +35,7 @@ export type CreateContestInput = {
 
 const AdminCreateContest = () => {
 
-    const {root} = useStyles()
+    const {root} = useFormStyles()
     const navigate = useNavigate()
     const {handleSubmit, control} = useForm<CreateContestInput>()
     const {apiPost} = useApiWrapper()
@@ -42,15 +43,16 @@ const AdminCreateContest = () => {
     const mutation = useMutation({
         mutationFn: (contestData: CreateContestInput) => {
             return apiPost(getCreateContestConfig(contestData))
-        }
+        },
+        onSuccess: () => navigate("/admin/contests")
     })
 
-    const subitForm: SubmitHandler<CreateContestInput> = data => {
+    const submitForm: SubmitHandler<CreateContestInput> = data => {
         mutation.mutate(data)
     }
 
     return (
-        <form className={root} onSubmit={handleSubmit(subitForm)}>
+        <form className={root} onSubmit={handleSubmit(submitForm)}>
             <Controller
                 name="contestNumber"
                 control={control}
@@ -78,7 +80,9 @@ const AdminCreateContest = () => {
                     </LocalizationProvider>
                 )}
             />
-            <input type="submit"/>
+            <Button variant="outlined" type="submit">
+                Create
+            </Button>
         </form>
     )
 }

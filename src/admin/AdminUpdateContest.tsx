@@ -1,74 +1,110 @@
-import {FormControl, InputLabel, Select, TextField} from "@mui/material";
-import Button from "@mui/material/Button";
-import {FormEvent, useState} from "react";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
-import {updateContest} from "../api/adminClient";
 import {queryClient} from "../config/queryConfig";
-import MenuItem from "@mui/material/MenuItem";
 import {contestStatusMap} from "../util/constants";
 import {Contest} from "../types/contest";
+import {makeStyles} from "@mui/styles";
+import {useApiWrapper} from "../config/apiWrapper";
+import {getUpdateContestConfig} from "./api/adminApi";
+import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import Button from "@mui/material/Button";
 
+
+const useFormStyles = makeStyles(theme => ({
+    root: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "2px",
+
+        '& .MuiTextField-root': {
+            margin: "20px",
+            width: '300px',
+        },
+        '& .MuiButtonBase-root': {
+            margin: "20px",
+        },
+    },
+}))
+
+export type UpdateContestInput = {
+    contestNumber: number,
+    startTime: string,
+    contestStatus: string,
+}
 
 const AdminUpdateContest = () => {
-
+    const {root} = useFormStyles()
     const {state} = useLocation()
     const navigate = useNavigate()
     const contest = state as Contest
-
-    const [contestStatus, setContestStatus] = useState(contestStatusMap.get(contest.contestStatus))
-    const [startTime, setStartTime] = useState(contest.startTime)
+    const {handleSubmit, control} = useForm<UpdateContestInput>()
+    const {apiPut} = useApiWrapper()
 
     function getStatusCode(value: string) {
         return [...contestStatusMap].find(([key, val]) => val === value)![0]
     }
 
-    const getUpdateContestRequest = () => {
-        return {
-            contestNumber: contest.contestNumber,
-            contestStatus: getStatusCode(contestStatus!),
-            startTime: startTime,
-        }
-    }
-
-    const submitContestUpdate = async (event : FormEvent<HTMLElement>) => {
-        event.preventDefault()
-        updateContest(getUpdateContestRequest())
-    }
-
-    const updateMutation = useMutation(submitContestUpdate, {
-        onSuccess: async () => {
-            await queryClient.invalidateQueries("getAllContests")
-            navigate("/admin/contests")
+    const mutation = useMutation({
+        mutationFn: (contestData: UpdateContestInput) => {
+            return apiPut(getUpdateContestConfig(contestData))
         },
-        onError: (error) => console.log(error)
+        onSuccess: () => queryClient.invalidateQueries("getAllContestsAdmin")
     })
 
+    const submitForm: SubmitHandler<UpdateContestInput> = data => {
+        mutation.mutate(data)
+    }
+
     return (
-        <form onSubmit={updateMutation.mutate}>
-            <TextField label="Contest Number" variant="outlined" defaultValue={contest.contestNumber}
-                       InputProps={{readOnly: true}} sx={{mt:"1rem"}}
+        <form className={root} onSubmit={handleSubmit(submitForm)}>
+            <Controller
+                name="contestNumber"
+                defaultValue={contest.contestNumber}
+                control={control}
+                rules={{required: "Contest number is required"}}
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        label="Contest Number"
+                        variant="filled"
+                        value={value}
+                        onChange={onChange}
+                    />
+                )}
             />
-
-            <FormControl disabled={updateMutation.isLoading} sx={{m:"1rem 0"}}>
-                <InputLabel>Status</InputLabel>
-                <Select value={contestStatus} label="Status"
-                        onChange={event => setContestStatus(event.target.value)}>
-                    {[...contestStatusMap].map(([key, val]) => <MenuItem key={val} value={val}>{val}</MenuItem>)}
-                </Select>
-            </FormControl>
-
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker disabled={updateMutation.isLoading}
-                                renderInput={(props) => <TextField {...props} />}
-                                label="Starting Time" value={startTime}
-                                onChange={newValue => setStartTime(newValue as string)}
+            <FormControl>
+                <InputLabel>Contest Status</InputLabel>
+                <Controller
+                    name="contestStatus"
+                    defaultValue={contest.contestStatus}
+                    control={control}
+                    render={({field}) => (
+                        <Select {...field}>
+                            {[...contestStatusMap].map(([key, val]) =>
+                                <MenuItem key={val} value={val}>{val}</MenuItem>)}
+                        </Select>
+                    )}
                 />
-            </LocalizationProvider>
-
-            <Button variant="outlined" sx={{m: "1rem 0", maxWidth: "10rem"}} type="submit">
+            </FormControl>
+            <Controller
+                name="startTime"
+                control={control}
+                defaultValue={contest.startTime}
+                render={({field: {onChange, value}}) => (
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker disabled={mutation.isLoading}
+                                        renderInput={(props) => <TextField {...props} />}
+                                        label="Starting Time" value={value}
+                                        onChange={onChange}
+                        />
+                    </LocalizationProvider>
+                )}
+            />
+            <Button variant="outlined" type="submit">
                 Update
             </Button>
         </form>

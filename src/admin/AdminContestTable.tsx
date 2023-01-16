@@ -6,9 +6,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AdminContestRow from "./AdminContestRow";
-import {Contest} from "../../types/contest";
+import {Contest} from "../types/contest";
 
-interface Props{
+interface Props {
     contests: Contest[]
 }
 
