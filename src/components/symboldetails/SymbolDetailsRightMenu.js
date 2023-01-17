@@ -3,9 +3,9 @@ import InvestmentSymbol from "../investment/InvestmentSymbol";
 import {getContests} from "../../api/contestClient";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../../util/constants";
 import {getParticipant} from "../../api/participantClient";
 import ErrorComponent from "../common/ErrorComponent";
+import {CONTEST_STATUS} from "../../contests/contestTypes";
 
 export const SymbolDetailsRightMenu = ({symbol, stockQuote, isLargeWidth}) => {
 

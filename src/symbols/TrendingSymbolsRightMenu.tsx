@@ -1,8 +1,8 @@
 import {CircularProgress} from "@mui/material";
 import {getContestsConfig} from "../api/contestClient";
-import {CONTEST_STATUS} from "../util/constants";
 import ErrorComponent from "../components/common/ErrorComponent";
 import {useApiRequest} from "../api/useApiRequest";
+import {CONTEST_STATUS} from "../contests/contestTypes";
 
 
 export const TrendingSymbolsRightMenu = () => {

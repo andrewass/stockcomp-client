@@ -1,7 +1,6 @@
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
 import {queryClient} from "../config/queryConfig";
-import {contestStatusMap} from "../util/constants";
 import {Contest} from "../types/contest";
 import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../config/apiWrapper";
@@ -11,6 +10,7 @@ import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/materia
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
+import {contestStatusMap} from "../contests/contestTypes";
 
 
 const useFormStyles = makeStyles(theme => ({
@@ -45,15 +45,14 @@ const AdminUpdateContest = () => {
     const {handleSubmit, control} = useForm<UpdateContestInput>()
     const {apiPut} = useApiWrapper()
 
-    function getStatusCode(value: string) {
-        return [...contestStatusMap].find(([key, val]) => val === value)![0]
-    }
-
     const mutation = useMutation({
         mutationFn: (contestData: UpdateContestInput) => {
-            return apiPut(getUpdateContestConfig(contestData))
+            return apiPut(getUpdateContestConfig(contestData));
         },
-        onSuccess: () => queryClient.invalidateQueries("getAllContestsAdmin")
+        onSuccess: () => {
+            queryClient.invalidateQueries("getAllContestsAdmin")
+                .then(() => navigate("/admin/contests"));
+        }
     })
 
     const submitForm: SubmitHandler<UpdateContestInput> = data => {
@@ -85,7 +84,7 @@ const AdminUpdateContest = () => {
                     render={({field}) => (
                         <Select {...field}>
                             {[...contestStatusMap].map(([key, val]) =>
-                                <MenuItem key={val} value={val}>{val}</MenuItem>)}
+                                <MenuItem key={val} value={key}>{val}</MenuItem>)}
                         </Select>
                     )}
                 />

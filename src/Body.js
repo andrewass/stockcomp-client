@@ -9,7 +9,7 @@ import Authentication from "./pages/Authentication";
 import UserSettings from "./user/UserSettings";
 import UserDetails from "./pages/UserDetails";
 import ContestDetails from "./pages/ContestDetails";
-import {AdminHeader} from "./components/header/AdminHeader";
+import {AdminNavigation} from "./navigation/AdminNavigation";
 import AdminContests from "./admin/AdminContests";
 import AdminCreateContest from "./admin/AdminCreateContest";
 import AdminUpdateContest from "./admin/AdminUpdateContest";
@@ -98,7 +98,7 @@ const Body = () => {
                     path="/admin/contests"
                     element={
                         <ProtectedRoute>
-                            <AdminHeader/>
+                            <AdminNavigation/>
                             <AdminContests/>
                         </ProtectedRoute>
                     }
@@ -108,7 +108,7 @@ const Body = () => {
                     path="/admin/contests/create"
                     element={
                         <ProtectedRoute>
-                            <AdminHeader/>
+                            <AdminNavigation/>
                             <AdminCreateContest/>
                         </ProtectedRoute>
                     }
@@ -118,7 +118,7 @@ const Body = () => {
                     path="/admin/contests/update"
                     element={
                         <ProtectedRoute>
-                            <AdminHeader/>
+                            <AdminNavigation/>
                             <AdminUpdateContest/>
                         </ProtectedRoute>
                     }

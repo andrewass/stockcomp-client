@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {format, parseISO} from "date-fns";
 import {Link} from "react-router-dom";
-import {contestStatusMap} from "../../util/constants";
+import {contestStatusMap} from "../../contests/contestTypes";
 
 
 export const ContestEntry = ({contest}) => {

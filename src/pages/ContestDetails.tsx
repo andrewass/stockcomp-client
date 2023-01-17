@@ -5,8 +5,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
 import {getContest} from "../api/contestClient";
 import {useQuery} from "react-query";
-import {CONTEST_STATUS} from "../util/constants";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {CONTEST_STATUS} from "../contests/contestTypes";
 
 
 const ContestDetails = () => {

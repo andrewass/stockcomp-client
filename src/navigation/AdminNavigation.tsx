@@ -1,31 +1,31 @@
 import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import React, {useState} from "react";
-import {NavLink, useNavigate} from "react-router-dom";
-import {removeSignedInFromLocalStorage, signOut} from "../../api/authClient";
+import {NavLink} from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {localTheme} from "./headerTheme";
-import DropDownMenu from "./DropDownMenu";
+import {localTheme} from "../components/header/headerTheme";
+import DropDownMenu from "../components/header/DropDownMenu";
+import {useAuth} from "react-oidc-context";
 
-export const AdminHeader = () => {
+export const AdminNavigation = () => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
-    const navigate = useNavigate();
+    const auth = useAuth();
+
 
     const signOutUser = async () => {
-        await signOut()
-        removeSignedInFromLocalStorage()
-        navigate("/authentication")
+        await auth.removeUser();
     };
 
     const renderWideNavBar = () => {
         return (
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
-                    <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin" sx={{fontSize: "3rem"}}/>
+                    <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin"
+                         sx={{fontSize: "3rem"}}/>
                     <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin/contests"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>
@@ -33,8 +33,8 @@ export const AdminHeader = () => {
         )
     }
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue)
+    const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
+        setValue(newValue);
     }
 
     return (
