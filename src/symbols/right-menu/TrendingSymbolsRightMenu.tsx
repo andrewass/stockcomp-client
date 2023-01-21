@@ -4,11 +4,12 @@ import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
 import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../api/symbolsApi";
 import {Contest} from "../api/symbolsTypes";
+import {ActiveContestList} from "./ActiveContestList";
 
 
 export const TrendingSymbolsRightMenu = () => {
 
-    const {apiGet} = useApiWrapper()
+    const {apiGet} = useApiWrapper();
 
     const {isLoading, error, data: contests} = useQuery<Contest[]>(GET_ACTIVE_CONTESTS,
         () => apiGet(getActiveContestsConfig(
@@ -16,12 +17,16 @@ export const TrendingSymbolsRightMenu = () => {
         )));
 
     if (contests) {
-        return <Box>
-            <p>Contest exists</p>
-        </Box>
+        return (
+            <Box>
+                <ActiveContestList contests={contests}/>
+            </Box>
+        );
     } else {
-        return <Box>
-            <p>No active contests</p>
-        </Box>
+        return (
+            <Box>
+                <p>No active contests</p>
+            </Box>
+        );
     }
 }

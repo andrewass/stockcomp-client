@@ -1,8 +1,9 @@
 
 
 export type Contest = {
-    contestNumber: string
+    contestNumber: number
     startTime: Date
+    endTime: Date
     participantCount: number
     contestStatus: string
 }
