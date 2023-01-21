@@ -3,8 +3,8 @@ import {CONTEST_STATUS} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
 import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../api/symbolsApi";
-import {Contest} from "../api/symbolsTypes";
 import {ActiveContestList} from "./ActiveContestList";
+import {Contest} from "../symbolsTypes";
 
 
 export const TrendingSymbolsRightMenu = () => {

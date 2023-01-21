@@ -1,6 +1,6 @@
-import {Contest} from "../api/symbolsTypes";
 import {List} from "@mui/material";
 import {ActiveContest} from "./ActiveContest";
+import {Contest} from "../symbolsTypes";
 
 interface Props {
     contests: Contest[]

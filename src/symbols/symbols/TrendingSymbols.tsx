@@ -1,4 +1,3 @@
-import {getTrendingStocks} from "../../api/symbolClient";
 import {Box, CircularProgress, Grid, useMediaQuery} from "@mui/material";
 import SymbolCard from "./SymbolCard";
 import {useQuery} from "react-query";
@@ -7,18 +6,17 @@ import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {FETCH_QUOTE_INTERVAL} from "../../util/constants";
 import ErrorComponent from "../../components/common/ErrorComponent";
-import {Stock} from "../../types/symbol";
+import {useApiWrapper} from "../../config/apiWrapper";
+import {getTrendingStocksConfig} from "../api/symbolsApi";
+import {Stock} from "../symbolsTypes";
 
 
 const TrendingSymbols = () => {
     const theme = useTheme()
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
+    const {apiGet} = useApiWrapper()
 
-    const fetchTrendingSymbols = (): Promise<Stock[]> => {
-        return getTrendingStocks()
-    }
-
-    const {isLoading, error, data: symbols} = useQuery("getTrendingSymbols", fetchTrendingSymbols,
+    const {isLoading, error, data: symbols} = useQuery<Stock[]>("getTrendingSymbols",() => apiGet(getTrendingStocksConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL})
 
     if (isLoading) return <CircularProgress/>

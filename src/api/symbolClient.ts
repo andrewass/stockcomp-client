@@ -1,6 +1,6 @@
 import axios from "axios";
 import {STOCK_BASE_URL} from "../config/properties";
-import {Stock, HistoricalQuote} from "../types/symbol";
+import {HistoricalQuote} from "../symboldetails/symbolDetailTypes";
 
 
 const URL = {
@@ -38,14 +38,7 @@ const getHistoricPrices = async (symbol: string) : Promise<HistoricalQuote[]> =>
     return response.data
 }
 
-const getTrendingStocks = async () : Promise<Stock[]>  => {
-    const response = await axios({
-        method: "get",
-        url: URL.trending_stocks
-    })
-    return response.data
-}
 
 export {
-    getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices, getTrendingStocks
+    getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices
 }

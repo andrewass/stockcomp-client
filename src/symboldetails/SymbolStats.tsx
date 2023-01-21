@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
-import {Stock} from "../../types/symbol";
+import {Stock} from "./symbolDetailTypes";
 
 interface Props {
     symbolDetails: Stock
@@ -7,9 +7,9 @@ interface Props {
 
 const SymbolStats = ({symbolDetails}: Props) => {
 
-    const {stockQuote,stockStats, symbol, description} = symbolDetails
-    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
-    const {annualDividendYieldPercent, earningsPerShare, priceToEarnings, priceToBook} = stockStats!
+    const {stockQuote,stockStats, symbol, description} = symbolDetails;
+    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote;
+    const {annualDividendYieldPercent, earningsPerShare, priceToEarnings, priceToBook} = stockStats!;
 
     const getCurrentPrice = () => {
         if (currency === "USD") {
@@ -17,13 +17,13 @@ const SymbolStats = ({symbolDetails}: Props) => {
                 <Typography display="inline">
                     {price} {currency}
                 </Typography>
-            )
+            );
         } else {
             return (
                 <Typography display="inline">
                     {price} {currency} (USD {usdPrice})
                 </Typography>
-            )
+            );
         }
     }
 
@@ -70,7 +70,7 @@ const SymbolStats = ({symbolDetails}: Props) => {
                 </Grid>
             </CardContent>
         </Card>
-    )
+    );
 }
 
 export default SymbolStats;

@@ -58,9 +58,9 @@ export const ActiveContest = ({contest}: Props) => {
     }
 
     const getParticipantStatus = () => {
-        if (participant) {
+        if (participant && contest.contestStatus === CONTEST_STATUS.RUNNING) {
             return <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-        } else {
+        } else if(!participant) {
             return <Button onClick={() => mutation.mutate()}>Sign Up</Button>
         }
     }
