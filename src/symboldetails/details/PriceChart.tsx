@@ -1,6 +1,7 @@
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
+import {HistoricalQuote} from "../symbolDetailTypes";
 
 interface Props{
     symbol: string
@@ -8,8 +9,9 @@ interface Props{
 
 export const PriceChart = ({symbol}: Props) => {
 
+    /*
 
-    const {isLoading, isFetching, error, data} = useQuery(
+    const {isLoading, isFetching, error, data} = useQuery<HistoricalQuote[]>(
         ["getHistoricPrices",symbol], () => console.log("test"));
 
     if (isLoading || isFetching) return <CircularProgress/>
@@ -27,5 +29,10 @@ export const PriceChart = ({symbol}: Props) => {
                 </AreaChart>
             </ResponsiveContainer>
         </Box>
+    );
+     */
+
+    return(
+        <p>placeholder</p>
     );
 }

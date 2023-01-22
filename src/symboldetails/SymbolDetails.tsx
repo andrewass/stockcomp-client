@@ -1,5 +1,3 @@
-import DetailBlock from "../components/symboldetails/DetailBlock";
-import {SymbolDetailsRightMenu} from "../components/symboldetails/SymbolDetailsRightMenu";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import SearchField from "../components/search/SearchField";
 import {useTheme} from "@mui/material/styles";
@@ -7,6 +5,8 @@ import {getStockSymbolInformation} from "../api/symbolClient";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import ErrorComponent from "../components/common/ErrorComponent";
+import DetailBlock from "./details/DetailBlock";
+import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
 
 const SymbolDetails = () => {
     const theme = useTheme()

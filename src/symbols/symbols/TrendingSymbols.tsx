@@ -7,7 +7,7 @@ import {useTheme} from "@mui/material/styles";
 import {FETCH_QUOTE_INTERVAL} from "../../util/constants";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {getTrendingStocksConfig} from "../api/symbolsApi";
+import {GET_TRENDING_SYMBOLS, getTrendingSymbolsConfig} from "../api/symbolsApi";
 import {Stock} from "../symbolsTypes";
 
 
@@ -16,7 +16,8 @@ const TrendingSymbols = () => {
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
     const {apiGet} = useApiWrapper()
 
-    const {isLoading, error, data: symbols} = useQuery<Stock[]>("getTrendingSymbols",() => apiGet(getTrendingStocksConfig()),
+    const {isLoading, error, data: symbols} = useQuery<Stock[]>(GET_TRENDING_SYMBOLS,
+        () => apiGet(getTrendingSymbolsConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL})
 
     if (isLoading) return <CircularProgress/>

@@ -2,9 +2,10 @@ import {CONTEST_BASE_URL, STOCK_BASE_URL} from "../../config/properties";
 
 export const GET_ACTIVE_CONTESTS = "getActiveContests";
 export const GET_CONTEST_PARTICIPANT = "getContestParticipant"
+export const GET_TRENDING_SYMBOLS = "getTrendingSymbols"
 
 
-export const getTrendingStocksConfig = () => {
+export const getTrendingSymbolsConfig = () => {
     return {
         method: "get",
         url: STOCK_BASE_URL + "/stock/stock-quote-trending"

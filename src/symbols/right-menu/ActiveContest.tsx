@@ -1,4 +1,3 @@
-import {Contest} from "../api/symbolsTypes";
 import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText, Typography} from "@mui/material";
 import {useMutation, useQuery} from "react-query";
 import {queryClient} from "../../config/queryConfig";
@@ -12,6 +11,7 @@ import {
 } from "../api/symbolsApi";
 import {useApiWrapper} from "../../config/apiWrapper";
 import ErrorComponent from "../../components/common/ErrorComponent";
+import {Contest} from "../symbolsTypes";
 
 interface Props {
     contest: Contest

@@ -9,8 +9,8 @@ import {placeInvestmentOrder} from "../../api/investmentOrderClient";
 import {useMutation} from "react-query";
 import {queryClient} from "../../config/queryConfig";
 import {codeMapTransaction} from "../../util/constants";
-import {StockQuote} from "../../types/symbol";
 import {Contest} from "../../types/contest";
+import {StockQuote} from "../../symboldetails/symbolDetailTypes";
 
 interface Props{
     symbol: string

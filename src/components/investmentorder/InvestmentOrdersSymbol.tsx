@@ -5,9 +5,9 @@ import {getInvestmentOrdersSymbol} from "../../api/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 import {ORDER_STATUS} from "../../util/constants";
-import {Contest} from "../../types/contest";
-import {StockQuote} from "../../types/symbol";
 import ErrorComponent from "../common/ErrorComponent";
+import {Contest} from "../../types/contest";
+import {StockQuote} from "../../symboldetails/symbolDetailTypes";
 
 interface Props {
     contest: Contest
