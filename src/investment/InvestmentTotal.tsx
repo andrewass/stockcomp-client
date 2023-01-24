@@ -1,9 +1,10 @@
 import InvestmentList from "./InvestmentList";
-import {getAllInvestments} from "../../api/investmentClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import {Contest} from "../../types/contest";
-import ErrorComponent from "../common/ErrorComponent";
+import { Contest } from "../symboldetails/symbolDetailTypes";
+import ErrorComponent from "../components/common/ErrorComponent";
+import {getAllInvestments} from "../api/investmentClient";
+
 
 interface Props{
     contest: Contest

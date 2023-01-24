@@ -1,30 +1,30 @@
 import InvestmentDetails from "./InvestmentDetails";
-import {getInvestment} from "../../api/investmentClient";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
-import {Contest} from "../../types/contest";
-import {Participant} from "../../types/participant";
+import {Participant} from "../types/participant";
+import {getInvestment} from "../api/investmentClient";
+import ErrorComponent from "../components/common/ErrorComponent";
 
-interface Props{
-    contest: Contest
+
+interface Props {
     participant: Participant
     symbol: string
 }
 
-const InvestmentSymbol = ({contest, participant, symbol}: Props) => {
+const InvestmentSymbol = ({participant, symbol}: Props) => {
 
     const {remainingFunds} = participant;
 
     const fetchSymbolInvestment = () => {
-        return getInvestment(symbol, contest.contestNumber);
+        return getInvestment(symbol, participant.contestNumber);
     }
 
-    const {isLoading: investmentLoading, error: investmentError, data: investment} =
+    const {isLoading, error, data: investment} =
         useQuery("getInvestmentOfSymbol", fetchSymbolInvestment);
 
-    if (investmentLoading) return <CircularProgress/>;
+    if (isLoading) return <CircularProgress/>;
 
-    if (investmentError) return `Error! ${investmentError}`;
+    if (error) return <ErrorComponent errorMessage={error as string}/>;
 
     return (
         <Card elevation={0} id="investmentSymbol">

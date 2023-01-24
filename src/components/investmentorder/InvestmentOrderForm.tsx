@@ -9,16 +9,15 @@ import {placeInvestmentOrder} from "../../api/investmentOrderClient";
 import {useMutation} from "react-query";
 import {queryClient} from "../../config/queryConfig";
 import {codeMapTransaction} from "../../util/constants";
-import {Contest} from "../../types/contest";
 import {StockQuote} from "../../symboldetails/symbolDetailTypes";
 
 interface Props{
     symbol: string
-    contest: Contest
+    contestNumber: number
     stockQuote: StockQuote
 }
 
-export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
+export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) => {
 
     const [acceptedPrice, setAcceptedPrice] = useState(0.00);
     const [expirationTime, setExpirationTime] = useState("");
@@ -38,7 +37,7 @@ export const InvestmentOrderForm = ({symbol, contest, stockQuote}: Props) => {
             acceptedPrice: acceptedPrice,
             symbol: symbol,
             amount: orderAmount,
-            contestNumber: contest.contestNumber,
+            contestNumber: contestNumber,
             currency: stockQuote.currency,
             transactionType: codeMapTransaction.get(operationType)
         }

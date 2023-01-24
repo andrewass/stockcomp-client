@@ -1,5 +1,5 @@
 import {Card, CardContent, Typography} from "@mui/material";
-import {Investment} from "../../types/investment";
+import {Investment} from "./investmentTypes";
 
 interface Props{
     investment: Investment

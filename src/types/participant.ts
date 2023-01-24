@@ -5,4 +5,5 @@ export interface Participant{
     totalValue: number
     totalInvestmentValue: number
     remainingFunds: number
+    contestNumber: number
 }

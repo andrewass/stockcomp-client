@@ -11,14 +11,6 @@ const URL = {
     trending_stocks: STOCK_BASE_URL + "/stock/stock-quote-trending"
 }
 
-const getStockSymbolInformation = async (symbol: string) => {
-    const response = await axios({
-        method: "get",
-        url: URL.symbol_information,
-        params: {symbol}
-    })
-    return response.data
-}
 
 const getSuggestionsFromQuery = async (query: string) => {
     const response = await axios({
@@ -40,5 +32,5 @@ const getHistoricPrices = async (symbol: string) : Promise<HistoricalQuote[]> =>
 
 
 export {
-    getStockSymbolInformation, getSuggestionsFromQuery, getHistoricPrices
+    getSuggestionsFromQuery, getHistoricPrices
 }

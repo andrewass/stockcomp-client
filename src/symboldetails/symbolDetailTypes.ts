@@ -14,6 +14,14 @@ export interface StockQuote{
     usdPrice: number
 }
 
+export type Contest = {
+    contestNumber: number
+    startTime: Date
+    endTime: Date
+    participantCount: number
+    contestStatus: string
+}
+
 export interface StockStats{
     annualDividendYieldPercent: number
     earningsPerShare: number,

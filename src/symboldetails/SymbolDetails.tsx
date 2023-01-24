@@ -1,30 +1,29 @@
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import SearchField from "../components/search/SearchField";
 import {useTheme} from "@mui/material/styles";
-import {getStockSymbolInformation} from "../api/symbolClient";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import ErrorComponent from "../components/common/ErrorComponent";
 import DetailBlock from "./details/DetailBlock";
 import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
+import {GET_STOCK_SYMBOL_INFORMATION, getStockSymbolInformationConfig} from "./api/symbolDetailsApi";
+import {useApiWrapper} from "../config/apiWrapper";
+import {Stock} from "./symbolDetailTypes";
+
 
 const SymbolDetails = () => {
-    const theme = useTheme()
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
-    const {symbol} = useParams<{symbol: string}>()
+    const theme = useTheme();
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
+    const {symbol} = useParams<{symbol: string}>();
+    const {apiGet} = useApiWrapper();
 
-    const fetchStockSymbolInformation = () => {
-        return getStockSymbolInformation(symbol!)
-    }
+    const {error, isLoading, data: symbolDetails} =
+        useQuery<Stock>(GET_STOCK_SYMBOL_INFORMATION,
+            () => apiGet(getStockSymbolInformationConfig(symbol as string)))
 
-    const {isLoading, data: symbolDetails, error} =
-        useQuery("getStockSymbolInformation", fetchStockSymbolInformation)
+    if (isLoading) return <CircularProgress/>;
 
-    if (isLoading) return <CircularProgress/>
-
-    if (error) return <ErrorComponent errorMessage={error as string} />
-
-    const {stockQuote} = symbolDetails
+    if (error) return <ErrorComponent errorMessage={error as string} />;
 
     return (
         <>
@@ -34,10 +33,10 @@ const SymbolDetails = () => {
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
                 <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails}/>
-                <SymbolDetailsRightMenu symbol={symbol} stockQuote={stockQuote} isLargeWidth={isLargeWidth}/>
+                <SymbolDetailsRightMenu stock={symbolDetails!} isLargeWidth={isLargeWidth}/>
             </Box>
         </>
-    )
+    );
 }
 
 export default SymbolDetails

@@ -6,18 +6,15 @@ import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
 import {ORDER_STATUS} from "../../util/constants";
 import ErrorComponent from "../common/ErrorComponent";
-import {Contest} from "../../types/contest";
 import {StockQuote} from "../../symboldetails/symbolDetailTypes";
 
 interface Props {
-    contest: Contest
+    contestNumber: number
     symbol: string
     stockQuote: StockQuote
 }
 
-export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}: Props) => {
-
-    const {contestNumber} = contest
+export const InvestmentOrdersSymbol = ({contestNumber, symbol, stockQuote}: Props) => {
 
     const fetchActiveOrdersSymbol = async () => {
         return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.ACTIVE])
@@ -40,7 +37,7 @@ export const InvestmentOrdersSymbol = ({contest, symbol, stockQuote}: Props) => 
 
     return (
         <div>
-            <InvestmentOrderForm symbol={symbol} contest={contest} stockQuote={stockQuote}/>
+            <InvestmentOrderForm symbol={symbol} contestNumber={contestNumber} stockQuote={stockQuote}/>
             <ActiveOrders activeOrders={activeOrders}/>
             <CompletedOrders completedOrders={completedOrders}/>
         </div>
