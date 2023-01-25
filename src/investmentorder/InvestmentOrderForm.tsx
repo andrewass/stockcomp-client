@@ -5,11 +5,11 @@ import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
-import {placeInvestmentOrder} from "../../api/investmentOrderClient";
 import {useMutation} from "react-query";
-import {queryClient} from "../../config/queryConfig";
-import {codeMapTransaction} from "../../util/constants";
-import {StockQuote} from "../../symboldetails/symbolDetailTypes";
+import {StockQuote} from "../symboldetails/symbolDetailTypes";
+import {codeMapTransaction} from "../util/constants";
+import {placeInvestmentOrder} from "../api/investmentOrderClient";
+import {queryClient} from "../config/queryConfig";
 
 interface Props{
     symbol: string

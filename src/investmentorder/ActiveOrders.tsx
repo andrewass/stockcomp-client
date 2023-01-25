@@ -1,4 +1,3 @@
-import {deleteInvestmentOrder} from "../../api/investmentOrderClient";
 import React, {useState} from "react";
 import {
     Collapse,
@@ -11,8 +10,10 @@ import {
     Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
-import {queryClient} from "../../config/queryConfig";
-import {InvestmentOrder} from "../../types/investmentorder";
+import {InvestmentOrder} from "../types/investmentorder";
+import {queryClient} from "../config/queryConfig";
+import {deleteInvestmentOrder} from "../api/investmentOrderClient";
+import {useApiWrapper} from "../config/apiWrapper";
 
 
 interface Props {
@@ -20,13 +21,13 @@ interface Props {
 }
 
 const ActiveOrders = ({activeOrders} : Props) => {
-
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const {apiDelete} = useApiWrapper();
 
     const deleteOrder = async (orderId : number) => {
-        await deleteInvestmentOrder(orderId)
-        await queryClient.invalidateQueries("getActiveOrdersSymbol")
-        await queryClient.invalidateQueries("getActiveOrdersParticipant")
+        await deleteInvestmentOrder(orderId);
+        await queryClient.invalidateQueries("getActiveOrdersSymbol");
+        await queryClient.invalidateQueries("getActiveOrdersParticipant");
     }
 
     const createListItem = (order : InvestmentOrder) => {

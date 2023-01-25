@@ -2,8 +2,9 @@ import InvestmentDetails from "./InvestmentDetails";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 import {Participant} from "../types/participant";
-import {getInvestment} from "../api/investmentClient";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {useApiWrapper} from "../config/apiWrapper";
+import {GET_INVESTMENT_FOR_SYMBOL, getInvestmentConfig} from "./api/investmentApi";
 
 
 interface Props {
@@ -12,22 +13,19 @@ interface Props {
 }
 
 const InvestmentSymbol = ({participant, symbol}: Props) => {
-
-    const {remainingFunds} = participant;
-
-    const fetchSymbolInvestment = () => {
-        return getInvestment(symbol, participant.contestNumber);
-    }
+    const {apiPost} = useApiWrapper();
+    const {remainingFunds, contestNumber} = participant;
 
     const {isLoading, error, data: investment} =
-        useQuery("getInvestmentOfSymbol", fetchSymbolInvestment);
+        useQuery( [GET_INVESTMENT_FOR_SYMBOL,{symbol, contestNumber}],
+            () => apiPost(getInvestmentConfig(symbol, contestNumber)));
 
     if (isLoading) return <CircularProgress/>;
 
     if (error) return <ErrorComponent errorMessage={error as string}/>;
 
     return (
-        <Card elevation={0} id="investmentSymbol">
+        <Card elevation={0}>
             <CardContent>
                 <Typography variant="h5" sx={{pb: "0.5rem"}}>
                     Portfolio Status

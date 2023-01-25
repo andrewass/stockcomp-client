@@ -1,22 +1,23 @@
 import InvestmentList from "./InvestmentList";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import { Contest } from "../symboldetails/symbolDetailTypes";
+import {Contest} from "../symboldetails/symbolDetailTypes";
 import ErrorComponent from "../components/common/ErrorComponent";
-import {getAllInvestments} from "../api/investmentClient";
+import {GET_ALL_INVESTMENTS_FOR_CONTEST, getAllInvestmentsConfig} from "./api/investmentApi";
+import {useApiWrapper} from "../config/apiWrapper";
 
 
-interface Props{
+interface Props {
     contest: Contest
 }
 
 export const InvestmentTotal = ({contest}: Props) => {
 
-    const fetchAllInvestments = async () => {
-        return await getAllInvestments(contest.contestNumber)
-    }
+    const {apiGet} = useApiWrapper();
+    const {contestNumber} = contest;
 
-    const {isLoading, error, data: investments} = useQuery("getAllInvestments", fetchAllInvestments)
+    const {isLoading, error, data: investments} = useQuery([GET_ALL_INVESTMENTS_FOR_CONTEST, contestNumber]
+        , () => apiGet(getAllInvestmentsConfig(contestNumber)))
 
     if (isLoading) return <CircularProgress/>
 

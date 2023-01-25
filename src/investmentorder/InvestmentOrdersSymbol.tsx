@@ -1,12 +1,17 @@
 import ActiveOrders from "./ActiveOrders";
 import CompletedOrders from "./CompletedOrders";
 import {InvestmentOrderForm} from "./InvestmentOrderForm";
-import {getInvestmentOrdersSymbol} from "../../api/investmentOrderClient";
 import {useQuery} from "react-query";
 import {CircularProgress} from "@mui/material";
-import {ORDER_STATUS} from "../../util/constants";
-import ErrorComponent from "../common/ErrorComponent";
-import {StockQuote} from "../../symboldetails/symbolDetailTypes";
+import {StockQuote} from "../symboldetails/symbolDetailTypes";
+import {ORDER_STATUS} from "../util/constants";
+import ErrorComponent from "../components/common/ErrorComponent";
+import {
+    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
+    GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
+    getInvestmentOrdersSymbolConfig
+} from "./api/investmentOrderApi";
+import {useApiWrapper} from "../config/apiWrapper";
 
 interface Props {
     contestNumber: number
@@ -15,20 +20,16 @@ interface Props {
 }
 
 export const InvestmentOrdersSymbol = ({contestNumber, symbol, stockQuote}: Props) => {
-
-    const fetchActiveOrdersSymbol = async () => {
-        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.ACTIVE])
-    }
-
-    const fetchCompletedOrdersSymbol = async () => {
-        return await getInvestmentOrdersSymbol(symbol, contestNumber, [ORDER_STATUS.COMPLETED])
-    }
+    const {apiPost} = useApiWrapper()
 
     const {isLoading: activeLoading, error: activeError, data: activeOrders} =
-        useQuery("getActiveOrdersSymbol", fetchActiveOrdersSymbol)
+        useQuery([GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol],
+            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.ACTIVE])));
 
     const {isLoading: completedLoading, error: completedError, data: completedOrders} =
-        useQuery("getCompletedOrdersSymbol", fetchCompletedOrdersSymbol)
+        useQuery([GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol],
+            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.COMPLETED])));
+
 
     if (activeLoading || completedLoading) return <CircularProgress/>
 

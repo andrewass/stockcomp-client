@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Collapse, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import {InvestmentOrder} from "../../types/investmentorder";
+import {InvestmentOrder} from "../types/investmentorder";
 
 
 interface Props {
