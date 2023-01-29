@@ -1,56 +1,52 @@
-import {useEffect, useState} from "react";
 import "./investmentOrderForm.css";
 import {CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {useMutation} from "react-query";
 import {StockQuote} from "../symboldetails/symbolDetailTypes";
-import {codeMapTransaction} from "../util/constants";
-import {placeInvestmentOrder} from "../api/investmentOrderClient";
 import {queryClient} from "../config/queryConfig";
+import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import {useApiWrapper} from "../config/apiWrapper";
+import {
+    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
+    GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
+    getPostInvestmentOrderConfig
+} from "./api/investmentOrderApi";
+import {codeMapTransaction} from "../util/constants";
 
-interface Props{
+interface Props {
     symbol: string
     contestNumber: number
     stockQuote: StockQuote
 }
 
+export type InvestmentOrderRequest = {
+    acceptedPrice: number
+    expirationTime: string
+    amount: number
+    transactionType: string
+    currency: string
+    contestNumber: number
+    symbol: string
+}
+
 export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) => {
+    const {handleSubmit, control} = useForm<InvestmentOrderRequest>();
+    const {apiPost} = useApiWrapper();
 
-    const [acceptedPrice, setAcceptedPrice] = useState(0.00);
-    const [expirationTime, setExpirationTime] = useState("");
-    const [orderAmount, setOrderAmount] = useState(1);
-    const [operationType, setOperationType] = useState("Buy");
-
-    useEffect(() => {
-        const expirationDate = new Date();
-        expirationDate.setDate(expirationDate.getDate() + 7);
-        setExpirationTime(expirationDate.toISOString());
-        setAcceptedPrice(stockQuote.price);
-    }, [stockQuote]);
-
-    const createInvestmentOrderRequest = () => {
-        return {
-            expirationTime: expirationTime,
-            acceptedPrice: acceptedPrice,
-            symbol: symbol,
-            amount: orderAmount,
-            contestNumber: contestNumber,
-            currency: stockQuote.currency,
-            transactionType: codeMapTransaction.get(operationType)
-        }
-    }
-
-    const placeOrder = async () => {
-        await placeInvestmentOrder(createInvestmentOrderRequest());
-    }
-
-    const mutation = useMutation(placeOrder, {
+    const mutation = useMutation({
+        mutationFn: (orderData: InvestmentOrderRequest) => {
+            orderData.symbol = symbol
+            orderData.contestNumber = contestNumber
+            orderData.currency = stockQuote.currency
+            orderData.transactionType = codeMapTransaction.get(orderData.transactionType) as string
+            return apiPost(getPostInvestmentOrderConfig(orderData))
+        },
         onSuccess: async () => {
-            await queryClient.invalidateQueries("getActiveOrdersSymbol");
-            await queryClient.invalidateQueries("getCompletedOrdersSymbol");
+            await queryClient.invalidateQueries([GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol]);
+            await queryClient.invalidateQueries([GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol]);
             toast.success("Successfully submitted order for symbol " + symbol);
         },
         onError: () => {
@@ -61,40 +57,77 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
         },
     });
 
+
+    const submitForm: SubmitHandler<InvestmentOrderRequest> = data => {
+        mutation.mutate(data)
+    }
+
     return (
-        <form id="submitOrderForm">
-            <div id="orderGrid">
-                <TextField label="Quantity" variant="outlined" disabled={mutation.isLoading}
-                           value={orderAmount} onChange={event => setOrderAmount(parseInt(event.target.value))}/>
+        <form id="submitOrderForm" onSubmit={handleSubmit(submitForm)}>
+            <Controller
+                name="amount"
+                control={control}
+                rules={{required: "Amount is required"}}
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        label="Amount"
+                        variant="outlined"
+                        value={value}
+                        disabled={mutation.isLoading}
+                        onChange={onChange}/>
+                )}
+            />
 
-                <TextField label="Accepted Price" variant="outlined" value={acceptedPrice}
-                           disabled={mutation.isLoading}
-                           onChange={event => setAcceptedPrice(parseFloat(event.target.value))}/>
+            <Controller
+                name="acceptedPrice"
+                control={control}
+                rules={{required: "Accepted price is required"}}
+                render={({field: {onChange, value}}) => (
+                    <TextField
+                        label="Accepted Price"
+                        variant="outlined"
+                        value={value}
+                        disabled={mutation.isLoading}
+                        onChange={onChange}/>
+                )}
+            />
 
-                <FormControl disabled={mutation.isLoading}>
-                    <InputLabel>Operation</InputLabel>
-                    <Select value={operationType} label="Operation"
-                            onChange={event => setOperationType(event.target.value)}>
-                        <MenuItem value="Buy">Buy</MenuItem>
-                        <MenuItem value="Sell">Sell</MenuItem>
-                    </Select>
-                </FormControl>
+            <Controller
+                name="transactionType"
+                control={control}
+                rules={{required: "Transaction type is required"}}
+                render={({field: {onChange, value}}) => (
+                    <FormControl disabled={mutation.isLoading}>
+                        <InputLabel>Operation</InputLabel>
+                        <Select value={value} label="Operation" onChange={onChange}>
+                            <MenuItem value="Buy">Buy</MenuItem>
+                            <MenuItem value="Sell">Sell</MenuItem>
+                        </Select>
+                    </FormControl>
+                )}
+            />
 
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker disabled={mutation.isLoading}
-                                    renderInput={(props) => <TextField {...props} />}
-                                    label="Expiration"
-                                    value={expirationTime}
-                                    onChange={newValue => setExpirationTime(newValue!)}
-                    />
-                </LocalizationProvider>
+            <Controller
+                name="expirationTime"
+                control={control}
+                rules={{required: "Expiration time is required"}}
+                render={({field: {onChange, value}}) => (
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker disabled={mutation.isLoading}
+                                        renderInput={(props) => <TextField {...props} />}
+                                        label="Expiration"
+                                        value={value}
+                                        onChange={onChange}
+                        />
+                    </LocalizationProvider>
+                )}
+            />
 
-                {mutation.isLoading
-                    ? <CircularProgress/>
-                    : <Button variant="contained" onClick={() => mutation.mutate()}>Submit</Button>
-                }
-                <Toaster/>
-            </div>
+            {mutation.isLoading
+                ? <CircularProgress/>
+                : <Button variant="contained" type="submit">Submit</Button>
+            }
+            <Toaster/>
         </form>
     );
 }

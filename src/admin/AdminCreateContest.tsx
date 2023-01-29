@@ -28,9 +28,9 @@ const useFormStyles = makeStyles(theme => ({
 }));
 
 export type CreateContestInput = {
-    contestNumber: number,
-    startTime: string,
-    contestName: string,
+    contestNumber: number
+    startTime: string
+    contestName: string
 }
 
 const AdminCreateContest = () => {

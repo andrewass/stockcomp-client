@@ -2,8 +2,8 @@ import {User} from "oidc-client-ts";
 
 export const oidcConfig = {
     authority: "http://authserver.io",
-    client_id: "gmotaFetHsbZRjxAwnwekrBEmfdzdc",
-    client_secret: "lgTeMaPEZQleQYhYzRyWJjPjzpfRFE",
+    client_id: "lgTeMaPEZQleQYhYzRyWJjPjzpfRFE",
+    client_secret: "DaFpLSjFbcXoEFfRsWxPLDnJObCsNV",
     redirect_uri: "http://stockcompclient.io/account"
 };
 
