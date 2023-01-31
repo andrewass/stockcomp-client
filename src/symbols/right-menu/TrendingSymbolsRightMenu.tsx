@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../api/symbolsApi";
 import {ActiveContestList} from "./ActiveContestList";
 import {Contest} from "../symbolsTypes";
+import {InvestmentOrdersTotal} from "./InvestmentOrdersTotal";
 
 
 export const TrendingSymbolsRightMenu = () => {
@@ -20,6 +21,7 @@ export const TrendingSymbolsRightMenu = () => {
         return (
             <Box>
                 <ActiveContestList contests={contests}/>
+                <InvestmentOrdersTotal />
             </Box>
         );
     } else {

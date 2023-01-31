@@ -1,5 +1,4 @@
 import {CONTEST_BASE_URL} from "../../config/properties";
-import axios from "axios";
 import {InvestmentOrderRequest} from "../InvestmentOrderForm";
 
 export const GET_ALL_ACTIVE_INVESTMENT_ORDERS = "getActiveInvestmentOrders"
@@ -17,11 +16,11 @@ export const getPostInvestmentOrderConfig = (request: InvestmentOrderRequest) =>
 }
 
 export const getDeleteInvestmentOrderConfig = (orderId: number) => {
-    return axios({
+    return {
         method: "delete",
         url: CONTEST_BASE_URL + "/investmentorder/delete-order",
         params: {orderId}
-    });
+    };
 }
 
 export const getInvestmentOrdersConfig = (contestNumber: number, statusList: string[]) => {
@@ -29,6 +28,14 @@ export const getInvestmentOrdersConfig = (contestNumber: number, statusList: str
         method: "post",
         url: CONTEST_BASE_URL + "/investmentorder/get-by-status",
         data: {contestNumber, statusList}
+    };
+}
+
+export const getAllInvestmentOrdersConfig = (statusList: string[]) => {
+    return {
+        method: "post",
+        url: CONTEST_BASE_URL + "/investmentorder/get-all-by-status",
+        data: {statusList}
     };
 }
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {InvestmentOrder} from "../types/investmentorder";
 import {
     Collapse,
     IconButton,
@@ -10,27 +10,18 @@ import {
     Typography
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
-import {InvestmentOrder} from "../types/investmentorder";
-import {queryClient} from "../config/queryConfig";
-import {deleteInvestmentOrder} from "../api/investmentOrderClient";
-import {useApiWrapper} from "../config/apiWrapper";
-
+import {useState} from "react";
 
 interface Props {
-    activeOrders : InvestmentOrder[]
+    activeOrders: InvestmentOrder[]
+    deleteOrder: (orderId: number) => void
 }
 
-const ActiveOrders = ({activeOrders} : Props) => {
+export const ActiveOrders = ({activeOrders, deleteOrder}: Props) => {
+
     const [open, setOpen] = useState(false);
-    const {apiDelete} = useApiWrapper();
 
-    const deleteOrder = async (orderId : number) => {
-        await deleteInvestmentOrder(orderId);
-        await queryClient.invalidateQueries("getActiveOrdersSymbol");
-        await queryClient.invalidateQueries("getActiveOrdersParticipant");
-    }
-
-    const createListItem = (order : InvestmentOrder) => {
+    const createListItem = (order: InvestmentOrder) => {
         return (
             <ListItem key={order.orderId} sx={{pl: 2}}>
                 <ListItemText primary={order.symbol + " : " + order.transactionType + " status "
@@ -43,7 +34,7 @@ const ActiveOrders = ({activeOrders} : Props) => {
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
-        )
+        );
     }
 
     return (
@@ -59,7 +50,5 @@ const ActiveOrders = ({activeOrders} : Props) => {
                 </List>
             </Collapse>
         </List>
-    )
+    );
 }
-
-export default ActiveOrders

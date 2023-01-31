@@ -6,7 +6,8 @@ import {Box, CircularProgress} from "@mui/material";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import {Participant} from "../../types/participant";
 import InvestmentSymbol from "../../investment/InvestmentSymbol";
-import { InvestmentOrdersSymbol } from "../../investmentorder/InvestmentOrdersSymbol";
+import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
+import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
 
 interface Props {
     stock: Stock
@@ -25,9 +26,10 @@ export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: Props) => {
 
     if (participant) {
         return (
-            <Box display="flex" flexDirection="column"
-                 sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem"}}>
+            <Box display="flex" flexDirection="column" sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem"}}>
                 <InvestmentSymbol participant={participant} symbol={stock.symbol}/>
+                <InvestmentOrderForm symbol={stock.symbol}
+                                     contestNumber={participant.contestNumber} stockQuote={stock.stockQuote}/>
                 <InvestmentOrdersSymbol contestNumber={participant.contestNumber}
                                         stockQuote={stock.stockQuote} symbol={stock.symbol}/>
             </Box>

@@ -1,17 +1,17 @@
-import ActiveOrders from "./ActiveOrders";
-import CompletedOrders from "./CompletedOrders";
-import {InvestmentOrderForm} from "./InvestmentOrderForm";
+import {StockQuote} from "../symbolDetailTypes";
+import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
-import {CircularProgress} from "@mui/material";
-import {StockQuote} from "../symboldetails/symbolDetailTypes";
-import {ORDER_STATUS} from "../util/constants";
-import ErrorComponent from "../components/common/ErrorComponent";
 import {
     GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
     GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
     getInvestmentOrdersSymbolConfig
-} from "./api/investmentOrderApi";
-import {useApiWrapper} from "../config/apiWrapper";
+} from "../../investmentorder/api/investmentOrderApi";
+import {ORDER_STATUS} from "../../util/constants";
+import {Box, CircularProgress} from "@mui/material";
+import ErrorComponent from "../../components/common/ErrorComponent";
+import {ActiveOrdersSymbol} from "./ActiveOrdersSymbol";
+import {CompletedOrdersSymbol} from "./CompletedOrdersSymbol";
+
 
 interface Props {
     contestNumber: number
@@ -37,10 +37,9 @@ export const InvestmentOrdersSymbol = ({contestNumber, symbol, stockQuote}: Prop
         return <ErrorComponent errorMessage={activeError ? activeError as string : completedError as string}/>
 
     return (
-        <div>
-            <InvestmentOrderForm symbol={symbol} contestNumber={contestNumber} stockQuote={stockQuote}/>
-            <ActiveOrders activeOrders={activeOrders}/>
-            <CompletedOrders completedOrders={completedOrders}/>
-        </div>
+        <Box>
+            <ActiveOrdersSymbol activeOrders={activeOrders} symbol={symbol}/>
+            <CompletedOrdersSymbol completedOrders={completedOrders}/>
+        </Box>
     )
 }
