@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {Collapse, List, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import {Investment} from "./investmentTypes";
-import InvestmentDetails from "./InvestmentDetails";
+import InvestmentDetails from "../../investment/InvestmentDetails";
+import {Investment} from "../../investment/investmentTypes";
+
 
 interface Props{
     investments: Investment[]

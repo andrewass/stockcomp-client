@@ -6,6 +6,7 @@ import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../api/symbolsApi";
 import {ActiveContestList} from "./ActiveContestList";
 import {Contest} from "../symbolsTypes";
 import {InvestmentOrdersTotal} from "./InvestmentOrdersTotal";
+import {InvestmentTotal} from "./InvestmentTotal";
 
 
 export const TrendingSymbolsRightMenu = () => {
@@ -21,6 +22,7 @@ export const TrendingSymbolsRightMenu = () => {
         return (
             <Box>
                 <ActiveContestList contests={contests}/>
+                <InvestmentTotal />
                 <InvestmentOrdersTotal />
             </Box>
         );

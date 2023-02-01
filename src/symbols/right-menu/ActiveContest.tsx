@@ -4,14 +4,11 @@ import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
 import {CONTEST_STATUS} from "../../contests/contestTypes";
-import {
-    GET_CONTEST_PARTICIPANT,
-    getContestParticipantConfig,
-    getSignUpParticipantConfig
-} from "../api/symbolsApi";
+import {GET_CONTEST_PARTICIPANT, getContestParticipantConfig, getSignUpParticipantConfig} from "../api/symbolsApi";
 import {useApiWrapper} from "../../config/apiWrapper";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import {Contest} from "../symbolsTypes";
+import {PortfolioStatus} from "./PortfolioStatus";
 
 interface Props {
     contest: Contest
@@ -27,7 +24,7 @@ export const ActiveContest = ({contest}: Props) => {
             return apiPost(getSignUpParticipantConfig(contest.contestNumber))
         },
         onSuccess: () =>
-            queryClient.invalidateQueries(GET_CONTEST_PARTICIPANT+":"+contest.contestNumber),
+            queryClient.invalidateQueries(GET_CONTEST_PARTICIPANT + ":" + contest.contestNumber),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
@@ -37,7 +34,7 @@ export const ActiveContest = ({contest}: Props) => {
     })
 
     const {isLoading, error, data: participant} = useQuery(
-        GET_CONTEST_PARTICIPANT+":"+contest.contestNumber,
+        GET_CONTEST_PARTICIPANT + ":" + contest.contestNumber,
         () => apiGet(getContestParticipantConfig(contest.contestNumber)));
 
     const getContestStatus = () => {
@@ -59,8 +56,13 @@ export const ActiveContest = ({contest}: Props) => {
 
     const getParticipantStatus = () => {
         if (participant && contest.contestStatus === CONTEST_STATUS.RUNNING) {
-            return <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-        } else if(!participant) {
+            return (
+                <Box>
+                    <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
+                    <PortfolioStatus participant={participant} />
+                </Box>
+            )
+        } else if (!participant) {
             return <Button onClick={() => mutation.mutate()}>Sign Up</Button>
         }
     }
