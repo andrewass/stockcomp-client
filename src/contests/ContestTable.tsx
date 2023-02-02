@@ -10,9 +10,8 @@ import {
     useMediaQuery
 } from "@mui/material";
 import {styled, useTheme} from '@mui/material/styles';
+import {Contest} from "../types/contest";
 import {ContestEntry} from "./ContestEntry";
-import {Contest} from "../../types/contest";
-
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -25,8 +24,7 @@ interface Props{
     contests: Contest[]
 }
 
-const ContestTable = ({contests}: Props) => {
-
+export const ContestTable = ({contests}: Props) => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -48,5 +46,3 @@ const ContestTable = ({contests}: Props) => {
         </TableContainer>
     );
 }
-
-export default ContestTable;

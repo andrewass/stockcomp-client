@@ -1,4 +1,3 @@
-import {getSortedParticipants} from "../../api/participantClient";
 import {
     CircularProgress,
     Paper,
@@ -15,6 +14,8 @@ import {styled, useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "react-query";
 import ErrorComponent from "../common/ErrorComponent";
+import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../participant/api/participantApi";
+import {useApiWrapper} from "../../config/apiWrapper";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -24,19 +25,16 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
 }));
 
 export const ContestLeaderboard = ({contestNumber}) => {
-
+    const {apiGet} = useApiWrapper();
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
-    const fetchParticipantRanking = () => {
-        return getSortedParticipants(contestNumber);
-    }
-
-    const {error, isLoading, data} = useQuery("getParticipantRanking", fetchParticipantRanking);
+    const {error, isLoading, data} = useQuery([GET_SORTED_PARTICIPANTS, contestNumber],
+        () => apiGet(getSortedParticipantsConfig(contestNumber)));
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error} />
+    if (error) return <ErrorComponent errorMessage={error}/>
 
     return (
         <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>

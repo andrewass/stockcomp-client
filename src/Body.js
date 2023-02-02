@@ -7,12 +7,12 @@ import Header from "./components/header/Header";
 import Authentication from "./pages/Authentication";
 import UserSettings from "./user/UserSettings";
 import UserDetails from "./pages/UserDetails";
-import ContestDetails from "./pages/ContestDetails";
 import {AdminNavigation} from "./navigation/AdminNavigation";
 import AdminContests from "./admin/AdminContests";
 import AdminCreateContest from "./admin/AdminCreateContest";
 import AdminUpdateContest from "./admin/AdminUpdateContest";
 import SymbolDetails from "./symboldetails/SymbolDetails";
+import {ContestDetails} from "./contestdetails/ContestDetails";
 
 const Body = () => {
 

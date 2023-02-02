@@ -3,22 +3,20 @@ import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/materia
 import {ContestLeaderboard} from "../components/contest/ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
-import {getContest} from "../api/contestClient";
 import {useQuery} from "react-query";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {useApiWrapper} from "../config/apiWrapper";
 import {CONTEST_STATUS} from "../contests/contestTypes";
+import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../contests/api/contestApi";
 
 
-const ContestDetails = () => {
-
-    const {contestNumber} =  useParams<{contestNumber: string}>()
-
-    const fetchContestByContestNumber = () => {
-        return getContest(parseInt(contestNumber!))
-    }
+export const ContestDetails = () => {
+    const {contestNumber} =  useParams<{contestNumber: string}>();
+    const {apiGet} = useApiWrapper();
 
     const {isLoading, data : contest , error} =
-        useQuery("getContestByContestNumber", fetchContestByContestNumber)
+        useQuery([GET_CONTEST_BY_NUMBER, contestNumber],
+            () => apiGet(getContestConfig(Number(contestNumber!))))
 
     if (isLoading) return <CircularProgress/>
 
@@ -63,5 +61,3 @@ const ContestDetails = () => {
         </Box>
     )
 }
-
-export default ContestDetails
