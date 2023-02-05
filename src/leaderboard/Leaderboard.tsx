@@ -1,25 +1,27 @@
-import {getLeaderboardEntry, getSortedLeaderboardEntries} from "../api/leaderboardClient";
 import {CircularProgress} from "@mui/material";
 import {LeaderboardTable} from "../components/leaderboard/LeaderboardTable";
 import {useQuery} from "react-query";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {useApiWrapper} from "../config/apiWrapper";
+import {
+    GET_LEADERBOARD_USER_ENTRY,
+    GET_SORTED_LEADERBOARD_ENTRIES, getLeaderboardEntryUserConfig,
+    getSortedLeaderboardEntriesConfig
+} from "./api/leaderboardApi";
 
 
-const Leaderboard = () => {
+export const Leaderboard = () => {
 
-    const fetchUserLeaderboardEntry = () => {
-        return getLeaderboardEntry()
-    }
-
-    const fetchSortedLeaderboardEntries = () => {
-        return getSortedLeaderboardEntries()
-    }
+    const {apiGet} = useApiWrapper();
 
     const {isLoading: entriesLoading, error: entriesError, data: leaderboardEntries} =
-        useQuery("getSortedLeaderboardEntries", fetchSortedLeaderboardEntries)
+        useQuery(GET_SORTED_LEADERBOARD_ENTRIES,
+            () => apiGet(getSortedLeaderboardEntriesConfig()));
 
     const {isLoading: userEntryLoading, error: userEntryError, data: userEntryData} =
-        useQuery("getUserLeaderboardEntry", fetchUserLeaderboardEntry)
+        useQuery(GET_LEADERBOARD_USER_ENTRY,
+            () => apiGet(getLeaderboardEntryUserConfig()));
+
 
     if (entriesLoading || userEntryLoading) return <CircularProgress/>
 
@@ -30,7 +32,5 @@ const Leaderboard = () => {
         <>
             <LeaderboardTable leaderboardEntries={leaderboardEntries}/>
         </>
-    )
+    );
 }
-
-export default Leaderboard
