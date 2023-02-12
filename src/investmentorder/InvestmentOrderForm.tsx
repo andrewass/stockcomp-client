@@ -59,7 +59,7 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
 
 
     const submitForm: SubmitHandler<InvestmentOrderRequest> = data => {
-        mutation.mutate(data)
+        mutation.mutate(data);
     }
 
     return (
@@ -122,7 +122,6 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
                     </LocalizationProvider>
                 )}
             />
-
             {mutation.isLoading
                 ? <CircularProgress/>
                 : <Button variant="contained" type="submit">Submit</Button>

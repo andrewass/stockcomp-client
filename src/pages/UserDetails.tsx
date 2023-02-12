@@ -1,34 +1,29 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import {getParticipantHistory} from "../api/contestClient";
-import {getLeaderboardEntry} from "../api/leaderboardClient";
 import ParticipantHistory from "../components/participant/ParticipantHistory";
 import {useQuery} from "react-query";
 import ErrorComponent from "../components/common/ErrorComponent";
+import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
+import {useApiWrapper} from "../config/apiWrapper";
+import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "../participant/api/participantApi";
 
 
 const UserDetails = () => {
-
-    const {username} = useParams<{username: string}>()
-
-    const fetchParticipantHistory = () => {
-        return getParticipantHistory(username!)
-    }
-
-    const fetchLeaderboardEntry = () => {
-        return getLeaderboardEntry(username)
-    }
+    const {username} = useParams<{ username: string }>()
+    const {apiGet} = useApiWrapper();
 
     const {isLoading: historyLoading, error: historyError, data: historyData} =
-        useQuery(["participantHistory", username], fetchParticipantHistory)
+        useQuery(GET_PARTICIPANT_HISTORY,
+            () => apiGet(getParticipantHistoryConfig()));
 
     const {isLoading: entryLoading, error: entryError, data: entryData} =
-        useQuery(["leaderboardEntry", username], fetchLeaderboardEntry)
+        useQuery(GET_LEADERBOARD_USER_ENTRY,
+            () => apiGet(getLeaderboardEntryUserConfig()));
 
     if (historyLoading || entryLoading) return <CircularProgress/>
 
     if (historyError || entryError)
-        return <ErrorComponent errorMessage={historyError ? historyError as string : entryError as string} />
+        return <ErrorComponent errorMessage={historyError ? historyError as string : entryError as string}/>
 
     return (
         <Box>

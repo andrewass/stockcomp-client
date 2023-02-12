@@ -42,13 +42,13 @@ const AdminCreateContest = () => {
 
     const mutation = useMutation({
         mutationFn: (contestData: CreateContestInput) => {
-            return apiPost(getCreateContestConfig(contestData))
+            return apiPost(getCreateContestConfig(contestData));
         },
         onSuccess: () => navigate("/admin/contests")
-    })
+    });
 
     const submitForm: SubmitHandler<CreateContestInput> = data => {
-        mutation.mutate(data)
+        mutation.mutate(data);
     }
 
     return (

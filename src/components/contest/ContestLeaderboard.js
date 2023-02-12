@@ -48,7 +48,7 @@ export const ContestLeaderboard = ({contestNumber}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.username}/>)}
+                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.email}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

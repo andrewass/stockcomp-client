@@ -2,17 +2,19 @@ import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recha
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
 import {HistoricalQuote} from "../symbolDetailTypes";
+import {useApiWrapper} from "../../config/apiWrapper";
+import {GET_HISTORIC_PRICES, getHistoricPricesConfig} from "../api/symbolDetailsApi";
 
 interface Props{
     symbol: string
 }
 
 export const PriceChart = ({symbol}: Props) => {
-
-    /*
+    const {apiGet} = useApiWrapper();
 
     const {isLoading, isFetching, error, data} = useQuery<HistoricalQuote[]>(
-        ["getHistoricPrices",symbol], () => console.log("test"));
+        [GET_HISTORIC_PRICES,symbol],
+        () => apiGet(getHistoricPricesConfig(symbol)));
 
     if (isLoading || isFetching) return <CircularProgress/>
 
@@ -29,10 +31,5 @@ export const PriceChart = ({symbol}: Props) => {
                 </AreaChart>
             </ResponsiveContainer>
         </Box>
-    );
-     */
-
-    return(
-        <p>placeholder</p>
     );
 }
