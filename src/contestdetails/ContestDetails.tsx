@@ -1,6 +1,5 @@
 import {useParams} from "react-router-dom";
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {ContestLeaderboard} from "../components/contest/ContestLeaderboard";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
 import {useQuery} from "react-query";
@@ -8,6 +7,7 @@ import ErrorComponent from "../components/common/ErrorComponent";
 import {useApiWrapper} from "../config/apiWrapper";
 import {CONTEST_STATUS} from "../contests/contestTypes";
 import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../contests/api/contestApi";
+import { ContestLeaderboard } from "./ContestLeaderboard";
 
 
 export const ContestDetails = () => {
