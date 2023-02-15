@@ -6,9 +6,9 @@ import CircleIcon from "@mui/icons-material/Circle";
 import {CONTEST_STATUS} from "../../contests/contestTypes";
 import {GET_CONTEST_PARTICIPANT, getContestParticipantConfig, getSignUpParticipantConfig} from "../api/symbolsApi";
 import {useApiWrapper} from "../../config/apiWrapper";
-import ErrorComponent from "../../components/common/ErrorComponent";
 import {Contest} from "../symbolsTypes";
 import {PortfolioStatus} from "./PortfolioStatus";
+import ErrorComponent from "../../error/ErrorComponent";
 
 interface Props {
     contest: Contest

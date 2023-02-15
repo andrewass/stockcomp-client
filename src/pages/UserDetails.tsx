@@ -1,11 +1,11 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import ParticipantHistory from "../components/participant/ParticipantHistory";
 import {useQuery} from "react-query";
-import ErrorComponent from "../components/common/ErrorComponent";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "../participant/api/participantApi";
+import ErrorComponent from "../error/ErrorComponent";
+import {ParticipantHistory} from "../participant/ParticipantHistory";
 
 
 const UserDetails = () => {

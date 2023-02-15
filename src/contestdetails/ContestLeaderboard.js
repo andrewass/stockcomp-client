@@ -13,9 +13,10 @@ import {
 import {styled, useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "react-query";
-import ErrorComponent from "../common/ErrorComponent";
-import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../participant/api/participantApi";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../config/apiWrapper";
+import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../participant/api/participantApi";
+import ErrorComponent from "../error/ErrorComponent";
+
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {

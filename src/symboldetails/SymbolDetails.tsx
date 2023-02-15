@@ -1,14 +1,14 @@
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
-import SearchField from "../components/search/SearchField";
 import {useTheme} from "@mui/material/styles";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
-import ErrorComponent from "../components/common/ErrorComponent";
 import DetailBlock from "./details/DetailBlock";
 import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
 import {GET_STOCK_SYMBOL_INFORMATION, getStockSymbolInformationConfig} from "./api/symbolDetailsApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {Stock} from "./symbolDetailTypes";
+import SearchField from "../search/SearchField";
+import ErrorComponent from "../error/ErrorComponent";
 
 
 const SymbolDetails = () => {

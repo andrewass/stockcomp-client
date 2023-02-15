@@ -2,16 +2,16 @@ import {Route, Routes} from "react-router-dom";
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
-import Header from "./components/header/Header";
 import UserSettings from "./user/UserSettings";
 import UserDetails from "./pages/UserDetails";
-import {AdminNavigation} from "./navigation/AdminNavigation";
 import AdminContests from "./admin/AdminContests";
 import AdminCreateContest from "./admin/AdminCreateContest";
 import AdminUpdateContest from "./admin/AdminUpdateContest";
 import SymbolDetails from "./symboldetails/SymbolDetails";
 import {ContestDetails} from "./contestdetails/ContestDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
+import {Header} from "./navigation/general/Header";
+import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 
 const Body = () => {
 

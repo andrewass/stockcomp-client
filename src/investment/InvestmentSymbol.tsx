@@ -2,9 +2,9 @@ import InvestmentDetails from "./InvestmentDetails";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 import {Participant} from "../types/participant";
-import ErrorComponent from "../components/common/ErrorComponent";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_INVESTMENT_FOR_SYMBOL, getInvestmentConfig} from "./api/investmentApi";
+import ErrorComponent from "../error/ErrorComponent";
 
 
 interface Props {

@@ -8,9 +8,9 @@ import {
 } from "../../investmentorder/api/investmentOrderApi";
 import {ORDER_STATUS} from "../../util/constants";
 import {Box, CircularProgress} from "@mui/material";
-import ErrorComponent from "../../components/common/ErrorComponent";
 import {ActiveOrdersSymbol} from "./ActiveOrdersSymbol";
 import {CompletedOrdersSymbol} from "./CompletedOrdersSymbol";
+import ErrorComponent from "../../error/ErrorComponent";
 
 
 interface Props {

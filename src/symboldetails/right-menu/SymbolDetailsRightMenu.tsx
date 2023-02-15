@@ -3,11 +3,11 @@ import {useApiWrapper} from "../../config/apiWrapper";
 import {Stock} from "../symbolDetailTypes";
 import {GET_ACTIVE_PARTICIPANT, getActiveParticipantConfig} from "../api/symbolDetailsApi";
 import {Box, CircularProgress} from "@mui/material";
-import ErrorComponent from "../../components/common/ErrorComponent";
 import {Participant} from "../../types/participant";
 import InvestmentSymbol from "../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
 import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
+import ErrorComponent from "../../error/ErrorComponent";
 
 interface Props {
     stock: Stock

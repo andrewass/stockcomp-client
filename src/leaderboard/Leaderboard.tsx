@@ -1,13 +1,13 @@
 import {CircularProgress} from "@mui/material";
-import {LeaderboardTable} from "../components/leaderboard/LeaderboardTable";
 import {useQuery} from "react-query";
-import ErrorComponent from "../components/common/ErrorComponent";
 import {useApiWrapper} from "../config/apiWrapper";
+import ErrorComponent from "../error/ErrorComponent";
 import {
     GET_LEADERBOARD_USER_ENTRY,
     GET_SORTED_LEADERBOARD_ENTRIES, getLeaderboardEntryUserConfig,
     getSortedLeaderboardEntriesConfig
 } from "./api/leaderboardApi";
+import { LeaderboardTable } from "./LeaderboardTable";
 
 
 export const Leaderboard = () => {

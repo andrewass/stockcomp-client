@@ -6,9 +6,9 @@ import {
 } from "../../investmentorder/api/investmentOrderApi";
 import {ORDER_STATUS} from "../../util/constants";
 import {CircularProgress} from "@mui/material";
-import ErrorComponent from "../../components/common/ErrorComponent";
 import {ActiveOrdersTotal} from "./ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "./CompletedOrdersTotal";
+import ErrorComponent from "../../error/ErrorComponent";
 
 
 export const InvestmentOrdersTotal = () => {
