@@ -1,6 +1,6 @@
 
 export interface Participant{
-    username: string
+    displayName: string
     rank: number
     totalValue: number
     totalInvestmentValue: number

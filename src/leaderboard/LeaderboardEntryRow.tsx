@@ -10,11 +10,11 @@ interface Props{
 const LeaderboardEntryRow = ({entry} : Props) => {
 
     return (
-        <TableRow key={entry.username}>
+        <TableRow key={entry.displayName}>
             <TableCell>{entry.ranking}</TableCell>
             <TableCell>
-                <NavLink to={`/user/${entry.username}`}>
-                    {entry.username}
+                <NavLink to={`/user/${entry.displayName}`}>
+                    {entry.displayName}
                 </NavLink>
             </TableCell>
             <TableCell>

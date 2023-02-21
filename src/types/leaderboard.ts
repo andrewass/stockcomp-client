@@ -1,7 +1,7 @@
 
 export interface LeaderboardEntry {
     country: string
-    username: string
+    displayName: string
     ranking: number
     score: number
 }

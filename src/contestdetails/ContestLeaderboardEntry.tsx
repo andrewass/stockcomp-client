@@ -8,13 +8,12 @@ interface Props{
 }
 
 export const ContestLeaderboardEntry = ({entry} : Props) => {
-
     return (
-        <TableRow key={entry.username} sx={{height: "4rem"}}>
+        <TableRow key={entry.displayName} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
             <TableCell>
-                <Link to={`/user/${entry.username}`}>
-                    {entry.username}
+                <Link to={`/user/${entry.displayName}`}>
+                    {entry.displayName}
                 </Link>
             </TableCell>
             <TableCell>

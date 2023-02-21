@@ -43,7 +43,7 @@ export const LeaderboardTable = ({leaderboardEntries} : Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map(entry => <LeaderboardEntryRow entry={entry} key={entry.username}/>)}
+                    {leaderboardEntries.map(entry => <LeaderboardEntryRow entry={entry} key={entry.displayName}/>)}
                 </TableBody>
             </Table>
         </TableContainer>

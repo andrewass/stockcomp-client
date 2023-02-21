@@ -2,8 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
-import UserSettings from "./user/UserSettings";
-import UserDetails from "./pages/UserDetails";
+import UserDetails from "./user/UserDetails";
 import AdminContests from "./admin/AdminContests";
 import AdminCreateContest from "./admin/AdminCreateContest";
 import AdminUpdateContest from "./admin/AdminUpdateContest";
@@ -63,7 +62,7 @@ const Body = () => {
                     element={
                         <ProtectedRoute>
                             <Header/>
-                            <UserSettings/>
+                            <UserDetails/>
                         </ProtectedRoute>
                     }
                 />

@@ -49,7 +49,7 @@ export const ContestLeaderboard = ({contestNumber}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.email}/>)}
+                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.displayName}/>)}
                 </TableBody>
             </Table>
         </TableContainer>
