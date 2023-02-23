@@ -3,7 +3,6 @@ import SymbolCard from "./SymbolCard";
 import {useQuery} from "react-query";
 import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
-import {FETCH_QUOTE_INTERVAL} from "../../util/constants";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {GET_TRENDING_SYMBOLS, getTrendingSymbolsConfig} from "../api/symbolsApi";
 import {Stock} from "../symbolsTypes";
@@ -15,6 +14,8 @@ const TrendingSymbols = () => {
     const theme = useTheme()
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
     const {apiGet} = useApiWrapper()
+
+    const FETCH_QUOTE_INTERVAL = 5000
 
     const {isLoading, error, data: symbols} = useQuery<Stock[]>(GET_TRENDING_SYMBOLS,
         () => apiGet(getTrendingSymbolsConfig()),

@@ -12,3 +12,11 @@ export const contestStatusMap = new Map<string, string>([
     [CONTEST_STATUS.STOPPED, "Stopped"],
     [CONTEST_STATUS.COMPLETED, "Completed"]
 ])
+
+export type Contest = {
+    contestNumber: number
+    startTime: Date
+    endTime: Date
+    participantCount: number
+    contestStatus: string
+}

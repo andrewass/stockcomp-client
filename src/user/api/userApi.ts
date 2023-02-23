@@ -12,7 +12,7 @@ export const getUserDetailsConfig = () => {
 
 export const updateUserDataConfig = (userData: UpdateUserInput) => {
     return {
-        method: "post",
+        method: "put",
         url: CONTEST_BASE_URL + "/user/update-details",
         data: userData
     }

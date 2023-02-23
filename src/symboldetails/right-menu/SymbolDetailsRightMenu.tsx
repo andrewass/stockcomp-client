@@ -6,8 +6,8 @@ import {Box, CircularProgress} from "@mui/material";
 import {Participant} from "../../types/participant";
 import InvestmentSymbol from "../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
-import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
 import ErrorComponent from "../../error/ErrorComponent";
+import {InvestmentOrdersSymbol} from "../../investmentorder/symbol/InvestmentOrdersSymbol";
 
 interface Props {
     stock: Stock

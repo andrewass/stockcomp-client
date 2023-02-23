@@ -1,10 +1,11 @@
 import {useState} from "react";
 import {Autocomplete, Box, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {getSuggestionsFromQuery} from "../api/symbolClient";
+import {useApiWrapper} from "../config/apiWrapper";
+import {getSuggestionsFromQueryConfig} from "./api/searchApi";
 
 const SearchField = () => {
-
+    const {apiGet} = useApiWrapper();
     const navigate = useNavigate();
     const [suggestionList, setSuggestionList] = useState([]);
 
@@ -12,7 +13,7 @@ const SearchField = () => {
         if (query === "") {
             setSuggestionList([]);
         } else {
-            const suggestions = await getSuggestionsFromQuery(query);
+            const suggestions = await apiGet(getSuggestionsFromQueryConfig(query))
             setSuggestionList(suggestions);
         }
     };

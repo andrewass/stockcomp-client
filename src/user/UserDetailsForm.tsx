@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import {UserData} from "./userDetailTypes";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/apiWrapper";
-import {updateUserDataConfig} from "./api/userApi";
+import {GET_USER_DETAILS, updateUserDataConfig} from "./api/userApi";
 import {makeStyles} from "@mui/styles";
 
 
@@ -64,7 +64,7 @@ export const UserDetailsForm = ({userData}: Props) => {
         mutationFn: (userData: UpdateUserInput) => {
             return apiPost(updateUserDataConfig(userData))
         },
-        onSuccess: () => queryClient.invalidateQueries("getUserDetails"),
+        onSuccess: () => queryClient.invalidateQueries(GET_USER_DETAILS),
         onError: () => {
             toast.error("Unable to update user details", {
                 duration: 4000,

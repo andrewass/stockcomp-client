@@ -1,0 +1,7 @@
+
+export const ORDER_STATUS = {
+    ACTIVE: "ACTIVE",
+    COMPLETED: "COMPLETED",
+    FAILED: "FAILED",
+    TERMINATED: "TERMINATED"
+}
