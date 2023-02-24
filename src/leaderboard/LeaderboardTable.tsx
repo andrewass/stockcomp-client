@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import {styled, useTheme} from '@mui/material/styles';
 import LeaderboardEntryRow from "./LeaderboardEntryRow";
-import {LeaderboardEntry} from "../types/leaderboard";
+import {LeaderboardEntry} from "./leaderboardTypes";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({

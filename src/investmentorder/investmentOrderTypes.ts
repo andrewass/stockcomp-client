@@ -5,3 +5,26 @@ export const ORDER_STATUS = {
     FAILED: "FAILED",
     TERMINATED: "TERMINATED"
 }
+
+const TRANSACTION_TYPE = {
+    SELL: "SELL",
+    BUY: "BUY"
+}
+
+
+export const codeMapTransaction = new Map<string, string>([
+    ["Buy", TRANSACTION_TYPE.BUY],
+    ["Sell", TRANSACTION_TYPE.SELL]
+]);
+
+
+export type InvestmentOrder = {
+    acceptedPrice: number
+    remainingAmount: number
+    totalAmount: number
+    orderId: number
+    symbol: string
+    transactionType: string
+    currency: string
+    expirationTime: number
+}

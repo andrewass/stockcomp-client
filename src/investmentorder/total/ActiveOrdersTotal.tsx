@@ -1,6 +1,5 @@
 import React from "react";
 import {useMutation} from "react-query";
-import {InvestmentOrder} from "../../types/investmentorder";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS, GET_ALL_COMPLETED_INVESTMENT_ORDERS,
@@ -9,6 +8,7 @@ import {
 import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import {ActiveOrders} from "../ActiveOrders";
+import {InvestmentOrder} from "../investmentOrderTypes";
 
 
 interface Props {

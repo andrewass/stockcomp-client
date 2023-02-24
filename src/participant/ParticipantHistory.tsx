@@ -1,6 +1,6 @@
 import {Box, Typography} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {Participant} from "../types/participant";
+import {Participant} from "./participantTypes";
 
 interface Props{
     historyList: Participant[]

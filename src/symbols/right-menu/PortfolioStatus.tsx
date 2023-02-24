@@ -1,5 +1,5 @@
 import {Card, CardContent, Divider, Typography} from "@mui/material";
-import {Participant} from "../../types/participant";
+import {Participant} from "../../participant/participantTypes";
 
 interface Props{
     participant: Participant

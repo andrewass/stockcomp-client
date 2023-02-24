@@ -1,5 +1,5 @@
-import {InvestmentOrder} from "../../types/investmentorder";
 import {CompletedOrders} from "../CompletedOrders";
+import {InvestmentOrder} from "../investmentOrderTypes";
 
 interface Props {
     completedOrders: InvestmentOrder[]

@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
-import {LeaderboardEntry} from "../types/leaderboard";
+import {LeaderboardEntry} from "./leaderboardTypes";
 
 interface Props{
     entry : LeaderboardEntry

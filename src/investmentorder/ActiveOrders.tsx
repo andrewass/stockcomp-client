@@ -1,4 +1,3 @@
-import {InvestmentOrder} from "../types/investmentorder";
 import {
     Collapse,
     IconButton,
@@ -11,6 +10,7 @@ import {
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 import {useState} from "react";
+import {InvestmentOrder} from "./investmentOrderTypes";
 
 interface Props {
     activeOrders: InvestmentOrder[]

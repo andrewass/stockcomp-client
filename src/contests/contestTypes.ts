@@ -15,8 +15,9 @@ export const contestStatusMap = new Map<string, string>([
 
 export type Contest = {
     contestNumber: number
-    startTime: Date
+    startTime: string
     endTime: Date
     participantCount: number
     contestStatus: string
+    leaderboardUpdateStatus: string
 }

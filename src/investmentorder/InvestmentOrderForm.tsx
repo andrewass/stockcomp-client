@@ -14,7 +14,7 @@ import {
     GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
     getPostInvestmentOrderConfig
 } from "./api/investmentOrderApi";
-import {codeMapTransaction} from "../util/constants";
+import {codeMapTransaction} from "./investmentOrderTypes";
 
 interface Props {
     symbol: string

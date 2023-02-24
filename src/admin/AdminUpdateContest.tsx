@@ -1,7 +1,6 @@
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
 import {queryClient} from "../config/queryConfig";
-import {Contest} from "../types/contest";
 import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getUpdateContestConfig} from "./api/adminApi";
@@ -10,7 +9,7 @@ import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/materia
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
-import {contestStatusMap} from "../contests/contestTypes";
+import {Contest, contestStatusMap} from "../contests/contestTypes";
 
 
 const useFormStyles = makeStyles(theme => ({

@@ -1,12 +1,11 @@
 import {Box} from "@mui/material";
-import {CONTEST_STATUS} from "../../contests/contestTypes";
+import {Contest, CONTEST_STATUS} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
-import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../api/symbolsApi";
-import {ActiveContestList} from "./ActiveContestList";
 import {InvestmentTotal} from "./InvestmentTotal";
 import {InvestmentOrdersTotal} from "../../investmentorder/total/InvestmentOrdersTotal";
-import {Contest} from "../../types/contest";
+import { ActiveContestList } from "../../contests/ActiveContestList";
+import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../../contests/api/contestApi";
 
 
 export const TrendingSymbolsRightMenu = () => {

@@ -5,10 +5,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from "@mui/material";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
-import {Contest} from "../types/contest";
 import {getDeleteContestConfig} from "./api/adminApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
+import {Contest} from "../contests/contestTypes";
 
 interface Props {
     contest: Contest

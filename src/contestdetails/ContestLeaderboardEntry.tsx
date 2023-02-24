@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {Link} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
-import {Participant} from "../types/participant";
+import {Participant} from "../participant/participantTypes";
 
 interface Props{
     entry : Participant

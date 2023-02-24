@@ -3,9 +3,9 @@ import {Box, CircularProgress} from "@mui/material";
 import AdminContestTable from "./AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {Contest} from "../types/contest";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getContestsAdminConfig} from "./api/adminApi";
+import {Contest} from "../contests/contestTypes";
 
 
 const AdminContests = () => {

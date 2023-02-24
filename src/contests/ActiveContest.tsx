@@ -1,14 +1,18 @@
 import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText, Typography} from "@mui/material";
 import {useMutation, useQuery} from "react-query";
-import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
-import {CONTEST_STATUS} from "../../contests/contestTypes";
-import {GET_CONTEST_PARTICIPANT, getContestParticipantConfig, getSignUpParticipantConfig} from "../api/symbolsApi";
-import {useApiWrapper} from "../../config/apiWrapper";
-import {Contest} from "../symbolsTypes";
-import {PortfolioStatus} from "./PortfolioStatus";
-import ErrorComponent from "../../error/ErrorComponent";
+import {Contest, CONTEST_STATUS} from "./contestTypes";
+import {useApiWrapper} from "../config/apiWrapper";
+import {queryClient} from "../config/queryConfig";
+import {
+    GET_CONTEST_PARTICIPANT,
+    getContestParticipantConfig,
+    getSignUpParticipantConfig
+} from "../participant/api/participantApi";
+import {PortfolioStatus} from "../symbols/right-menu/PortfolioStatus";
+import ErrorComponent from "../error/ErrorComponent";
+
 
 interface Props {
     contest: Contest
