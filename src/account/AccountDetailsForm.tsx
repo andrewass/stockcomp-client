@@ -3,11 +3,11 @@ import {useState} from "react";
 import {useMutation} from "react-query";
 import {queryClient} from "../config/queryConfig";
 import toast from "react-hot-toast";
-import {UserData} from "./userDetailTypes";
+import {AccountData} from "./accountDetailTypes";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/apiWrapper";
-import {GET_USER_DETAILS, updateUserDataConfig} from "./api/userApi";
 import {makeStyles} from "@mui/styles";
+import {GET_ACCOUNT_DETAILS, updateAccountDataConfig} from "./api/accountApi";
 
 
 const style = {
@@ -41,19 +41,19 @@ const useFormStyles = makeStyles(theme => ({
 }));
 
 type Props = {
-    userData: UserData
+    accountData: AccountData
 }
 
-export type UpdateUserInput = {
+export type UpdateAccountInput = {
     username: number
     fullName: string
     country: string
 }
 
 
-export const UserDetailsForm = ({userData}: Props) => {
+export const AccountDetailsForm = ({accountData}: Props) => {
     const {root} = useFormStyles();
-    const {handleSubmit, control} = useForm<UpdateUserInput>();
+    const {handleSubmit, control} = useForm<UpdateAccountInput>();
     const {apiPost} = useApiWrapper();
     const [open, setOpen] = useState(false);
 
@@ -61,19 +61,19 @@ export const UserDetailsForm = ({userData}: Props) => {
     const handleClose = () => setOpen(false);
 
     const mutation = useMutation({
-        mutationFn: (userData: UpdateUserInput) => {
-            return apiPost(updateUserDataConfig(userData))
+        mutationFn: (accountData: UpdateAccountInput) => {
+            return apiPost(updateAccountDataConfig(accountData))
         },
-        onSuccess: () => queryClient.invalidateQueries(GET_USER_DETAILS),
+        onSuccess: () => queryClient.invalidateQueries(GET_ACCOUNT_DETAILS),
         onError: () => {
-            toast.error("Unable to update user details", {
+            toast.error("Unable to update account details", {
                 duration: 4000,
                 position: "top-center"
             });
         }
     })
 
-    const submitForm: SubmitHandler<UpdateUserInput> = data => {
+    const submitForm: SubmitHandler<UpdateAccountInput> = data => {
         mutation.mutate(data);
     }
 

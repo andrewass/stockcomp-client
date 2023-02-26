@@ -1,20 +1,18 @@
-import {Avatar, Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
+import {Avatar, Box, Card, CardActions, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 import {useApiWrapper} from "../config/apiWrapper";
-import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
 import {deepPurple} from "@mui/material/colors";
-import {UserData} from "./userDetailTypes";
+import {AccountDetailsForm} from "./AccountDetailsForm";
+import {AccountData} from "./accountDetailTypes";
 import ErrorComponent from "../error/ErrorComponent";
-import {useParams} from "react-router-dom";
+import {GET_ACCOUNT_DETAILS, getAccountDetailsConfig} from "./api/accountApi";
 
 
-const UserDetails = () => {
+const AccountDetails = () => {
     const {apiGet} = useApiWrapper();
-    const params = useParams();
 
-    const {isLoading, isFetching, error, data: userData} = useQuery<UserData>(
-        [GET_USER_DETAILS, params.username],
-        () => apiGet(getUserDetailsConfig(params.username)));
+    const {isLoading, isFetching, error, data: accountData} = useQuery<AccountData>(GET_ACCOUNT_DETAILS,
+        () => apiGet(getAccountDetailsConfig()));
 
     if (isLoading || isFetching) return <CircularProgress/>
 
@@ -28,15 +26,18 @@ const UserDetails = () => {
                         width: 56, height: 56, bgcolor: deepPurple[500]
                     }}>OP</Avatar>
                     <Typography>
-                        Username: {userData!.username}
+                        Username: {accountData!.username}
                     </Typography>
                     <Typography>
-                        {userData!.username}
+                        {accountData!.username}
                     </Typography>
                 </CardContent>
+                <CardActions>
+                    <AccountDetailsForm accountData={accountData!}/>
+                </CardActions>
             </Card>
         </Box>
     );
 }
 
-export default UserDetails;
+export default AccountDetails;

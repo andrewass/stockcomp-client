@@ -22,6 +22,10 @@ export const Header = () => {
         await auth.removeUser();
     };
 
+    const handleChange = (event, newValue) => {
+        setValue(newValue)
+    }
+
     const renderWideNavBar = () => {
         return (
             <AppBar position="static">
@@ -37,9 +41,6 @@ export const Header = () => {
         )
     }
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue)
-    }
 
     return (
         <ThemeProvider theme={localTheme}>
