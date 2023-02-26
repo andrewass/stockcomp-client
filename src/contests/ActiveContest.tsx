@@ -10,8 +10,8 @@ import {
     getContestParticipantConfig,
     getSignUpParticipantConfig
 } from "../participant/api/participantApi";
-import {PortfolioStatus} from "../symbols/right-menu/PortfolioStatus";
 import ErrorComponent from "../error/ErrorComponent";
+import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 
 
 interface Props {
@@ -63,7 +63,7 @@ export const ActiveContest = ({contest}: Props) => {
             return (
                 <Box>
                     <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-                    <PortfolioStatus participant={participant} />
+                    <ParticipantPortfolioStatus participant={participant} />
                 </Box>
             )
         } else if (!participant) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import {BrowserRouter as Router} from "react-router-dom";
 import Body from "./Body";
 import {ThemeProvider} from "@mui/material";
 import {myTheme} from "./config/myTheme";
@@ -12,17 +11,16 @@ import {oidcConfig, onSignInCallback} from "./config/oidcConfig";
 
 const App = () => {
     return (
-        <Router>
-            <AuthProvider {...oidcConfig} onSigninCallback={onSignInCallback}>
-                <ThemeProvider theme={myTheme}>
-                    <QueryClientProvider client={queryClient}>
-                            <Body/>
-                            <ReactQueryDevtools initialIsOpen={false}/>
-                    </QueryClientProvider>
-                </ThemeProvider>
-            </AuthProvider>
-        </Router>
+        <AuthProvider {...oidcConfig} onSigninCallback={onSignInCallback}>
+            <ThemeProvider theme={myTheme}>
+                <QueryClientProvider client={queryClient}>
+                    <Body/>
+                    <ReactQueryDevtools initialIsOpen={false}/>
+                </QueryClientProvider>
+            </ThemeProvider>
+        </AuthProvider>
     );
+
 };
 
 export default App;

@@ -1,13 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    CircularProgress,
-    Typography
-} from "@mui/material";
+import {Avatar, Box, Card, CardActions, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
@@ -15,14 +6,15 @@ import {deepPurple} from "@mui/material/colors";
 import {UserDetailsForm} from "./UserDetailsForm";
 import {UserData} from "./userDetailTypes";
 import ErrorComponent from "../error/ErrorComponent";
+import {useParams} from "react-router-dom";
 
 
 const UserDetails = () => {
-
-    const {apiGet} = useApiWrapper()
+    const {apiGet} = useApiWrapper();
+    const params = useParams();
 
     const {isLoading, isFetching, error, data: userData} = useQuery<UserData>(GET_USER_DETAILS,
-        () => apiGet(getUserDetailsConfig()));
+        () => apiGet(params.username ? getUserDetailsConfig(params.username) : getUserDetailsConfig()));
 
     if (isLoading || isFetching) return <CircularProgress/>
 
@@ -31,10 +23,6 @@ const UserDetails = () => {
     return (
         <Box sx={{width: "400px", m: "0 auto", mt: "80px"}}>
             <Card>
-                <CardMedia
-                    sx={{height: "140px"}}
-                    title="user profile background"
-                />
                 <CardContent>
                     <Avatar sx={{
                         width: 56, height: 56, bgcolor: deepPurple[500]

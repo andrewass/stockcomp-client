@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getContestsAdminConfig} from "./api/adminApi";
 import {Contest} from "../contests/contestTypes";
+import ErrorComponent from "../error/ErrorComponent";
 
 
 const AdminContests = () => {
@@ -17,7 +18,7 @@ const AdminContests = () => {
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error) return <ErrorComponent errorMessage={error as string}/>;
 
     return (
         <Box display="flex" flexDirection="column">

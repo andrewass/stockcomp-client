@@ -1,11 +1,11 @@
 import {Card, CardContent, Divider, Typography} from "@mui/material";
-import {Participant} from "../../participant/participantTypes";
+import { Participant } from "./participantTypes";
 
 interface Props{
     participant: Participant
 }
 
-export const PortfolioStatus = ({participant}: Props) => {
+export const ParticipantPortfolioStatus = ({participant}: Props) => {
 
     const {remainingFunds, totalValue, totalInvestmentValue} = participant
 
