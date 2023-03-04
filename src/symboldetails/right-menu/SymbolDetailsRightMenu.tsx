@@ -26,7 +26,8 @@ export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: Props) => {
 
     if (participant) {
         return (
-            <Box display="flex" flexDirection="column" sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem"}}>
+            <Box display="flex" flexDirection="column"
+                 sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem", mr: "2rem"}}>
                 <InvestmentSymbol participant={participant} symbol={stock.symbol}/>
                 <InvestmentOrderForm symbol={stock.symbol}
                                      contestNumber={participant.contestNumber} stockQuote={stock.stockQuote}/>

@@ -3,26 +3,27 @@ import {Autocomplete, Box, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getSuggestionsFromQueryConfig} from "./api/searchApi";
+import {SymbolSuggestion} from "./searchTypes";
 
 const SearchField = () => {
     const {apiGet} = useApiWrapper();
     const navigate = useNavigate();
-    const [suggestionList, setSuggestionList] = useState([]);
+    const [suggestionList, setSuggestionList] = useState<SymbolSuggestion[]>([]);
 
-    const getSuggestions = async (query) => {
+    const getSuggestions = async (query: string) => {
         if (query === "") {
             setSuggestionList([]);
         } else {
-            const suggestions = await apiGet(getSuggestionsFromQueryConfig(query))
+            const suggestions = await apiGet(getSuggestionsFromQueryConfig(query));
             setSuggestionList(suggestions);
         }
-    };
+    }
 
-    const redirectToSymbolDetail = symbol => {
+    const redirectToSymbolDetail = (symbol: any) => {
         navigate(`/symbol/${symbol.symbol}`);
     }
 
-    const buildOptionLabel = option => {
+    const buildOptionLabel = (option: any) => {
         return option ? option.symbol + " " + option.description : "";
     }
 
@@ -31,7 +32,7 @@ const SearchField = () => {
             <Autocomplete
                 freeSolo
                 options={suggestionList}
-                getOptionLabel={option => buildOptionLabel(option)}
+                getOptionLabel={(option) => buildOptionLabel(option)}
                 onChange={(event, value) => redirectToSymbolDetail(value)}
                 onInputChange={(event, value) => getSuggestions(value)}
                 renderInput={params => <TextField {...params} label="Search symbols"/>}

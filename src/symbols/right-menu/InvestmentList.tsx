@@ -19,9 +19,8 @@ const InvestmentList = ({investments}: Props) => {
                 <ListItemText primary={<Typography variant="h5">Investments</Typography> }/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItemButton>
-
             <Collapse in={open} unmountOnExit>
-                <List sx={{width: "100%", maxHeight: "20rem", overflow: "auto", ml:2}}component="div" disablePadding>
+                <List sx={{width: "100%", maxHeight: "20rem", overflow: "auto", ml:2}} component="div" disablePadding>
                     {investments.map((investment) => <InvestmentDetails key={investment.symbol} investment={investment}/>)}
                 </List>
             </Collapse>

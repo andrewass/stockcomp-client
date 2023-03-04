@@ -19,7 +19,7 @@ export const TrendingSymbolsRightMenu = () => {
 
     if (contests) {
         return (
-            <Box>
+            <Box minWidth="300px">
                 <ActiveContestList contests={contests}/>
                 <InvestmentTotal />
                 <InvestmentOrdersTotal />

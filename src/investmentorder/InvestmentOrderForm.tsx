@@ -33,8 +33,15 @@ export type InvestmentOrderRequest = {
 }
 
 export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) => {
-    const {handleSubmit, control} = useForm<InvestmentOrderRequest>();
+
     const {apiPost} = useApiWrapper();
+    const {handleSubmit, control} = useForm<InvestmentOrderRequest>({
+        defaultValues: {
+            transactionType: "Buy",
+            amount: 1,
+            acceptedPrice: stockQuote.price
+        }
+    });
 
     const mutation = useMutation({
         mutationFn: (orderData: InvestmentOrderRequest) => {
@@ -69,12 +76,12 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
                 control={control}
                 rules={{required: "Amount is required"}}
                 render={({field: {onChange, value}}) => (
-                    <TextField
-                        label="Amount"
-                        variant="outlined"
-                        value={value}
-                        disabled={mutation.isLoading}
-                        onChange={onChange}/>
+                    <TextField sx={{mb: "1rem"}}
+                               label="Amount"
+                               variant="outlined"
+                               value={value}
+                               disabled={mutation.isLoading}
+                               onChange={onChange}/>
                 )}
             />
 
@@ -83,12 +90,12 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
                 control={control}
                 rules={{required: "Accepted price is required"}}
                 render={({field: {onChange, value}}) => (
-                    <TextField
-                        label="Accepted Price"
-                        variant="outlined"
-                        value={value}
-                        disabled={mutation.isLoading}
-                        onChange={onChange}/>
+                    <TextField sx={{mb: "1rem"}}
+                               label="Accepted Price"
+                               variant="outlined"
+                               value={value}
+                               disabled={mutation.isLoading}
+                               onChange={onChange}/>
                 )}
             />
 
@@ -96,10 +103,10 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
                 name="transactionType"
                 control={control}
                 rules={{required: "Transaction type is required"}}
-                render={({field: {onChange, value}}) => (
-                    <FormControl disabled={mutation.isLoading}>
+                render={({field}) => (
+                    <FormControl disabled={mutation.isLoading} sx={{mb: "1rem"}}>
                         <InputLabel>Operation</InputLabel>
-                        <Select value={value} label="Operation" onChange={onChange}>
+                        <Select label="Operation" {...field} >
                             <MenuItem value="Buy">Buy</MenuItem>
                             <MenuItem value="Sell">Sell</MenuItem>
                         </Select>
@@ -124,7 +131,9 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
             />
             {mutation.isLoading
                 ? <CircularProgress/>
-                : <Button variant="contained" type="submit">Submit</Button>
+                : <Button variant="contained" type="submit" sx={{mt:"1rem"}}>
+                    Submit
+                </Button>
             }
             <Toaster/>
         </form>
