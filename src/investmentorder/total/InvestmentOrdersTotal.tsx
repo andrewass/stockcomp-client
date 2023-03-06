@@ -2,7 +2,8 @@ import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS,
-    GET_ALL_COMPLETED_INVESTMENT_ORDERS, getAllInvestmentOrdersConfig
+    GET_ALL_COMPLETED_INVESTMENT_ORDERS,
+    getAllInvestmentOrdersConfig
 } from "../api/investmentOrderApi";
 import {CircularProgress} from "@mui/material";
 import {ActiveOrdersTotal} from "./ActiveOrdersTotal";
@@ -29,8 +30,12 @@ export const InvestmentOrdersTotal = () => {
 
     return (
         <>
-            <ActiveOrdersTotal activeOrders={activeOrders}/>
-            <CompletedOrdersTotal completedOrders={completedOrders}/>
+            {activeOrders && activeOrders.length > 0 &&
+                <ActiveOrdersTotal activeOrders={activeOrders}/>
+            }
+            {completedOrders && completedOrders.length > 0 &&
+                <CompletedOrdersTotal completedOrders={completedOrders}/>
+            }
         </>
     );
 }

@@ -16,5 +16,9 @@ export const InvestmentTotal = () => {
 
     if (error) return <ErrorComponent errorMessage={error as string}/>;
 
-    return <InvestmentList investments={investments}/>;
+    if (investments && investments.length > 0) {
+        return <InvestmentList investments={investments}/>
+    } else {
+        return <></>
+    }
 }

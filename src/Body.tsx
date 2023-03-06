@@ -2,7 +2,7 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} fr
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
-import UserDetails from "./user/UserDetails";
+import UserDetails from "./userdetails/UserDetails";
 import AdminContests from "./admin/AdminContests";
 import AdminCreateContest from "./admin/AdminCreateContest";
 import AdminUpdateContest from "./admin/AdminUpdateContest";

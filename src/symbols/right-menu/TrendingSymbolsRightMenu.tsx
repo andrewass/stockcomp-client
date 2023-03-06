@@ -3,9 +3,9 @@ import {Contest, CONTEST_STATUS} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {useQuery} from "react-query";
 import {InvestmentTotal} from "./InvestmentTotal";
-import {InvestmentOrdersTotal} from "../../investmentorder/total/InvestmentOrdersTotal";
-import { ActiveContestList } from "../../contests/ActiveContestList";
+import {ActiveContestList} from "../../contests/ActiveContestList";
 import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../../contests/api/contestApi";
+import {InvestmentOrdersTotal} from "../../investmentorder/total/InvestmentOrdersTotal";
 
 
 export const TrendingSymbolsRightMenu = () => {
@@ -17,12 +17,13 @@ export const TrendingSymbolsRightMenu = () => {
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         )));
 
-    if (contests) {
+
+    if (contests && contests.length > 0) {
         return (
             <Box minWidth="300px">
                 <ActiveContestList contests={contests}/>
-                <InvestmentTotal />
-                <InvestmentOrdersTotal />
+                <InvestmentTotal/>
+                <InvestmentOrdersTotal/>
             </Box>
         );
     } else {

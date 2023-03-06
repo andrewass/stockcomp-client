@@ -1,4 +1,4 @@
-import {Box, Button, Modal, TextField} from "@mui/material";
+import {Box, Button, MenuItem, Modal, Select, TextField} from "@mui/material";
 import {useState} from "react";
 import {useMutation} from "react-query";
 import {queryClient} from "../config/queryConfig";
@@ -8,6 +8,8 @@ import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/apiWrapper";
 import {makeStyles} from "@mui/styles";
 import {GET_ACCOUNT_DETAILS, updateAccountDataConfig} from "./api/accountApi";
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
 
 
 const style = {
@@ -56,6 +58,9 @@ export const AccountDetailsForm = ({accountData}: Props) => {
     const {handleSubmit, control} = useForm<UpdateAccountInput>();
     const {apiPost} = useApiWrapper();
     const [open, setOpen] = useState(false);
+
+    countries.registerLocale(enLocale);
+    const countriesObject = countries.getNames("en");
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -112,6 +117,20 @@ export const AccountDetailsForm = ({accountData}: Props) => {
                                 />
                             )}
                         />
+
+                        <Controller
+                            name="country"
+                            defaultValue="US"
+                            control={control}
+                            render={({field}) => (
+                                <Select {...field}>
+                                    {Object.entries(countriesObject).map(([key, val]) =>
+                                        <MenuItem key={val} value={key}>{val}</MenuItem>)}
+                                </Select>
+                            )}
+                        />
+
+
                         <Button variant="outlined" type="submit">
                             Update
                         </Button>
