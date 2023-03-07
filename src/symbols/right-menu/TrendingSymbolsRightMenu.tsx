@@ -17,7 +17,6 @@ export const TrendingSymbolsRightMenu = () => {
             [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]
         )));
 
-
     if (contests && contests.length > 0) {
         return (
             <Box minWidth="300px">
@@ -28,9 +27,7 @@ export const TrendingSymbolsRightMenu = () => {
         );
     } else {
         return (
-            <Box>
-                <p>No active contests</p>
-            </Box>
+            <></>
         );
     }
 }

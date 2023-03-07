@@ -1,8 +1,8 @@
 
 export enum MedalValue {
-    Gold,
-    Silver,
-    Bronze,
+    Gold = "Gold",
+    Silver = "Silver",
+    Bronze = "Bronze",
 }
 
 export type Medal = {

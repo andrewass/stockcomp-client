@@ -1,7 +1,10 @@
 import {Box, Grid, TableCell, TableRow} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
-import {LeaderboardEntry, Medal} from "./leaderboardTypes";
+import {LeaderboardEntry, Medal, MedalValue} from "./leaderboardTypes";
+import goldMedal from "../icons/gold-medal.svg";
+import silverMedal from "../icons/silver-medal.svg";
+import bronzeMedal from "../icons/bronze-medal.svg";
 
 interface Props {
     entry: LeaderboardEntry
@@ -9,28 +12,47 @@ interface Props {
 
 const LeaderboardEntryRow = ({entry}: Props) => {
 
+    const getMedalCount = (medalValue: MedalValue, medals: Medal[]) => {
+        return medals.filter(medal => medal.medalValue === medalValue).length;
+    }
+
     const getMedals = (medals: Medal[]) => {
         if (medals.length > 0) {
             return (
-                <Box sx={{width: "45px"}}>
-                    <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 2}}>
-                        <Grid item xs={4} md={4} >
-                            <p>2</p>
+                <Box sx={{width: "70px"}}>
+                    <Grid container rowSpacing={1} columnSpacing={2}>
+                        <Grid item xs={4} md={4}>
+                            <Box
+                                component="img"
+                                sx={{height: 30, width: 40}}
+                                alt="Gold medal"
+                                src={goldMedal}
+                            />
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            <p>2</p>
+                            <Box
+                                component="img"
+                                sx={{height: 30, width: 40}}
+                                alt="Silver medal"
+                                src={silverMedal}
+                            />
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            <p>2</p>
+                            <Box
+                                component="img"
+                                sx={{height: 30, width: 40}}
+                                alt="Bronze medal"
+                                src={bronzeMedal}
+                            />
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            <p>2</p>
+                            <p>{getMedalCount(MedalValue.Gold, medals)}</p>
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            <p>2</p>
+                            <p>{getMedalCount(MedalValue.Silver, medals)}</p>
                         </Grid>
                         <Grid item xs={4} md={4}>
-                            <p>2</p>
+                            <p>{getMedalCount(MedalValue.Bronze, medals)}</p>
                         </Grid>
                     </Grid>
                 </Box>
@@ -39,7 +61,6 @@ const LeaderboardEntryRow = ({entry}: Props) => {
             return <></>;
         }
     }
-
 
     return (
         <TableRow key={entry.displayName}>
