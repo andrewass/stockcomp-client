@@ -17,7 +17,12 @@ export const ContestLeaderboardEntry = ({entry} : Props) => {
                 </Link>
             </TableCell>
             <TableCell>
-                <ReactCountryFlag countryCode="US" svg />
+                <TableCell>
+                    <ReactCountryFlag style={{
+                        width: "2em",
+                        height: "2em",
+                    }} countryCode={entry.country} svg/>
+                </TableCell>
             </TableCell>
             <TableCell>{entry.totalValue.toFixed(2)} USD</TableCell>
         </TableRow>

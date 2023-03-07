@@ -6,6 +6,7 @@ import {AccountDetailsForm} from "./AccountDetailsForm";
 import {AccountData} from "./accountDetailTypes";
 import ErrorComponent from "../error/ErrorComponent";
 import {GET_ACCOUNT_DETAILS, getAccountDetailsConfig} from "./api/accountApi";
+import ReactCountryFlag from "react-country-flag";
 
 
 const AccountDetails = () => {
@@ -25,12 +26,21 @@ const AccountDetails = () => {
                     <Avatar sx={{
                         width: 56, height: 56, bgcolor: deepPurple[500]
                     }}>OP</Avatar>
-                    <Typography>
+                    <Typography sx={{mt:"20px"}}>
                         Username: {accountData!.username}
                     </Typography>
-                    <Typography>
-                        {accountData!.username}
+                    <Typography sx={{mt:"20px"}}>
+                        Full name : {accountData!.fullName ? accountData!.fullName : "N/A"}
                     </Typography>
+                    <Box display="flex" flexDirection="row" sx={{mt: "20px"}} alignItems="center">
+                        <Typography sx={{mr: "5px"}}>
+                            Country :
+                        </Typography>
+                        <ReactCountryFlag  style={{
+                            width: "2em",
+                            height: "2em",
+                        }} countryCode={accountData!.country} svg/>
+                    </Box>
                 </CardContent>
                 <CardActions>
                     <AccountDetailsForm accountData={accountData!}/>

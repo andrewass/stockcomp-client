@@ -41,7 +41,7 @@ const UserDetails = () => {
                         <ReactCountryFlag  style={{
                             width: "2em",
                             height: "2em",
-                        }} countryCode="US" svg/>
+                        }} countryCode={userData!.country} svg/>
                     </Box>
                 </CardContent>
             </Card>

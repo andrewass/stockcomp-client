@@ -5,4 +5,5 @@ export type Participant = {
     totalInvestmentValue: number
     remainingFunds: number
     contestNumber: number
+    country: string
 }
