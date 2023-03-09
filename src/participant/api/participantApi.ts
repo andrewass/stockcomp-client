@@ -30,10 +30,11 @@ export const getSortedParticipantsConfig = (contestNumber: number) => {
     }
 }
 
-export const getParticipantHistoryConfig = () => {
+export const getParticipantHistoryConfig = (username: string) => {
     return {
         method: "get",
-        url: CONTEST_BASE_URL + "/contest/participant-history"
+        url: CONTEST_BASE_URL + "/participant/participant-history",
+        params: {username}
     }
 }
 

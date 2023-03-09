@@ -3,7 +3,6 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
 import {useApiWrapper} from "../config/apiWrapper";
-import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantHistory} from "../participant/ParticipantHistory";
 
@@ -12,18 +11,13 @@ export const UserParticipantDetails = () => {
     const {username} = useParams<{ username: string }>()
     const {apiGet} = useApiWrapper();
 
-    const {isLoading: historyLoading, error: historyError, data: historyData} =
-        useQuery(GET_PARTICIPANT_HISTORY,
-            () => apiGet(getParticipantHistoryConfig()));
+    const {isLoading, error, data: entryData} =
+        useQuery([GET_LEADERBOARD_USER_ENTRY, username],
+            () => apiGet(getLeaderboardEntryUserConfig(username)));
 
-    const {isLoading: entryLoading, error: entryError, data: entryData} =
-        useQuery(GET_LEADERBOARD_USER_ENTRY,
-            () => apiGet(getLeaderboardEntryUserConfig()));
+    if (isLoading) return <CircularProgress/>
 
-    if (historyLoading || entryLoading) return <CircularProgress/>
-
-    if (historyError || entryError)
-        return <ErrorComponent errorMessage={historyError ? historyError as string : entryError as string}/>
+    if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
         <Box>
@@ -37,7 +31,7 @@ export const UserParticipantDetails = () => {
                     <Typography>Contest participation : {entryData.contestCount}</Typography>
                 </CardContent>
             </Card>
-            <ParticipantHistory historyList={historyData}/>
+            <ParticipantHistory username={username!}/>
         </Box>
     )
 }

@@ -7,6 +7,7 @@ import {UserData} from "./userDetailTypes";
 import ErrorComponent from "../error/ErrorComponent";
 import {useParams} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
+import {UserParticipantDetails} from "./UserParticipantDetails";
 
 
 const UserDetails = () => {
@@ -28,23 +29,24 @@ const UserDetails = () => {
                     <Avatar sx={{
                         width: 56, height: 56, bgcolor: deepPurple[500]
                     }}>OP</Avatar>
-                    <Typography sx={{mt:"20px"}}>
+                    <Typography sx={{mt: "20px"}}>
                         Username: {userData!.username}
                     </Typography>
-                    <Typography sx={{mt:"20px"}}>
+                    <Typography sx={{mt: "20px"}}>
                         Full name : {userData!.fullName ? userData!.fullName : "N/A"}
                     </Typography>
                     <Box display="flex" flexDirection="row" sx={{mt: "20px"}} alignItems="center">
                         <Typography sx={{mr: "5px"}}>
                             Country :
                         </Typography>
-                        <ReactCountryFlag  style={{
+                        <ReactCountryFlag style={{
                             width: "2em",
                             height: "2em",
                         }} countryCode={userData!.country} svg/>
                     </Box>
                 </CardContent>
             </Card>
+            <UserParticipantDetails/>
         </Box>
     );
 }
