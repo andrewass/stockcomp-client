@@ -14,12 +14,16 @@ const StyledItemIcon = styled(ListItemIcon)({
     marginRight: "0.5rem"
 });
 
-const DropDownMenu = ({signOutUser}) => {
+interface Props{
+    signOutUser: () => void
+}
+
+const DropDownMenu = ({signOutUser}: Props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event) => {
+    const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {

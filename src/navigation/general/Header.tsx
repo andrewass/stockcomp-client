@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {SyntheticEvent, useState} from "react";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
@@ -22,7 +22,7 @@ export const Header = () => {
         await auth.removeUser();
     };
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (event: SyntheticEvent, newValue: number) => {
         setValue(newValue)
     }
 

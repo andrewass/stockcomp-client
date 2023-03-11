@@ -21,9 +21,9 @@ const SymbolDetails = () => {
         useQuery<Stock>(GET_STOCK_SYMBOL_INFORMATION,
             () => apiGet(getStockSymbolInformationConfig(symbol as string)))
 
-    if (isLoading) return <CircularProgress/>
+    if (isLoading) return <CircularProgress/>;
 
-    if (error) return <ErrorComponent errorMessage={error as string} />
+    if (error) return <ErrorComponent errorMessage={error as string} />;
 
     return (
         <>
