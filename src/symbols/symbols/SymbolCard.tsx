@@ -1,6 +1,6 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {Stock} from "../symbolsTypes";
+import {Stock} from "../../stock/stockTypes";
 
 interface Props {
     stock: Stock

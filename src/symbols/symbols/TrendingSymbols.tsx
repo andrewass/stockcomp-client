@@ -5,9 +5,9 @@ import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {GET_TRENDING_SYMBOLS, getTrendingSymbolsConfig} from "../api/symbolsApi";
-import {Stock} from "../symbolsTypes";
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";
+import {Stock} from "../../stock/stockTypes";
 
 
 const TrendingSymbols = () => {

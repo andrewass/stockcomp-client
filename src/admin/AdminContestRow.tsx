@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {getDeleteContestConfig} from "./api/adminApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
-import {Contest} from "../contests/contestTypes";
+import {Contest, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
 
 interface Props {
     contest: Contest
@@ -31,8 +31,12 @@ const AdminContestRow = ({contest}: Props) => {
         <TableRow key={contest.contestNumber}>
             <TableCell>{contest.contestNumber}</TableCell>
             <TableCell>{contest.startTime}</TableCell>
-            <TableCell>{contest.contestStatus}</TableCell>
-            <TableCell>{contest.leaderboardUpdateStatus}</TableCell>
+            <TableCell>
+                {contestStatusMap.get(contest.contestStatus)}
+            </TableCell>
+            <TableCell>
+                {leaderboardUpdateStatusMap.get(contest.leaderboardUpdateStatus)}
+            </TableCell>
             <TableCell>
                 <IconButton onClick={() => navigate("/admin/contests/update", {state: contest})}>
                     <EditIcon/>

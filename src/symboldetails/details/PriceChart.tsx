@@ -1,9 +1,10 @@
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, CircularProgress} from "@mui/material";
 import {useQuery} from "react-query";
-import {HistoricalQuote} from "../symbolDetailTypes";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {GET_HISTORIC_PRICES, getHistoricPricesConfig} from "../api/symbolDetailsApi";
+import {HistoricalQuote} from "../../stock/stockTypes";
+import ErrorComponent from "../../error/ErrorComponent";
 
 interface Props{
     symbol: string
@@ -18,7 +19,7 @@ export const PriceChart = ({symbol}: Props) => {
 
     if (isLoading || isFetching) return <CircularProgress/>
 
-    if (error) return `Error! ${error}`;
+    if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
         <Box id="priceChart" sx={{marginTop:"10%", width:"80%"}}>

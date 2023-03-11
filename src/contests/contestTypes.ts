@@ -6,6 +6,16 @@ export const CONTEST_STATUS = {
     COMPLETED: "COMPLETED"
 }
 
+export const LEADERBOARD_UPDATE_STATUS = {
+    AWAITING: "AWAITING",
+    COMPLETED: "COMPLETED"
+}
+
+export const leaderboardUpdateStatusMap = new Map<string, string>([
+    [LEADERBOARD_UPDATE_STATUS.AWAITING, "Awaiting"],
+    [LEADERBOARD_UPDATE_STATUS.COMPLETED, "Completed"]
+])
+
 export const contestStatusMap = new Map<string, string>([
     [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
     [CONTEST_STATUS.RUNNING, "Running"],

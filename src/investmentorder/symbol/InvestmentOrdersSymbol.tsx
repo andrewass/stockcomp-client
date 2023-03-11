@@ -10,7 +10,7 @@ import {ActiveOrdersSymbol} from "./ActiveOrdersSymbol";
 import {CompletedOrdersSymbol} from "./CompletedOrdersSymbol";
 import ErrorComponent from "../../error/ErrorComponent";
 import {ORDER_STATUS} from "../investmentOrderTypes";
-import {StockQuote} from "../../symboldetails/symbolDetailTypes";
+import {StockQuote} from "../../stock/stockTypes";
 
 
 interface Props {

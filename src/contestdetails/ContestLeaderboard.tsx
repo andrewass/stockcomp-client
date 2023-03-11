@@ -16,6 +16,7 @@ import {useQuery} from "react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
+import {Participant} from "../participant/participantTypes";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -25,17 +26,21 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     }
 }));
 
-export const ContestLeaderboard = ({contestNumber}) => {
+interface Props{
+    contestNumber: number
+}
+
+export const ContestLeaderboard = ({contestNumber}: Props) => {
     const {apiGet} = useApiWrapper();
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
-    const {error, isLoading, data} = useQuery([GET_SORTED_PARTICIPANTS, contestNumber],
+    const {error, isLoading, data: participants} = useQuery<Participant[]>([GET_SORTED_PARTICIPANTS, contestNumber],
         () => apiGet(getSortedParticipantsConfig(contestNumber)));
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error}/>
+    if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
         <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
@@ -49,7 +54,9 @@ export const ContestLeaderboard = ({contestNumber}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(entry => <ContestLeaderboardEntry entry={entry} key={entry.displayName}/>)}
+                    {participants!.map(participantEntry => <ContestLeaderboardEntry
+                        entry={participantEntry} key={participantEntry.displayName}
+                    />)}
                 </TableBody>
             </Table>
         </TableContainer>

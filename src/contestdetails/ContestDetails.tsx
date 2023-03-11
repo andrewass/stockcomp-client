@@ -57,7 +57,7 @@ export const ContestDetails = () => {
                     <Typography>Participants : {contest.participantCount}</Typography>
                 </CardContent>
             </Card>
-            <ContestLeaderboard contestNumber={contestNumber}/>
+            <ContestLeaderboard contestNumber={parseInt(contestNumber!)}/>
         </Box>
     )
 }

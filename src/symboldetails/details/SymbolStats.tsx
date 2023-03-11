@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
-import {Stock} from "../symbolDetailTypes";
+import {Stock} from "../../stock/stockTypes";
 
 interface Props {
     symbolDetails: Stock

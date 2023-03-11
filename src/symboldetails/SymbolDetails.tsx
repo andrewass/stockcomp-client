@@ -6,9 +6,9 @@ import DetailBlock from "./details/DetailBlock";
 import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
 import {GET_STOCK_SYMBOL_INFORMATION, getStockSymbolInformationConfig} from "./api/symbolDetailsApi";
 import {useApiWrapper} from "../config/apiWrapper";
-import {Stock} from "./symbolDetailTypes";
 import SearchField from "../search/SearchField";
 import ErrorComponent from "../error/ErrorComponent";
+import {Stock} from "../stock/stockTypes";
 
 
 const SymbolDetails = () => {
@@ -21,9 +21,9 @@ const SymbolDetails = () => {
         useQuery<Stock>(GET_STOCK_SYMBOL_INFORMATION,
             () => apiGet(getStockSymbolInformationConfig(symbol as string)))
 
-    if (isLoading) return <CircularProgress/>;
+    if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string} />;
+    if (error) return <ErrorComponent errorMessage={error as string} />
 
     return (
         <>
@@ -32,7 +32,7 @@ const SymbolDetails = () => {
                 mt: "3%", display: "flex", justifyContent: "center",
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
-                <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails}/>
+                <DetailBlock isLargeWidth={isLargeWidth} symbolDetails={symbolDetails!}/>
                 <SymbolDetailsRightMenu stock={symbolDetails!} isLargeWidth={isLargeWidth}/>
             </Box>
         </>

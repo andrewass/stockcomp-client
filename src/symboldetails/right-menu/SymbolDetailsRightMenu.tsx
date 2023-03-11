@@ -1,6 +1,5 @@
 import {useQuery} from "react-query";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {Stock} from "../symbolDetailTypes";
 import {GET_ACTIVE_PARTICIPANT, getActiveParticipantConfig} from "../api/symbolDetailsApi";
 import {Box, CircularProgress} from "@mui/material";
 import InvestmentSymbol from "../../investment/InvestmentSymbol";
@@ -8,6 +7,7 @@ import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
 import ErrorComponent from "../../error/ErrorComponent";
 import {InvestmentOrdersSymbol} from "../../investmentorder/symbol/InvestmentOrdersSymbol";
 import {Participant} from "../../participant/participantTypes";
+import {Stock} from "../../stock/stockTypes";
 
 interface Props {
     stock: Stock

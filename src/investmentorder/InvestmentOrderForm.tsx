@@ -5,7 +5,6 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {useMutation} from "react-query";
-import {StockQuote} from "../symboldetails/symbolDetailTypes";
 import {queryClient} from "../config/queryConfig";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/apiWrapper";
@@ -15,6 +14,7 @@ import {
     getPostInvestmentOrderConfig
 } from "./api/investmentOrderApi";
 import {codeMapTransaction} from "./investmentOrderTypes";
+import {StockQuote} from "../stock/stockTypes";
 
 interface Props {
     symbol: string
