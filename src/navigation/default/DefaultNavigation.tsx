@@ -11,7 +11,7 @@ import {useTheme} from "@mui/material/styles";
 import {useAuth} from "react-oidc-context";
 import {localTheme} from "../headerTheme";
 
-export const Header = () => {
+export const DefaultNavigation = () => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));

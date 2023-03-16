@@ -2,7 +2,7 @@ import InvestmentDetails from "./InvestmentDetails";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "react-query";
 import {useApiWrapper} from "../config/apiWrapper";
-import {GET_INVESTMENT_FOR_SYMBOL, getInvestmentConfig} from "./api/investmentApi";
+import {GET_INVESTMENT_FOR_SYMBOL, getSymbolInvestmentConfig} from "./api/investmentApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {Participant} from "../participant/participantTypes";
 
@@ -17,8 +17,8 @@ const InvestmentSymbol = ({participant, symbol}: Props) => {
     const {remainingFunds, contestNumber} = participant;
 
     const {isLoading, error, data: investment} =
-        useQuery( [GET_INVESTMENT_FOR_SYMBOL,{symbol, contestNumber}],
-            () => apiPost(getInvestmentConfig(symbol, contestNumber)));
+        useQuery([GET_INVESTMENT_FOR_SYMBOL, {symbol, contestNumber}],
+            () => apiPost(getSymbolInvestmentConfig(symbol, contestNumber)));
 
     if (isLoading) return <CircularProgress/>;
 
@@ -33,7 +33,9 @@ const InvestmentSymbol = ({participant, symbol}: Props) => {
                 <Typography sx={{pb: "1rem"}}>
                     Remaining funds : {remainingFunds.toFixed(2)}
                 </Typography>
-                {investment ? <InvestmentDetails investment={investment}/> : null}
+                {investment &&
+                    <InvestmentDetails investment={investment}/>
+                }
             </CardContent>
         </Card>
     );

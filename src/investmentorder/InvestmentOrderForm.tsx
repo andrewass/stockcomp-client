@@ -131,7 +131,7 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
             />
             {mutation.isLoading
                 ? <CircularProgress/>
-                : <Button variant="contained" type="submit" sx={{mt:"1rem"}}>
+                : <Button variant="contained" type="submit" sx={{mt: "1rem"}}>
                     Submit
                 </Button>
             }

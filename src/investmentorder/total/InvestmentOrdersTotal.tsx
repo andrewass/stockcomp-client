@@ -5,7 +5,7 @@ import {
     GET_ALL_COMPLETED_INVESTMENT_ORDERS,
     getAllInvestmentOrdersConfig
 } from "../api/investmentOrderApi";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 import {ActiveOrdersTotal} from "./ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "./CompletedOrdersTotal";
 import ErrorComponent from "../../error/ErrorComponent";
@@ -29,13 +29,13 @@ export const InvestmentOrdersTotal = () => {
         return <ErrorComponent errorMessage={activeError ? activeError as string : completedError as string}/>
 
     return (
-        <>
-            {activeOrders && activeOrders.length > 0 &&
+        <Box>
+            {activeOrders.length > 0 &&
                 <ActiveOrdersTotal activeOrders={activeOrders}/>
             }
-            {completedOrders && completedOrders.length > 0 &&
+            {completedOrders.length > 0 &&
                 <CompletedOrdersTotal completedOrders={completedOrders}/>
             }
-        </>
+        </Box>
     );
 }

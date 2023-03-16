@@ -38,8 +38,12 @@ export const InvestmentOrdersSymbol = ({contestNumber, symbol, stockQuote}: Prop
 
     return (
         <Box>
-            <ActiveOrdersSymbol activeOrders={activeOrders} symbol={symbol}/>
-            <CompletedOrdersSymbol completedOrders={completedOrders}/>
+            {activeOrders.length > 0 &&
+                <ActiveOrdersSymbol activeOrders={activeOrders} symbol={symbol}/>
+            }
+            {completedOrders.length > 0 &&
+                <CompletedOrdersSymbol completedOrders={completedOrders}/>
+            }
         </Box>
     )
 }

@@ -10,7 +10,7 @@ export const getAllInvestmentsConfig = () => {
     };
 }
 
-export const getInvestmentConfig = (symbol: string, contestNumber: number) => {
+export const getSymbolInvestmentConfig = (symbol: string, contestNumber: number) => {
     return {
         method: "post",
         url: CONTEST_BASE_URL + "/investment/get-by-symbol",

@@ -18,7 +18,7 @@ const SymbolDetails = () => {
     const {apiGet} = useApiWrapper();
 
     const {error, isLoading, data: symbolDetails} =
-        useQuery<Stock>(GET_STOCK_SYMBOL_INFORMATION,
+        useQuery<Stock>([GET_STOCK_SYMBOL_INFORMATION,symbol],
             () => apiGet(getStockSymbolInformationConfig(symbol as string)))
 
     if (isLoading) return <CircularProgress/>;

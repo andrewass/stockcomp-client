@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useAuth} from "react-oidc-context";
-import DropDownMenu from "../general/DropDownMenu";
+import DropDownMenu from "../default/DropDownMenu";
 import {localTheme} from "../headerTheme";
 
 export const AdminNavigation = () => {

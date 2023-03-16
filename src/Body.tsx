@@ -9,7 +9,7 @@ import AdminUpdateContest from "./admin/AdminUpdateContest";
 import SymbolDetails from "./symboldetails/SymbolDetails";
 import {ContestDetails} from "./contestdetails/ContestDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
-import {Header} from "./navigation/general/Header";
+import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
                 path="/"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <TrendingSymbols/>
                     </ProtectedRoute>
                 }
@@ -30,7 +30,7 @@ const router = createBrowserRouter(
                 path="contests"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <Contests/>
                     </ProtectedRoute>
                 }
@@ -40,7 +40,7 @@ const router = createBrowserRouter(
                 path="contest/:contestNumber"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <ContestDetails/>
                     </ProtectedRoute>
                 }
@@ -50,7 +50,7 @@ const router = createBrowserRouter(
                 path="leaderboard"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <Leaderboard/>
                     </ProtectedRoute>
                 }
@@ -60,7 +60,7 @@ const router = createBrowserRouter(
                 path="symbol/:symbol"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <SymbolDetails/>
                     </ProtectedRoute>
                 }
@@ -70,7 +70,7 @@ const router = createBrowserRouter(
                 path="account"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <AccountDetails/>
                     </ProtectedRoute>
                 }
@@ -80,7 +80,7 @@ const router = createBrowserRouter(
                 path="user/:username"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <UserDetails/>
                     </ProtectedRoute>
                 }
@@ -90,7 +90,7 @@ const router = createBrowserRouter(
                 path="*"
                 element={
                     <ProtectedRoute>
-                        <Header/>
+                        <DefaultNavigation/>
                         <TrendingSymbols/>
                     </ProtectedRoute>
                 }
