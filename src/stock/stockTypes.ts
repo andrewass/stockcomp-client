@@ -28,6 +28,5 @@ export interface StockStats{
 
 export interface HistoricalQuote{
     price: number,
-    quoteDate: number,
-    volume: number
+    quoteDate: number
 }

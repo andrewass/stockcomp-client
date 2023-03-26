@@ -47,7 +47,7 @@ type Props = {
 }
 
 export type UpdateAccountInput = {
-    username: number
+    username: string
     fullName: string
     country: string
 }
@@ -55,7 +55,13 @@ export type UpdateAccountInput = {
 
 export const AccountDetailsForm = ({accountData}: Props) => {
     const {root} = useFormStyles();
-    const {handleSubmit, control} = useForm<UpdateAccountInput>();
+    const {handleSubmit, control} = useForm<UpdateAccountInput>({
+        defaultValues: {
+            username: accountData.username,
+            fullName: accountData.fullName,
+            country: accountData.country
+        }
+    });
     const {apiPost} = useApiWrapper();
     const [open, setOpen] = useState(false);
 
@@ -129,7 +135,6 @@ export const AccountDetailsForm = ({accountData}: Props) => {
                                 </Select>
                             )}
                         />
-
 
                         <Button variant="outlined" type="submit">
                             Update

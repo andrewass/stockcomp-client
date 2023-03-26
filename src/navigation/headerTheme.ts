@@ -3,7 +3,7 @@ import {createTheme} from "@mui/material";
 export const localTheme = createTheme({
     palette: {
         primary: {
-            main: "#2196f3"
+            main: "#1976d2"
         },
         secondary: {
             main: "#fff"
@@ -13,7 +13,8 @@ export const localTheme = createTheme({
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    textDecoration: "none"
+                    textDecoration: "none",
+                    fontFamily: "'Roboto', sans-serif"
                 }
             }
         },
@@ -24,19 +25,32 @@ export const localTheme = createTheme({
                     color: "#fff"
                 }
             }
-        }, MuiTab: {
+        },
+        MuiTab: {
             styleOverrides: {
                 root: {
-                    fontSize: "1rem",
+                    fontWeight: "600",
+                    fontSize: "1.1rem",
                     margin: "0 0",
-                    color: "#fff"
-                }
+                    color: "#fff",
+                    "&$selected": {
+                        backgroundColor: "#0d47a1"
+                    },
+                    "&:hover": {
+                        backgroundColor: "#1976d2"
+                    }
+                },
+                selected: {}
             }
-        }, MuiPaper: {
+        },
+        MuiPaper: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "#2196f3",
-                    color: "#fff"
+                    backgroundColor: "#1976d2",
+                    color: "#fff",
+                    padding: "8px 16px",
+                    borderRadius: "20px",
+                    boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)"
                 }
             }
         }
