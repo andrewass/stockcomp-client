@@ -1,37 +1,22 @@
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    tableCellClasses,
-    TableContainer,
-    TableHead,
-    TableRow,
-    useMediaQuery
-} from "@mui/material";
-import {styled, useTheme} from '@mui/material/styles';
-import LeaderboardEntryRow from "./LeaderboardEntryRow";
+import {Paper, Table, TableBody, TableContainer, TableHead, TableRow, useMediaQuery, useTheme,} from '@mui/material';
 import {LeaderboardEntry} from "./leaderboardTypes";
+import LeaderboardEntryRow from "./LeaderboardEntryRow";
+import {StyledTableCell} from "../styles/components/StyledTableCell";
 
 
-const StyledTableCell = styled(TableCell)(({theme}) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: "#2196f3",
-        color: theme.palette.common.white,
-    }
-}))
-
-interface Props{
-    leaderboardEntries: LeaderboardEntry[]
+interface Props {
+    leaderboardEntries: LeaderboardEntry[];
 }
 
-export const LeaderboardTable = ({leaderboardEntries} : Props) => {
-
+export const LeaderboardTable = ({leaderboardEntries}: Props) => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
     return (
-        <TableContainer component={Paper} sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
+        <TableContainer
+            component={Paper}
+            sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}
+        >
             <Table>
                 <TableHead>
                     <TableRow>
@@ -43,9 +28,11 @@ export const LeaderboardTable = ({leaderboardEntries} : Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {leaderboardEntries.map(entry => <LeaderboardEntryRow entry={entry} key={entry.displayName}/>)}
+                    {leaderboardEntries.map((entry) => (
+                        <LeaderboardEntryRow entry={entry} key={entry.displayName}/>
+                    ))}
                 </TableBody>
             </Table>
         </TableContainer>
     );
-}
+};

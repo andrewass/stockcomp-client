@@ -6,7 +6,7 @@ import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useAuth} from "react-oidc-context";
 import DropDownMenu from "../default/DropDownMenu";
-import {localTheme} from "../headerTheme";
+import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 
 export const AdminNavigation = () => {
 
@@ -38,7 +38,7 @@ export const AdminNavigation = () => {
     }
 
     return (
-        <ThemeProvider theme={localTheme}>
+        <ThemeProvider theme={navigationBarTheme}>
             {isLargeWidth ? renderWideNavBar() : <DropDownMenu signOutUser={signOutUser}/>}
         </ThemeProvider>
     );

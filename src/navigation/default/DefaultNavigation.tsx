@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 import {useAuth} from "react-oidc-context";
-import {localTheme} from "../headerTheme";
+import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 
 export const DefaultNavigation = () => {
 
@@ -43,7 +43,7 @@ export const DefaultNavigation = () => {
 
 
     return (
-        <ThemeProvider theme={localTheme}>
+        <ThemeProvider theme={navigationBarTheme}>
             {isLargeWidth ? renderWideNavBar() : <DropDownMenu signOutUser={signOutUser}/>}
         </ThemeProvider>
     );

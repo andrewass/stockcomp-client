@@ -1,6 +1,6 @@
 import {createTheme} from "@mui/material";
 
-export const localTheme = createTheme({
+export const navigationBarTheme = createTheme({
     palette: {
         primary: {
             main: "#1976d2"
