@@ -1,31 +1,13 @@
-import {TextField} from "@mui/material";
+import {Box, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {useMutation} from "react-query";
 import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getCreateContestConfig} from "./api/adminApi";
 import Button from "@mui/material/Button";
 
-const useFormStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "2px",
-
-        '& .MuiTextField-root': {
-            margin: "20px",
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: "20px",
-        },
-    },
-}));
 
 export type CreateContestInput = {
     contestNumber: number
@@ -35,10 +17,9 @@ export type CreateContestInput = {
 
 const AdminCreateContest = () => {
 
-    const {root} = useFormStyles()
-    const navigate = useNavigate()
-    const {handleSubmit, control} = useForm<CreateContestInput>()
-    const {apiPost} = useApiWrapper()
+    const navigate = useNavigate();
+    const {handleSubmit, control} = useForm<CreateContestInput>();
+    const {apiPost} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: (contestData: CreateContestInput) => {
@@ -52,7 +33,11 @@ const AdminCreateContest = () => {
     }
 
     return (
-        <form className={root} onSubmit={handleSubmit(submitForm)}>
+        <Box component="form" onSubmit={handleSubmit(submitForm)}
+             sx={{
+                 display: "flex", flexFlow: "column nowrap",
+                 width: "400px", margin: "auto", mt: "100px"
+             }}>
             <Controller
                 name="contestNumber"
                 control={control}
@@ -60,9 +45,10 @@ const AdminCreateContest = () => {
                 render={({field: {onChange, value}}) => (
                     <TextField
                         label="Contest Number"
-                        variant="filled"
+                        variant="outlined"
                         value={value}
                         onChange={onChange}
+                        sx={{mb: "20px"}}
                     />
                 )}
             />
@@ -80,10 +66,10 @@ const AdminCreateContest = () => {
                     </LocalizationProvider>
                 )}
             />
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" type="submit" sx={{mt: "20px"}}>
                 Create
             </Button>
-        </form>
+        </Box>
     )
 }
 

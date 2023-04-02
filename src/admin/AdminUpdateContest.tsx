@@ -1,34 +1,14 @@
 import {useMutation} from "react-query";
 import {useLocation, useNavigate} from "react-router-dom";
 import {queryClient} from "../config/queryConfig";
-import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../config/apiWrapper";
 import {getUpdateContestConfig} from "./api/adminApi";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import {Contest, contestStatusMap} from "../contests/contestTypes";
-
-
-const useFormStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "2px",
-
-        '& .MuiTextField-root': {
-            margin: "20px",
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: "20px",
-        },
-    },
-}))
 
 export type UpdateContestInput = {
     contestNumber: number,
@@ -37,12 +17,11 @@ export type UpdateContestInput = {
 }
 
 const AdminUpdateContest = () => {
-    const {root} = useFormStyles()
-    const {state} = useLocation()
-    const navigate = useNavigate()
-    const contest = state as Contest
-    const {handleSubmit, control} = useForm<UpdateContestInput>()
-    const {apiPut} = useApiWrapper()
+    const {state} = useLocation();
+    const navigate = useNavigate();
+    const contest = state as Contest;
+    const {handleSubmit, control} = useForm<UpdateContestInput>();
+    const {apiPut} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: (contestData: UpdateContestInput) => {
@@ -52,14 +31,15 @@ const AdminUpdateContest = () => {
             queryClient.invalidateQueries("getAllContestsAdmin")
                 .then(() => navigate("/admin/contests"));
         }
-    })
+    });
 
     const submitForm: SubmitHandler<UpdateContestInput> = data => {
-        mutation.mutate(data)
+        mutation.mutate(data);
     }
 
     return (
-        <form className={root} onSubmit={handleSubmit(submitForm)}>
+        <Box component="form" onSubmit={handleSubmit(submitForm)}
+             sx={{display: "flex", flexFlow: "column nowrap", maxWidth: "xs"}}>
             <Controller
                 name="contestNumber"
                 defaultValue={contest.contestNumber}
@@ -105,8 +85,8 @@ const AdminUpdateContest = () => {
             <Button variant="outlined" type="submit">
                 Update
             </Button>
-        </form>
-    )
+        </Box>
+    );
 }
 
 export default AdminUpdateContest

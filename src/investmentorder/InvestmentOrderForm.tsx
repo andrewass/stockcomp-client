@@ -1,5 +1,4 @@
-import "./investmentOrderForm.css";
-import {CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {Box, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
@@ -70,7 +69,8 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
     }
 
     return (
-        <form id="submitOrderForm" onSubmit={handleSubmit(submitForm)}>
+        <Box component="form" onSubmit={handleSubmit(submitForm)}
+             sx={{display: "flex", flexFlow: "column nowrap"}}>
             <Controller
                 name="amount"
                 control={control}
@@ -136,6 +136,6 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) 
                 </Button>
             }
             <Toaster/>
-        </form>
+        </Box>
     );
 }

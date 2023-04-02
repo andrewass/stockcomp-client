@@ -13,7 +13,6 @@ interface Props {
 }
 
 const AdminContestTable = ({contests}: Props) => {
-
     return (
         <TableContainer component={Paper} sx={{mt: "10%"}}>
             <Table>
@@ -32,7 +31,7 @@ const AdminContestTable = ({contests}: Props) => {
                 </TableBody>
             </Table>
         </TableContainer>
-    )
+    );
 }
 
 export default AdminContestTable
