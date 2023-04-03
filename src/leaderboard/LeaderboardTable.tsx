@@ -29,28 +29,28 @@ export const LeaderboardTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(1);
     const {apiGet} = useApiWrapper();
 
-    const fetchLeaderboardEntries = async (page: number) => {
-        const data = await apiGet(getSortedLeaderboardEntriesConfig(page));
+    const fetchLeaderboardEntries = async (page: number, pageRowCount: number) => {
+        const data = await apiGet(getSortedLeaderboardEntriesConfig(page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
         setLeaderboardEntries(data.entries);
         setCurrentPage(page);
+        setRowsPerPage(pageRowCount);
 
         return data;
     }
 
     const {isLoading, error} = useQuery<LeaderboardEntryPage>(
         GET_SORTED_LEADERBOARD_ENTRIES,
-        () => fetchLeaderboardEntries(currentPage)
+        () => fetchLeaderboardEntries(currentPage, rowsPerPage)
     );
 
     const handlePageChange = (event: unknown, newPage: number) => {
-        fetchLeaderboardEntries(newPage)
+        fetchLeaderboardEntries(newPage, rowsPerPage)
             .catch(error => console.log(error));
     }
 
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        fetchLeaderboardEntries(0)
+        fetchLeaderboardEntries(0, +event.target.value)
             .catch(error => console.log(error));
     };
 
