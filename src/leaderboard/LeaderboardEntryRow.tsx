@@ -82,4 +82,4 @@ const LeaderboardEntryRow = ({entry}: Props) => {
     );
 }
 
-export default LeaderboardEntryRow
+export default LeaderboardEntryRow;

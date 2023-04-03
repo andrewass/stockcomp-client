@@ -79,8 +79,8 @@ export const LeaderboardTable = () => {
                 </Table>
             </TableContainer>
             <TablePagination
-                count={totalEntriesCount} page={currentPage}
-                rowsPerPageOptions={[1, 5, 10, 25]}
+                component="div" count={totalEntriesCount}
+                page={currentPage} rowsPerPageOptions={[1, 5, 10, 25]}
                 rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />

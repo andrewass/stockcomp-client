@@ -3,15 +3,13 @@ import {
     Paper,
     Table,
     TableBody,
-    TableCell,
-    tableCellClasses,
     TableContainer,
     TableHead,
     TablePagination,
     TableRow,
     useMediaQuery
 } from "@mui/material";
-import {styled, useTheme} from "@mui/material/styles";
+import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "react-query";
 import {useApiWrapper} from "../config/apiWrapper";
@@ -19,14 +17,8 @@ import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../participa
 import ErrorComponent from "../error/ErrorComponent";
 import {Participant, ParticipantPage} from "../participant/participantTypes";
 import {ChangeEvent, useState} from "react";
+import {StyledTableCell} from "../styles/components/StyledTableCell";
 
-
-const StyledTableCell = styled(TableCell)(({theme}) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: "#2196f3",
-        color: theme.palette.common.white,
-    }
-}));
 
 interface Props {
     contestNumber: number
@@ -63,7 +55,7 @@ export const ContestLeaderboard = ({contestNumber}: Props) => {
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
         fetchParticipantEntries(0, +event.target.value)
             .catch(error => console.log(error));
-    };
+    }
 
     if (isLoading) return <CircularProgress/>
 
@@ -89,11 +81,11 @@ export const ContestLeaderboard = ({contestNumber}: Props) => {
                 </Table>
             </TableContainer>
             <TablePagination
-                count={totalEntriesCount} page={currentPage}
-                rowsPerPageOptions={[1, 5, 10, 25]}
+                component="div" count={totalEntriesCount}
+                page={currentPage} rowsPerPageOptions={[1, 5, 10, 25]}
                 rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
-    )
+    );
 }
