@@ -1,4 +1,3 @@
-
 export enum MedalValue {
     Gold = "Gold",
     Silver = "Silver",
@@ -16,4 +15,9 @@ export type LeaderboardEntry = {
     ranking: number
     score: number
     medals: Medal[]
+}
+
+export type LeaderboardEntryPage = {
+    entries: LeaderboardEntry[]
+    totalEntriesCount: number
 }

@@ -10,8 +10,8 @@ export const useApiWrapper = () => {
             if(config.url?.startsWith(CONTEST_BASE_URL)) {
                 config.headers = {Authorization: "Bearer " + auth.user?.access_token}
             }
-            const response = await axios(config)
-            return response.data
+            const response = await axios(config);
+            return response.data;
         }
     }
 

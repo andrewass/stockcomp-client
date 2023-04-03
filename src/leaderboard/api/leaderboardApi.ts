@@ -11,12 +11,12 @@ export const getLeaderboardEntryUserConfig = (username?: string) => {
     }
 }
 
-export const getSortedLeaderboardEntriesConfig = () => {
+export const getSortedLeaderboardEntriesConfig = (pageNumber: number) => {
     return {
         method: "get",
         url: CONTEST_BASE_URL + "/leaderboard/sorted-entries",
         params: {
-            pageNumber: 0,
+            pageNumber: pageNumber,
             pageSize: 1
         }
     }
