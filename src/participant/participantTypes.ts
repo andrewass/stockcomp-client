@@ -7,3 +7,8 @@ export type Participant = {
     contestNumber: number
     country: string
 }
+
+export type ParticipantPage = {
+    participants: Participant[]
+    totalEntriesCount: number
+}

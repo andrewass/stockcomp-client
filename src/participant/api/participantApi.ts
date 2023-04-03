@@ -22,11 +22,11 @@ export const getSignUpParticipantConfig = (contestNumber: number) => {
 }
 
 
-export const getSortedParticipantsConfig = (contestNumber: number) => {
+export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: number, pageSize: number) => {
     return {
         method: "get",
         url: CONTEST_BASE_URL + "/participant/sorted-participants",
-        params: {contestNumber}
+        params: {contestNumber, pageNumber, pageSize}
     }
 }
 

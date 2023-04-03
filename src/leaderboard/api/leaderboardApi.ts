@@ -15,9 +15,6 @@ export const getSortedLeaderboardEntriesConfig = (pageNumber: number, pageSize: 
     return {
         method: "get",
         url: CONTEST_BASE_URL + "/leaderboard/sorted-entries",
-        params: {
-            pageNumber: pageNumber,
-            pageSize: pageSize
-        }
+        params: {pageNumber, pageSize}
     }
 }
