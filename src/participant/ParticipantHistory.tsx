@@ -6,11 +6,7 @@ import {useApiWrapper} from "../config/apiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
 
 
-interface Props {
-    username: string
-}
-
-export const ParticipantHistory = ({username}: Props) => {
+export const ParticipantHistory = ({username}: { username: string }) => {
 
     const {apiGet} = useApiWrapper();
 

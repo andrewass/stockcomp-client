@@ -6,15 +6,12 @@ import {GET_HISTORIC_PRICES, getHistoricPricesConfig} from "../api/symbolDetails
 import {HistoricalQuote} from "../../stock/stockTypes";
 import ErrorComponent from "../../error/ErrorComponent";
 
-interface Props{
-    symbol: string
-}
 
-export const PriceChart = ({symbol}: Props) => {
+export const PriceChart = ({symbol}: { symbol: string }) => {
     const {apiGet} = useApiWrapper();
 
     const {isLoading, isFetching, error, data} = useQuery<HistoricalQuote[]>(
-        [GET_HISTORIC_PRICES,symbol],
+        [GET_HISTORIC_PRICES, symbol],
         () => apiGet(getHistoricPricesConfig(symbol)));
 
     if (isLoading || isFetching) return <CircularProgress/>
@@ -22,7 +19,7 @@ export const PriceChart = ({symbol}: Props) => {
     if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
-        <Box id="priceChart" sx={{marginTop:"10%", width:"80%"}}>
+        <Box id="priceChart" sx={{marginTop: "10%", width: "80%"}}>
             <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={data} margin={{top: 5, right: 20, bottom: 5, left: 0}}>
                     <defs>
@@ -31,11 +28,15 @@ export const PriceChart = ({symbol}: Props) => {
                             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
                         </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="quoteDate" tick={{fill: '#666', fontSize: 12}}/>
                     <YAxis tick={{fill: '#666', fontSize: 12}}/>
-                    <Tooltip contentStyle={{backgroundColor: '#fff', border: 'none', boxShadow: '0px 2px 5px rgba(0,0,0,0.1)'}}/>
-                    <Area type="monotone" dataKey="price" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPrice)" />
+                    <Tooltip contentStyle={{
+                        backgroundColor: '#fff',
+                        border: 'none',
+                        boxShadow: '0px 2px 5px rgba(0,0,0,0.1)'
+                    }}/>
+                    <Area type="monotone" dataKey="price" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPrice)"/>
                 </AreaChart>
             </ResponsiveContainer>
         </Box>

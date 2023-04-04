@@ -6,11 +6,8 @@ import goldMedal from "../icons/gold-medal.svg";
 import silverMedal from "../icons/silver-medal.svg";
 import bronzeMedal from "../icons/bronze-medal.svg";
 
-interface Props {
-    entry: LeaderboardEntry
-}
 
-const LeaderboardEntryRow = ({entry}: Props) => {
+const LeaderboardEntryRow = ({entry}: { entry: LeaderboardEntry }) => {
 
     const getMedalCount = (medalValue: MedalValue, medals: Medal[]) => {
         return medals.filter(medal => medal.medalValue === medalValue).length;
@@ -66,7 +63,7 @@ const LeaderboardEntryRow = ({entry}: Props) => {
         <TableRow key={entry.displayName}>
             <TableCell>{entry.ranking}</TableCell>
             <TableCell>
-                <NavLink to={`/user/${entry.displayName}`}>
+                <NavLink style={{textDecoration: "none", color: "black"}} to={`/user/${entry.displayName}`}>
                     {entry.displayName}
                 </NavLink>
             </TableCell>

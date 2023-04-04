@@ -1,11 +1,8 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
 import {Stock} from "../../stock/stockTypes";
 
-interface Props {
-    symbolDetails: Stock
-}
 
-const SymbolStats = ({symbolDetails}: Props) => {
+const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
 
     const {stockQuote, stockStats, symbol, description} = symbolDetails;
     const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote;

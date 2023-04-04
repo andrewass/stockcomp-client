@@ -10,11 +10,8 @@ import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
 import {Contest, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
 
-interface Props {
-    contest: Contest
-}
 
-const AdminContestRow = ({contest}: Props) => {
+const AdminContestRow = ({contest}: { contest: Contest }) => {
 
     const {apiDelete} = useApiWrapper()
 

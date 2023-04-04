@@ -2,11 +2,8 @@ import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {Stock} from "../../stock/stockTypes";
 
-interface Props {
-    stock: Stock
-}
 
-const SymbolCard = ({stock}: Props) => {
+const SymbolCard = ({stock}: { stock: Stock }) => {
 
     const {symbol, description, stockQuote} = stock
 

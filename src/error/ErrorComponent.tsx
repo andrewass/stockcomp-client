@@ -1,9 +1,5 @@
 
-interface Props{
-    errorMessage: string
-}
-
-const ErrorComponent = ({errorMessage}: Props) => {
+const ErrorComponent = ({errorMessage}: { errorMessage: string }) => {
     return(
         <h5>{errorMessage}</h5>
     )

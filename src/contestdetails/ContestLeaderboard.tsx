@@ -20,11 +20,7 @@ import {ChangeEvent, useState} from "react";
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 
 
-interface Props {
-    contestNumber: number
-}
-
-export const ContestLeaderboard = ({contestNumber}: Props) => {
+export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) => {
     const {apiGet} = useApiWrapper();
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));

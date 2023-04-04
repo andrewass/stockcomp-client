@@ -7,12 +7,7 @@ import ErrorComponent from "../error/ErrorComponent";
 import {Participant} from "../participant/participantTypes";
 
 
-interface Props {
-    participant: Participant
-    symbol: string
-}
-
-const InvestmentSymbol = ({participant, symbol}: Props) => {
+const InvestmentSymbol = ({participant, symbol}: { participant: Participant, symbol: string }) => {
     const {apiPost} = useApiWrapper();
     const {remainingFunds, contestNumber} = participant;
 

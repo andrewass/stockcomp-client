@@ -1,12 +1,12 @@
 
-export interface Stock{
+export type Stock = {
     symbol: string,
     description: string,
     stockQuote: StockQuote,
     stockStats?: StockStats
 }
 
-export interface StockQuote{
+export type StockQuote = {
     price: number
     priceChange: number
     percentageChange: number
@@ -15,7 +15,7 @@ export interface StockQuote{
 }
 
 
-export interface StockStats{
+export type StockStats = {
     annualDividendYieldPercent: number
     earningsPerShare: number,
     marketCap: number,
@@ -26,7 +26,7 @@ export interface StockStats{
     shortRatio: number
 }
 
-export interface HistoricalQuote{
+export type HistoricalQuote = {
     price: number,
     quoteDate: number
 }

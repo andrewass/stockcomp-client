@@ -14,12 +14,7 @@ import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 
 
-interface Props {
-    contest: Contest
-    key: number
-}
-
-export const ActiveContest = ({contest}: Props) => {
+export const ActiveContest = ({contest}: { contest: Contest }) => {
 
     const {apiGet, apiPost} = useApiWrapper();
 
@@ -63,7 +58,7 @@ export const ActiveContest = ({contest}: Props) => {
             return (
                 <Box>
                     <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-                    <ParticipantPortfolioStatus participant={participant} />
+                    <ParticipantPortfolioStatus participant={participant}/>
                 </Box>
             )
         } else if (!participant) {

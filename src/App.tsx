@@ -1,12 +1,12 @@
 import React from 'react';
 import Body from "./Body";
 import {ThemeProvider} from "@mui/material";
-import {myTheme} from "./config/myTheme";
 import {QueryClientProvider} from "react-query";
 import {queryClient} from "./config/queryConfig";
 import {ReactQueryDevtools} from "react-query/devtools";
 import {AuthProvider} from "react-oidc-context";
 import {oidcConfig, onSignInCallback} from "./config/oidcConfig";
+import {myTheme} from "./styles/theme/myTheme";
 
 
 const App = () => {

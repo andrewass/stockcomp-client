@@ -3,11 +3,8 @@ import {Collapse, List, ListItem, ListItemButton, ListItemText, Typography} from
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import {InvestmentOrder} from "./investmentOrderTypes";
 
-interface Props {
-    completedOrders: InvestmentOrder[]
-}
 
-export const CompletedOrders = ({completedOrders}: Props) => {
+export const CompletedOrders = ({completedOrders}: { completedOrders: InvestmentOrder[] }) => {
 
     const [open, setOpen] = useState(false)
 

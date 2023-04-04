@@ -2,7 +2,8 @@ import React from "react";
 import {useMutation} from "react-query";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {
-    GET_ALL_ACTIVE_INVESTMENT_ORDERS, GET_ALL_COMPLETED_INVESTMENT_ORDERS,
+    GET_ALL_ACTIVE_INVESTMENT_ORDERS,
+    GET_ALL_COMPLETED_INVESTMENT_ORDERS,
     getDeleteInvestmentOrderConfig
 } from "../api/investmentOrderApi";
 import {queryClient} from "../../config/queryConfig";
@@ -11,11 +12,7 @@ import {ActiveOrders} from "../ActiveOrders";
 import {InvestmentOrder} from "../investmentOrderTypes";
 
 
-interface Props {
-    activeOrders: InvestmentOrder[]
-}
-
-export const ActiveOrdersTotal = ({activeOrders}: Props) => {
+export const ActiveOrdersTotal = ({activeOrders}: { activeOrders: InvestmentOrder[] }) => {
     const {apiDelete} = useApiWrapper();
 
     const mutation = useMutation({

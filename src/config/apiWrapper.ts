@@ -5,9 +5,9 @@ import {CONTEST_BASE_URL} from "./properties";
 export const useApiWrapper = () => {
     const auth = useAuth()
 
-    function request() {
+    const request = () => {
         return async (config: AxiosRequestConfig) => {
-            if(config.url?.startsWith(CONTEST_BASE_URL)) {
+            if (config.url?.startsWith(CONTEST_BASE_URL)) {
                 config.headers = {Authorization: "Bearer " + auth.user?.access_token}
             }
             const response = await axios(config);

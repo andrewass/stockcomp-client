@@ -8,11 +8,8 @@ import AdminContestRow from "./AdminContestRow";
 import {Contest} from "../contests/contestTypes";
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 
-interface Props {
-    contests: Contest[]
-}
 
-const AdminContestTable = ({contests}: Props) => {
+const AdminContestTable = ({contests}: { contests: Contest[] }) => {
     return (
         <TableContainer component={Paper} sx={{mt: "10%"}}>
             <Table>

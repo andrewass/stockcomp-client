@@ -2,11 +2,8 @@ import {List} from "@mui/material";
 import {ActiveContest} from "./ActiveContest";
 import {Contest} from "./contestTypes";
 
-interface Props {
-    contests: Contest[]
-}
 
-export const ActiveContestList = ({contests}: Props) => {
+export const ActiveContestList = ({contests}: { contests: Contest[] }) => {
 
     return (
         <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, styled, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {NavLink} from "react-router-dom";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
@@ -7,18 +7,14 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {styled} from "@mui/material";
 
 
 const StyledItemIcon = styled(ListItemIcon)({
     marginRight: "0.5rem"
 });
 
-interface Props{
-    signOutUser: () => void
-}
 
-const DropDownMenu = ({signOutUser}: Props) => {
+const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);

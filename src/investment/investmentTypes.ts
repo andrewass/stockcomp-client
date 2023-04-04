@@ -1,5 +1,5 @@
 
-export interface Investment {
+export type Investment = {
     symbol: string
     amount: number
     totalProfit: number

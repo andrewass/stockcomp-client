@@ -26,7 +26,7 @@ export const LeaderboardTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [leaderboardEntries, setLeaderboardEntries] = useState<LeaderboardEntry[]>([]);
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(1);
+    const [rowsPerPage, setRowsPerPage] = useState<number>(10);
     const {apiGet} = useApiWrapper();
 
     const fetchLeaderboardEntries = async (page: number, pageRowCount: number) => {

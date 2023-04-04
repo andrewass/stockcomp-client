@@ -1,11 +1,8 @@
 import {CompletedOrders} from "../CompletedOrders";
 import {InvestmentOrder} from "../investmentOrderTypes";
 
-interface Props {
-    completedOrders: InvestmentOrder[]
-}
 
-export const CompletedOrdersSymbol = ({completedOrders}: Props) => {
+export const CompletedOrdersSymbol = ({completedOrders}: { completedOrders: InvestmentOrder[] }) => {
     return (
         <CompletedOrders completedOrders={completedOrders}/>
     );
