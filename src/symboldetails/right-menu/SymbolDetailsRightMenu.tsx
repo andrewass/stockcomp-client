@@ -9,12 +9,8 @@ import {InvestmentOrdersSymbol} from "../../investmentorder/symbol/InvestmentOrd
 import {Participant} from "../../participant/participantTypes";
 import {Stock} from "../../stock/stockTypes";
 
-interface Props {
-    stock: Stock
-    isLargeWidth: boolean
-}
 
-export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: Props) => {
+export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: { stock: Stock, isLargeWidth: boolean }) => {
     const {apiGet} = useApiWrapper();
 
     const {isLoading, error, data: participant} = useQuery<Participant>(GET_ACTIVE_PARTICIPANT,
@@ -31,8 +27,7 @@ export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: Props) => {
                 <InvestmentSymbol participant={participant} symbol={stock.symbol}/>
                 <InvestmentOrderForm symbol={stock.symbol}
                                      contestNumber={participant.contestNumber} stockQuote={stock.stockQuote}/>
-                <InvestmentOrdersSymbol contestNumber={participant.contestNumber}
-                                        stockQuote={stock.stockQuote} symbol={stock.symbol}/>
+                <InvestmentOrdersSymbol contestNumber={participant.contestNumber} symbol={stock.symbol}/>
             </Box>
         );
     }

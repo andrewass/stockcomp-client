@@ -12,12 +12,11 @@ import {ActiveOrders} from "../ActiveOrders";
 import {InvestmentOrder} from "../investmentOrderTypes";
 
 
-interface Props {
-    activeOrders: InvestmentOrder[]
+export const ActiveOrdersSymbol = ({activeOrders, symbol}: {
+    activeOrders: InvestmentOrder[],
     symbol: string
-}
+}) => {
 
-export const ActiveOrdersSymbol = ({activeOrders, symbol}: Props) => {
     const {apiDelete} = useApiWrapper();
 
     const mutation = useMutation({

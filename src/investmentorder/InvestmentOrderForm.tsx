@@ -15,11 +15,6 @@ import {
 import {codeMapTransaction} from "./investmentOrderTypes";
 import {StockQuote} from "../stock/stockTypes";
 
-interface Props {
-    symbol: string
-    contestNumber: number
-    stockQuote: StockQuote
-}
 
 export type InvestmentOrderRequest = {
     acceptedPrice: number
@@ -31,7 +26,11 @@ export type InvestmentOrderRequest = {
     symbol: string
 }
 
-export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: Props) => {
+export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: {
+    symbol: string,
+    contestNumber: number,
+    stockQuote: StockQuote
+}) => {
 
     const {apiPost} = useApiWrapper();
     const {handleSubmit, control} = useForm<InvestmentOrderRequest>({

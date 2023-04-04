@@ -12,12 +12,11 @@ import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 import {useState} from "react";
 import {InvestmentOrder} from "./investmentOrderTypes";
 
-interface Props {
-    activeOrders: InvestmentOrder[]
-    deleteOrder: (orderId: number) => void
-}
 
-export const ActiveOrders = ({activeOrders, deleteOrder}: Props) => {
+export const ActiveOrders = ({activeOrders, deleteOrder}: {
+    activeOrders: InvestmentOrder[],
+    deleteOrder: (orderId: number) => void
+}) => {
 
     const [open, setOpen] = useState(false);
 

@@ -1,4 +1,3 @@
-
 export const CONTEST_STATUS = {
     AWAITING_START: "AWAITING_START",
     RUNNING: "RUNNING",
@@ -23,12 +22,32 @@ export const contestStatusMap = new Map<string, string>([
     [CONTEST_STATUS.COMPLETED, "Completed"]
 ])
 
-export type Contest = {
-    contestNumber: number
-    startTime: string
-    endTime: Date
-    participantCount: number
-    contestStatus: string
-    leaderboardUpdateStatus: string
+export class Contest {
+    contestNumber: number;
+    startTime: string;
+    endTime: Date;
+    participantCount: number;
+    contestStatus: string;
+    leaderboardUpdateStatus: string;
+
+    constructor(
+        contestNumber: number,
+        startTime: string,
+        endTime: Date,
+        participantCount: number,
+        contestStatus: string,
+        leaderboardUpdateStatus: string
+    ) {
+        this.contestNumber = contestNumber;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.participantCount = participantCount;
+        this.contestStatus = contestStatus
+        this.leaderboardUpdateStatus = leaderboardUpdateStatus
+    }
 }
 
+export type ContestPage = {
+    contests: Contest[]
+    totalEntriesCount: number
+}

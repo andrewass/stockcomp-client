@@ -12,14 +12,12 @@ import {
 import {useTheme} from '@mui/material/styles';
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 import {ContestEntry} from "./ContestEntry";
-import {Contest} from "./contestTypes";
+import {Contest, ContestPage} from "./contestTypes";
 import {ChangeEvent, useState} from "react";
 import {useQuery} from "react-query";
-import {ParticipantPage} from "../participant/participantTypes";
 import ErrorComponent from "../error/ErrorComponent";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_ALL_CONTESTS_SORTED, getAllContestsSortedByContestNumberConfig} from "./api/contestApi";
-
 
 
 export const ContestTable = () => {
@@ -41,7 +39,7 @@ export const ContestTable = () => {
         return data;
     }
 
-    const {error, isLoading} = useQuery<ParticipantPage>(
+    const {error, isLoading} = useQuery<ContestPage>(
         GET_ALL_CONTESTS_SORTED,
         () => fetchContestEntries(currentPage, rowsPerPage)
     );

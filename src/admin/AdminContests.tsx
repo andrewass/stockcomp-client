@@ -4,7 +4,7 @@ import AdminContestTable from "./AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {useApiWrapper} from "../config/apiWrapper";
-import {getContestsAdminConfig} from "./api/adminApi";
+import {GET_ALL_CONTESTS_ADMIN, getContestsAdminConfig} from "./api/adminApi";
 import {Contest} from "../contests/contestTypes";
 import ErrorComponent from "../error/ErrorComponent";
 
@@ -14,14 +14,15 @@ const AdminContests = () => {
     const {apiGet} = useApiWrapper()
     const theme = useTheme();
 
-    const {isLoading, error, data: contests} = useQuery("getAllContestsAdmin",
+    const {isLoading, error, data: contests} = useQuery<Contest[]>(
+        GET_ALL_CONTESTS_ADMIN,
         () => apiGet(getContestsAdminConfig([])));
 
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>;
+    if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
         <Box sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto"}}

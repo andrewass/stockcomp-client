@@ -10,16 +10,12 @@ import {ActiveOrdersSymbol} from "./ActiveOrdersSymbol";
 import {CompletedOrdersSymbol} from "./CompletedOrdersSymbol";
 import ErrorComponent from "../../error/ErrorComponent";
 import {ORDER_STATUS} from "../investmentOrderTypes";
-import {StockQuote} from "../../stock/stockTypes";
 
+export const InvestmentOrdersSymbol = ({contestNumber, symbol}: {
+    contestNumber: number,
+    symbol: string,
+}) => {
 
-interface Props {
-    contestNumber: number
-    symbol: string
-    stockQuote: StockQuote
-}
-
-export const InvestmentOrdersSymbol = ({contestNumber, symbol, stockQuote}: Props) => {
     const {apiPost} = useApiWrapper()
 
     const {isLoading: activeLoading, error: activeError, data: activeOrders} =
