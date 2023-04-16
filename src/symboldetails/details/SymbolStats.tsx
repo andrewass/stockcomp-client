@@ -25,7 +25,7 @@ const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
     }
 
     return (
-        <Box>
+        <Box id="symbolStats" sx={{padding:"0px 30px"}}>
             <Card elevation={0} sx={{mb: "30px"}}>
                 <CardContent>
                     <Box>

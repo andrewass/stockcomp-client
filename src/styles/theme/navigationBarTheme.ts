@@ -49,7 +49,6 @@ export const navigationBarTheme = createTheme({
                     backgroundColor: "#1976d2",
                     color: "#fff",
                     padding: "8px 16px",
-                    borderRadius: "20px",
                     boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)"
                 }
             }

@@ -22,8 +22,8 @@ export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: { stock: Stock, is
 
     if (participant) {
         return (
-            <Box display="flex" flexDirection="column"
-                 sx={{width: isLargeWidth ? "30%" : "70%", ml: "2rem", mr: "2rem"}}>
+            <Box id="symbolDetailsRighMenu" display="flex" flexDirection="column"
+                 sx={{width: isLargeWidth ? "30%" : "70%", padding: "50px 30px", margin: "auto"}}>
                 <InvestmentSymbol participant={participant} symbol={stock.symbol}/>
                 <InvestmentOrderForm symbol={stock.symbol}
                                      contestNumber={participant.contestNumber} stockQuote={stock.stockQuote}/>

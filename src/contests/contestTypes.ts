@@ -45,6 +45,22 @@ export class Contest {
         this.contestStatus = contestStatus
         this.leaderboardUpdateStatus = leaderboardUpdateStatus
     }
+
+    getStatusByColor(): string {
+        switch (this.contestStatus) {
+            case CONTEST_STATUS.RUNNING :
+                return "green";
+            case CONTEST_STATUS.COMPLETED :
+                return "grey";
+            case CONTEST_STATUS.AWAITING_START :
+                return "yellow";
+            case CONTEST_STATUS.STOPPED :
+                return "red";
+            default:
+                console.error("Invalid contest status " + this.contestStatus);
+        }
+        return "red";
+    }
 }
 
 export type ContestPage = {
