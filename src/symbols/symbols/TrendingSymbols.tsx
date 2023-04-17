@@ -1,6 +1,6 @@
 import {Box, CircularProgress, Grid, useMediaQuery} from "@mui/material";
 import SymbolCard from "./SymbolCard";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {useApiWrapper} from "../../config/apiWrapper";
@@ -17,13 +17,15 @@ const TrendingSymbols = () => {
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {isLoading, error, data: symbols} = useQuery<Stock[]>(GET_TRENDING_SYMBOLS,
+    const {isLoading, error, data: symbols} = useQuery<Stock[]>(
+        [GET_TRENDING_SYMBOLS],
         () => apiGet(getTrendingSymbolsConfig()),
-        {refetchInterval: FETCH_QUOTE_INTERVAL})
+        {refetchInterval: FETCH_QUOTE_INTERVAL}
+    );
 
     if (isLoading) return <CircularProgress/>
 
-    if (error || !symbols) return <ErrorComponent errorMessage={error as string} />
+    if (error || !symbols) return <ErrorComponent errorMessage={error as string}/>
 
     return (
         <Box>

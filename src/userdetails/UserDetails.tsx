@@ -1,5 +1,5 @@
 import {Avatar, Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
 import {deepPurple} from "@mui/material/colors";
@@ -16,7 +16,8 @@ const UserDetails = () => {
 
     const {isLoading, isFetching, error, data: userData} = useQuery<UserData>(
         [GET_USER_DETAILS, params.username],
-        () => apiGet(getUserDetailsConfig(params.username)));
+        () => apiGet(getUserDetailsConfig(params.username))
+    );
 
     if (isLoading || isFetching) return <CircularProgress/>
 

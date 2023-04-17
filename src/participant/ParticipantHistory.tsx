@@ -1,6 +1,6 @@
 import {Box, CircularProgress, Typography} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "./api/participantApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
@@ -10,9 +10,10 @@ export const ParticipantHistory = ({username}: { username: string }) => {
 
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: historyData} =
-        useQuery([GET_PARTICIPANT_HISTORY, username],
-            () => apiGet(getParticipantHistoryConfig(username)));
+    const {isLoading, error, data: historyData} = useQuery(
+        [GET_PARTICIPANT_HISTORY, username],
+        () => apiGet(getParticipantHistoryConfig(username))
+    );
 
     if (isLoading) return <CircularProgress/>
 

@@ -1,4 +1,4 @@
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {GET_ACTIVE_PARTICIPANT, getActiveParticipantConfig} from "../api/symbolDetailsApi";
 import {Box, CircularProgress} from "@mui/material";
@@ -13,7 +13,8 @@ import {Stock} from "../../stock/stockTypes";
 export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: { stock: Stock, isLargeWidth: boolean }) => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: participant} = useQuery<Participant>(GET_ACTIVE_PARTICIPANT,
+    const {isLoading, error, data: participant} = useQuery<Participant>(
+        [GET_ACTIVE_PARTICIPANT],
         () => apiGet(getActiveParticipantConfig()));
 
     if (isLoading) return <CircularProgress/>

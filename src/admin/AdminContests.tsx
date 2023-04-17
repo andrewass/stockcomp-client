@@ -1,4 +1,4 @@
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {Box, CircularProgress, useMediaQuery, useTheme} from "@mui/material";
 import AdminContestTable from "./AdminContestTable";
 import Button from "@mui/material/Button";
@@ -15,8 +15,9 @@ const AdminContests = () => {
     const theme = useTheme();
 
     const {isLoading, error, data: contests} = useQuery<Contest[]>(
-        GET_ALL_CONTESTS_ADMIN,
-        () => apiGet(getContestsAdminConfig([])));
+        [GET_ALL_CONTESTS_ADMIN],
+        () => apiGet(getContestsAdminConfig([]))
+    );
 
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
 

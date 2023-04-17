@@ -1,6 +1,6 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, CircularProgress} from "@mui/material";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {GET_HISTORIC_PRICES, getHistoricPricesConfig} from "../api/symbolDetailsApi";
 import {HistoricalQuote} from "../../stock/stockTypes";
@@ -12,7 +12,8 @@ export const PriceChart = ({symbol}: { symbol: string }) => {
 
     const {isLoading, isFetching, error, data} = useQuery<HistoricalQuote[]>(
         [GET_HISTORIC_PRICES, symbol],
-        () => apiGet(getHistoricPricesConfig(symbol)));
+        () => apiGet(getHistoricPricesConfig(symbol))
+    );
 
     if (isLoading || isFetching) return <CircularProgress/>
 

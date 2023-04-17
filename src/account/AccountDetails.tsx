@@ -1,5 +1,5 @@
 import {Avatar, Box, Card, CardActions, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {deepPurple} from "@mui/material/colors";
 import {AccountDetailsForm} from "./AccountDetailsForm";
@@ -12,8 +12,10 @@ import ReactCountryFlag from "react-country-flag";
 const AccountDetails = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, isFetching, error, data: accountData} = useQuery<AccountData>(GET_ACCOUNT_DETAILS,
-        () => apiGet(getAccountDetailsConfig()));
+    const {isLoading, isFetching, error, data: accountData} = useQuery<AccountData>(
+        [GET_ACCOUNT_DETAILS],
+        () => apiGet(getAccountDetailsConfig())
+    );
 
     if (isLoading || isFetching) return <CircularProgress/>
 

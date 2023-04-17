@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
@@ -39,7 +39,8 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
         return data;
     }
 
-    const {error, isLoading} = useQuery<ParticipantPage>([GET_SORTED_PARTICIPANTS, contestNumber],
+    const {error, isLoading} = useQuery<ParticipantPage>(
+        [GET_SORTED_PARTICIPANTS, contestNumber],
         () => fetchParticipantEntries(currentPage, rowsPerPage)
     );
 

@@ -1,5 +1,5 @@
 import {useApiWrapper} from "../../config/apiWrapper";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {
     GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
     GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
@@ -19,12 +19,16 @@ export const InvestmentOrdersSymbol = ({contestNumber, symbol}: {
     const {apiPost} = useApiWrapper()
 
     const {isLoading: activeLoading, error: activeError, data: activeOrders} =
-        useQuery([GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol],
-            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.ACTIVE])));
+        useQuery(
+            [GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol],
+            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.ACTIVE]))
+        );
 
     const {isLoading: completedLoading, error: completedError, data: completedOrders} =
-        useQuery([GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol],
-            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.COMPLETED])));
+        useQuery(
+            [GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol],
+            () => apiPost(getInvestmentOrdersSymbolConfig(symbol, contestNumber, [ORDER_STATUS.COMPLETED]))
+        );
 
 
     if (activeLoading || completedLoading) return <CircularProgress/>

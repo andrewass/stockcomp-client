@@ -14,7 +14,7 @@ import {StyledTableCell} from "../styles/components/StyledTableCell";
 import {ContestEntry} from "./ContestEntry";
 import {Contest, ContestPage} from "./contestTypes";
 import {ChangeEvent, useState} from "react";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import ErrorComponent from "../error/ErrorComponent";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_ALL_CONTESTS_SORTED, getAllContestsSortedByContestNumberConfig} from "./api/contestApi";
@@ -40,7 +40,7 @@ export const ContestTable = () => {
     }
 
     const {error, isLoading} = useQuery<ContestPage>(
-        GET_ALL_CONTESTS_SORTED,
+        [GET_ALL_CONTESTS_SORTED],
         () => fetchContestEntries(currentPage, rowsPerPage)
     );
 

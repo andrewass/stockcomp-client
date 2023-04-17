@@ -1,6 +1,6 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useParams} from "react-router-dom";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
@@ -11,9 +11,10 @@ export const UserParticipantDetails = () => {
     const {username} = useParams<{ username: string }>()
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: entryData} =
-        useQuery([GET_LEADERBOARD_USER_ENTRY, username],
-            () => apiGet(getLeaderboardEntryUserConfig(username)));
+    const {isLoading, error, data: entryData} = useQuery(
+        [GET_LEADERBOARD_USER_ENTRY, username],
+        () => apiGet(getLeaderboardEntryUserConfig(username))
+    );
 
     if (isLoading) return <CircularProgress/>
 
