@@ -23,27 +23,15 @@ export const contestStatusMap = new Map<string, string>([
 ])
 
 export class Contest {
-    contestNumber: number;
-    startTime: string;
-    endTime: Date;
-    participantCount: number;
-    contestStatus: string;
-    leaderboardUpdateStatus: string;
+    contestNumber: number = NaN;
+    startTime: string = "";
+    endTime: Date = new Date();
+    participantCount: number = NaN;
+    contestStatus: string = "";
+    leaderboardUpdateStatus: string = "";
 
-    constructor(
-        contestNumber: number,
-        startTime: string,
-        endTime: Date,
-        participantCount: number,
-        contestStatus: string,
-        leaderboardUpdateStatus: string
-    ) {
-        this.contestNumber = contestNumber;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.participantCount = participantCount;
-        this.contestStatus = contestStatus
-        this.leaderboardUpdateStatus = leaderboardUpdateStatus
+    constructor(fields: Contest) {
+        Object.assign(this, fields);
     }
 
     getStatusByColor(): string {

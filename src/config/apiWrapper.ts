@@ -3,7 +3,7 @@ import axios, {AxiosRequestConfig} from "axios";
 import {CONTEST_BASE_URL} from "./properties";
 
 export const useApiWrapper = () => {
-    const auth = useAuth()
+    const auth = useAuth();
 
     const request = () => {
         return async (config: AxiosRequestConfig) => {

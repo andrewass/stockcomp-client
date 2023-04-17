@@ -14,14 +14,15 @@ export const ContestDetails = () => {
     const {contestNumber} = useParams<{ contestNumber: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, data: contest, error} =
-        useQuery<Contest>([GET_CONTEST_BY_NUMBER, contestNumber],
+    const {isLoading, data, error} =
+        useQuery([GET_CONTEST_BY_NUMBER, contestNumber],
             () => apiGet(getContestConfig(Number(contestNumber!))));
 
     if (isLoading) return <CircularProgress/>
 
-    if (error || !contest)
-        return <ErrorComponent errorMessage={error ? error as string : `Contest ${contestNumber} not found`}/>
+    if (error) return <ErrorComponent errorMessage={error as string}/>
+
+    const contest = new Contest(data);
 
     const getContestStatus = () => {
         return (

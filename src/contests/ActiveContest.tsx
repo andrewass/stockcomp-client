@@ -39,10 +39,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     const getContestStatus = () => {
         return (
             <Box display="flex">
-                <CircleIcon sx={{
-                    color: contest.contestStatus === CONTEST_STATUS.RUNNING
-                        ? "green" : "orange", marginRight: 1
-                }}/>
+                <CircleIcon sx={{color: contest.getStatusByColor(), marginRight: 1}}/>
                 <Typography>
                     {contest.contestStatus === CONTEST_STATUS.RUNNING
                         ? "Ending " + contest.endTime
