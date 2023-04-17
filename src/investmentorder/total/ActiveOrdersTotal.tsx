@@ -1,5 +1,4 @@
 import React from "react";
-import {useMutation} from "react-query";
 import {useApiWrapper} from "../../config/apiWrapper";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS,
@@ -10,6 +9,7 @@ import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import {ActiveOrders} from "../ActiveOrders";
 import {InvestmentOrder} from "../investmentOrderTypes";
+import {useMutation} from "@tanstack/react-query";
 
 
 export const ActiveOrdersTotal = ({activeOrders}: { activeOrders: InvestmentOrder[] }) => {
@@ -20,8 +20,8 @@ export const ActiveOrdersTotal = ({activeOrders}: { activeOrders: InvestmentOrde
             return apiDelete(getDeleteInvestmentOrderConfig(orderId))
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries(GET_ALL_ACTIVE_INVESTMENT_ORDERS);
-            await queryClient.invalidateQueries(GET_ALL_COMPLETED_INVESTMENT_ORDERS);
+            await queryClient.invalidateQueries([GET_ALL_ACTIVE_INVESTMENT_ORDERS]);
+            await queryClient.invalidateQueries([GET_ALL_COMPLETED_INVESTMENT_ORDERS]);
             toast.success("Successfully deleted order");
         },
         onError: () => {

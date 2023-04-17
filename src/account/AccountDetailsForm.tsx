@@ -1,6 +1,6 @@
 import {Box, Button, MenuItem, Modal, Select, TextField} from "@mui/material";
 import {useState} from "react";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {queryClient} from "../config/queryConfig";
 import toast from "react-hot-toast";
 import {AccountData} from "./accountDetailTypes";
@@ -75,7 +75,7 @@ export const AccountDetailsForm = ({accountData}: Props) => {
         mutationFn: (accountData: UpdateAccountInput) => {
             return apiPost(updateAccountDataConfig(accountData))
         },
-        onSuccess: () => queryClient.invalidateQueries(GET_ACCOUNT_DETAILS),
+        onSuccess: () => queryClient.invalidateQueries([GET_ACCOUNT_DETAILS]),
         onError: () => {
             toast.error("Unable to update account details", {
                 duration: 4000,

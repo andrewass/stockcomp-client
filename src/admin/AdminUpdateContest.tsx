@@ -1,8 +1,8 @@
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useLocation, useNavigate} from "react-router-dom";
 import {queryClient} from "../config/queryConfig";
 import {useApiWrapper} from "../config/apiWrapper";
-import {getUpdateContestConfig} from "./api/adminApi";
+import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "./api/adminApi";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
@@ -28,7 +28,7 @@ const AdminUpdateContest = () => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
-            queryClient.invalidateQueries("getAllContestsAdmin")
+            queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
                 .then(() => navigate("/admin/contests"));
         }
     });

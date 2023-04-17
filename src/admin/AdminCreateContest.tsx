@@ -1,7 +1,7 @@
 import {Box, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/apiWrapper";

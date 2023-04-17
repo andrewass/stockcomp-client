@@ -3,9 +3,9 @@ import TableCell from "@mui/material/TableCell";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from "@mui/material";
-import {useMutation} from "react-query";
+import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
-import {getDeleteContestConfig} from "./api/adminApi";
+import {GET_ALL_CONTESTS_ADMIN, getDeleteContestConfig} from "./api/adminApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
 import {Contest, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
@@ -19,7 +19,7 @@ const AdminContestRow = ({contest}: { contest: Contest }) => {
         mutationFn: () => {
             return apiDelete(getDeleteContestConfig(contest.contestNumber))
         },
-        onSuccess: () => queryClient.invalidateQueries("getAllContestsAdmin")
+        onSuccess: () => queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
     })
 
     const navigate = useNavigate()

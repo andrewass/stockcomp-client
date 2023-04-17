@@ -1,5 +1,4 @@
 import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText, Typography} from "@mui/material";
-import {useMutation, useQuery} from "react-query";
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, CONTEST_STATUS} from "./contestTypes";
@@ -12,6 +11,7 @@ import {
 } from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
+import {useMutation, useQuery} from "@tanstack/react-query";
 
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
@@ -23,7 +23,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
             return apiPost(getSignUpParticipantConfig(contest.contestNumber))
         },
         onSuccess: () =>
-            queryClient.invalidateQueries(GET_CONTEST_PARTICIPANT + ":" + contest.contestNumber),
+            queryClient.invalidateQueries([GET_CONTEST_PARTICIPANT, contest.contestNumber]),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
@@ -33,8 +33,9 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     })
 
     const {isLoading, error, data: participant} = useQuery(
-        GET_CONTEST_PARTICIPANT + ":" + contest.contestNumber,
-        () => apiGet(getContestParticipantConfig(contest.contestNumber)));
+        [GET_CONTEST_PARTICIPANT, contest.contestNumber],
+        () => apiGet(getContestParticipantConfig(contest.contestNumber))
+    );
 
     const getContestStatus = () => {
         return (
