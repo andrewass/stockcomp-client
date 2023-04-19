@@ -13,116 +13,69 @@ import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
 
+
+const getProtectedComponent = (child: JSX.Element) => {
+    return (
+        <ProtectedRoute>
+            <DefaultNavigation/>
+            {child}
+        </ProtectedRoute>
+    )
+}
+
+const getProtectedAdminComponent = (child: JSX.Element) => {
+    return (
+        <ProtectedRoute>
+            <AdminNavigation/>
+            {child}
+        </ProtectedRoute>
+    )
+}
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
             <Route
                 path="/"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <TrendingSymbols/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<TrendingSymbols/>)}
             />
-
             <Route
                 path="contests"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <Contests/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<Contests/>)}
             />
-
             <Route
                 path="contest/:contestNumber"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <ContestDetails/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<ContestDetails/>)}
             />
-
             <Route
                 path="leaderboard"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <Leaderboard/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<Leaderboard/>)}
             />
-
             <Route
                 path="symbol/:symbol"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <SymbolDetails/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<SymbolDetails/>)}
             />
-
             <Route
                 path="account"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <AccountDetails/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<AccountDetails/>)}
             />
-
             <Route
                 path="user/:username"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <UserDetails/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedComponent(<UserDetails/>)}
             />
-
-            <Route
-                path="*"
-                element={
-                    <ProtectedRoute>
-                        <DefaultNavigation/>
-                        <TrendingSymbols/>
-                    </ProtectedRoute>
-                }
-            />
-
             <Route
                 path="admin/contests"
-                element={
-                    <ProtectedRoute>
-                        <AdminNavigation/>
-                        <AdminContests/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedAdminComponent(<AdminContests/>)}
             />
 
             <Route
                 path="admin/contests/create"
-                element={
-                    <ProtectedRoute>
-                        <AdminNavigation/>
-                        <AdminCreateContest/>
-                    </ProtectedRoute>
-                }
+                element={getProtectedAdminComponent(<AdminCreateContest/>)}
             />
 
             <Route
                 path="admin/contests/update"
-                element={
-                    <ProtectedRoute>
-                        <AdminNavigation/>
-                        <AdminUpdateContest/>
-                    </ProtectedRoute>
+                element={getProtectedComponent(<AdminUpdateContest/>)
                 }
             />
         </Route>
