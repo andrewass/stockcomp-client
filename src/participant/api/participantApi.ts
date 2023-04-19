@@ -2,7 +2,7 @@ import {CONTEST_BASE_URL} from "../../config/properties";
 
 export const GET_CONTEST_PARTICIPANT = "getContestParticipant"
 export const GET_SORTED_PARTICIPANTS = "getSortedParticipants";
-export const GET_PARTICIPANT_HISTORY = "getParticipantHistory";
+export const GET_DETAILED_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
 
 
 export const getContestParticipantConfig = (contestNumber: number) => {
@@ -30,10 +30,10 @@ export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: n
     }
 }
 
-export const getParticipantHistoryConfig = (username: string) => {
+export const getDetailedParticipantHistoryConfig = (username: string) => {
     return {
         method: "get",
-        url: CONTEST_BASE_URL + "/participant/participant-history",
+        url: CONTEST_BASE_URL + "/participant/detailed-participant-history",
         params: {username}
     }
 }
