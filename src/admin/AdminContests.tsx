@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import {Box, CircularProgress, useMediaQuery, useTheme} from "@mui/material";
-import AdminContestTable from "./AdminContestTable";
+import {AdminContestTable} from "./AdminContestTable";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {useApiWrapper} from "../config/apiWrapper";

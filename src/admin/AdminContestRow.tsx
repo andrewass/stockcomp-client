@@ -8,21 +8,19 @@ import {useNavigate} from "react-router-dom";
 import {GET_ALL_CONTESTS_ADMIN, getDeleteContestConfig} from "./api/adminApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
-import {Contest, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
+import {Contest, CONTEST_STATUS, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
 
 
-const AdminContestRow = ({contest}: { contest: Contest }) => {
-
-    const {apiDelete} = useApiWrapper()
+export const AdminContestRow = ({contest}: { contest: Contest }) => {
+    const navigate = useNavigate();
+    const {apiDelete} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: () => {
             return apiDelete(getDeleteContestConfig(contest.contestNumber))
         },
         onSuccess: () => queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
-    })
-
-    const navigate = useNavigate()
+    });
 
     return (
         <TableRow key={contest.contestNumber}>
@@ -35,17 +33,17 @@ const AdminContestRow = ({contest}: { contest: Contest }) => {
                 {leaderboardUpdateStatusMap.get(contest.leaderboardUpdateStatus)}
             </TableCell>
             <TableCell>
-                <IconButton onClick={() => navigate("/admin/contests/update", {state: contest})}>
+                <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED}
+                            onClick={() => navigate("/admin/contests/update", {state: contest})}>
                     <EditIcon/>
                 </IconButton>
             </TableCell>
             <TableCell>
-                <IconButton onClick={() => mutation.mutate()}>
+                <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED}
+                            onClick={() => mutation.mutate()}>
                     <DeleteForeverIcon/>
                 </IconButton>
             </TableCell>
         </TableRow>
-    )
+    );
 }
-
-export default AdminContestRow

@@ -4,12 +4,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import AdminContestRow from "./AdminContestRow";
+import {AdminContestRow} from "./AdminContestRow";
 import {Contest} from "../contests/contestTypes";
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 
 
-const AdminContestTable = ({contests}: { contests: Contest[] }) => {
+export const AdminContestTable = ({contests}: { contests: Contest[] }) => {
     return (
         <TableContainer component={Paper} sx={{mt: "10%"}}>
             <Table>
@@ -30,5 +30,3 @@ const AdminContestTable = ({contests}: { contests: Contest[] }) => {
         </TableContainer>
     );
 }
-
-export default AdminContestTable
