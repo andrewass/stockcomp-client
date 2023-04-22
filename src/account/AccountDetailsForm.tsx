@@ -68,9 +68,6 @@ export const AccountDetailsForm = ({accountData}: Props) => {
     countries.registerLocale(enLocale);
     const countriesObject = countries.getNames("en");
 
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
     const mutation = useMutation({
         mutationFn: (accountData: UpdateAccountInput) => {
             return apiPost(updateAccountDataConfig(accountData))
@@ -84,10 +81,12 @@ export const AccountDetailsForm = ({accountData}: Props) => {
         }
     })
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const submitForm: SubmitHandler<UpdateAccountInput> = data => {
         mutation.mutate(data);
     }
-
 
     return (
         <Box>

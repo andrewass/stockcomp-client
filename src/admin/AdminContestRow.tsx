@@ -1,18 +1,16 @@
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import {IconButton} from "@mui/material";
 import {useMutation} from "@tanstack/react-query";
-import {useNavigate} from "react-router-dom";
 import {GET_ALL_CONTESTS_ADMIN, getDeleteContestConfig} from "./api/adminApi";
 import {useApiWrapper} from "../config/apiWrapper";
 import {queryClient} from "../config/queryConfig";
 import {Contest, CONTEST_STATUS, contestStatusMap, leaderboardUpdateStatusMap} from "../contests/contestTypes";
+import {AdminUpdateContestForm} from "./AdminUpdateContestForm";
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
-    const navigate = useNavigate();
     const {apiDelete} = useApiWrapper();
 
     const mutation = useMutation({
@@ -33,10 +31,7 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
                 {leaderboardUpdateStatusMap.get(contest.leaderboardUpdateStatus)}
             </TableCell>
             <TableCell>
-                <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED}
-                            onClick={() => navigate("/admin/contests/update", {state: contest})}>
-                    <EditIcon/>
-                </IconButton>
+                <AdminUpdateContestForm contest={contest}/>
             </TableCell>
             <TableCell>
                 <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED}

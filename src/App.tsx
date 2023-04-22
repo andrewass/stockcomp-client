@@ -1,5 +1,5 @@
 import React from 'react';
-import Body from "./Body";
+import {Body} from "./Body";
 import {ThemeProvider} from "@mui/material";
 import {queryClient} from "./config/queryConfig";
 import {AuthProvider} from "react-oidc-context";
