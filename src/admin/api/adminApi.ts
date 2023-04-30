@@ -1,6 +1,7 @@
 import {CONTEST_BASE_URL} from "../../config/properties";
-import {CreateContestInput} from "../AdminCreateContest";
-import {UpdateContestInput} from "../AdminUpdateContestForm";
+import {CreateContestInput} from "../contests/AdminCreateContest";
+import {UpdateContestInput} from "../contests/AdminUpdateContestForm";
+
 
 export const GET_ALL_CONTESTS_ADMIN = "getAllContestsAdmin";
 

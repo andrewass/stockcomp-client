@@ -9,8 +9,8 @@ import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
-import AdminContests from "./admin/AdminContests";
-import AdminCreateContest from "./admin/AdminCreateContest";
+import AdminContests from "./admin/contests/AdminContests";
+import AdminCreateContest from "./admin/contests/AdminCreateContest";
 
 
 const ProtectedComponent = () => {

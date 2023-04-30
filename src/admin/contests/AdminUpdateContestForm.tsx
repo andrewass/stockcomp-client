@@ -1,17 +1,17 @@
 import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
-import {queryClient} from "../config/queryConfig";
-import {useApiWrapper} from "../config/apiWrapper";
-import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "./api/adminApi";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {Box, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, TextField} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
-import {Contest, CONTEST_STATUS, contestStatusMap} from "../contests/contestTypes";
 import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
+import {Contest, CONTEST_STATUS, contestStatusMap} from "../../contests/contestTypes";
+import {useApiWrapper} from "../../config/apiWrapper";
+import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
+import {queryClient} from "../../config/queryConfig";
 
 export type UpdateContestInput = {
     contestNumber: number,
