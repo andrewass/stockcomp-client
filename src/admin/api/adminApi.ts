@@ -2,8 +2,16 @@ import {CONTEST_BASE_URL} from "../../config/properties";
 import {CreateContestInput} from "../contests/AdminCreateContest";
 import {UpdateContestInput} from "../contests/AdminUpdateContestForm";
 
-
+export const GET_ALL_USERS_ADMIN = "getAllUsersAdmin";
 export const GET_ALL_CONTESTS_ADMIN = "getAllContestsAdmin";
+
+export const getAllUsersSorted = (pageNumber: number, pageSize: number) => {
+    return {
+        method: "get",
+        url: CONTEST_BASE_URL + "/user/get-all-sorted",
+        params: {pageNumber, pageSize}
+    }
+}
 
 export const getContestsAdminConfig = (statusList: string[]) => {
     return {

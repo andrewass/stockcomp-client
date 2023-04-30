@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/apiWrapper";
 import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
 import {deepPurple} from "@mui/material/colors";
-import {UserData} from "./userDetailTypes";
+import {UserDetails} from "./userTypes";
 import ErrorComponent from "../error/ErrorComponent";
 import {useParams} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
@@ -14,7 +14,7 @@ const UserDetails = () => {
     const {apiGet} = useApiWrapper();
     const params = useParams();
 
-    const {isLoading, isFetching, error, data: userData} = useQuery<UserData>(
+    const {isLoading, isFetching, error, data: userData} = useQuery<UserDetails>(
         [GET_USER_DETAILS, params.username],
         () => apiGet(getUserDetailsConfig(params.username))
     );

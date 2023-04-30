@@ -2,7 +2,7 @@ import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProv
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
-import UserDetails from "./userdetails/UserDetails";
+import UserDetails from "./user/UserDetails";
 import SymbolDetails from "./symboldetails/SymbolDetails";
 import {ContestDetails} from "./contestdetails/ContestDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
