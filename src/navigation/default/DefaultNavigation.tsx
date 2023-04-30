@@ -30,8 +30,8 @@ export const DefaultNavigation = () => {
         return (
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
-                    <Tab label="STOCK COMP" color="secondary" component={NavLink} to="/stocks" sx={{fontSize: "3rem"}}/>
-                    <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/stocks"/>
+                    <Tab label="STOCK COMP" color="secondary" component={NavLink} to="/symbols" sx={{fontSize: "3rem"}}/>
+                    <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/symbols"/>
                     <Tab label="LEADERBOARD" icon={<LeaderboardIcon/>} component={NavLink} to="/leaderboard"/>
                     <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests"/>
                     <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account"/>

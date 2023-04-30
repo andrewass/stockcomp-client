@@ -29,7 +29,7 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography color="secondary" component={NavLink} to="/stocks"
+                <Typography color="secondary" component={NavLink} to="/symbols"
                             sx={{fontSize: "3rem", marginLeft: "5%"}}>
                     STOCK COMP
                 </Typography>
@@ -38,7 +38,7 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
                         <MenuIcon sx={{fontSize: "3.5rem"}}/>
                     </IconButton>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <MenuItem color="primary" component={NavLink} to={"/stocks"} onClick={handleClose}>
+                        <MenuItem color="primary" component={NavLink} to={"/symbols"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <ShowChartIcon/>
                             </StyledItemIcon>

@@ -20,7 +20,7 @@ const SearchField = () => {
     }
 
     const redirectToSymbolDetail = (symbol: any) => {
-        navigate(`/symbol/${symbol.symbol}`);
+        navigate(`/symbols/${symbol.symbol}`);
     }
 
     const buildOptionLabel = (option: any) => {

@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  STOCK_QUOTE_URL_ARG: REACT_APP_STOCK_QUOTE_BASE_URL=http://stock-analyzer:8088
+  STOCK_QUOTE_URL_ARG: REACT_APP_STOCK_QUOTE_BASE_URL=http://stock-fetcher:8088
   STOCK_CONTEST_URL_ARG: REACT_APP_STOCK_CONTEST_BASE_URL=http://stockcomp-service:8080
 
 jobs:

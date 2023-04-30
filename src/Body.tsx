@@ -1,32 +1,32 @@
-import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider} from "react-router-dom";
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 import ProtectedRoute from "./config/ProtectedRoute";
 import UserDetails from "./userdetails/UserDetails";
-import AdminContests from "./admin/AdminContests";
-import AdminCreateContest from "./admin/AdminCreateContest";
 import SymbolDetails from "./symboldetails/SymbolDetails";
 import {ContestDetails} from "./contestdetails/ContestDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
+import AdminContests from "./admin/AdminContests";
+import AdminCreateContest from "./admin/AdminCreateContest";
 
 
-const getProtectedComponent = (child: JSX.Element) => {
+const ProtectedComponent = () => {
     return (
         <ProtectedRoute>
             <DefaultNavigation/>
-            {child}
+            <Outlet/>
         </ProtectedRoute>
     );
 }
 
-const getProtectedAdminComponent = (child: JSX.Element) => {
+const ProtectedAdminComponent = () => {
     return (
         <ProtectedRoute>
             <AdminNavigation/>
-            {child}
+            <Outlet/>
         </ProtectedRoute>
     );
 }
@@ -34,23 +34,27 @@ const getProtectedAdminComponent = (child: JSX.Element) => {
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
-            <Route path="/*" element={getProtectedComponent(<TrendingSymbols/>)}/>
+            <Route path="/" element={<ProtectedComponent/>}>
+                <Route index element={<TrendingSymbols/>}/>
 
-            <Route path="contests" element={getProtectedComponent(<Contests/>)}/>
+                <Route path="symbols" element={<TrendingSymbols/>}/>
+                <Route path="symbols/:symbol" element={<SymbolDetails/>}/>
 
-            <Route path="contest/:contestNumber" element={getProtectedComponent(<ContestDetails/>)}/>
+                <Route path="contests" element={<Contests/>}/>
+                <Route path="contests/:contestNumber" element={<ContestDetails/>}/>
 
-            <Route path="leaderboard" element={getProtectedComponent(<Leaderboard/>)}/>
+                <Route path="leaderboard" element={<Leaderboard/>}/>
 
-            <Route path="symbol/:symbol" element={getProtectedComponent(<SymbolDetails/>)}/>
+                <Route path="account" element={<AccountDetails/>}/>
 
-            <Route path="account" element={getProtectedComponent(<AccountDetails/>)}/>
+                <Route path="user/:username" element={<UserDetails/>}/>
+            </Route>
+            <Route path="admin" element={<ProtectedAdminComponent/>}>
+                <Route index element={<AdminContests/>}/>
 
-            <Route path="user/:username" element={getProtectedComponent(<UserDetails/>)}/>
-
-            <Route path="admin/contests" element={getProtectedAdminComponent(<AdminContests/>)}/>
-
-            <Route path="admin/contests/create" element={getProtectedAdminComponent(<AdminCreateContest/>)}/>
+                <Route path="contests" element={<AdminContests/>}/>
+                <Route path="contests/create" element={<AdminCreateContest/>}/>
+            </Route>
         </Route>
     )
 );

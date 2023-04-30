@@ -12,7 +12,7 @@ const SymbolCard = ({stock}: { stock: Stock }) => {
     const navigate = useNavigate();
 
     const redirectToSymbolDetail = () => {
-        navigate(`/symbol/${symbol}`);
+        navigate(`/symbols/${symbol}`);
     }
 
     const getPriceDifferenceUSD = () => {

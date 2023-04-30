@@ -9,7 +9,7 @@ export const ContestEntry = ({contest}: { contest: Contest }) => {
     return (
         <TableRow key={contest.contestNumber}>
             <TableCell>
-                <NavLink to={`/contest/${contest.contestNumber}`} style={{textDecoration: "none", color: "black"}}>
+                <NavLink to={`/contests/${contest.contestNumber}`} style={{textDecoration: "none", color: "black"}}>
                     {contest.contestNumber}
                 </NavLink>
             </TableCell>
