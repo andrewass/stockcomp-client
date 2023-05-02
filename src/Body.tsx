@@ -11,6 +11,7 @@ import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
 import AdminContests from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
+import {AdminUsers} from "./admin/users/AdminUsers";
 
 
 const ProtectedComponent = () => {
@@ -54,6 +55,8 @@ const router = createBrowserRouter(
 
                 <Route path="contests" element={<AdminContests/>}/>
                 <Route path="contests/create" element={<AdminCreateContest/>}/>
+
+                <Route path="users" element={<AdminUsers/>}/>
             </Route>
         </Route>
     )

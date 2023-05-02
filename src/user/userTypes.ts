@@ -1,4 +1,4 @@
-export type UserDetails = {
+export type UserExtended = {
     username: string
     fullName: string
     country: string
@@ -7,7 +7,7 @@ export type UserDetails = {
 export type User = {
     username: string
     email: string
-    userType: string
+    userRole: string
     userStatus: string
 }
 

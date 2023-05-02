@@ -6,28 +6,26 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {AdminUserRow} from "./AdminUserRow";
 import {StyledTableCell} from "../../styles/components/StyledTableCell";
-import {useNavigate} from "react-router-dom";
 import {ChangeEvent, useState} from "react";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {CircularProgress, useTheme} from "@mui/material";
-import {GET_ALL_USERS_ADMIN, getAllUsersSorted} from "../api/adminApi";
+import {CircularProgress, TablePagination, useMediaQuery, useTheme} from "@mui/material";
+import {GET_ALL_USERS_ADMIN, getAllUsersSortedConfig} from "../api/adminApi";
 import {useQuery} from "@tanstack/react-query";
 import {User, UserPage} from "../../user/userTypes";
 import ErrorComponent from "../../error/ErrorComponent";
 
 
 export const AdminUserTable = () => {
-
-    const navigate = useNavigate();
+    const theme = useTheme();
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [userEntries, setUserEntries] = useState<User[]>([]);
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = useState<number>(1);
     const {apiGet} = useApiWrapper();
-    const theme = useTheme();
 
     const fetchUserEntries = async (page: number, pageRowCount: number) => {
-        const data = await apiGet(getAllUsersSorted(currentPage, rowsPerPage));
+        const data = await apiGet(getAllUsersSortedConfig(page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
         setUserEntries(data.users);
         setCurrentPage(page);
@@ -40,7 +38,6 @@ export const AdminUserTable = () => {
         [GET_ALL_USERS_ADMIN],
         () => fetchUserEntries(currentPage, rowsPerPage)
     );
-
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchUserEntries(newPage, rowsPerPage)
@@ -57,22 +54,29 @@ export const AdminUserTable = () => {
     if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
-        <TableContainer component={Paper} sx={{mt: "10%"}}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Contest Number</StyledTableCell>
-                        <StyledTableCell>Start time</StyledTableCell>
-                        <StyledTableCell>Contest Status</StyledTableCell>
-                        <StyledTableCell>Leaderboard Update Status</StyledTableCell>
-                        <StyledTableCell>Edit</StyledTableCell>
-                        <StyledTableCell>Delete</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {userEntries.map(user => <AdminUserRow key={user.email} user={user}/>)}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
+            <TableContainer component={Paper} sx={{mt: "10%"}}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Username</StyledTableCell>
+                            <StyledTableCell>Email</StyledTableCell>
+                            <StyledTableCell>User Type</StyledTableCell>
+                            <StyledTableCell>User Status</StyledTableCell>
+                            <StyledTableCell>Edit</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {userEntries.map(user => <AdminUserRow key={user.email} user={user}/>)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                component="div" count={totalEntriesCount}
+                page={currentPage} rowsPerPageOptions={[1, 5, 10, 25]}
+                rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Paper>
     );
 }

@@ -1,17 +1,15 @@
 import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {Box, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, TextField} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {Box, IconButton, Modal} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
-import {Contest, CONTEST_STATUS, contestStatusMap} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
+import {GET_ALL_USERS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
+import {User} from "../../user/userTypes";
 
 export type UpdateContestInput = {
     contestNumber: number,
@@ -50,7 +48,7 @@ const useFormStyles = makeStyles(theme => ({
 }));
 
 
-export const AdminUpdateUserForm = ({contest}: { contest: Contest }) => {
+export const AdminUpdateUserForm = ({user}: { user: User }) => {
     const {root} = useFormStyles();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -62,8 +60,8 @@ export const AdminUpdateUserForm = ({contest}: { contest: Contest }) => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
-                .then(() => navigate("/admin/contests"));
+            queryClient.invalidateQueries([GET_ALL_USERS_ADMIN])
+                .then(() => navigate("/admin/users"));
         }
     });
 
@@ -76,56 +74,13 @@ export const AdminUpdateUserForm = ({contest}: { contest: Contest }) => {
 
     return (
         <Box>
-            <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED} onClick={handleOpen}>
+            <IconButton onClick={handleOpen}>
                 <EditIcon/>
             </IconButton>
             <Modal open={open} onClose={handleClose}
                    aria-labelledby="modal-modal-title"
                    aria-describedby="modal-modal-description">
                 <Box className={root} component="form" onSubmit={handleSubmit(submitForm)} sx={style} maxWidth="500px">
-                    <Controller
-                        name="contestNumber"
-                        defaultValue={contest.contestNumber}
-                        control={control}
-                        rules={{required: "Contest number is required"}}
-                        render={({field: {onChange, value}}) => (
-                            <TextField
-                                sx={{mb: "1rem"}}
-                                label="Contest Number"
-                                variant="outlined"
-                                value={value}
-                                onChange={onChange}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="contestStatus"
-                        defaultValue={contest.contestStatus}
-                        control={control}
-                        render={({field}) => (
-                            <FormControl sx={{mb: "1rem"}}>
-                                <InputLabel>Contest Status</InputLabel>
-                                <Select label="Contest Status "{...field}>
-                                    {[...contestStatusMap].map(([key, val]) =>
-                                        <MenuItem key={val} value={key}>{val}</MenuItem>)}
-                                </Select>
-                            </FormControl>
-                        )}
-                    />
-                    <Controller
-                        name="startTime"
-                        control={control}
-                        defaultValue={contest.startTime}
-                        render={({field: {onChange, value}}) => (
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DateTimePicker disabled={mutation.isLoading}
-                                                renderInput={(props) => <TextField {...props} />}
-                                                label="Starting Time" value={value}
-                                                onChange={onChange}
-                                />
-                            </LocalizationProvider>
-                        )}
-                    />
                     <Button variant="contained" type="submit" sx={{mt: "1rem"}}>
                         Update
                     </Button>

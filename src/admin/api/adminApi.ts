@@ -5,7 +5,7 @@ import {UpdateContestInput} from "../contests/AdminUpdateContestForm";
 export const GET_ALL_USERS_ADMIN = "getAllUsersAdmin";
 export const GET_ALL_CONTESTS_ADMIN = "getAllContestsAdmin";
 
-export const getAllUsersSorted = (pageNumber: number, pageSize: number) => {
+export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
         url: CONTEST_BASE_URL + "/user/get-all-sorted",

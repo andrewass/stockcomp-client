@@ -7,6 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import {useAuth} from "react-oidc-context";
 import DropDownMenu from "../default/DropDownMenu";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export const AdminNavigation = () => {
 
@@ -27,6 +28,7 @@ export const AdminNavigation = () => {
                     <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin"
                          sx={{fontSize: "3rem"}}/>
                     <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin/contests"/>
+                    <Tab label="USERS" icon={<AccountCircleIcon/>} component={NavLink} to="/admin/users"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>
             </AppBar>
