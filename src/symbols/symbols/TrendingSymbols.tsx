@@ -17,7 +17,7 @@ const TrendingSymbols = () => {
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {isLoading, error, data: symbols} = useQuery<Stock[]>(
+    const {isLoading, error, data: symbols} = useQuery<Stock[], Error>(
         [GET_TRENDING_SYMBOLS],
         () => apiGet(getTrendingSymbolsConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL}
@@ -25,7 +25,9 @@ const TrendingSymbols = () => {
 
     if (isLoading) return <CircularProgress/>
 
-    if (error || !symbols) return <ErrorComponent errorMessage={error as string}/>
+    if (error) {
+        return <ErrorComponent errorMessage={error.message as string}/>
+    }
 
     return (
         <Box>
@@ -35,7 +37,7 @@ const TrendingSymbols = () => {
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
                 <Grid container rowSpacing={1} columnSpacing={1}>
-                    {symbols.map((symbol) =>
+                    {symbols!.map((symbol) =>
                         <Grid key={symbol.symbol} item md={6} sm={12}>
                             <SymbolCard stock={symbol}/>
                         </Grid>

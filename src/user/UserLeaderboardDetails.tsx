@@ -7,7 +7,7 @@ import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantHistory} from "../participant/ParticipantHistory";
 
 
-export const UserParticipantDetails = () => {
+export const UserLeaderboardDetails = () => {
     const {username} = useParams<{ username: string }>()
     const {apiGet} = useApiWrapper();
 

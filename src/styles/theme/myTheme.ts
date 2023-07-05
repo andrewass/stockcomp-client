@@ -12,15 +12,18 @@ const myTheme = createTheme({
                 }
             }
         },
-        MuiCircularProgress:{
+        MuiCircularProgress: {
             styleOverrides: {
-                root:{
-                    width:"20%",
-                    margin:"10% 40%",
+                root: {
+                    width: "20%",
+                    margin: "10% 40%",
                 }
             }
         },
         MuiButton: {
+            defaultProps: {
+                variant: "contained"
+            },
             styleOverrides: {
                 root: {
                     textTransform: "none"

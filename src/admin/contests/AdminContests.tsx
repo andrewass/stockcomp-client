@@ -29,7 +29,7 @@ const AdminContests = () => {
         <Box sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto"}}
              display="flex" flexDirection="column">
             <AdminContestTable contests={contests as Contest[]}/>
-            <Button variant="outlined" sx={{mt: "1rem", maxWidth: "10rem"}}
+            <Button sx={{mt: "1rem", maxWidth: "10rem"}}
                     onClick={() => navigate("/admin/contests/create")}>
                 Create Contest
             </Button>

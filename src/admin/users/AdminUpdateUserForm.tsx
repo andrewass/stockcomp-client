@@ -81,7 +81,7 @@ export const AdminUpdateUserForm = ({user}: { user: User }) => {
                    aria-labelledby="modal-modal-title"
                    aria-describedby="modal-modal-description">
                 <Box className={root} component="form" onSubmit={handleSubmit(submitForm)} sx={style} maxWidth="500px">
-                    <Button variant="contained" type="submit" sx={{mt: "1rem"}}>
+                    <Button type="submit" sx={{mt: "1rem"}}>
                         Update
                     </Button>
                 </Box>

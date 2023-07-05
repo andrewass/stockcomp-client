@@ -126,7 +126,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
                             </LocalizationProvider>
                         )}
                     />
-                    <Button variant="contained" type="submit" sx={{mt: "1rem"}}>
+                    <Button type="submit" sx={{mt: "1rem"}}>
                         Update
                     </Button>
                 </Box>

@@ -1,55 +1,30 @@
-import {Avatar, Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useQuery} from "@tanstack/react-query";
+import {UserGeneralDetails} from "./UserGeneralDetails";
+import {Box, CircularProgress} from "@mui/material";
 import {useApiWrapper} from "../config/apiWrapper";
-import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
-import {deepPurple} from "@mui/material/colors";
-import {UserExtended} from "./userTypes";
-import ErrorComponent from "../error/ErrorComponent";
 import {useParams} from "react-router-dom";
-import ReactCountryFlag from "react-country-flag";
-import {UserParticipantDetails} from "./UserParticipantDetails";
+import {useQuery} from "@tanstack/react-query";
+import {UserExtended} from "./userTypes";
+import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";
+import ErrorComponent from "../error/ErrorComponent";
+import {UserLeaderboardDetails} from "./UserLeaderboardDetails";
 
-
-const UserDetails = () => {
+export const UserDetails = () => {
     const {apiGet} = useApiWrapper();
     const params = useParams();
 
-    const {isLoading, isFetching, error, data: userData} = useQuery<UserExtended>(
+    const {isLoading, error, data: userData} = useQuery<UserExtended>(
         [GET_USER_DETAILS, params.username],
         () => apiGet(getUserDetailsConfig(params.username))
     );
 
-    if (isLoading || isFetching) return <CircularProgress/>
+    if (isLoading) return <CircularProgress/>
 
     if (error) return <ErrorComponent errorMessage={error as string}/>
 
     return (
-        <Box sx={{width: "400px", m: "0 auto", mt: "80px"}}>
-            <Card>
-                <CardContent>
-                    <Avatar sx={{
-                        width: 56, height: 56, bgcolor: deepPurple[500]
-                    }}>OP</Avatar>
-                    <Typography sx={{mt: "20px"}}>
-                        Username: {userData!.username}
-                    </Typography>
-                    <Typography sx={{mt: "20px"}}>
-                        Full name : {userData!.fullName ? userData!.fullName : "N/A"}
-                    </Typography>
-                    <Box display="flex" flexDirection="row" sx={{mt: "20px"}} alignItems="center">
-                        <Typography sx={{mr: "5px"}}>
-                            Country :
-                        </Typography>
-                        <ReactCountryFlag style={{
-                            width: "2em",
-                            height: "2em",
-                        }} countryCode={userData!.country} svg/>
-                    </Box>
-                </CardContent>
-            </Card>
-            <UserParticipantDetails/>
+        <Box>
+            <UserGeneralDetails userData={userData!}/>
+            <UserLeaderboardDetails />
         </Box>
     );
 }
-
-export default UserDetails;
