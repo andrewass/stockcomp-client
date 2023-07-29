@@ -4,10 +4,10 @@ import {useQuery} from "@tanstack/react-query";
 import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {GET_TRENDING_SYMBOLS, getTrendingSymbolsConfig} from "../api/symbolsApi";
+import {GET_TRENDING_SYMBOLS, getTrendingSymbolsPriceConfig} from "../api/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";
-import {Stock} from "../../stock/stockTypes";
+import {StockQuote} from "../../stock/stockTypes";
 
 
 const TrendingSymbols = () => {
@@ -17,9 +17,9 @@ const TrendingSymbols = () => {
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {isLoading, error, data: symbols} = useQuery<Stock[], Error>(
+    const {isLoading, error, data: symbols} = useQuery<StockQuote[], Error>(
         [GET_TRENDING_SYMBOLS],
-        () => apiGet(getTrendingSymbolsConfig()),
+        () => apiGet(getTrendingSymbolsPriceConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL}
     );
 
@@ -39,7 +39,7 @@ const TrendingSymbols = () => {
                 <Grid container rowSpacing={1} columnSpacing={1}>
                     {symbols!.map((symbol) =>
                         <Grid key={symbol.symbol} item md={6} sm={12}>
-                            <SymbolCard stock={symbol}/>
+                            <SymbolCard stockQuote={symbol}/>
                         </Grid>
                     )}
                 </Grid>

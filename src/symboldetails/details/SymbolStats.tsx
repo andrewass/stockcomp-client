@@ -5,20 +5,20 @@ import {Stock} from "../../stock/stockTypes";
 const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
 
     const {stockQuote, stockStats, symbol, description} = symbolDetails;
-    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote;
+    const {currency, percentageChange, currentPrice, usdPrice, priceChange} = stockQuote;
     const {annualDividendYieldPercent, earningsPerShare, priceToEarnings, priceToBook} = stockStats!;
 
     const getCurrentPrice = () => {
         if (currency === "USD") {
             return (
                 <Typography display="inline">
-                    {price} {currency}
+                    {currentPrice} {currency}
                 </Typography>
             );
         } else {
             return (
                 <Typography display="inline">
-                    {price} {currency} (USD {usdPrice})
+                    {currentPrice} {currency} (USD {usdPrice})
                 </Typography>
             );
         }

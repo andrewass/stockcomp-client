@@ -1,12 +1,12 @@
-import {STOCK_BASE_URL} from "../../config/properties";
+import {CLIENT_BACKEND_BASE_URL} from "../../config/properties";
 
 export const GET_TRENDING_SYMBOLS = "getTrendingSymbols";
 
 
-export const getTrendingSymbolsConfig = () => {
+export const getTrendingSymbolsPriceConfig = () => {
     return {
         method: "get",
-        url: STOCK_BASE_URL + "/stock/stock-quote-trending"
+        url: CLIENT_BACKEND_BASE_URL + "/stock/current-price-trending-symbols"
     }
 }
 

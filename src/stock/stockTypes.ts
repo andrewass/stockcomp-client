@@ -7,11 +7,13 @@ export type Stock = {
 }
 
 export type StockQuote = {
-    price: number
+    currentPrice: number
     priceChange: number
     percentageChange: number
     currency: string
-    usdPrice: number
+    usdPrice: number,
+    symbol: string,
+    companyName: string
 }
 
 

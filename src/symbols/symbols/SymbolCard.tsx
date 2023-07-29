@@ -1,13 +1,14 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {Stock} from "../../stock/stockTypes";
+import {StockQuote} from "../../stock/stockTypes";
 
 
-const SymbolCard = ({stock}: { stock: Stock }) => {
+const SymbolCard = ({stockQuote}: { stockQuote: StockQuote }) => {
 
-    const {symbol, description, stockQuote} = stock
-
-    const {currency, percentageChange, price, usdPrice, priceChange} = stockQuote
+    const {
+        currency, percentageChange, currentPrice,
+        usdPrice, priceChange, symbol, companyName
+    } = stockQuote
 
     const navigate = useNavigate();
 
@@ -31,13 +32,13 @@ const SymbolCard = ({stock}: { stock: Stock }) => {
         if (currency === "USD") {
             return (
                 <Typography>
-                    {price} {currency}
+                    {currentPrice} {currency}
                 </Typography>
             );
         } else {
             return (
                 <Typography>
-                    {price} {currency} (USD {usdPrice.toFixed(2)})
+                    {currentPrice} {currency} (USD {usdPrice.toFixed(2)})
                 </Typography>
             );
         }
@@ -48,7 +49,7 @@ const SymbolCard = ({stock}: { stock: Stock }) => {
             <CardActionArea onClick={redirectToSymbolDetail}>
                 <CardContent>
                     <Typography variant="h5">
-                        {description} ({symbol})
+                        {companyName} ({symbol})
                     </Typography>
 
                     {displayCurrentPrice()}

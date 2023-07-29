@@ -37,7 +37,7 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: {
         defaultValues: {
             transactionType: "Buy",
             amount: 1,
-            acceptedPrice: stockQuote.price
+            acceptedPrice: stockQuote.currentPrice
         }
     });
 
