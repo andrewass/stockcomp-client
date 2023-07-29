@@ -1,12 +1,18 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
-import {Stock} from "../../stock/stockTypes";
+import {StockFinancials, StockPrice} from "../../stock/stockTypes";
 
 
-const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
+const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFinancials, stockPrice: StockPrice }) => {
 
-    const {stockQuote, stockStats, symbol, description} = symbolDetails;
-    const {currency, percentageChange, currentPrice, usdPrice, priceChange} = stockQuote;
-    const {annualDividendYieldPercent, earningsPerShare, priceToEarnings, priceToBook} = stockStats!;
+    const {
+        symbol, currency, currentPrice,
+        usdPrice, companyName, priceChange, percentageChange
+    } = stockPrice
+
+    const {
+        priceToBook, earningsPerShare, priceToEarnings,
+        dividendYieldPercentage
+    } = stockFinancials
 
     const getCurrentPrice = () => {
         if (currency === "USD") {
@@ -30,7 +36,7 @@ const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
                 <CardContent>
                     <Box>
                         <Typography component="h2" gutterBottom>
-                            {description} ({symbol})
+                            {companyName} ({symbol})
                         </Typography>
 
                         {getCurrentPrice()}
@@ -51,7 +57,7 @@ const SymbolStats = ({symbolDetails}: { symbolDetails: Stock }) => {
                     <Grid container rowSpacing={2} columnSpacing={2} sx={{mt: "1rem"}}>
                         <Grid key="temp1" item xs={6}>
                             <Typography>
-                                Annual Dividend Yield: {annualDividendYieldPercent.toFixed(2)}%
+                                Annual Dividend Yield: {dividendYieldPercentage ? dividendYieldPercentage.toFixed(2) : 0}%
                             </Typography>
                         </Grid>
                         <Grid key="temp2" item xs={6}>

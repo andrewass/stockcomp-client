@@ -1,9 +1,9 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {StockQuote} from "../../stock/stockTypes";
+import {StockPrice} from "../../stock/stockTypes";
 
 
-const SymbolCard = ({stockQuote}: { stockQuote: StockQuote }) => {
+const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
 
     const {
         currency, percentageChange, currentPrice,
@@ -18,8 +18,8 @@ const SymbolCard = ({stockQuote}: { stockQuote: StockQuote }) => {
 
     const getPriceDifferenceUSD = () => {
         return priceChange >= 0.00
-            ? "+" + priceChange.toFixed(2)
-            : priceChange.toFixed(2);
+            ? "+" + priceChange.toFixed(2) + " " + currency
+            : priceChange.toFixed(2) + " " + currency;
     }
 
     const getPriceDifferencePercentage = () => {

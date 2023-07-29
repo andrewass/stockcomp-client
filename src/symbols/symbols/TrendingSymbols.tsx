@@ -4,10 +4,10 @@ import {useQuery} from "@tanstack/react-query";
 import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {useApiWrapper} from "../../config/apiWrapper";
-import {GET_TRENDING_SYMBOLS, getTrendingSymbolsPriceConfig} from "../api/symbolsApi";
+import {GET_PRICE_TRENDING_SYMBOLS, getTrendingSymbolsPriceConfig} from "../api/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";
-import {StockQuote} from "../../stock/stockTypes";
+import {StockPrice} from "../../stock/stockTypes";
 
 
 const TrendingSymbols = () => {
@@ -17,8 +17,8 @@ const TrendingSymbols = () => {
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {isLoading, error, data: symbols} = useQuery<StockQuote[], Error>(
-        [GET_TRENDING_SYMBOLS],
+    const {isLoading, error, data: symbols} = useQuery<StockPrice[], Error>(
+        [GET_PRICE_TRENDING_SYMBOLS],
         () => apiGet(getTrendingSymbolsPriceConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL}
     );

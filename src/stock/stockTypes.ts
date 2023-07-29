@@ -1,12 +1,5 @@
 
-export type Stock = {
-    symbol: string,
-    description: string,
-    stockQuote: StockQuote,
-    stockStats?: StockStats
-}
-
-export type StockQuote = {
+export type StockPrice = {
     currentPrice: number
     priceChange: number
     percentageChange: number
@@ -16,16 +9,16 @@ export type StockQuote = {
     companyName: string
 }
 
-
-export type StockStats = {
-    annualDividendYieldPercent: number
-    earningsPerShare: number,
-    marketCap: number,
+export type StockFinancials = {
+    symbol: string,
+    companyName: string,
+    currency: string,
+    marketCap:number,
     priceToBook: number,
     priceToEarnings: number,
-    revenue: number,
-    sharesOwned: number,
-    shortRatio: number
+    earningsPerShare: number,
+    dividendRate?: number,
+    dividendYieldPercentage?: number,
 }
 
 export type HistoricalQuote = {

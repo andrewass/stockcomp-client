@@ -1,17 +1,28 @@
 import {CONTEST_SERVER_BASE_URL, CLIENT_BACKEND_BASE_URL} from "../../config/properties";
 
-export const GET_STOCK_SYMBOL_INFORMATION = "getStockSymbolInformation";
+export const GET_STOCK_SYMBOL_FINANCIALS = "getStockSymbolFinancials";
+export const GET_STOCK_SYMBOL_PRICE = "getStockSymbolPrice"
 export const GET_ACTIVE_PARTICIPANT = "getActiveParticipant";
 export const GET_HISTORIC_PRICES = "getHistoricPrices";
 
 
-export const getStockSymbolInformationConfig = (symbol: string) => {
+export const getStockSymbolPriceConfig = (symbol: string) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_URL + "/stock/symbol-information",
+        url: CLIENT_BACKEND_BASE_URL + "/stock/current-price-symbol",
         params: {symbol}
     }
 }
+
+
+export const getStockSymbolFinancialsConfig = (symbol: string) => {
+    return {
+        method: "get",
+        url: CLIENT_BACKEND_BASE_URL + "/stock/financial-details-symbol",
+        params: {symbol}
+    }
+}
+
 
 export const getHistoricPricesConfig = (symbol: string) => {
     return {

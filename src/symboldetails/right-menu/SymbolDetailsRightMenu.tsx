@@ -7,10 +7,10 @@ import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
 import ErrorComponent from "../../error/ErrorComponent";
 import {InvestmentOrdersSymbol} from "../../investmentorder/symbol/InvestmentOrdersSymbol";
 import {Participant} from "../../participant/participantTypes";
-import {Stock} from "../../stock/stockTypes";
+import {StockPrice} from "../../stock/stockTypes";
 
 
-export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: { stock: Stock, isLargeWidth: boolean }) => {
+export const SymbolDetailsRightMenu = ({stockPrice, isLargeWidth}: { stockPrice: StockPrice, isLargeWidth: boolean }) => {
     const {apiGet} = useApiWrapper();
 
     const {isLoading, error, data: participant} = useQuery<Participant>(
@@ -25,10 +25,10 @@ export const SymbolDetailsRightMenu = ({stock, isLargeWidth}: { stock: Stock, is
         return (
             <Box id="symbolDetailsRighMenu" display="flex" flexDirection="column"
                  sx={{width: isLargeWidth ? "30%" : "70%", padding: "50px 30px", margin: "auto"}}>
-                <InvestmentSymbol participant={participant} symbol={stock.symbol}/>
-                <InvestmentOrderForm symbol={stock.symbol}
-                                     contestNumber={participant.contestNumber} stockQuote={stock.stockQuote}/>
-                <InvestmentOrdersSymbol contestNumber={participant.contestNumber} symbol={stock.symbol}/>
+                <InvestmentSymbol participant={participant} symbol={stockPrice.symbol}/>
+                <InvestmentOrderForm symbol={stockPrice.symbol}
+                                     contestNumber={participant.contestNumber} stockPrice={stockPrice}/>
+                <InvestmentOrdersSymbol contestNumber={participant.contestNumber} symbol={stockPrice.symbol}/>
             </Box>
         );
     }

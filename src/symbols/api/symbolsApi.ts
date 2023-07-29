@@ -1,6 +1,6 @@
 import {CLIENT_BACKEND_BASE_URL} from "../../config/properties";
 
-export const GET_TRENDING_SYMBOLS = "getTrendingSymbols";
+export const GET_PRICE_TRENDING_SYMBOLS = "getTrendingSymbols";
 
 
 export const getTrendingSymbolsPriceConfig = () => {

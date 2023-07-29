@@ -13,7 +13,7 @@ import {
     getPostInvestmentOrderConfig
 } from "./api/investmentOrderApi";
 import {codeMapTransaction} from "./investmentOrderTypes";
-import {StockQuote} from "../stock/stockTypes";
+import {StockPrice} from "../stock/stockTypes";
 
 
 export type InvestmentOrderRequest = {
@@ -26,10 +26,10 @@ export type InvestmentOrderRequest = {
     symbol: string
 }
 
-export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: {
+export const InvestmentOrderForm = ({symbol, contestNumber, stockPrice}: {
     symbol: string,
     contestNumber: number,
-    stockQuote: StockQuote
+    stockPrice: StockPrice
 }) => {
 
     const {apiPost} = useApiWrapper();
@@ -37,7 +37,7 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: {
         defaultValues: {
             transactionType: "Buy",
             amount: 1,
-            acceptedPrice: stockQuote.currentPrice
+            acceptedPrice: stockPrice.currentPrice
         }
     });
 
@@ -45,7 +45,7 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockQuote}: {
         mutationFn: (orderData: InvestmentOrderRequest) => {
             orderData.symbol = symbol
             orderData.contestNumber = contestNumber
-            orderData.currency = stockQuote.currency
+            orderData.currency = stockPrice.currency
             orderData.transactionType = codeMapTransaction.get(orderData.transactionType) as string
             return apiPost(getPostInvestmentOrderConfig(orderData))
         },
