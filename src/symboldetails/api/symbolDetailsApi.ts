@@ -27,7 +27,7 @@ export const getStockSymbolFinancialsConfig = (symbol: string) => {
 export const getHistoricPricesConfig = (symbol: string) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_URL + "/stock/historical-quotes",
+        url: CLIENT_BACKEND_BASE_URL + "/stock/historical-price",
         params: {symbol}
     }
 }

@@ -11,7 +11,7 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
 
     const {
         priceToBook, earningsPerShare, priceToEarnings,
-        dividendYieldPercentage
+        dividendYieldPercentage, dividendRate
     } = stockFinancials
 
     const getCurrentPrice = () => {
@@ -31,7 +31,7 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
     }
 
     return (
-        <Box id="symbolStats" sx={{padding:"0px 30px"}}>
+        <Box id="symbolStats" sx={{padding: "0px 30px"}}>
             <Card elevation={0} sx={{mb: "30px"}}>
                 <CardContent>
                     <Box>
@@ -55,22 +55,27 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
             <Card elevation={0}>
                 <CardContent>
                     <Grid container rowSpacing={2} columnSpacing={2} sx={{mt: "1rem"}}>
-                        <Grid key="temp1" item xs={6}>
+                        <Grid key="key1" item xs={6}>
                             <Typography>
-                                Annual Dividend Yield: {dividendYieldPercentage ? dividendYieldPercentage.toFixed(2) : 0}%
+                                Dividend Rate: {dividendRate ? dividendRate.toFixed(2)+" "+currency : "N/A"}
                             </Typography>
                         </Grid>
-                        <Grid key="temp2" item xs={6}>
+                        <Grid key="key2" item xs={6}>
+                            <Typography>
+                                Dividend Yield: {dividendYieldPercentage ? dividendYieldPercentage.toFixed(2) + "%" : "N/A"}
+                            </Typography>
+                        </Grid>
+                        <Grid key="key3" item xs={6}>
                             <Typography>
                                 Earnings Per Share: {earningsPerShare.toFixed(2)} {currency}
                             </Typography>
                         </Grid>
-                        <Grid key="temp3" item xs={6}>
+                        <Grid key="key4" item xs={6}>
                             <Typography>
                                 Price/Earnings: {priceToEarnings.toFixed(2)}
                             </Typography>
                         </Grid>
-                        <Grid key="temp4" item xs={6}>
+                        <Grid key="key5" item xs={6}>
                             <Typography>
                                 Price/Book: {priceToBook.toFixed(2)}
                             </Typography>

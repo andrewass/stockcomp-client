@@ -2,7 +2,6 @@ import {Avatar, Box, Card, CardContent, Typography} from "@mui/material";
 import {deepPurple} from "@mui/material/colors";
 import {UserExtended} from "./userTypes";
 import ReactCountryFlag from "react-country-flag";
-import {UserLeaderboardDetails} from "./UserLeaderboardDetails";
 
 
 export const UserGeneralDetails = ({userData}: { userData: UserExtended }) => {
@@ -31,7 +30,6 @@ export const UserGeneralDetails = ({userData}: { userData: UserExtended }) => {
                     </Box>
                 </CardContent>
             </Card>
-            <UserLeaderboardDetails/>
         </Box>
     );
 }

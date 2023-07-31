@@ -21,7 +21,12 @@ export type StockFinancials = {
     dividendYieldPercentage?: number,
 }
 
-export type HistoricalQuote = {
+export type HistoricalPrice = {
     price: number,
-    quoteDate: number
+    date: number
+}
+
+export type HistoricalPrices = {
+    symbol: string,
+    historicalPriceList: HistoricalPrice[]
 }
