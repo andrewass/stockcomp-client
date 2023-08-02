@@ -41,8 +41,8 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
 
                         {getCurrentPrice()}
 
-                        <Typography
-                            sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>{priceChange.toFixed(2)} {currency}
+                        <Typography sx={{color: priceChange >= 0 ? "limegreen" : "red"}}>
+                            {priceChange.toFixed(2)} {currency}
                         </Typography>
 
                         <Typography
@@ -67,17 +67,17 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
                         </Grid>
                         <Grid key="key3" item xs={6}>
                             <Typography>
-                                Earnings Per Share: {earningsPerShare.toFixed(2)} {currency}
+                                Earnings Per Share: {earningsPerShare ? earningsPerShare.toFixed(2) : "N/A"} {currency}
                             </Typography>
                         </Grid>
                         <Grid key="key4" item xs={6}>
                             <Typography>
-                                Price/Earnings: {priceToEarnings.toFixed(2)}
+                                Price/Earnings: {priceToEarnings ? priceToEarnings.toFixed(2) : "N/A"}
                             </Typography>
                         </Grid>
                         <Grid key="key5" item xs={6}>
                             <Typography>
-                                Price/Book: {priceToBook.toFixed(2)}
+                                Price/Book: {priceToBook ? priceToBook.toFixed(2) : "N/A"}
                             </Typography>
                         </Grid>
                     </Grid>

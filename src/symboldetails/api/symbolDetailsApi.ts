@@ -1,4 +1,5 @@
 import {CONTEST_SERVER_BASE_URL, CLIENT_BACKEND_BASE_URL} from "../../config/properties";
+import {Period} from "../symbolTypes";
 
 export const GET_STOCK_SYMBOL_FINANCIALS = "getStockSymbolFinancials";
 export const GET_STOCK_SYMBOL_PRICE = "getStockSymbolPrice"
@@ -24,11 +25,11 @@ export const getStockSymbolFinancialsConfig = (symbol: string) => {
 }
 
 
-export const getHistoricPricesConfig = (symbol: string) => {
+export const getHistoricPricesConfig = (symbol: string, period: Period) => {
     return {
         method: "get",
         url: CLIENT_BACKEND_BASE_URL + "/stock/historical-price",
-        params: {symbol}
+        params: {symbol, period}
     }
 }
 
