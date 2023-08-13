@@ -9,7 +9,7 @@ import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
 import {Contest, CONTEST_STATUS, contestStatusMap} from "../../contests/contestTypes";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
 

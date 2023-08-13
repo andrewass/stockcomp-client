@@ -2,7 +2,7 @@ import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/materia
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantHistory} from "../participant/ParticipantHistory";
 

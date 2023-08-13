@@ -9,7 +9,7 @@ import {
     GET_STOCK_SYMBOL_PRICE,
     getStockSymbolFinancialsConfig, getStockSymbolPriceConfig
 } from "./api/symbolDetailsApi";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import SearchField from "../search/SearchField";
 import ErrorComponent from "../error/ErrorComponent";
 import {StockFinancials, StockPrice} from "../stock/stockTypes";

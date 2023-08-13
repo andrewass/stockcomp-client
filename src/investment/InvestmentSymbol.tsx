@@ -1,7 +1,7 @@
 import InvestmentDetails from "./InvestmentDetails";
 import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {GET_INVESTMENT_FOR_SYMBOL, getSymbolInvestmentConfig} from "./api/investmentApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {Participant} from "../participant/participantTypes";

@@ -1,6 +1,6 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, Tab} from "@mui/material";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {HistoricalPrices} from "../../stock/stockTypes";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {TabContext, TabList, TabPanel} from "@mui/lab";

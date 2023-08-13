@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import {AdminUserRow} from "./AdminUserRow";
 import {StyledTableCell} from "../../styles/components/StyledTableCell";
 import {ChangeEvent, useState} from "react";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {CircularProgress, TablePagination, useMediaQuery, useTheme} from "@mui/material";
 import {GET_ALL_USERS_ADMIN, getAllUsersSortedConfig} from "../api/adminApi";
 import {useQuery} from "@tanstack/react-query";

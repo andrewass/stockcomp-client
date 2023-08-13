@@ -3,7 +3,7 @@ import SymbolCard from "./SymbolCard";
 import {useQuery} from "@tanstack/react-query";
 import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_PRICE_TRENDING_SYMBOLS, getTrendingSymbolsPriceConfig} from "../api/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";

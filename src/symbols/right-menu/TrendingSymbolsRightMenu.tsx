@@ -1,6 +1,6 @@
 import {Box, CircularProgress} from "@mui/material";
 import {Contest, CONTEST_STATUS} from "../../contests/contestTypes";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import {InvestmentTotal} from "./InvestmentTotal";
 import {ActiveContestList} from "../../contests/ActiveContestList";

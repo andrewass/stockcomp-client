@@ -5,7 +5,7 @@ import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import Button from "@mui/material/Button";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {getCreateContestConfig} from "../api/adminApi";
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS,
     GET_ALL_COMPLETED_INVESTMENT_ORDERS,

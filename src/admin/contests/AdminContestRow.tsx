@@ -4,7 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {IconButton} from "@mui/material";
 import {useMutation} from "@tanstack/react-query";
 import {AdminUpdateContestForm} from "./AdminUpdateContestForm";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {Contest, CONTEST_STATUS, contestStatusMap, leaderboardUpdateStatusMap} from "../../contests/contestTypes";
 import {GET_ALL_CONTESTS_ADMIN, getDeleteContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";

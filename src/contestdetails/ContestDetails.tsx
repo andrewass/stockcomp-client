@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../contests/api/contestApi";
 import {ContestLeaderboard} from "./ContestLeaderboard";
 import ErrorComponent from "../error/ErrorComponent";

@@ -1,9 +1,10 @@
-import {useAuth} from "react-oidc-context";
 import {CircularProgress} from "@mui/material";
+import {useAuth} from "./useAuth";
 
 const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
+    const {isSignedIn} = useAuth();
 
-    const auth = useAuth();
+
     if (auth.isLoading) {
         return <CircularProgress/>
     }

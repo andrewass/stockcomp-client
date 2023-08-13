@@ -1,6 +1,6 @@
 import {Avatar, Box, Card, CardActions, CardContent, CircularProgress, Typography} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {deepPurple} from "@mui/material/colors";
 import {AccountDetailsForm} from "./AccountDetailsForm";
 import {AccountData} from "./accountDetailTypes";

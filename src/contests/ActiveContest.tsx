@@ -2,7 +2,7 @@ import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, CONTEST_STATUS} from "./contestTypes";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {queryClient} from "../config/queryConfig";
 import {
     GET_CONTEST_PARTICIPANT,

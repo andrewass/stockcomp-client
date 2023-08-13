@@ -1,4 +1,4 @@
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import {GET_ALL_ACTIVE_INVESTMENTS, getAllInvestmentsConfig} from "../../investment/api/investmentApi";
 import {CircularProgress} from "@mui/material";

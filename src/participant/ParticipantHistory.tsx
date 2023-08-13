@@ -1,7 +1,7 @@
 import {Box, CircularProgress, Typography} from "@mui/material";
 import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
 import {GET_DETAILED_PARTICIPANT_HISTORY, getDetailedParticipantHistoryConfig} from "./api/participantApi";
 import {DetailedParticipant} from "./participantTypes";

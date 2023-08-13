@@ -5,7 +5,7 @@ import {queryClient} from "../config/queryConfig";
 import toast from "react-hot-toast";
 import {AccountData} from "./accountDetailTypes";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {makeStyles} from "@mui/styles";
 import {GET_ACCOUNT_DETAILS, updateAccountDataConfig} from "./api/accountApi";
 import countries from "i18n-iso-countries";

@@ -15,7 +15,7 @@ import LeaderboardEntryRow from "./LeaderboardEntryRow";
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 import {ChangeEvent, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {GET_SORTED_LEADERBOARD_ENTRIES, getSortedLeaderboardEntriesConfig} from "./api/leaderboardApi";
 import ErrorComponent from "../error/ErrorComponent";
 

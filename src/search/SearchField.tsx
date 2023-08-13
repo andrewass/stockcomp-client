@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Autocomplete, Box, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {useApiWrapper} from "../config/apiWrapper";
+import {useApiWrapper} from "../config/useApiWrapper";
 import {getSuggestionsFromQueryConfig} from "./api/searchApi";
 import {SymbolSuggestion} from "./searchTypes";
 

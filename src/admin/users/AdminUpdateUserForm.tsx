@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_ALL_USERS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
 import {User} from "../../user/userTypes";

@@ -1,6 +1,6 @@
 import React from "react";
 import {useMutation} from "@tanstack/react-query";
-import {useApiWrapper} from "../../config/apiWrapper";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {
     GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
     GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
