@@ -1,7 +1,5 @@
-import {CircularProgress} from "@mui/material";
-import {useAuth} from "./useAuth";
-
 const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
+    /*
     const {isSignedIn} = useAuth();
 
 
@@ -12,7 +10,7 @@ const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
         return <>{children}</>
     }
     auth.signinRedirect().catch(error => console.log("Error: " + error));
-
+    */
     return <></>
 }
 
