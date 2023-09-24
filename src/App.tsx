@@ -10,14 +10,14 @@ import {AuthProvider} from "./authorization/AuthContext";
 
 const App = () => {
     return (
-        <AuthProvider>
-            <ThemeProvider theme={myTheme}>
-                <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={myTheme}>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider>
                     <Body/>
-                    <ReactQueryDevtools initialIsOpen={false}/>
-                </QueryClientProvider>
-            </ThemeProvider>
-        </AuthProvider>
+                </AuthProvider>
+                <ReactQueryDevtools initialIsOpen={false}/>
+            </QueryClientProvider>
+        </ThemeProvider>
     );
 };
 

@@ -1,8 +1,7 @@
 import {createContext, useContext, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {GET_SIGNED_IN_USER, getSignedInUserConfig} from "./api/authorizationApi";
 import {SignedInUser} from "./authTypes";
 import {useApiWrapper} from "../config/useApiWrapper";
+import {AuthProviderSelection} from "./AuthProviderSelection";
 
 const emptyUser: SignedInUser = {name: "EmptyUser"}
 
@@ -18,14 +17,10 @@ export const AuthProvider = ({children}: { children: JSX.Element }) => {
 
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: userData} = useQuery<SignedInUser>(
-        [GET_SIGNED_IN_USER],
-        () => apiGet(getSignedInUserConfig())
-    );
 
     return (
         <AuthContext.Provider value={{user}}>
-            {children}
+            <AuthProviderSelection/>
         </AuthContext.Provider>
     );
 }
