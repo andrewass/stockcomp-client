@@ -12,7 +12,6 @@ import AccountDetails from "./account/AccountDetails";
 import AdminContests from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
-import {UserGeneralDetails} from "./user/UserGeneralDetails";
 
 
 const ProtectedComponent = () => {
