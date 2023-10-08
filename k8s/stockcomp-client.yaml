@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stockcomp-client
+  name: stockcomp-client-deployment
 spec:
   replicas: 1
   selector:
@@ -25,13 +25,11 @@ kind: Service
 metadata:
   name: stockcomp-client-service
 spec:
-  type: NodePort
   selector:
     app: stockcomp-client
   ports:
     - port: 3000
       targetPort: 3000
-      nodePort: 30455
 
 ---
 
@@ -39,10 +37,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: stockcomp-client-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "http://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "http://$host/oauth2/start?rd=$escaped_request_uri"
 spec:
   ingressClassName: nginx
   rules:
-    - host: "stockcompclient.io"
+    - host: stockcompclient.io
       http:
         paths:
           - path: /
