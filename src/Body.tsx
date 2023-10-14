@@ -1,7 +1,6 @@
 import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider} from "react-router-dom";
 import Contests from "./contests/Contests";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
-import ProtectedRoute from "./config/ProtectedRoute";
 import {UserDetails} from "./user/UserDetails";
 import SymbolDetails from "./symboldetails/SymbolDetails";
 import {ContestDetails} from "./contestdetails/ContestDetails";
@@ -14,28 +13,24 @@ import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
 
 
-const ProtectedComponent = () => {
-    return (
-        <ProtectedRoute>
-            <DefaultNavigation/>
-            <Outlet/>
-        </ProtectedRoute>
-    );
-}
+const LayoutComponent = () => (
+    <>
+        <DefaultNavigation/>
+        <Outlet/>
+    </>
+);
 
-const ProtectedAdminComponent = () => {
-    return (
-        <ProtectedRoute>
-            <AdminNavigation/>
-            <Outlet/>
-        </ProtectedRoute>
-    );
-}
+const AdminLayoutComponent = () => (
+    <>
+        <AdminNavigation/>
+        <Outlet/>
+    </>
+);
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
-            <Route path="/" element={<ProtectedComponent/>}>
+            <Route path="/" element={<LayoutComponent/>}>
                 <Route index element={<TrendingSymbols/>}/>
 
                 <Route path="symbols" element={<TrendingSymbols/>}/>
@@ -50,7 +45,7 @@ const router = createBrowserRouter(
 
                 <Route path="user/:username" element={<UserDetails/>}/>
             </Route>
-            <Route path="admin" element={<ProtectedAdminComponent/>}>
+            <Route path="admin" element={<AdminLayoutComponent/>}>
                 <Route index element={<AdminContests/>}/>
 
                 <Route path="contests" element={<AdminContests/>}/>
