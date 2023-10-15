@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {useAuth} from "react-oidc-context";
 import DropDownMenu from "../default/DropDownMenu";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -14,11 +13,10 @@ export const AdminNavigation = () => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
-    const auth = useAuth();
 
 
     const signOutUser = async () => {
-        await auth.removeUser();
+        alert("Sign out user")
     };
 
     const renderWideNavBar = () => {

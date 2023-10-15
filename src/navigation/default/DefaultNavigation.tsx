@@ -8,7 +8,6 @@ import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/mate
 import {NavLink} from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
-import {useAuth} from "react-oidc-context";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 
 export const DefaultNavigation = () => {
@@ -16,10 +15,9 @@ export const DefaultNavigation = () => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
-    const auth = useAuth();
 
     const signOutUser = async () => {
-        await auth.removeUser();
+        alert("Signing out");
     };
 
     const handleChange = (event: SyntheticEvent, newValue: number) => {
