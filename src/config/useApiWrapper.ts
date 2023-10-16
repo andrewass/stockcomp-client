@@ -4,6 +4,7 @@ export const useApiWrapper = () => {
 
     const request = () => {
         return async (config: AxiosRequestConfig) => {
+            config.withCredentials = true
             const response = await axios(config);
             return response.data;
         }

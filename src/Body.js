@@ -6,10 +6,10 @@ import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
-import {Symbols} from "recharts";
 import AdminContests from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
+import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 
 
 const LayoutComponent = () => (
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
     {
         element: <LayoutComponent/>,
         children: [
-            {path: "/", element: <Symbols/>},
-            {path: "symbols", element: <Symbols/>},
+            {path: "/", element: <TrendingSymbols/>},
+            {path: "symbols", element: <TrendingSymbols/>},
             {path: "leaderboard", element: <Leaderboard/>},
             {path: "contests", element: <Contests/>},
             {path: "contests/:contestNumber", element: <ContestDetails/>},

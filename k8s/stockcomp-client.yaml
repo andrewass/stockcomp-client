@@ -38,9 +38,13 @@ kind: Ingress
 metadata:
   name: stockcomp-client-ingress
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: "http://$host/oauth2/auth"
-    nginx.ingress.kubernetes.io/auth-signin: "http://$host/oauth2/start?rd=$escaped_request_uri"
+    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
 spec:
+  tls:
+    - hosts:
+      - stockcompclient.io
+      secretName: client-tls-secret
   ingressClassName: nginx
   rules:
     - host: stockcompclient.io

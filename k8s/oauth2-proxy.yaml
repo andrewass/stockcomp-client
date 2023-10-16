@@ -20,7 +20,8 @@ spec:
           args:
             - --provider=google
             - --email-domain=*
-            - --cookie-secure=false
+            - --cookie-secure=true
+            - --cookie-samesite=none
             - --http-address=0.0.0.0:4180
 
           env:
