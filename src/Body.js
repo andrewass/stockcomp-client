@@ -30,7 +30,6 @@ const router = createBrowserRouter([
     {
         element: <LayoutComponent/>,
         children: [
-            {path: "/", element: <TrendingSymbols/>},
             {path: "symbols", element: <TrendingSymbols/>},
             {path: "leaderboard", element: <Leaderboard/>},
             {path: "contests", element: <Contests/>},

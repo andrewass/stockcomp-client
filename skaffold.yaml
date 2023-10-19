@@ -17,7 +17,6 @@ build:
 manifests:
   rawYaml:
     - k8s/stockcomp-client.yaml
-    - k8s/oauth2-proxy.yaml
 
 deploy:
   kubectl: {}
