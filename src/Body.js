@@ -9,15 +9,19 @@ import AccountDetails from "./account/AccountDetails";
 import AdminContests from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
+import {ProtectedRoute} from "./config/ProtectedRoute";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
 
 
-const LayoutComponent = () => (
-    <>
-        <DefaultNavigation/>
-        <Outlet/>
-    </>
-);
+
+const ProtectedComponent = () => {
+    return (
+        <ProtectedRoute>
+            <DefaultNavigation/>
+            <Outlet/>
+        </ProtectedRoute>
+    );
+}
 
 const AdminLayoutComponent = () => (
     <>
@@ -28,7 +32,7 @@ const AdminLayoutComponent = () => (
 
 const router = createBrowserRouter([
     {
-        element: <LayoutComponent/>,
+        element: <ProtectedComponent/>,
         children: [
             {path: "symbols", element: <TrendingSymbols/>},
             {path: "leaderboard", element: <Leaderboard/>},

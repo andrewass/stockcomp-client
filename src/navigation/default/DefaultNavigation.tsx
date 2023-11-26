@@ -9,15 +9,19 @@ import {NavLink} from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
+import {useApiWrapper} from "../../config/useApiWrapper";
+import {getLogOutConfig} from "../../auth/api/authApi";
 
 export const DefaultNavigation = () => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const [value, setValue] = useState(0);
+    const {apiPost} = useApiWrapper();
 
     const signOutUser = async () => {
-        alert("Signing out");
+        await apiPost(getLogOutConfig());
+        window.location.reload();
     };
 
     const handleChange = (event: SyntheticEvent, newValue: number) => {
