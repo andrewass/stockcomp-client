@@ -4,13 +4,14 @@ import {GET_VALID_SESSION, getValidSessionConfig} from "../auth/api/authApi";
 import {ValidSession} from "../auth/authTypes";
 import {CircularProgress} from "@mui/material";
 import ErrorComponent from "../error/ErrorComponent";
+import {CLIENT_BACKEND_BASE_URL} from "./properties";
 
 export const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
 
     const {apiGet} = useApiWrapper();
 
     const redirectToApi = () => {
-        window.location.href = "http://stockcomp.io./api/login"
+        window.location.href = CLIENT_BACKEND_BASE_URL+"/auth/login"
     }
 
     const {isLoading, data, error} =
