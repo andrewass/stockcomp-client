@@ -1,4 +1,4 @@
-import {CONTEST_SERVER_BASE_URL} from "../../config/properties";
+import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
 import {CreateContestInput} from "../contests/AdminCreateContest";
 import {UpdateContestInput} from "../contests/AdminUpdateContestForm";
 
@@ -8,7 +8,7 @@ export const GET_ALL_CONTESTS_ADMIN = "getAllContestsAdmin";
 export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CONTEST_SERVER_BASE_URL + "/user/get-all-sorted",
+        url: CLIENT_BACKEND_BASE_PATH + "/user/get-all-sorted",
         params: {pageNumber, pageSize}
     }
 }
@@ -16,7 +16,7 @@ export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) =>
 export const getContestsAdminConfig = (statusList: string[]) => {
     return {
         method: "post",
-        url: CONTEST_SERVER_BASE_URL + "/contest/get-by-status",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/get-by-status",
         data: statusList
     }
 }
@@ -24,7 +24,7 @@ export const getContestsAdminConfig = (statusList: string[]) => {
 export const getCreateContestConfig = (contestData: CreateContestInput) => {
     return {
         method: "post",
-        url: CONTEST_SERVER_BASE_URL + "/contest/create",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/create",
         data: contestData
     }
 }
@@ -32,7 +32,7 @@ export const getCreateContestConfig = (contestData: CreateContestInput) => {
 export const getDeleteContestConfig = (contestNumber: number) => {
     return {
         method: "delete",
-        url: CONTEST_SERVER_BASE_URL + "/contest/delete",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/delete",
         params: {contestNumber}
     }
 }
@@ -40,7 +40,7 @@ export const getDeleteContestConfig = (contestNumber: number) => {
 export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
     return {
         method: "put",
-        url: CONTEST_SERVER_BASE_URL + "/contest/update",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/update",
         data: contestData
     }
 }

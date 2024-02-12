@@ -23,9 +23,8 @@ export const TrendingSymbolsRightMenu = () => {
 
     if (isLoading) return <CircularProgress/>
 
-    const contests = data.map((contest: Contest) => new Contest(contest));
-
-    if (contests && contests.length > 0) {
+    if (data) {
+        const contests = data.map((contest: Contest) => new Contest(contest));
         return (
             <Box minWidth="300px">
                 <ActiveContestList contests={contests}/>
@@ -35,7 +34,9 @@ export const TrendingSymbolsRightMenu = () => {
         );
     } else {
         return (
-            <></>
+            <>
+                <p>No Contests found</p>
+            </>
         );
     }
 }
