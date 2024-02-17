@@ -39,6 +39,7 @@ const AdminCreateContest = () => {
                  width: "400px", margin: "auto", mt: "100px"
              }}>
             <Controller
+                defaultValue={0}
                 name="contestNumber"
                 control={control}
                 rules={{required: "Contest number is required"}}

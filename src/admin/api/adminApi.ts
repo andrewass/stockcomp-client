@@ -39,7 +39,7 @@ export const getDeleteContestConfig = (contestNumber: number) => {
 
 export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
     return {
-        method: "put",
+        method: "patch",
         url: CLIENT_BACKEND_BASE_PATH + "/contest/update",
         data: contestData
     }

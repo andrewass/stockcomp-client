@@ -1,11 +1,22 @@
 import {useMutation} from "@tanstack/react-query";
 import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {Box, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, TextField} from "@mui/material";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField
+} from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
-import {useState} from "react";
+import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
 import {Contest, CONTEST_STATUS, contestStatusMap} from "../../contests/contestTypes";
@@ -75,14 +86,22 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
     }
 
     return (
-        <Box>
+        <React.Fragment>
             <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED} onClick={handleOpen}>
                 <EditIcon/>
             </IconButton>
-            <Modal open={open} onClose={handleClose}
-                   aria-labelledby="modal-modal-title"
-                   aria-describedby="modal-modal-description">
-                <Box className={root} component="form" onSubmit={handleSubmit(submitForm)} sx={style} maxWidth="500px">
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                    component: 'form',
+                    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                        event.preventDefault();
+                    },
+                }}
+            >
+                <DialogTitle>Update Contest</DialogTitle>
+                <DialogContent>
                     <Controller
                         name="contestNumber"
                         defaultValue={contest.contestNumber}
@@ -126,11 +145,13 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
                             </LocalizationProvider>
                         )}
                     />
+                </DialogContent>
+                <DialogActions>
                     <Button type="submit" sx={{mt: "1rem"}}>
                         Update
                     </Button>
-                </Box>
-            </Modal>
-        </Box>
+                </DialogActions>
+            </Dialog>
+        </React.Fragment>
     );
 }
