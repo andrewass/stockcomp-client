@@ -1,5 +1,4 @@
 import {useMutation} from "@tanstack/react-query";
-import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {
     Dialog,
@@ -63,7 +62,6 @@ const useFormStyles = makeStyles(theme => ({
 
 export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
     const {root} = useFormStyles();
-    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const {handleSubmit, control} = useForm<UpdateContestInput>();
     const {apiPut} = useApiWrapper();
@@ -74,7 +72,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
-                .then(() => navigate("/admin/contests"));
+                .then(handleClose);
         }
     });
 
@@ -90,16 +88,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
             <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED} onClick={handleOpen}>
                 <EditIcon/>
             </IconButton>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                PaperProps={{
-                    component: 'form',
-                    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                        event.preventDefault();
-                    },
-                }}
-            >
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Update Contest</DialogTitle>
                 <DialogContent>
                     <Controller
@@ -147,7 +136,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button type="submit" sx={{mt: "1rem"}}>
+                    <Button type="button" sx={{mt: "1rem"}} onClick={handleSubmit(submitForm)}>
                         Update
                     </Button>
                 </DialogActions>

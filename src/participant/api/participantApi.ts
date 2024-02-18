@@ -1,14 +1,13 @@
-import {CONTEST_SERVER_BASE_URL} from "../../config/properties";
+import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
 
 export const GET_CONTEST_PARTICIPANT = "getContestParticipant"
 export const GET_SORTED_PARTICIPANTS = "getSortedParticipants";
 export const GET_DETAILED_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
 
-
 export const getContestParticipantConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CONTEST_SERVER_BASE_URL + "/participant/participant-by-contest",
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/by-contest",
         params: {contestNumber}
     }
 }
@@ -16,16 +15,15 @@ export const getContestParticipantConfig = (contestNumber: number) => {
 export const getSignUpParticipantConfig = (contestNumber: number) => {
     return {
         method: "post",
-        url: CONTEST_SERVER_BASE_URL + "/participant/sign-up-participant",
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/sign-up",
         params: {contestNumber}
     }
 }
 
-
 export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CONTEST_SERVER_BASE_URL + "/participant/sorted-participants",
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/sorted",
         params: {contestNumber, pageNumber, pageSize}
     }
 }
@@ -33,7 +31,7 @@ export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: n
 export const getDetailedParticipantHistoryConfig = (username: string) => {
     return {
         method: "get",
-        url: CONTEST_SERVER_BASE_URL + "/participant/detailed-participant-history",
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/history",
         params: {username}
     }
 }

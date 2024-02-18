@@ -7,7 +7,7 @@ export const GET_ALL_CONTESTS_SORTED = "getAllContestsSorted";
 export const getAllContestsSortedByContestNumberConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH+"/contest/get-all-sorted",
+        url: CLIENT_BACKEND_BASE_PATH+"/contest/sorted",
         params: {pageNumber, pageSize}
     }
 }
@@ -15,7 +15,7 @@ export const getAllContestsSortedByContestNumberConfig = (pageNumber: number, pa
 export const getActiveContestsConfig = (statusList: string[]) => {
     return {
         method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/contest/get-by-status",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/status",
         data: statusList
     }
 }
@@ -23,7 +23,7 @@ export const getActiveContestsConfig = (statusList: string[]) => {
 export const getContestConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH+"/contest/get-by-number",
+        url: CLIENT_BACKEND_BASE_PATH+"/contest/number",
         params: {contestNumber}
     }
 }
