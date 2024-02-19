@@ -11,6 +11,7 @@ import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
 import TrendingSymbols from "./symbols/symbols/TrendingSymbols";
+import SymbolDetails from "./symboldetails/SymbolDetails";
 
 
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
         element: <ProtectedComponent/>,
         children: [
             {path: "symbols", element: <TrendingSymbols/>},
+            {path: "symbols/:symbol", element: <SymbolDetails/>},
             {path: "leaderboard", element: <Leaderboard/>},
             {path: "contests", element: <Contests/>},
             {path: "contests/:contestNumber", element: <ContestDetails/>},

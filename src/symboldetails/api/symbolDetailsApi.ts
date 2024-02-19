@@ -34,6 +34,6 @@ export const getHistoricPricesConfig = (symbol: string, period: Period) => {
 export const getActiveParticipantConfig = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participant/participant-by-active-contest"
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/by-active-contest"
     }
 }
