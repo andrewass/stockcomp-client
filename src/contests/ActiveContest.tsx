@@ -12,6 +12,8 @@ import {
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 import {useMutation, useQuery} from "@tanstack/react-query";
+import {InvestmentTotal} from "../symbols/right-menu/InvestmentTotal";
+import {InvestmentOrdersTotal} from "../investmentorder/total/InvestmentOrdersTotal";
 
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
@@ -76,6 +78,8 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
                     {getContestStatus()}
                     {getParticipantStatus()}
                 </CardContent>
+                <InvestmentTotal/>
+                <InvestmentOrdersTotal contestNumber={contest.contestNumber}/>
             </Card>
         </ListItem>
     );

@@ -1,7 +1,7 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, Tab} from "@mui/material";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {HistoricalPrices} from "../../stock/stockTypes";
+import {HistoricalPrice} from "../../stock/stockTypes";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {Period} from "../symbolTypes";
@@ -10,12 +10,12 @@ import {getHistoricPricesConfig} from "../api/symbolDetailsApi";
 
 export const PriceChart = ({symbol}: { symbol: string }) => {
     const [tabValue, setTabValue] = useState<Period>(Period.THIS_YEAR);
-    const [priceList, setPriceList] = useState<HistoricalPrices[]>([]);
+    const [priceList, setPriceList] = useState<HistoricalPrice[]>([]);
     const {apiGet} = useApiWrapper();
 
     useEffect(() => {
         apiGet(getHistoricPricesConfig(symbol, tabValue))
-            .then(response => setPriceList(response.historicalPriceList))
+            .then(response => setPriceList(response.prices))
     }, [tabValue])
 
     const handleTabChange = (event: SyntheticEvent, newValue: Period) => {
@@ -33,7 +33,7 @@ export const PriceChart = ({symbol}: { symbol: string }) => {
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="date" tick={{fill: '#666', fontSize: 12}}/>
+                    <XAxis dataKey="price_date" tick={{fill: '#666', fontSize: 12}}/>
                     <YAxis tick={{fill: '#666', fontSize: 12}}/>
                     <Tooltip contentStyle={{
                         backgroundColor: '#fff',

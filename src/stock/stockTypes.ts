@@ -23,10 +23,9 @@ export type StockFinancials = {
 
 export type HistoricalPrice = {
     price: number,
-    date: number
+    price_date: number
 }
 
 export type HistoricalPrices = {
-    symbol: string,
     historicalPriceList: HistoricalPrice[]
 }

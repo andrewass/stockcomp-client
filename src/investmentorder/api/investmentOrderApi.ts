@@ -23,19 +23,19 @@ export const getDeleteInvestmentOrderConfig = (orderId: number) => {
     };
 }
 
-export const getInvestmentOrdersConfig = (contestNumber: number, statusList: string[]) => {
+export const getActiveInvestmentOrdersConfig = (contestNumber: number) => {
     return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/get-by-status",
-        data: {contestNumber, statusList}
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/all-active",
+        params: {contestNumber}
     };
 }
 
-export const getAllInvestmentOrdersConfig = (statusList: string[]) => {
+export const getCompletedInvestmentOrdersConfig = (contestNumber: number) => {
     return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/get-all-by-status",
-        data: {statusList}
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/all-deleted",
+        params: {contestNumber}
     };
 }
 

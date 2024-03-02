@@ -2,27 +2,29 @@ import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS,
-    GET_ALL_COMPLETED_INVESTMENT_ORDERS,
-    getAllInvestmentOrdersConfig
+    GET_ALL_COMPLETED_INVESTMENT_ORDERS, getActiveInvestmentOrdersConfig, getCompletedInvestmentOrdersConfig,
 } from "../api/investmentOrderApi";
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveOrdersTotal} from "./ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "./CompletedOrdersTotal";
 import ErrorComponent from "../../error/ErrorComponent";
-import {InvestmentOrder, ORDER_STATUS} from "../investmentOrderTypes";
+import {InvestmentOrder} from "../investmentOrderTypes";
 
+interface Props{
+    contestNumber: number
+}
 
-export const InvestmentOrdersTotal = () => {
-    const {apiPost} = useApiWrapper()
+export const InvestmentOrdersTotal = (props: Props) => {
+    const {apiGet} = useApiWrapper();
 
     const {error: activeError, data: activeOrders} = useQuery<InvestmentOrder[]>(
         [GET_ALL_ACTIVE_INVESTMENT_ORDERS],
-        () => apiPost(getAllInvestmentOrdersConfig([ORDER_STATUS.ACTIVE]))
+        () => apiGet(getActiveInvestmentOrdersConfig(props.contestNumber))
     );
 
     const {error: completedError, data: completedOrders} = useQuery<InvestmentOrder[]>(
         [GET_ALL_COMPLETED_INVESTMENT_ORDERS],
-        () => apiPost(getAllInvestmentOrdersConfig([ORDER_STATUS.COMPLETED]))
+        () => apiGet(getCompletedInvestmentOrdersConfig(props.contestNumber))
     );
 
     if (!(activeOrders && completedOrders)) return <CircularProgress/>

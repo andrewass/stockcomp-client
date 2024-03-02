@@ -8,7 +8,7 @@ export const GET_ALL_CONTESTS_ADMIN = "getAllContestsAdmin";
 export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/user/get-all-sorted",
+        url: CLIENT_BACKEND_BASE_PATH + "/user/sorted",
         params: {pageNumber, pageSize}
     }
 }
@@ -16,7 +16,7 @@ export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) =>
 export const getContestsAdminConfig = (statusList: string[]) => {
     return {
         method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/contest/get-by-status",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/status",
         data: statusList
     }
 }

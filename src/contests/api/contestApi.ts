@@ -12,11 +12,10 @@ export const getAllContestsSortedByContestNumberConfig = (pageNumber: number, pa
     }
 }
 
-export const getActiveContestsConfig = (statusList: string[]) => {
+export const getActiveContestsConfig = () => {
     return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/contest/status",
-        data: statusList
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/active",
     }
 }
 

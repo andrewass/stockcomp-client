@@ -1,11 +1,9 @@
 import {Box, CircularProgress} from "@mui/material";
-import {Contest, CONTEST_STATUS} from "../../contests/contestTypes";
+import {Contest} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
-import {InvestmentTotal} from "./InvestmentTotal";
 import {ActiveContestList} from "../../contests/ActiveContestList";
 import {GET_ACTIVE_CONTESTS, getActiveContestsConfig} from "../../contests/api/contestApi";
-import {InvestmentOrdersTotal} from "../../investmentorder/total/InvestmentOrdersTotal";
 import ErrorComponent from "../../error/ErrorComponent";
 
 
@@ -15,8 +13,7 @@ export const TrendingSymbolsRightMenu = () => {
 
     const {isLoading, error, data} = useQuery(
         [GET_ACTIVE_CONTESTS],
-        () => apiGet(getActiveContestsConfig(
-            [CONTEST_STATUS.AWAITING_START, CONTEST_STATUS.RUNNING, CONTEST_STATUS.STOPPED]))
+        () => apiGet(getActiveContestsConfig())
     );
 
     if (error) return <ErrorComponent errorMessage={error as string}/>
@@ -28,8 +25,6 @@ export const TrendingSymbolsRightMenu = () => {
         return (
             <Box minWidth="300px">
                 <ActiveContestList contests={contests}/>
-                <InvestmentTotal/>
-                <InvestmentOrdersTotal/>
             </Box>
         );
     } else {
