@@ -2,7 +2,7 @@ import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import {
     GET_ALL_ACTIVE_INVESTMENT_ORDERS,
-    GET_ALL_COMPLETED_INVESTMENT_ORDERS, getActiveInvestmentOrdersConfig, getCompletedInvestmentOrdersConfig,
+    GET_ALL_COMPLETED_INVESTMENT_ORDERS, getAllActiveInvestmentOrdersConfig, getAllCompletedInvestmentOrdersConfig,
 } from "../api/investmentOrderApi";
 import {Box, CircularProgress} from "@mui/material";
 import {ActiveOrdersTotal} from "./ActiveOrdersTotal";
@@ -19,12 +19,12 @@ export const InvestmentOrdersTotal = (props: Props) => {
 
     const {error: activeError, data: activeOrders} = useQuery<InvestmentOrder[]>(
         [GET_ALL_ACTIVE_INVESTMENT_ORDERS],
-        () => apiGet(getActiveInvestmentOrdersConfig(props.contestNumber))
+        () => apiGet(getAllActiveInvestmentOrdersConfig(props.contestNumber))
     );
 
     const {error: completedError, data: completedOrders} = useQuery<InvestmentOrder[]>(
         [GET_ALL_COMPLETED_INVESTMENT_ORDERS],
-        () => apiGet(getCompletedInvestmentOrdersConfig(props.contestNumber))
+        () => apiGet(getAllCompletedInvestmentOrdersConfig(props.contestNumber))
     );
 
     if (!(activeOrders && completedOrders)) return <CircularProgress/>

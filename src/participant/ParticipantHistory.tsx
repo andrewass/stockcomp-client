@@ -3,7 +3,7 @@ import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recha
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/useApiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
-import {GET_DETAILED_PARTICIPANT_HISTORY, getDetailedParticipantHistoryConfig} from "./api/participantApi";
+import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "./api/participantApi";
 import {DetailedParticipant} from "./participantTypes";
 import React from "react";
 
@@ -13,8 +13,8 @@ export const ParticipantHistory = ({username}: { username: string }) => {
     const {apiGet} = useApiWrapper();
 
     const {isLoading, error, data: participantEntries} = useQuery<DetailedParticipant[]>(
-        [GET_DETAILED_PARTICIPANT_HISTORY, username],
-        () => apiGet(getDetailedParticipantHistoryConfig(username))
+        [GET_PARTICIPANT_HISTORY, username],
+        () => apiGet(getParticipantHistoryConfig(username))
     );
 
     if (isLoading) return <CircularProgress/>

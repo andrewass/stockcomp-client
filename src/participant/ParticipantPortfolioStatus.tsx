@@ -3,7 +3,6 @@ import {Participant} from "./participantTypes";
 
 
 export const ParticipantPortfolioStatus = ({participant}: { participant: Participant }) => {
-
     const {remainingFunds, totalValue, totalInvestmentValue} = participant
 
     return (
@@ -20,5 +19,5 @@ export const ParticipantPortfolioStatus = ({participant}: { participant: Partici
                 </Typography>
             </CardContent>
         </Card>
-    )
+    );
 }

@@ -2,12 +2,12 @@ import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
 
 export const GET_CONTEST_PARTICIPANT = "getContestParticipant"
 export const GET_SORTED_PARTICIPANTS = "getSortedParticipants";
-export const GET_DETAILED_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
+export const GET_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
 
 export const getContestParticipantConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participant/by-contest",
+        url: CLIENT_BACKEND_BASE_PATH + "/participant/contest",
         params: {contestNumber}
     }
 }
@@ -28,7 +28,7 @@ export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: n
     }
 }
 
-export const getDetailedParticipantHistoryConfig = (username: string) => {
+export const getParticipantHistoryConfig = (username: string) => {
     return {
         method: "get",
         url: CLIENT_BACKEND_BASE_PATH + "/participant/history",

@@ -23,7 +23,7 @@ export const getDeleteInvestmentOrderConfig = (orderId: number) => {
     };
 }
 
-export const getActiveInvestmentOrdersConfig = (contestNumber: number) => {
+export const getAllActiveInvestmentOrdersConfig = (contestNumber: number) => {
     return {
         method: "get",
         url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/all-active",
@@ -31,18 +31,26 @@ export const getActiveInvestmentOrdersConfig = (contestNumber: number) => {
     };
 }
 
-export const getCompletedInvestmentOrdersConfig = (contestNumber: number) => {
+export const getAllCompletedInvestmentOrdersConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/all-deleted",
+        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/all-completed",
         params: {contestNumber}
     };
 }
 
-export const getInvestmentOrdersSymbolConfig = (symbol: string, contestNumber: number, statusList: string[]) => {
+export const getSymbolActiveInvestmentOrdersConfig = (contestNumber: number, symbol: string) => {
     return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/get-by-status-symbol",
-        data: {contestNumber, statusList, symbol}
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/symbol-active",
+        params: {contestNumber, symbol}
+    };
+}
+
+export const getSymbolCompletedInvestmentOrdersConfig = (contestNumber: number, symbol: string) => {
+    return {
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/investmentorder/symbol-completed",
+        params: {contestNumber, symbol}
     };
 }
