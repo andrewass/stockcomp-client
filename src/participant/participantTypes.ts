@@ -1,4 +1,5 @@
 import {Investment} from "../investment/investmentTypes";
+import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
 
 export type Participant = {
     displayName: string
@@ -13,6 +14,13 @@ export type Participant = {
 export type DetailedParticipant = {
     participant: Participant,
     investments: Investment[]
+}
+
+export type CompleteParticipant = {
+    participant: Participant,
+    investments: Investment[],
+    activeOrders: InvestmentOrder[],
+    completedOrders: InvestmentOrder[]
 }
 
 export type ParticipantPage = {

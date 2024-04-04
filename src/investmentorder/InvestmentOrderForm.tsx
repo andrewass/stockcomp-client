@@ -14,6 +14,7 @@ import {
 } from "./api/investmentOrderApi";
 import {codeMapTransaction} from "./investmentOrderTypes";
 import {StockPrice} from "../stock/stockTypes";
+import {CompleteParticipant} from "../participant/participantTypes";
 
 
 export type InvestmentOrderRequest = {
@@ -26,12 +27,13 @@ export type InvestmentOrderRequest = {
     symbol: string
 }
 
-export const InvestmentOrderForm = ({symbol, contestNumber, stockPrice}: {
-    symbol: string,
-    contestNumber: number,
+interface Props {
+    participants: CompleteParticipant[]
+    symbol: string
     stockPrice: StockPrice
-}) => {
+}
 
+export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) => {
     const {apiPost} = useApiWrapper();
     const {handleSubmit, control} = useForm<InvestmentOrderRequest>({
         defaultValues: {
@@ -44,7 +46,6 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockPrice}: {
     const mutation = useMutation({
         mutationFn: (orderData: InvestmentOrderRequest) => {
             orderData.symbol = symbol
-            orderData.contestNumber = contestNumber
             orderData.currency = stockPrice.currency
             orderData.transactionType = codeMapTransaction.get(orderData.transactionType) as string
             return apiPost(getPostInvestmentOrderConfig(orderData))
@@ -95,6 +96,21 @@ export const InvestmentOrderForm = ({symbol, contestNumber, stockPrice}: {
                                value={value}
                                disabled={mutation.isLoading}
                                onChange={onChange}/>
+                )}
+            />
+
+            <Controller
+                name="contestNumber"
+                control={control}
+                rules={{required: "Contest number is required"}}
+                render={({field}) => (
+                    <FormControl disabled={mutation.isLoading} sx={{mb: "1rem"}}>
+                        <InputLabel>Operation</InputLabel>
+                        <Select label="Operation" {...field} >
+                            <MenuItem value="Buy">Buy</MenuItem>
+                            <MenuItem value="Sell">Sell</MenuItem>
+                        </Select>
+                    </FormControl>
                 )}
             />
 

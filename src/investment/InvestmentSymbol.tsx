@@ -1,39 +1,31 @@
 import InvestmentDetails from "./InvestmentDetails";
-import {Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/useApiWrapper";
-import {GET_INVESTMENT_FOR_SYMBOL, getSymbolInvestmentConfig} from "./api/investmentApi";
-import ErrorComponent from "../error/ErrorComponent";
-import {Participant} from "../participant/participantTypes";
+import {Box, Card, CardContent, Typography} from "@mui/material";
+import {CompleteParticipant} from "../participant/participantTypes";
 
+interface Props {
+    participants: CompleteParticipant[]
+    symbol: string
+}
 
-const InvestmentSymbol = ({participant, symbol}: { participant: Participant, symbol: string }) => {
-    const {apiPost} = useApiWrapper();
-    const {remainingFunds, contestNumber} = participant;
-
-    const {isLoading, error, data: investment} = useQuery(
-        [GET_INVESTMENT_FOR_SYMBOL, {symbol, contestNumber}],
-        () => apiPost(getSymbolInvestmentConfig(symbol, contestNumber))
-    );
-
-    if (isLoading) return <CircularProgress/>;
-
-    if (error) return <ErrorComponent errorMessage={error as string}/>;
-
+const InvestmentSymbol = ({symbol, participants}: Props) => {
     return (
-        <Card elevation={0}>
-            <CardContent>
-                <Typography variant="h5" sx={{pb: "0.5rem"}}>
-                    Portfolio Status
-                </Typography>
-                <Typography sx={{pb: "1rem"}}>
-                    Remaining funds : {remainingFunds.toFixed(2)}
-                </Typography>
-                {investment &&
-                    <InvestmentDetails investment={investment}/>
-                }
-            </CardContent>
-        </Card>
+        <Box>
+            {participants.filter(participant => participant.investments.length > 0)
+                .map(participant =>
+                    <Card elevation={0}>
+                        <CardContent>
+                            <Typography variant="h5" sx={{pb: "0.5rem"}}>
+                                Portfolio Status
+                            </Typography>
+                            <Typography sx={{pb: "1rem"}}>
+                                Remaining funds : {participant.participant.remainingFunds.toFixed(2)}
+                            </Typography>
+                            <InvestmentDetails investment={participant.investments[0]}/>
+                        </CardContent>
+                    </Card>
+                )
+            }
+        </Box>
     );
 }
 

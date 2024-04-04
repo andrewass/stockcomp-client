@@ -9,16 +9,15 @@ import {
 import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import {ActiveOrders} from "../ActiveOrders";
-import {InvestmentOrder} from "../investmentOrderTypes";
+import {CompleteParticipant} from "../../participant/participantTypes";
 
-
-export const ActiveOrdersSymbol = ({activeOrders, symbol}: {
-    activeOrders: InvestmentOrder[],
+interface Props {
+    participants: CompleteParticipant[],
     symbol: string
-}) => {
+}
 
+export const ActiveOrdersSymbol = ({participants, symbol}: Props) => {
     const {apiDelete} = useApiWrapper();
-
     const mutation = useMutation({
         mutationFn: (orderId: number) => {
             return apiDelete(getDeleteInvestmentOrderConfig(orderId))
@@ -37,6 +36,8 @@ export const ActiveOrdersSymbol = ({activeOrders, symbol}: {
     });
 
     return (
-        <ActiveOrders activeOrders={activeOrders} deleteOrder={mutation.mutate}/>
+        <ActiveOrders activeOrders={participants.flatMap(participant => participant.activeOrders)}
+                      deleteOrder={mutation.mutate}
+        />
     );
 }
