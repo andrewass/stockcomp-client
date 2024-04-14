@@ -11,5 +11,5 @@ export const ActiveContestList = ({contests}: { contests: Contest[] }) => {
                 <ActiveContest key={contest.contestNumber} contest={contest}/>
             )}
         </List>
-    )
+    );
 }

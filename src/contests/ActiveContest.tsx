@@ -12,8 +12,10 @@ import {
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {InvestmentTotal} from "../symbols/right-menu/InvestmentTotal";
-import {InvestmentOrdersTotal} from "../investmentorder/total/InvestmentOrdersTotal";
+import {CompleteParticipant} from "../participant/participantTypes";
+import InvestmentList from "../symbols/right-menu/InvestmentList";
+import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
+import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
 
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
@@ -34,7 +36,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
         }
     })
 
-    const {isLoading, error, data: participant} = useQuery(
+    const {isLoading, error, data: participant} = useQuery<CompleteParticipant>(
         [GET_CONTEST_PARTICIPANT, contest.contestNumber],
         () => apiGet(getContestParticipantConfig(contest.contestNumber))
     );
@@ -54,11 +56,11 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     }
 
     const getParticipantStatus = () => {
-        if (participant && contest.contestStatus === CONTEST_STATUS.RUNNING) {
+        if (participant) {
             return (
                 <Box>
-                    <ListItemText primary={"Rank " + participant.rank + " / " + contest.participantCount}/>
-                    <ParticipantPortfolioStatus participant={participant}/>
+                    <ListItemText primary={"Rank " + participant.participant.rank + " / " + contest.participantCount}/>
+                    <ParticipantPortfolioStatus participant={participant.participant}/>
                 </Box>
             )
         } else if (!participant) {
@@ -78,9 +80,14 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
                     {getContestStatus()}
                     {getParticipantStatus()}
                 </CardContent>
-                <InvestmentTotal/>
-                <InvestmentOrdersTotal contestNumber={contest.contestNumber}/>
+                {participant &&
+                    <Box>
+                        <InvestmentList investments={participant.investments}/>
+                        <ActiveOrdersTotal activeOrders={participant.activeOrders}/>
+                        <CompletedOrdersTotal completedOrders={participant.completedOrders}/>
+                    </Box>
+                }
             </Card>
         </ListItem>
-    );
+    )
 }
