@@ -13,11 +13,11 @@ export const getAllUsersSortedConfig = (pageNumber: number, pageSize: number) =>
     }
 }
 
-export const getContestsAdminConfig = (statusList: string[]) => {
+export const getContestsSortedConfig = (pageNumber: number, pageSize: number) => {
     return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/contest/status",
-        data: statusList
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/contest/sorted",
+        params: {pageNumber, pageSize}
     }
 }
 
