@@ -1,28 +1,36 @@
 import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
 
-export const GET_ACTIVE_CONTESTS = "getActiveContests";
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
 export const GET_ALL_CONTESTS_SORTED = "getAllContestsSorted";
+export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
+export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
+
+export const getRegisteredContests = () => {
+    return {
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/contests/registered",
+    }
+}
+
+export const getUnregisteredContests = () => {
+    return {
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/contests/unregistered",
+    }
+}
 
 export const getAllContestsSortedByContestNumberConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH+"/contest/sorted",
+        url: CLIENT_BACKEND_BASE_PATH + "/contests/sorted",
         params: {pageNumber, pageSize}
-    }
-}
-
-export const getActiveContestsConfig = () => {
-    return {
-        method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/contest/active",
     }
 }
 
 export const getContestConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH+"/contest/number",
+        url: CLIENT_BACKEND_BASE_PATH + "/contests/number",
         params: {contestNumber}
     }
 }

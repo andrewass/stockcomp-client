@@ -1,7 +1,7 @@
 import {Box, CircularProgress, Grid, useMediaQuery} from "@mui/material";
 import SymbolCard from "./SymbolCard";
 import {useQuery} from "@tanstack/react-query";
-import {TrendingSymbolsRightMenu} from "../right-menu/TrendingSymbolsRightMenu";
+import {SymbolsRightMenu} from "../right-menu/SymbolsRightMenu";
 import {useTheme} from "@mui/material/styles";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_PRICE_TRENDING_SYMBOLS, getTrendingSymbolsPriceConfig} from "../api/symbolsApi";
@@ -43,7 +43,7 @@ const TrendingSymbols = () => {
                         </Grid>
                     )}
                 </Grid>
-                <TrendingSymbolsRightMenu/>
+                <SymbolsRightMenu/>
             </Box>
         </Box>
     )
