@@ -13,14 +13,6 @@ export const getContestParticipantConfig = (contestNumber: number) => {
     }
 }
 
-export const getSignUpParticipantConfig = (contestNumber: number) => {
-    return {
-        method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/sign-up",
-        params: {contestNumber}
-    }
-}
-
 export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: number, pageSize: number) => {
     return {
         method: "get",

@@ -1,15 +1,17 @@
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
-import {Contest} from "../../contests/contestTypes";
-import {GET_ALL_REGISTERED_CONTESTS, getRegisteredContests} from "../../contests/api/contestApi";
 import ErrorComponent from "../../error/ErrorComponent";
-import {CircularProgress} from "@mui/material";
+import {CardContent, CircularProgress, Typography} from "@mui/material";
+import React from "react";
+import RegisteredContest from "./RegisteredContest";
+import {Contest} from "../../domain/contests/contestTypes";
+import {GET_ALL_REGISTERED_CONTESTS, getRegisteredContests} from "../../domain/contests/contestApi";
 
 
 const RegisteredContests = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: registered} = useQuery<Contest[]>(
+    const {isLoading, error, data: contests} = useQuery<Contest[]>(
         [GET_ALL_REGISTERED_CONTESTS],
         () => apiGet(getRegisteredContests())
     );
@@ -19,8 +21,13 @@ const RegisteredContests = () => {
     if (isLoading) return <CircularProgress/>
 
     return (
-        <h1>Registered Contests</h1>
-    );
+        <React.Fragment>
+            <CardContent>
+                <Typography>Participating Contests</Typography>
+                {contests!.map(contest => <RegisteredContest contest={contest}/>)}
+            </CardContent>
+        </React.Fragment>
+    )
 }
 
 export default RegisteredContests;

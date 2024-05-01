@@ -1,13 +1,11 @@
 import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText, Typography} from "@mui/material";
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
-import {Contest, CONTEST_STATUS} from "./contestTypes";
 import {useApiWrapper} from "../config/useApiWrapper";
 import {queryClient} from "../config/queryConfig";
 import {
     GET_CONTEST_PARTICIPANT,
     getContestParticipantConfig,
-    getSignUpParticipantConfig
 } from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
@@ -16,6 +14,8 @@ import {CompleteParticipant} from "../participant/participantTypes";
 import InvestmentList from "../symbols/right-menu/InvestmentList";
 import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
+import {Contest, CONTEST_STATUS} from "../domain/contests/contestTypes";
+import {getSignUpToContestConfig} from "../domain/contests/contestApi";
 
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
@@ -24,7 +24,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiPost(getSignUpParticipantConfig(contest.contestNumber))
+            return apiPost(getSignUpToContestConfig(contest.contestNumber))
         },
         onSuccess: () =>
             queryClient.invalidateQueries([GET_CONTEST_PARTICIPANT, contest.contestNumber]),

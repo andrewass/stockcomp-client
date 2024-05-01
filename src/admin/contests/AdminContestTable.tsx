@@ -6,13 +6,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {AdminContestRow} from "./AdminContestRow";
 import {StyledTableCell} from "../../styles/components/StyledTableCell";
-import {Contest, ContestPage} from "../../contests/contestTypes";
 import {useQuery} from "@tanstack/react-query";
 import {GET_ALL_CONTESTS_ADMIN, getContestsSortedConfig} from "../api/adminApi";
 import {ChangeEvent, useState} from "react";
 import {CircularProgress, TablePagination} from "@mui/material";
 import ErrorComponent from "../../error/ErrorComponent";
 import {useApiWrapper} from "../../config/useApiWrapper";
+import {Contest, ContestPage} from "../../domain/contests/contestTypes";
 
 
 export const AdminContestTable = () => {

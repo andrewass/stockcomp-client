@@ -3,11 +3,11 @@ import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/materia
 import CircleIcon from "@mui/icons-material/Circle";
 import {format, parseISO} from "date-fns";
 import {useApiWrapper} from "../config/useApiWrapper";
-import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../contests/api/contestApi";
 import {ContestLeaderboard} from "./ContestLeaderboard";
 import ErrorComponent from "../error/ErrorComponent";
-import {Contest} from "../contests/contestTypes";
 import {useQuery} from "@tanstack/react-query";
+import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../domain/contests/contestApi";
+import {Contest} from "../domain/contests/contestTypes";
 
 
 export const ContestDetails = () => {

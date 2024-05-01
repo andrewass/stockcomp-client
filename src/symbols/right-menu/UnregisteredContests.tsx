@@ -1,14 +1,16 @@
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
-import {Contest} from "../../contests/contestTypes";
-import {GET_ALL_UNREGISTERED_CONTESTS, getUnregisteredContests} from "../../contests/api/contestApi";
 import ErrorComponent from "../../error/ErrorComponent";
-import {CircularProgress} from "@mui/material";
+import {CardContent, CircularProgress, Typography} from "@mui/material";
+import React from "react";
+import RegisteredContest from "./RegisteredContest";
+import {Contest} from "../../domain/contests/contestTypes";
+import {GET_ALL_UNREGISTERED_CONTESTS, getUnregisteredContests} from "../../domain/contests/contestApi";
 
 const UnregisteredContests = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data} = useQuery<Contest>(
+    const {isLoading, error, data} = useQuery(
         [GET_ALL_UNREGISTERED_CONTESTS],
         () => apiGet(getUnregisteredContests())
     );
@@ -17,7 +19,14 @@ const UnregisteredContests = () => {
 
     if (isLoading) return <CircularProgress/>
 
-    return <p>Unregistered contests</p>
+    return (
+        <React.Fragment>
+            <CardContent>
+                <Typography>Available Contests</Typography>
+                {data!.contests.map((contest: Contest) => <RegisteredContest contest={contest}/>)}
+            </CardContent>
+        </React.Fragment>
+    );
 }
 
 export default UnregisteredContests;

@@ -18,10 +18,10 @@ import Button from "@mui/material/Button";
 import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
-import {Contest, CONTEST_STATUS, contestStatusMap} from "../../contests/contestTypes";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
+import {Contest, CONTEST_STATUS, contestStatusMap} from "../../domain/contests/contestTypes";
 
 export type UpdateContestInput = {
     contestNumber: number,

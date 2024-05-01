@@ -12,12 +12,12 @@ import {
 import {useTheme} from '@mui/material/styles';
 import {StyledTableCell} from "../styles/components/StyledTableCell";
 import {ContestEntry} from "./ContestEntry";
-import {Contest, ContestPage} from "./contestTypes";
 import {ChangeEvent, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import ErrorComponent from "../error/ErrorComponent";
 import {useApiWrapper} from "../config/useApiWrapper";
-import {GET_ALL_CONTESTS_SORTED, getAllContestsSortedByContestNumberConfig} from "./api/contestApi";
+import {Contest, ContestPage} from "../domain/contests/contestTypes";
+import {GET_ALL_CONTESTS_SORTED, getAllContestsSortedByContestNumberConfig} from "../domain/contests/contestApi";
 
 
 export const ContestTable = () => {
