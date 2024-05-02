@@ -11,7 +11,7 @@ import {GET_ALL_REGISTERED_CONTESTS, getRegisteredContests} from "../../domain/c
 const RegisteredContests = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: contests} = useQuery<Contest[]>(
+    const {isLoading, error, data} = useQuery(
         [GET_ALL_REGISTERED_CONTESTS],
         () => apiGet(getRegisteredContests())
     );
@@ -24,7 +24,7 @@ const RegisteredContests = () => {
         <React.Fragment>
             <CardContent>
                 <Typography>Participating Contests</Typography>
-                {contests!.map(contest => <RegisteredContest contest={contest}/>)}
+                {data?.contests.map((contest: Contest) => <RegisteredContest contest={contest}/>)}
             </CardContent>
         </React.Fragment>
     )

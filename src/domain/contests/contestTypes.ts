@@ -55,3 +55,15 @@ export type ContestPage = {
     contests: Contest[]
     totalEntriesCount: number
 }
+
+export type UpdateContestInput = {
+    contestNumber: number,
+    startTime: string,
+    contestStatus: string,
+}
+
+export type CreateContestInput = {
+    contestNumber: number
+    startTime: string
+    contestName: string
+}

@@ -7,15 +7,11 @@ import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {GET_ALL_USERS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
+import {GET_ALL_USERS_ADMIN} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
 import {User} from "../../user/userTypes";
-
-export type UpdateContestInput = {
-    contestNumber: number,
-    startTime: string,
-    contestStatus: string,
-}
+import {getUpdateContestConfig} from "../../domain/contests/contestApi";
+import {UpdateContestInput} from "../../domain/contests/contestTypes";
 
 const style = {
     position: 'absolute' as 'absolute',

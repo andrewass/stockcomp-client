@@ -6,14 +6,9 @@ import {useNavigate} from "react-router-dom";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import Button from "@mui/material/Button";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {getCreateContestConfig} from "../api/adminApi";
+import {getCreateContestConfig} from "../../domain/contests/contestApi";
+import {CreateContestInput} from "../../domain/contests/contestTypes";
 
-
-export type CreateContestInput = {
-    contestNumber: number
-    startTime: string
-    contestName: string
-}
 
 const AdminCreateContest = () => {
 

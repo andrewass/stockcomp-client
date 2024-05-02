@@ -7,12 +7,12 @@ import Paper from '@mui/material/Paper';
 import {AdminContestRow} from "./AdminContestRow";
 import {StyledTableCell} from "../../styles/components/StyledTableCell";
 import {useQuery} from "@tanstack/react-query";
-import {GET_ALL_CONTESTS_ADMIN, getContestsSortedConfig} from "../api/adminApi";
 import {ChangeEvent, useState} from "react";
 import {CircularProgress, TablePagination} from "@mui/material";
 import ErrorComponent from "../../error/ErrorComponent";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {Contest, ContestPage} from "../../domain/contests/contestTypes";
+import {GET_ALL_CONTESTS, getAllContestsConfig} from "../../domain/contests/contestApi";
 
 
 export const AdminContestTable = () => {
@@ -24,7 +24,7 @@ export const AdminContestTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
     const fetchContestEntries = async (page: number, pageRowCount: number) => {
-        const data = await apiGet(getContestsSortedConfig(page, pageRowCount));
+        const data = await apiGet(getAllContestsConfig(page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
         setContestEntries(data.contests);
         setCurrentPage(page);
@@ -33,8 +33,8 @@ export const AdminContestTable = () => {
         return data;
     }
 
-    const {isLoading, error, data: contests} = useQuery<ContestPage>(
-        [GET_ALL_CONTESTS_ADMIN],
+    const {isLoading, error, data} = useQuery<ContestPage>(
+        [GET_ALL_CONTESTS],
         () => fetchContestEntries(currentPage, rowsPerPage)
     );
 

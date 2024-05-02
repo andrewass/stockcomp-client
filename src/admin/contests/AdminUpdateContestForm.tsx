@@ -19,15 +19,9 @@ import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {GET_ALL_CONTESTS_ADMIN, getUpdateContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
-import {Contest, CONTEST_STATUS, contestStatusMap} from "../../domain/contests/contestTypes";
-
-export type UpdateContestInput = {
-    contestNumber: number,
-    startTime: string,
-    contestStatus: string,
-}
+import {Contest, CONTEST_STATUS, contestStatusMap, UpdateContestInput} from "../../domain/contests/contestTypes";
+import {GET_ALL_CONTESTS, getUpdateContestConfig} from "../../domain/contests/contestApi";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -71,7 +65,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
+            queryClient.invalidateQueries([GET_ALL_CONTESTS])
                 .then(handleClose);
         }
     });

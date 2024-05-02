@@ -5,7 +5,6 @@ import {IconButton} from "@mui/material";
 import {useMutation} from "@tanstack/react-query";
 import {AdminUpdateContestForm} from "./AdminUpdateContestForm";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {GET_ALL_CONTESTS_ADMIN, getDeleteContestConfig} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
 import {
     Contest,
@@ -13,6 +12,7 @@ import {
     contestStatusMap,
     leaderboardUpdateStatusMap
 } from "../../domain/contests/contestTypes";
+import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../domain/contests/contestApi";
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
@@ -22,7 +22,7 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
         mutationFn: () => {
             return apiDelete(getDeleteContestConfig(contest.contestNumber))
         },
-        onSuccess: () => queryClient.invalidateQueries([GET_ALL_CONTESTS_ADMIN])
+        onSuccess: () => queryClient.invalidateQueries([GET_ALL_CONTESTS])
     });
 
     return (

@@ -23,7 +23,7 @@ const UnregisteredContests = () => {
         <React.Fragment>
             <CardContent>
                 <Typography>Available Contests</Typography>
-                {data!.contests.map((contest: Contest) => <RegisteredContest contest={contest}/>)}
+                {data?.contests.map((contest: Contest) => <RegisteredContest contest={contest}/>)}
             </CardContent>
         </React.Fragment>
     );

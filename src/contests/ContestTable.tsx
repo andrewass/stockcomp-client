@@ -17,7 +17,7 @@ import {useQuery} from "@tanstack/react-query";
 import ErrorComponent from "../error/ErrorComponent";
 import {useApiWrapper} from "../config/useApiWrapper";
 import {Contest, ContestPage} from "../domain/contests/contestTypes";
-import {GET_ALL_CONTESTS_SORTED, getAllContestsSortedByContestNumberConfig} from "../domain/contests/contestApi";
+import {GET_ALL_CONTESTS, getAllContestsConfig} from "../domain/contests/contestApi";
 
 
 export const ContestTable = () => {
@@ -30,7 +30,7 @@ export const ContestTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(1);
 
     const fetchContestEntries = async (page: number, pageRowCount: number) => {
-        const data = await apiGet(getAllContestsSortedByContestNumberConfig(page, pageRowCount));
+        const data = await apiGet(getAllContestsConfig(page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
         setContestEntries(data.contests);
         setCurrentPage(page);
@@ -40,7 +40,7 @@ export const ContestTable = () => {
     }
 
     const {error, isLoading} = useQuery<ContestPage>(
-        [GET_ALL_CONTESTS_SORTED],
+        [GET_ALL_CONTESTS],
         () => fetchContestEntries(currentPage, rowsPerPage)
     );
 

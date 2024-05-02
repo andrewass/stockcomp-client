@@ -1,43 +1,70 @@
 import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
+import {CreateContestInput, UpdateContestInput} from "./contestTypes";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
-export const GET_ALL_CONTESTS_SORTED = "getAllContestsSorted";
+export const GET_ALL_CONTESTS = "getAllContestsSorted";
 export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
 export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
+
+const CONTEST_PATH = CLIENT_BACKEND_BASE_PATH + "/contests";
 
 export const getRegisteredContests = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/contests/registered",
+        url: CONTEST_PATH + "/registered",
+    }
+}
+
+export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
+    return {
+        method: "get",
+        url: CONTEST_PATH + "/all",
+        params: {pageNumber, pageSize}
     }
 }
 
 export const getUnregisteredContests = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/contests/unregistered",
+        url: CONTEST_PATH + "/unregistered",
     }
 }
 
-export const getAllContestsSortedByContestNumberConfig = (pageNumber: number, pageSize: number) => {
+export const getCreateContestConfig = (contestData: CreateContestInput) => {
     return {
-        method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/contests/sorted",
-        params: {pageNumber, pageSize}
+        method: "post",
+        url: CONTEST_PATH + "/create",
+        data: contestData
+    }
+}
+
+export const getDeleteContestConfig = (contestNumber: number) => {
+    return {
+        method: "delete",
+        url: CONTEST_PATH + "/delete",
+        params: {contestNumber}
+    }
+}
+
+export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
+    return {
+        method: "patch",
+        url: CONTEST_PATH + "/update",
+        data: contestData
     }
 }
 
 export const getContestConfig = (contestNumber: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/contests/" + contestNumber
+        url: CONTEST_PATH + "/" + contestNumber
     }
 }
 
 export const getSignUpToContestConfig = (contestNumber: number) => {
     return {
         method: "post",
-        url: CLIENT_BACKEND_BASE_PATH + "/contests/sign-up",
+        url: CONTEST_PATH + "/sign-up",
         params: {contestNumber}
     }
 }
