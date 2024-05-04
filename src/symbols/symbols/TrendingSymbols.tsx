@@ -11,21 +11,21 @@ import {StockPrice} from "../../stock/stockTypes";
 
 
 const TrendingSymbols = () => {
-    const theme = useTheme()
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"))
-    const {apiGet} = useApiWrapper()
+    const theme = useTheme();
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
+    const {apiGet} = useApiWrapper();
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {isLoading, error, data: symbols} = useQuery<StockPrice[], Error>(
+    const {status, error, data} = useQuery<StockPrice[], Error>(
         [GET_PRICE_TRENDING_SYMBOLS],
         () => apiGet(getTrendingSymbolsPriceConfig()),
         {refetchInterval: FETCH_QUOTE_INTERVAL}
     );
 
-    if (isLoading) return <CircularProgress/>
+    if (status === "loading") return <CircularProgress/>
 
-    if (error) {
+    if (status === "error") {
         return <ErrorComponent errorMessage={error.message as string}/>
     }
 
@@ -37,8 +37,8 @@ const TrendingSymbols = () => {
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
                 <Grid container rowSpacing={1} columnSpacing={1}>
-                    {symbols!.map((symbol) =>
-                        <Grid key={symbol.symbol} item md={6} sm={12}>
+                    {data.map((symbol) =>
+                        <Grid item key={symbol.symbol} md={6} sm={12}>
                             <SymbolCard stockQuote={symbol}/>
                         </Grid>
                     )}
@@ -46,7 +46,7 @@ const TrendingSymbols = () => {
                 <SymbolsRightMenu/>
             </Box>
         </Box>
-    )
+    );
 }
 
-export default TrendingSymbols
+export default TrendingSymbols;

@@ -8,7 +8,7 @@ export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
 const CONTEST_PATH = CLIENT_BACKEND_BASE_PATH + "/contests";
 
-export const getRegisteredContests = () => {
+export const getRegisteredContestsConfig = () => {
     return {
         method: "get",
         url: CONTEST_PATH + "/registered",
@@ -64,7 +64,6 @@ export const getContestConfig = (contestNumber: number) => {
 export const getSignUpToContestConfig = (contestNumber: number) => {
     return {
         method: "post",
-        url: CONTEST_PATH + "/sign-up",
-        params: {contestNumber}
+        url: CONTEST_PATH + "/sign-up/" + contestNumber
     }
 }
