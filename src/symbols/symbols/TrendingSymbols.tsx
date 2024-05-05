@@ -17,16 +17,16 @@ const TrendingSymbols = () => {
 
     const FETCH_QUOTE_INTERVAL = 5000
 
-    const {status, error, data} = useQuery<StockPrice[], Error>(
-        [GET_PRICE_TRENDING_SYMBOLS],
-        () => apiGet(getTrendingSymbolsPriceConfig()),
-        {refetchInterval: FETCH_QUOTE_INTERVAL}
-    );
+    const {isError, isPending, error, data} = useQuery<StockPrice[]>({
+        queryKey: [GET_PRICE_TRENDING_SYMBOLS],
+        queryFn: () => apiGet(getTrendingSymbolsPriceConfig()),
+        refetchInterval: FETCH_QUOTE_INTERVAL,
+    });
 
-    if (status === "loading") return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (status === "error") {
-        return <ErrorComponent errorMessage={error.message as string}/>
+    if (isError) {
+        return <ErrorComponent errorMessage={error.message}/>
     }
 
     return (

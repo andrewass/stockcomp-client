@@ -39,10 +39,10 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
         return data;
     }
 
-    const {error, isLoading} = useQuery<ParticipantPage>(
-        [GET_SORTED_PARTICIPANTS, contestNumber],
-        () => fetchParticipantEntries(currentPage, rowsPerPage)
-    );
+    const {error, isError, isPending} = useQuery<ParticipantPage>({
+        queryKey: [GET_SORTED_PARTICIPANTS, contestNumber],
+        queryFn: () => fetchParticipantEntries(currentPage, rowsPerPage),
+    });
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchParticipantEntries(newPage, rowsPerPage)
@@ -54,9 +54,9 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
             .catch(error => console.log(error));
     }
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
         <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>

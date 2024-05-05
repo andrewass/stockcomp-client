@@ -12,17 +12,17 @@ export const ParticipantHistory = ({username}: { username: string }) => {
 
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: participantEntries} = useQuery<DetailedParticipant[]>(
-        [GET_PARTICIPANT_HISTORY, username],
-        () => apiGet(getParticipantHistoryConfig(username))
-    );
+    const {isPending, isError, error, data} = useQuery<DetailedParticipant[]>({
+        queryKey: [GET_PARTICIPANT_HISTORY, username],
+        queryFn: () => apiGet(getParticipantHistoryConfig(username)),
+    });
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>
 
-    if (participantEntries && participantEntries.length > 0) {
-        const participants = participantEntries.map(detailedEntry => detailedEntry.participant);
+    if (data.length > 0) {
+        const participants = data.map(detailedEntry => detailedEntry.participant);
         return (
             <Box id="participantHistory" sx={{marginTop: "10%", marginLeft: "10%", width: "80%"}}>
                 <Typography variant="h5" align="center" marginBottom="3rem">Participant History</Typography>
@@ -37,8 +37,6 @@ export const ParticipantHistory = ({username}: { username: string }) => {
             </Box>
         );
     } else {
-        return <React.Fragment/>
+        return <React.Fragment/>;
     }
-
-
 }

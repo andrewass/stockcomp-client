@@ -51,8 +51,8 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
             return apiPost(getPostInvestmentOrderConfig(orderData))
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries([GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol]);
-            await queryClient.invalidateQueries([GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol]);
+            await queryClient.invalidateQueries({queryKey: [GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol]});
+            await queryClient.invalidateQueries({queryKey: [GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol]});
             toast.success("Successfully submitted order for symbol " + symbol);
         },
         onError: () => {
@@ -80,7 +80,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                                label="Amount"
                                variant="outlined"
                                value={value}
-                               disabled={mutation.isLoading}
+                               disabled={mutation.isPending}
                                onChange={onChange}/>
                 )}
             />
@@ -94,7 +94,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                                label="Accepted Price"
                                variant="outlined"
                                value={value}
-                               disabled={mutation.isLoading}
+                               disabled={mutation.isPending}
                                onChange={onChange}/>
                 )}
             />
@@ -104,7 +104,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                 control={control}
                 rules={{required: "Contest number is required"}}
                 render={({field}) => (
-                    <FormControl disabled={mutation.isLoading} sx={{mb: "1rem"}}>
+                    <FormControl disabled={mutation.isPending} sx={{mb: "1rem"}}>
                         <InputLabel>Operation</InputLabel>
                         <Select label="Operation" {...field} >
                             <MenuItem value="Buy">Buy</MenuItem>
@@ -119,7 +119,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                 control={control}
                 rules={{required: "Transaction type is required"}}
                 render={({field}) => (
-                    <FormControl disabled={mutation.isLoading} sx={{mb: "1rem"}}>
+                    <FormControl disabled={mutation.isPending} sx={{mb: "1rem"}}>
                         <InputLabel>Operation</InputLabel>
                         <Select label="Operation" {...field} >
                             <MenuItem value="Buy">Buy</MenuItem>
@@ -135,7 +135,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                 rules={{required: "Expiration time is required"}}
                 render={({field: {onChange, value}}) => (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker disabled={mutation.isLoading}
+                        <DateTimePicker disabled={mutation.isPending}
                                         renderInput={(props) => <TextField {...props} />}
                                         label="Expiration"
                                         value={value}
@@ -144,7 +144,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                     </LocalizationProvider>
                 )}
             />
-            {mutation.isLoading
+            {mutation.isPending
                 ? <CircularProgress/>
                 : <Button type="submit" sx={{mt: "1rem"}}>
                     Submit

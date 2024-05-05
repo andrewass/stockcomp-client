@@ -11,7 +11,7 @@ import {useApiWrapper} from "../../config/useApiWrapper";
 import {Contest} from "../../domain/contests/contestTypes";
 import {Button, Typography} from "@mui/material";
 
-interface Props{
+interface Props {
     contest: Contest
 }
 
@@ -23,8 +23,8 @@ const UnregisteredContest = ({contest}: Props) => {
             return apiPost(getSignUpToContestConfig(contest.contestNumber));
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries([GET_ALL_REGISTERED_CONTESTS]);
-            await queryClient.invalidateQueries([GET_ALL_UNREGISTERED_CONTESTS]);
+            await queryClient.invalidateQueries({queryKey: [GET_ALL_REGISTERED_CONTESTS]});
+            await queryClient.invalidateQueries({queryKey: [GET_ALL_UNREGISTERED_CONTESTS]});
         },
         onError: () => {
             toast.error("Unable to sign up for contest", {
@@ -34,7 +34,7 @@ const UnregisteredContest = ({contest}: Props) => {
         }
     });
 
-    return(
+    return (
         <React.Fragment>
             <Typography paragraph>Contest {contest.contestNumber}</Typography>
             <Button onClick={() => mutation.mutate()}>Sign Up</Button>

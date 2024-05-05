@@ -14,14 +14,14 @@ export const ContestDetails = () => {
     const {contestNumber} = useParams<{ contestNumber: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, data, error} = useQuery(
-        [GET_CONTEST_BY_NUMBER, contestNumber],
-        () => apiGet(getContestConfig(Number(contestNumber!)))
-    );
+    const {isPending, isError, error, data} = useQuery({
+        queryKey: [GET_CONTEST_BY_NUMBER, contestNumber],
+        queryFn: () => apiGet(getContestConfig(Number(contestNumber!))),
+    });
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>;
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     const contest = new Contest(data);
 

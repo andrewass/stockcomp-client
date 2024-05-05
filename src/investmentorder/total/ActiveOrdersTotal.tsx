@@ -20,8 +20,8 @@ export const ActiveOrdersTotal = ({activeOrders}: { activeOrders: InvestmentOrde
             return apiDelete(getDeleteInvestmentOrderConfig(orderId))
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries([GET_ALL_ACTIVE_INVESTMENT_ORDERS]);
-            await queryClient.invalidateQueries([GET_ALL_COMPLETED_INVESTMENT_ORDERS]);
+            await queryClient.invalidateQueries({queryKey: [GET_ALL_ACTIVE_INVESTMENT_ORDERS]});
+            await queryClient.invalidateQueries({queryKey: [GET_ALL_COMPLETED_INVESTMENT_ORDERS]});
             toast.success("Successfully deleted order");
         },
         onError: () => {

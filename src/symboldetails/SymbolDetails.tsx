@@ -17,15 +17,15 @@ const SymbolDetails = () => {
     const {symbol} = useParams<{ symbol: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {error: priceError, isLoading: priceLoading, data: stockPrice} =
-        useQuery<StockPrice>(
-            [GET_STOCK_SYMBOL_PRICE, symbol],
-            () => apiGet(getStockSymbolPriceConfig(symbol as string))
-        );
+    const {error, isError, isPending, data} =
+        useQuery<StockPrice>({
+            queryKey: [GET_STOCK_SYMBOL_PRICE, symbol],
+            queryFn: () => apiGet(getStockSymbolPriceConfig(symbol as string)),
+        });
 
-    if (priceLoading) return <CircularProgress/>;
+    if (isPending) return <CircularProgress/>;
 
-    if (priceError) return <ErrorComponent errorMessage={priceError as string}/>;
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
         <>
@@ -34,11 +34,11 @@ const SymbolDetails = () => {
                 mt: "3%", display: "flex", justifyContent: "center",
                 flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
             }}>
-                <DetailBlock isLargeWidth={isLargeWidth} stockPrice={stockPrice!} symbol={symbol!}/>
-                <SymbolDetailsRightMenu stockPrice={stockPrice!} isLargeWidth={isLargeWidth}/>
+                <DetailBlock isLargeWidth={isLargeWidth} stockPrice={data} symbol={symbol!}/>
+                <SymbolDetailsRightMenu stockPrice={data} isLargeWidth={isLargeWidth}/>
             </Box>
         </>
     );
 }
 
-export default SymbolDetails
+export default SymbolDetails;

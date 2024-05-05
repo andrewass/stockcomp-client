@@ -23,8 +23,8 @@ export const ActiveOrdersSymbol = ({participants, symbol}: Props) => {
             return apiDelete(getDeleteInvestmentOrderConfig(orderId))
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries([GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol]);
-            await queryClient.invalidateQueries([GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol]);
+            await queryClient.invalidateQueries({queryKey: [GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, symbol]});
+            await queryClient.invalidateQueries({queryKey: [GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol]});
             toast.success("Successfully deleted order for symbol " + symbol);
         },
         onError: () => {

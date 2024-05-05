@@ -12,19 +12,19 @@ export const UserDetails = () => {
     const {apiGet} = useApiWrapper();
     const params = useParams();
 
-    const {isLoading, error, data: userData} = useQuery<UserExtended>(
-        [GET_USER_DETAILS, params.username],
-        () => apiGet(getUserDetailsConfig(params.username))
-    );
+    const {isLoading, error, data: userData} = useQuery<UserExtended>({
+        queryKey: [GET_USER_DETAILS, params.username],
+        queryFn: () => apiGet(getUserDetailsConfig(params.username))
+    });
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (error) return <ErrorComponent errorMessage={error.message}/>
 
     return (
         <Box>
             <UserGeneralDetails userData={userData!}/>
-            <UserLeaderboardDetails />
+            <UserLeaderboardDetails/>
         </Box>
     );
 }

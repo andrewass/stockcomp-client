@@ -5,20 +5,21 @@ import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../lead
 import {useApiWrapper} from "../config/useApiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantHistory} from "../participant/ParticipantHistory";
+import {LeaderboardEntry} from "../leaderboard/leaderboardTypes";
 
 
 export const UserLeaderboardDetails = () => {
     const {username} = useParams<{ username: string }>()
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, error, data: entryData} = useQuery(
-        [GET_LEADERBOARD_USER_ENTRY, username],
-        () => apiGet(getLeaderboardEntryUserConfig(username))
-    );
+    const {isPending, isError, error, data} = useQuery<LeaderboardEntry>({
+        queryKey: [GET_LEADERBOARD_USER_ENTRY, username],
+        queryFn: () => apiGet(getLeaderboardEntryUserConfig(username))
+    });
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
         <Box>
@@ -28,8 +29,8 @@ export const UserLeaderboardDetails = () => {
                         <Typography variant="h5">{username}</Typography>
                     </Box>
                     <Typography>Medals n/a</Typography>
-                    <Typography>Leaderboard rank : {entryData.ranking}</Typography>
-                    <Typography>Contest participation : {entryData.contestCount}</Typography>
+                    <Typography>Leaderboard rank : {data.ranking}</Typography>
+                    <Typography>Contest participation : {data.ranking}</Typography>
                 </CardContent>
             </Card>
             <ParticipantHistory username={username!}/>

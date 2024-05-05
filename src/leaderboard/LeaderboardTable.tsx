@@ -29,6 +29,11 @@ export const LeaderboardTable = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(10);
     const {apiGet} = useApiWrapper();
 
+    const {isError, error, isPending} = useQuery<LeaderboardEntryPage>({
+        queryKey: [GET_SORTED_LEADERBOARD_ENTRIES],
+        queryFn: () => fetchLeaderboardEntries(currentPage, rowsPerPage),
+    });
+
     const fetchLeaderboardEntries = async (page: number, pageRowCount: number) => {
         const data = await apiGet(getSortedLeaderboardEntriesConfig(page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
@@ -38,11 +43,6 @@ export const LeaderboardTable = () => {
 
         return data;
     }
-
-    const {isLoading, error} = useQuery<LeaderboardEntryPage>(
-        [GET_SORTED_LEADERBOARD_ENTRIES],
-        () => fetchLeaderboardEntries(currentPage, rowsPerPage)
-    );
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchLeaderboardEntries(newPage, rowsPerPage)
@@ -54,9 +54,9 @@ export const LeaderboardTable = () => {
             .catch(error => console.log(error));
     };
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
         <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
@@ -86,4 +86,4 @@ export const LeaderboardTable = () => {
             />
         </Paper>
     );
-};
+}

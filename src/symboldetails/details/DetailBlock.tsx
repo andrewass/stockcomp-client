@@ -7,7 +7,7 @@ import {GET_STOCK_SYMBOL_FINANCIALS, getStockSymbolFinancialsConfig} from "../ap
 import {useApiWrapper} from "../../config/useApiWrapper";
 import ErrorComponent from "../../error/ErrorComponent";
 
-interface Props{
+interface Props {
     isLargeWidth: boolean,
     stockPrice: StockPrice,
     symbol: string
@@ -16,20 +16,20 @@ interface Props{
 const DetailBlock = (props: Props) => {
     const {apiGet} = useApiWrapper();
 
-    const {error: financialsError, isLoading: financialsLoading, data: stockFinancials} =
-        useQuery<StockFinancials>(
-            [GET_STOCK_SYMBOL_FINANCIALS, props.symbol],
-            () => apiGet(getStockSymbolFinancialsConfig(props.symbol as string))
-        );
+    const {error, isError, isPending, data} =
+        useQuery<StockFinancials>({
+            queryKey: [GET_STOCK_SYMBOL_FINANCIALS, props.symbol],
+            queryFn: () => apiGet(getStockSymbolFinancialsConfig(props.symbol as string)),
+        });
 
-    if (financialsLoading) return <CircularProgress/>;
+    if (isPending) return <CircularProgress/>;
 
-    if (financialsError) return <ErrorComponent errorMessage={financialsError as string}/>;
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
         <Box id="detailBlock" display="flex" flexDirection="column" alignItems="center"
              sx={{width: props.isLargeWidth ? "80%" : "100%"}}>
-            <SymbolStats stockFinancials={stockFinancials!} stockPrice={props.stockPrice}/>
+            <SymbolStats stockFinancials={data} stockPrice={props.stockPrice}/>
             <PriceChart symbol={props.symbol}/>
         </Box>
     );

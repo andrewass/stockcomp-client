@@ -51,6 +51,10 @@ export class Contest {
     }
 }
 
+export type ContestsResponse = {
+    contests: Contest[]
+}
+
 export type ContestPage = {
     contests: Contest[]
     totalEntriesCount: number

@@ -11,21 +11,21 @@ export const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
     const {apiGet} = useApiWrapper();
 
     const redirectToApi = () => {
-        window.location.href = CLIENT_BACKEND_BASE_URL+"/auth/login"
+        window.location.href = CLIENT_BACKEND_BASE_URL + "/auth/login"
     }
 
-    const {isLoading, data, error} =
-        useQuery<ValidSession>(
-            [GET_VALID_SESSION],
-            () => apiGet(getValidSessionConfig())
-        );
+    const {isPending, isError, data, error} =
+        useQuery<ValidSession>({
+            queryKey: [GET_VALID_SESSION],
+            queryFn: () => apiGet(getValidSessionConfig()),
+        });
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>;
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
-    if (data!.validSession) {
-        return <>{children}</>
+    if (data.validSession) {
+        return <>{children}</>;
     } else {
         return (
             <button onClick={() => redirectToApi()}>
