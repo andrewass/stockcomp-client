@@ -65,7 +65,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([GET_ALL_CONTESTS])
+            queryClient.invalidateQueries({queryKey: [GET_ALL_CONTESTS]})
                 .then(handleClose);
         }
     });
@@ -120,7 +120,7 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
                         defaultValue={contest.startTime}
                         render={({field: {onChange, value}}) => (
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DateTimePicker disabled={mutation.isLoading}
+                                <DateTimePicker disabled={mutation.isPending}
                                                 renderInput={(props) => <TextField {...props} />}
                                                 label="Starting Time" value={value}
                                                 onChange={onChange}

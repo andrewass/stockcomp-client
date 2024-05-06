@@ -33,10 +33,10 @@ export const AdminContestTable = () => {
         return data;
     }
 
-    const {isLoading, error, data} = useQuery<ContestPage>(
-        [GET_ALL_CONTESTS],
-        () => fetchContestEntries(currentPage, rowsPerPage)
-    );
+    const {isPending, error, isError} = useQuery<ContestPage>({
+        queryKey: [GET_ALL_CONTESTS],
+        queryFn: () => fetchContestEntries(currentPage, rowsPerPage),
+    });
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchContestEntries(newPage, rowsPerPage)
@@ -48,9 +48,9 @@ export const AdminContestTable = () => {
             .catch(error => console.log(error));
     }
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
         <Paper>

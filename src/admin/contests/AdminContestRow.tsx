@@ -22,7 +22,7 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
         mutationFn: () => {
             return apiDelete(getDeleteContestConfig(contest.contestNumber))
         },
-        onSuccess: () => queryClient.invalidateQueries([GET_ALL_CONTESTS])
+        onSuccess: () => queryClient.invalidateQueries({queryKey: [GET_ALL_CONTESTS]})
     });
 
     return (

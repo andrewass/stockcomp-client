@@ -53,7 +53,7 @@ const AdminCreateContest = () => {
                 control={control}
                 render={({field: {onChange, value}}) => (
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker disabled={mutation.isLoading}
+                        <DateTimePicker disabled={mutation.isPending}
                                         renderInput={(props) => <TextField {...props} />}
                                         label="Starting Time"
                                         value={value}

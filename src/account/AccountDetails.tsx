@@ -12,14 +12,14 @@ import ReactCountryFlag from "react-country-flag";
 const AccountDetails = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isLoading, isFetching, error, data: accountData} = useQuery<AccountData>(
-        [GET_ACCOUNT_DETAILS],
-        () => apiGet(getAccountDetailsConfig())
-    );
+    const {isPending, isError, error, data} = useQuery<AccountData>({
+        queryKey: [GET_ACCOUNT_DETAILS],
+        queryFn: () => apiGet(getAccountDetailsConfig()),
+    });
 
-    if (isLoading || isFetching) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>;
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
         <Box sx={{width: "400px", m: "0 auto", mt: "80px"}}>
@@ -28,24 +28,24 @@ const AccountDetails = () => {
                     <Avatar sx={{
                         width: 56, height: 56, bgcolor: deepPurple[500]
                     }}>OP</Avatar>
-                    <Typography sx={{mt:"20px"}}>
-                        Username: {accountData!.username}
+                    <Typography sx={{mt: "20px"}}>
+                        Username: {data.username}
                     </Typography>
-                    <Typography sx={{mt:"20px"}}>
-                        Full name : {accountData!.fullName ? accountData!.fullName : "N/A"}
+                    <Typography sx={{mt: "20px"}}>
+                        Full name : {data.fullName ? data.fullName : "N/A"}
                     </Typography>
                     <Box display="flex" flexDirection="row" sx={{mt: "20px"}} alignItems="center">
                         <Typography sx={{mr: "5px"}}>
                             Country :
                         </Typography>
-                        <ReactCountryFlag  style={{
+                        <ReactCountryFlag style={{
                             width: "2em",
                             height: "2em",
-                        }} countryCode={accountData!.country} svg/>
+                        }} countryCode={data.country} svg/>
                     </Box>
                 </CardContent>
                 <CardActions>
-                    <AccountDetailsForm accountData={accountData!}/>
+                    <AccountDetailsForm accountData={data}/>
                 </CardActions>
             </Card>
         </Box>

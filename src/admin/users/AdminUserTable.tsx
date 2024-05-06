@@ -34,10 +34,10 @@ export const AdminUserTable = () => {
         return data;
     }
 
-    const {isLoading, error, data: users} = useQuery<UserPage>(
-        [GET_ALL_USERS_ADMIN],
-        () => fetchUserEntries(currentPage, rowsPerPage)
-    );
+    const {isPending, error, isError, data} = useQuery<UserPage>({
+        queryKey: [GET_ALL_USERS_ADMIN],
+        queryFn: () => fetchUserEntries(currentPage, rowsPerPage),
+    });
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchUserEntries(newPage, rowsPerPage)
@@ -49,9 +49,9 @@ export const AdminUserTable = () => {
             .catch(error => console.log(error));
     }
 
-    if (isLoading) return <CircularProgress/>
+    if (isPending) return <CircularProgress/>;
 
-    if (error) return <ErrorComponent errorMessage={error as string}/>
+    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
         <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>

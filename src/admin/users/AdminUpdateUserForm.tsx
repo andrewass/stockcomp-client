@@ -56,7 +56,7 @@ export const AdminUpdateUserForm = ({user}: { user: User }) => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
-            queryClient.invalidateQueries([GET_ALL_USERS_ADMIN])
+            queryClient.invalidateQueries({queryKey: [GET_ALL_USERS_ADMIN]})
                 .then(() => navigate("/admin/users"));
         }
     });

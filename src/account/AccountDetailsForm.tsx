@@ -72,7 +72,7 @@ export const AccountDetailsForm = ({accountData}: Props) => {
         mutationFn: (accountData: UpdateAccountInput) => {
             return apiPost(updateAccountDataConfig(accountData))
         },
-        onSuccess: () => queryClient.invalidateQueries([GET_ACCOUNT_DETAILS]),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: [GET_ACCOUNT_DETAILS]}),
         onError: () => {
             toast.error("Unable to update account details", {
                 duration: 4000,
