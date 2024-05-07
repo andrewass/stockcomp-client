@@ -16,11 +16,11 @@ import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../domain/contests/co
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
-    const {apiDelete} = useApiWrapper();
+    const {apiDeleteVoid} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiDelete(getDeleteContestConfig(contest.contestNumber))
+            return apiDeleteVoid(getDeleteContestConfig(contest.contestNumber))
         },
         onSuccess: () => queryClient.invalidateQueries({queryKey: [GET_ALL_CONTESTS]})
     });

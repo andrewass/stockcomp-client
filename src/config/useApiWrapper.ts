@@ -6,7 +6,7 @@ interface RequestBody {
     [key: string]: string | number
 }
 
-interface CustomRequestConfig {
+export interface CustomRequestConfig {
     url: string
     method: string
     body?: RequestBody
@@ -52,5 +52,6 @@ export const useApiWrapper = () => {
         apiPut: request(),
         apiDelete: request(),
         apiPostVoid: voidRequest(),
+        apiDeleteVoid: voidRequest(),
     }
 }
