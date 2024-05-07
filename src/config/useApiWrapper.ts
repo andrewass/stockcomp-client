@@ -1,12 +1,48 @@
-import axios, {AxiosRequestConfig} from "axios";
+interface RequestParams {
+    [key: string]: string | number
+}
+
+interface RequestBody {
+    [key: string]: string | number
+}
+
+interface CustomRequestConfig {
+    url: string
+    method: string
+    body?: RequestBody
+    params?: RequestParams
+}
 
 export const useApiWrapper = () => {
 
     const request = () => {
-        return async (config: AxiosRequestConfig) => {
-            config.withCredentials = true
-            const response = await axios(config);
-            return response.data;
+        return async (config: CustomRequestConfig) => {
+            const url = new URL(config.url, "http://stockcomp.io");
+            for(const item in config.params){
+                url.searchParams.set(item, String(config.params[item]))
+            }
+            const response = await fetch(url, {
+                    method: config.method,
+                    credentials: "include",
+                    body: JSON.stringify(config.body),
+                }
+            )
+            return await response.json();
+        }
+    }
+
+    const voidRequest = () => {
+        return async (config: CustomRequestConfig) => {
+            const url = new URL(config.url, "http://stockcomp.io");
+            for(const item in config.params){
+                url.searchParams.set(item, String(config.params[item]))
+            }
+            await fetch(url, {
+                    method: config.method,
+                    credentials: "include",
+                    body: JSON.stringify(config.body),
+                }
+            )
         }
     }
 
@@ -14,6 +50,7 @@ export const useApiWrapper = () => {
         apiGet: request(),
         apiPost: request(),
         apiPut: request(),
-        apiDelete: request()
+        apiDelete: request(),
+        apiPostVoid: voidRequest(),
     }
 }

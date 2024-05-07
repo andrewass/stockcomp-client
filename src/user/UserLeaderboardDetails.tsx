@@ -14,7 +14,7 @@ export const UserLeaderboardDetails = () => {
 
     const {isPending, isError, error, data} = useQuery<LeaderboardEntry>({
         queryKey: [GET_LEADERBOARD_USER_ENTRY, username],
-        queryFn: () => apiGet(getLeaderboardEntryUserConfig(username))
+        queryFn: () => apiGet(getLeaderboardEntryUserConfig(username!))
     });
 
     if (isPending) return <CircularProgress/>

@@ -14,11 +14,11 @@ const AdminCreateContest = () => {
 
     const navigate = useNavigate();
     const {handleSubmit, control} = useForm<CreateContestInput>();
-    const {apiPost} = useApiWrapper();
+    const {apiPostVoid} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: (contestData: CreateContestInput) => {
-            return apiPost(getCreateContestConfig(contestData));
+            return apiPostVoid(getCreateContestConfig(contestData));
         },
         onSuccess: () => navigate("/admin/contests")
     });

@@ -34,15 +34,14 @@ export const getCreateContestConfig = (contestData: CreateContestInput) => {
     return {
         method: "post",
         url: CONTEST_PATH + "/create",
-        data: contestData
+        body: contestData
     }
 }
 
 export const getDeleteContestConfig = (contestNumber: number) => {
     return {
         method: "delete",
-        url: CONTEST_PATH + "/delete",
-        params: {contestNumber}
+        url: CONTEST_PATH + "/" + contestNumber,
     }
 }
 
@@ -50,7 +49,7 @@ export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
     return {
         method: "patch",
         url: CONTEST_PATH + "/update",
-        data: contestData
+        body: contestData
     }
 }
 

@@ -14,7 +14,7 @@ export const UserDetails = () => {
 
     const {isLoading, error, data: userData} = useQuery<UserExtended>({
         queryKey: [GET_USER_DETAILS, params.username],
-        queryFn: () => apiGet(getUserDetailsConfig(params.username))
+        queryFn: () => apiGet(getUserDetailsConfig(params.username!))
     });
 
     if (isLoading) return <CircularProgress/>
