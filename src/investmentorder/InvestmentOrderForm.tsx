@@ -13,8 +13,8 @@ import {
     getPostInvestmentOrderConfig
 } from "./api/investmentOrderApi";
 import {codeMapTransaction} from "./investmentOrderTypes";
-import {StockPrice} from "../stock/stockTypes";
 import {CompleteParticipant} from "../participant/participantTypes";
+import {StockPrice} from "../domain/symbols/symbolTypes";
 
 
 export type InvestmentOrderRequest = {

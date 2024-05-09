@@ -1,11 +1,11 @@
 import {PriceChart} from "./PriceChart";
 import SymbolStats from "./SymbolStats";
 import {Box, CircularProgress} from "@mui/material";
-import {StockFinancials, StockPrice} from "../../stock/stockTypes";
 import {useQuery} from "@tanstack/react-query";
-import {GET_STOCK_SYMBOL_FINANCIALS, getStockSymbolFinancialsConfig} from "../api/symbolDetailsApi";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import ErrorComponent from "../../error/ErrorComponent";
+import {GET_STOCK_SYMBOL_FINANCIALS, getStockSymbolFinancialsConfig} from "../../domain/symbols/symbolsApi";
+import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
 
 interface Props {
     isLargeWidth: boolean,

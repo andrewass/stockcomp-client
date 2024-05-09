@@ -6,8 +6,8 @@ import {InvestmentOrderForm} from "../../investmentorder/InvestmentOrderForm";
 import ErrorComponent from "../../error/ErrorComponent";
 import {InvestmentOrdersSymbol} from "../../investmentorder/symbol/InvestmentOrdersSymbol";
 import {CompleteParticipant} from "../../participant/participantTypes";
-import {StockPrice} from "../../stock/stockTypes";
 import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsSymbol} from "../../participant/api/participantApi";
+import {StockPrice} from "../../domain/symbols/symbolTypes";
 
 interface Props {
     stockPrice: StockPrice

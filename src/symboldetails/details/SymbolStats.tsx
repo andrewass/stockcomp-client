@@ -1,6 +1,5 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
-import {StockFinancials, StockPrice} from "../../stock/stockTypes";
-
+import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
 
 const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFinancials, stockPrice: StockPrice }) => {
 

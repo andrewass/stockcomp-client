@@ -4,11 +4,11 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import DetailBlock from "./details/DetailBlock";
 import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
-import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "./api/symbolDetailsApi";
 import {useApiWrapper} from "../config/useApiWrapper";
 import SearchField from "../search/SearchField";
 import ErrorComponent from "../error/ErrorComponent";
-import {StockPrice} from "../stock/stockTypes";
+import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../domain/symbols/symbolsApi";
+import {StockPrice} from "../domain/symbols/symbolTypes";
 
 
 const SymbolDetailsPage = () => {

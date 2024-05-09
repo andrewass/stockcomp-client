@@ -1,11 +1,11 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, Tab} from "@mui/material";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {HistoricalPrice} from "../../stock/stockTypes";
 import {SyntheticEvent, useEffect, useState} from "react";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {Period} from "../symbolTypes";
-import {getHistoricPricesConfig} from "../api/symbolDetailsApi";
+import {getHistoricPricesConfig} from "../../domain/symbols/symbolsApi";
+import {HistoricalPrice} from "../../domain/symbols/symbolTypes";
 
 
 export const PriceChart = ({symbol}: { symbol: string }) => {
@@ -17,10 +17,6 @@ export const PriceChart = ({symbol}: { symbol: string }) => {
         apiGet(getHistoricPricesConfig(symbol, tabValue))
             .then(response => setPriceList(response.prices))
     }, [tabValue])
-
-    const handleTabChange = (event: SyntheticEvent, newValue: Period) => {
-        setTabValue(newValue);
-    };
 
     const getResponsiveContainer = () => {
         return (
@@ -50,7 +46,8 @@ export const PriceChart = ({symbol}: { symbol: string }) => {
         <Box id="priceChart" sx={{marginTop: "10%", width: "80%"}}>
             <TabContext value={tabValue}>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                    <TabList onChange={handleTabChange} aria-label="Historic Stock Price">
+                    <TabList onChange={(event: SyntheticEvent, newValue: Period) => setTabValue(newValue)}
+                             aria-label="Historic Stock Price">
                         <Tab label="1 Month" value={Period.MONTH1}/>
                         <Tab label="6 Months" value={Period.MONTH6}/>
                         <Tab label="This Year" value={Period.THIS_YEAR}/>
