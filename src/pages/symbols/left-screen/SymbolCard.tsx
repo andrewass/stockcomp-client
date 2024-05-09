@@ -1,6 +1,6 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import {StockPrice} from "../stock/stockTypes";
+import {StockPrice} from "../../../stock/stockTypes";
 
 const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
 

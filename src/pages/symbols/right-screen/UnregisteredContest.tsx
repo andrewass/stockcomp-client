@@ -1,15 +1,15 @@
 import React from "react";
 import {useMutation} from "@tanstack/react-query";
+import {Button, Typography} from "@mui/material";
+import {Contest} from "../../../domain/contests/contestTypes";
+import {useApiWrapper} from "../../../config/useApiWrapper";
+import {queryClient} from "../../../config/queryConfig";
+import toast from "react-hot-toast";
 import {
     GET_ALL_REGISTERED_CONTESTS,
     GET_ALL_UNREGISTERED_CONTESTS,
     getSignUpToContestConfig
-} from "../../domain/contests/contestApi";
-import {queryClient} from "../../config/queryConfig";
-import toast from "react-hot-toast";
-import {useApiWrapper} from "../../config/useApiWrapper";
-import {Contest} from "../../domain/contests/contestTypes";
-import {Button, Typography} from "@mui/material";
+} from "../../../domain/contests/contestApi";
 
 interface Props {
     contest: Contest

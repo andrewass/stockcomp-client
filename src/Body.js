@@ -11,7 +11,7 @@ import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
 import SymbolDetailsPage from "./symboldetails/SymbolDetailsPage";
-import TrendingSymbolsPage from "./symbols/TrendingSymbolsPage";
+import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
 
 
 

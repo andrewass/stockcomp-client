@@ -1,6 +1,6 @@
-import {Contest} from "../../domain/contests/contestTypes";
 import {Typography} from "@mui/material";
 import React from "react";
+import {Contest} from "../../../domain/contests/contestTypes";
 
 interface Props {
     contest: Contest

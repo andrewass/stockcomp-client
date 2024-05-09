@@ -8,12 +8,11 @@ import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {CompleteParticipant} from "../participant/participantTypes";
-import InvestmentList from "../symbols/right-menu/InvestmentList";
 import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
 import {Contest, CONTEST_STATUS} from "../domain/contests/contestTypes";
 import {getSignUpToContestConfig} from "../domain/contests/contestApi";
-
+import InvestmentList from "../pages/symbols/right-screen/InvestmentList";
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
 
