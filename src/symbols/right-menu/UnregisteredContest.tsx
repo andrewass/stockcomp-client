@@ -16,11 +16,11 @@ interface Props {
 }
 
 const UnregisteredContest = ({contest}: Props) => {
-    const {apiPost} = useApiWrapper();
+    const {apiPostVoid} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiPost(getSignUpToContestConfig(contest.contestNumber));
+            return apiPostVoid(getSignUpToContestConfig(contest.contestNumber));
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [GET_ALL_REGISTERED_CONTESTS]});
@@ -36,7 +36,9 @@ const UnregisteredContest = ({contest}: Props) => {
 
     return (
         <React.Fragment>
-            <Typography paragraph>Contest {contest.contestNumber}</Typography>
+            <Typography>Contest {contest.contestNumber}</Typography>
+            <Typography>Status {contest.contestStatus}</Typography>
+            <Typography>From {contest.startTime}</Typography>
             <Button onClick={() => mutation.mutate()}>Sign Up</Button>
         </React.Fragment>
     );

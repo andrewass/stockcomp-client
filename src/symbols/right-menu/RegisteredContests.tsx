@@ -1,10 +1,10 @@
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import ErrorComponent from "../../error/ErrorComponent";
-import {Card, CardContent, CardHeader, CircularProgress} from "@mui/material";
+import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
 import React from "react";
 import RegisteredContest from "./RegisteredContest";
-import {Contest, ContestsResponse} from "../../domain/contests/contestTypes";
+import {ContestsResponse} from "../../domain/contests/contestTypes";
 import {GET_ALL_REGISTERED_CONTESTS, getRegisteredContestsConfig} from "../../domain/contests/contestApi";
 
 
@@ -21,13 +21,16 @@ const RegisteredContests = () => {
     if (isPending) return <CircularProgress/>;
 
     return (
-        <Card>
-            <CardHeader title="Participating Contests"/>
-            <CardContent>
-                {data.contests.map((contest: Contest) => <RegisteredContest contest={contest}
-                                                                            key={contest.contestNumber}/>)}
-            </CardContent>
-        </Card>
+        <Box>
+            <Typography variant="h6">Participating Contests</Typography>
+            {data.contests.map((contest =>
+                    <Card sx={{mb: "10px"}}>
+                        <CardContent>
+                            <RegisteredContest contest={contest} key={contest.contestNumber}/>
+                        </CardContent>
+                    </Card>
+            ))}
+        </Box>
     );
 }
 

@@ -1,12 +1,18 @@
 import {Contest} from "../../domain/contests/contestTypes";
+import {Typography} from "@mui/material";
+import React from "react";
 
-interface Props{
+interface Props {
     contest: Contest
 }
 
 const RegisteredContest = ({contest}: Props) => {
-    return(
-        <p>Contest {contest.contestNumber}</p>
+    return (
+        <React.Fragment>
+            <Typography>Contest {contest.contestNumber}</Typography>
+            <Typography>Status {contest.contestStatus}</Typography>
+            <Typography>From {contest.startTime}</Typography>
+        </React.Fragment>
     )
 }
 
