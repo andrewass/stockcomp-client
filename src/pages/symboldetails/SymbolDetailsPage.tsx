@@ -1,18 +1,15 @@
-import {Box, CircularProgress, useMediaQuery} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
+import {Box, CircularProgress} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {StockPrice} from "../../domain/symbols/symbolTypes";
 import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../../domain/symbols/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
-import SearchField from "../../search/SearchField";
+import SplitScreen from "../../components/SplitScreen";
 import DetailBlock from "./leftpage/DetailBlock";
 import {SymbolDetailsRightMenu} from "./rightpage/SymbolDetailsRightMenu";
 
 const SymbolDetailsPage = () => {
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const {symbol} = useParams<{ symbol: string }>();
     const {apiGet} = useApiWrapper();
 
@@ -27,17 +24,15 @@ const SymbolDetailsPage = () => {
     if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
-        <>
-            <SearchField/>
-            <Box sx={{
-                mt: "3%", display: "flex", justifyContent: "center",
-                flexFlow: isLargeWidth ? "row nowrap" : "column nowrap"
-            }}>
-                <DetailBlock isLargeWidth={isLargeWidth} stockPrice={data} symbol={symbol!}/>
-                <SymbolDetailsRightMenu stockPrice={data} isLargeWidth={isLargeWidth}/>
-            </Box>
-        </>
-    );
+        <Box>
+            <SplitScreen
+                left={<DetailBlock stockPrice={data} symbol={symbol!}/>}
+                right={<SymbolDetailsRightMenu stockPrice={data}/>}
+                leftWeight={1}
+                rightWeight={1}
+            />
+        </Box>
+    )
 }
 
 export default SymbolDetailsPage;

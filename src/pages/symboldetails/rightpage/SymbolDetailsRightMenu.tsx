@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {Box, CircularProgress} from "@mui/material";
+import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {CompleteParticipant} from "../../../participant/participantTypes";
@@ -8,15 +8,16 @@ import ErrorComponent from "../../../error/ErrorComponent";
 import InvestmentSymbol from "../../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "./InvestmentOrderForm";
 import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
+import {useTheme} from "@mui/material/styles";
 
 
 interface Props {
     stockPrice: StockPrice
-    isLargeWidth: boolean
 }
 
-export const SymbolDetailsRightMenu = (props: Props) => {
-    const {stockPrice} = props
+export const SymbolDetailsRightMenu = ({stockPrice}: Props) => {
+    const theme = useTheme();
+    const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const {apiGet} = useApiWrapper();
 
     const {isPending, isError, error, data} = useQuery<CompleteParticipant[]>({
@@ -30,7 +31,7 @@ export const SymbolDetailsRightMenu = (props: Props) => {
 
     return (
         <Box id="symbolDetailsRighMenu" display="flex" flexDirection="column"
-             sx={{width: props.isLargeWidth ? "30%" : "70%", padding: "50px 30px", margin: "auto"}}>
+             sx={{width: isLargeWidth ? "30%" : "70%", padding: "50px 30px", margin: "auto"}}>
             <InvestmentSymbol participants={data} symbol={stockPrice.symbol}/>
             <InvestmentOrderForm participants={data} symbol={stockPrice.symbol} stockPrice={stockPrice}/>
             <InvestmentOrdersSymbol participants={data} symbol={stockPrice.symbol}/>
