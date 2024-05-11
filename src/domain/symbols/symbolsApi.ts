@@ -1,5 +1,5 @@
 import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
-import {Period} from "../../symboldetails/symbolTypes";
+import {Period} from "./symbolTypes";
 
 export const GET_PRICE_TRENDING_SYMBOLS = "getTrendingSymbols";
 export const GET_STOCK_SYMBOL_FINANCIALS = "getStockSymbolFinancials";

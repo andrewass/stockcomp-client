@@ -1,5 +1,5 @@
 import {Investment} from "../investment/investmentTypes";
-import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
+import {InvestmentOrder} from "../domain/investmentorder/investmentOrderTypes";
 
 export type Participant = {
     displayName: string

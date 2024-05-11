@@ -1,5 +1,5 @@
-import {CompletedOrders} from "../CompletedOrders";
-import {InvestmentOrder} from "../investmentOrderTypes";
+import {InvestmentOrder} from "../../../domain/investmentorder/investmentOrderTypes";
+import {CompletedOrders} from "../../../investmentorder/CompletedOrders";
 
 
 export const CompletedOrdersSymbol = ({completedOrders}: { completedOrders: InvestmentOrder[] }) => {

@@ -1,6 +1,6 @@
 import {Box} from "@mui/material";
 import {ActiveOrdersSymbol} from "./ActiveOrdersSymbol";
-import {CompleteParticipant} from "../../participant/participantTypes";
+import {CompleteParticipant} from "../../../participant/participantTypes";
 
 interface Props {
     participants: CompleteParticipant[]

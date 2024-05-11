@@ -1,15 +1,14 @@
 import React from "react";
 import {useMutation} from "@tanstack/react-query";
-import {useApiWrapper} from "../../config/useApiWrapper";
+import {CompleteParticipant} from "../../../participant/participantTypes";
+import {useApiWrapper} from "../../../config/useApiWrapper";
 import {
-    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
-    GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
+    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
     getDeleteInvestmentOrderConfig
-} from "../api/investmentOrderApi";
-import {queryClient} from "../../config/queryConfig";
+} from "../../../domain/investmentorder/investmentOrderApi";
+import {queryClient} from "../../../config/queryConfig";
 import toast from "react-hot-toast";
-import {ActiveOrders} from "../ActiveOrders";
-import {CompleteParticipant} from "../../participant/participantTypes";
+import {ActiveOrders} from "../../../investmentorder/ActiveOrders";
 
 interface Props {
     participants: CompleteParticipant[],

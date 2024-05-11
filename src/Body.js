@@ -10,8 +10,8 @@ import AdminContests from "./admin/contests/AdminContests";
 import AdminCreateContest from "./admin/contests/AdminCreateContest";
 import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
-import SymbolDetailsPage from "./symboldetails/SymbolDetailsPage";
 import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
+import SymbolDetailsPage from "./pages/symboldetails/SymbolDetailsPage";
 
 
 

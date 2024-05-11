@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import {Delete, ExpandLess, ExpandMore} from "@mui/icons-material";
 import {useState} from "react";
-import {InvestmentOrder} from "./investmentOrderTypes";
+import {InvestmentOrder} from "../domain/investmentorder/investmentOrderTypes";
 
 
 export const ActiveOrders = ({activeOrders, deleteOrder}: {

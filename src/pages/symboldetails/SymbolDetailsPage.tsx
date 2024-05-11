@@ -2,14 +2,13 @@ import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import DetailBlock from "./details/DetailBlock";
-import {SymbolDetailsRightMenu} from "./right-menu/SymbolDetailsRightMenu";
-import {useApiWrapper} from "../config/useApiWrapper";
-import SearchField from "../search/SearchField";
-import ErrorComponent from "../error/ErrorComponent";
-import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../domain/symbols/symbolsApi";
-import {StockPrice} from "../domain/symbols/symbolTypes";
-
+import {useApiWrapper} from "../../config/useApiWrapper";
+import {StockPrice} from "../../domain/symbols/symbolTypes";
+import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../../domain/symbols/symbolsApi";
+import ErrorComponent from "../../error/ErrorComponent";
+import SearchField from "../../search/SearchField";
+import DetailBlock from "./leftpage/DetailBlock";
+import {SymbolDetailsRightMenu} from "./rightpage/SymbolDetailsRightMenu";
 
 const SymbolDetailsPage = () => {
     const theme = useTheme();

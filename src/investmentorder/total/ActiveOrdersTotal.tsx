@@ -1,15 +1,14 @@
 import React from "react";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {
-    GET_ALL_ACTIVE_INVESTMENT_ORDERS,
-    GET_ALL_COMPLETED_INVESTMENT_ORDERS,
-    getDeleteInvestmentOrderConfig
-} from "../api/investmentOrderApi";
 import {queryClient} from "../../config/queryConfig";
 import toast from "react-hot-toast";
 import {ActiveOrders} from "../ActiveOrders";
-import {InvestmentOrder} from "../investmentOrderTypes";
 import {useMutation} from "@tanstack/react-query";
+import {InvestmentOrder} from "../../domain/investmentorder/investmentOrderTypes";
+import {
+    GET_ALL_ACTIVE_INVESTMENT_ORDERS, GET_ALL_COMPLETED_INVESTMENT_ORDERS,
+    getDeleteInvestmentOrderConfig
+} from "../../domain/investmentorder/investmentOrderApi";
 
 
 export const ActiveOrdersTotal = ({activeOrders}: { activeOrders: InvestmentOrder[] }) => {

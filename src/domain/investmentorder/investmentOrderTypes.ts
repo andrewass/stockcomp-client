@@ -28,3 +28,13 @@ export type InvestmentOrder = {
     currency: string
     expirationTime: number
 }
+
+export type InvestmentOrderInput = {
+    acceptedPrice: number
+    expirationTime: string
+    amount: number
+    transactionType: string
+    currency: string
+    contestNumber: number
+    symbol: string
+}
