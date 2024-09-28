@@ -32,7 +32,6 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
-    "msw": "^0.42.1",
     "typescript": "^5.3.3"
   },
   "jest": {
