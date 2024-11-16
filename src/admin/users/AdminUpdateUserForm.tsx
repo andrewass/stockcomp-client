@@ -5,7 +5,6 @@ import {Box, IconButton, Modal} from "@mui/material";
 import Button from "@mui/material/Button";
 import {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_ALL_USERS_ADMIN} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
@@ -25,6 +24,7 @@ const style = {
     p: 4,
 };
 
+/*
 const useFormStyles = makeStyles(theme => ({
     root: {
         display: "flex",
@@ -42,10 +42,9 @@ const useFormStyles = makeStyles(theme => ({
         },
     },
 }));
-
+*/
 
 export const AdminUpdateUserForm = ({user}: { user: User }) => {
-    const {root} = useFormStyles();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const {handleSubmit, control} = useForm<UpdateContestInput>();
@@ -76,7 +75,7 @@ export const AdminUpdateUserForm = ({user}: { user: User }) => {
             <Modal open={open} onClose={handleClose}
                    aria-labelledby="modal-modal-title"
                    aria-describedby="modal-modal-description">
-                <Box className={root} component="form" onSubmit={handleSubmit(submitForm)} sx={style} maxWidth="500px">
+                <Box component="form" onSubmit={handleSubmit(submitForm)} sx={style} maxWidth="500px">
                     <Button type="submit" sx={{mt: "1rem"}}>
                         Update
                     </Button>

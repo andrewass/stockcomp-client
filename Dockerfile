@@ -1,10 +1,10 @@
-FROM node:16.13.1-alpine3.13
+FROM node:22.11.0-alpine3.20
 
 WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
 COPY . .
 

@@ -17,7 +17,6 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import Button from "@mui/material/Button";
 import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import {makeStyles} from "@mui/styles";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {queryClient} from "../../config/queryConfig";
 import {Contest, CONTEST_STATUS, contestStatusMap, UpdateContestInput} from "../../domain/contests/contestTypes";
@@ -34,7 +33,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-
+/*
 const useFormStyles = makeStyles(theme => ({
     root: {
         display: "flex",
@@ -53,9 +52,10 @@ const useFormStyles = makeStyles(theme => ({
     },
 }));
 
+ */
+
 
 export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
-    const {root} = useFormStyles();
     const [open, setOpen] = useState(false);
     const {handleSubmit, control} = useForm<UpdateContestInput>();
     const {apiPut} = useApiWrapper();

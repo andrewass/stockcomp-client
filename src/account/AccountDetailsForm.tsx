@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import {AccountData} from "./accountDetailTypes";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {useApiWrapper} from "../config/useApiWrapper";
-import {makeStyles} from "@mui/styles";
 import {GET_ACCOUNT_DETAILS, updateAccountDataConfig} from "./api/accountApi";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
@@ -24,6 +23,7 @@ const style = {
     p: 4,
 };
 
+/*
 const useFormStyles = makeStyles(theme => ({
     root: {
         display: "flex",
@@ -42,6 +42,8 @@ const useFormStyles = makeStyles(theme => ({
     },
 }));
 
+ */
+
 type Props = {
     accountData: AccountData
 }
@@ -54,7 +56,6 @@ export type UpdateAccountInput = {
 
 
 export const AccountDetailsForm = ({accountData}: Props) => {
-    const {root} = useFormStyles();
     const {handleSubmit, control} = useForm<UpdateAccountInput>({
         defaultValues: {
             username: accountData.username,
@@ -95,7 +96,7 @@ export const AccountDetailsForm = ({accountData}: Props) => {
                    aria-labelledby="modal-modal-title"
                    aria-describedby="modal-modal-description">
                 <Box sx={style}>
-                    <form className={root} onSubmit={handleSubmit(submitForm)}>
+                    <form onSubmit={handleSubmit(submitForm)}>
                         <Controller
                             name="username"
                             control={control}
