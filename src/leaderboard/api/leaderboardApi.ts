@@ -14,7 +14,7 @@ export const getLeaderboardEntryUserConfig = (username: string) => {
 export const getSortedLeaderboardEntriesConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH+"/leaderboard/sorted-entries",
+        url: CLIENT_BACKEND_BASE_PATH+"/leaderboard/sorted",
         params: {pageNumber, pageSize}
     }
 }

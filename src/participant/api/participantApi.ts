@@ -4,6 +4,8 @@ export const GET_CONTEST_PARTICIPANT = "getContestParticipant";
 export const GET_SORTED_PARTICIPANTS = "getSortedParticipants";
 export const GET_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
 export const GET_PARTICIPANTS_SYMBOL = "getParticipantsSymbol";
+export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
+export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
 export const getContestParticipantConfig = (contestNumber: number) => {
     return {
@@ -29,10 +31,16 @@ export const getParticipantHistoryConfig = (username: string) => {
     }
 }
 
-export const getRunningParticipantsSymbol = (symbol: string) => {
+export const getRegisteredContestsConfig = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/running-participants",
-        params: {symbol}
+        url: CLIENT_BACKEND_BASE_PATH + "/participants/registered",
+    }
+}
+
+export const getUnregisteredContestsConfig = () => {
+    return {
+        method: "get",
+        url: CLIENT_BACKEND_BASE_PATH + "/participants/unregistered",
     }
 }

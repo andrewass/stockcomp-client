@@ -4,30 +4,14 @@ import {CustomRequestConfig} from "../../config/useApiWrapper";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
 export const GET_ALL_CONTESTS = "getAllContestsSorted";
-export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
-export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
 const CONTEST_PATH = CLIENT_BACKEND_BASE_PATH + "/contests";
-
-export const getRegisteredContestsConfig = () => {
-    return {
-        method: "get",
-        url: CONTEST_PATH + "/registered",
-    }
-}
 
 export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
     return {
         method: "get",
         url: CONTEST_PATH + "/all",
         params: {pageNumber, pageSize}
-    }
-}
-
-export const getUnregisteredContests = () => {
-    return {
-        method: "get",
-        url: CONTEST_PATH + "/unregistered",
     }
 }
 

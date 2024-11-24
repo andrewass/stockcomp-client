@@ -6,10 +6,9 @@ import {useApiWrapper} from "../../../config/useApiWrapper";
 import {queryClient} from "../../../config/queryConfig";
 import toast from "react-hot-toast";
 import {
-    GET_ALL_REGISTERED_CONTESTS,
-    GET_ALL_UNREGISTERED_CONTESTS,
     getSignUpToContestConfig
 } from "../../../domain/contests/contestApi";
+import {GET_ALL_REGISTERED_CONTESTS, GET_ALL_UNREGISTERED_CONTESTS} from "../../../participant/api/participantApi";
 
 interface Props {
     contest: Contest

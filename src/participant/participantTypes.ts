@@ -1,5 +1,6 @@
 import {Investment} from "../investment/investmentTypes";
 import {InvestmentOrder} from "../domain/investmentorder/investmentOrderTypes";
+import {Contest} from "../domain/contests/contestTypes";
 
 export type Participant = {
     displayName: string
@@ -9,6 +10,11 @@ export type Participant = {
     remainingFunds: number
     contestNumber: number
     country: string
+}
+
+export type ContestParticipant = {
+    participant: Participant,
+    contest: Contest
 }
 
 export type DetailedParticipant = {
