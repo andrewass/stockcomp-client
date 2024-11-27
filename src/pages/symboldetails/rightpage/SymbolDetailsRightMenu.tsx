@@ -3,7 +3,7 @@ import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {CompleteParticipant} from "../../../participant/participantTypes";
-import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsSymbol} from "../../../participant/api/participantApi";
+import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsSymbolConfig} from "../../../participant/api/participantApi";
 import ErrorComponent from "../../../error/ErrorComponent";
 import InvestmentSymbol from "../../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "./InvestmentOrderForm";
@@ -22,7 +22,7 @@ export const SymbolDetailsRightMenu = ({stockPrice}: Props) => {
 
     const {isPending, isError, error, data} = useQuery<CompleteParticipant[]>({
         queryKey: [GET_PARTICIPANTS_SYMBOL],
-        queryFn: () => apiGet(getRunningParticipantsSymbol(stockPrice.symbol)),
+        queryFn: () => apiGet(getRunningParticipantsSymbolConfig(stockPrice.symbol)),
     });
 
     if (isPending) return <CircularProgress/>;
