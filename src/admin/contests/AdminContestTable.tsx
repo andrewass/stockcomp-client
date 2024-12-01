@@ -58,7 +58,7 @@ export const AdminContestTable = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Contest Number</StyledTableCell>
+                            <StyledTableCell>Contest Name</StyledTableCell>
                             <StyledTableCell>Start time</StyledTableCell>
                             <StyledTableCell>Contest Status</StyledTableCell>
                             <StyledTableCell>Leaderboard Update Status</StyledTableCell>
@@ -67,7 +67,7 @@ export const AdminContestTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {contestEntries.map(contest => <AdminContestRow key={contest.contestNumber}
+                        {contestEntries.map(contest => <AdminContestRow key={contest.contestId}
                                                                         contest={contest}/>)}
                     </TableBody>
                 </Table>

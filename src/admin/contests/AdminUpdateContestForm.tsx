@@ -86,8 +86,8 @@ export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
                 <DialogTitle>Update Contest</DialogTitle>
                 <DialogContent>
                     <Controller
-                        name="contestNumber"
-                        defaultValue={contest.contestNumber}
+                        name="contestName"
+                        defaultValue={contest.contestName}
                         control={control}
                         rules={{required: "Contest number is required"}}
                         render={({field: {onChange, value}}) => (

@@ -23,10 +23,10 @@ export const contestStatusMap = new Map<string, string>([
 ])
 
 export class Contest {
-    contestNumber: number = NaN;
+    contestId: number = NaN;
+    contestName: string = "";
     startTime: string = "";
-    endTime: Date = new Date();
-    participantCount: number = NaN;
+    endTime: string = "";
     contestStatus: string = "";
     leaderboardUpdateStatus: string = "";
 
@@ -51,23 +51,20 @@ export class Contest {
     }
 }
 
-export type ContestsResponse = {
-    contests: Contest[]
-}
-
 export type ContestPage = {
     contests: Contest[]
     totalEntriesCount: number
 }
 
 export type UpdateContestInput = {
-    contestNumber: number,
-    startTime: string,
-    contestStatus: string,
+    contestId: number
+    contestName: string
+    startTime: string
+    contestStatus: string
 }
 
 export type CreateContestInput = {
-    contestNumber: number
     startTime: string
     contestName: string
+    durationDays: number
 }

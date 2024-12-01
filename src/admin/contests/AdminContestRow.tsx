@@ -20,14 +20,14 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiDeleteVoid(getDeleteContestConfig(contest.contestNumber))
+            return apiDeleteVoid(getDeleteContestConfig(contest.contestId))
         },
         onSuccess: () => queryClient.invalidateQueries({queryKey: [GET_ALL_CONTESTS]})
     });
 
     return (
-        <TableRow key={contest.contestNumber}>
-            <TableCell>{contest.contestNumber}</TableCell>
+        <TableRow key={contest.contestId}>
+            <TableCell>{contest.contestName}</TableCell>
             <TableCell>{contest.startTime}</TableCell>
             <TableCell>
                 {contestStatusMap.get(contest.contestStatus)}
