@@ -2,13 +2,13 @@ import {useQuery} from "@tanstack/react-query";
 import {Box, CircularProgress, useMediaQuery} from "@mui/material";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
-import {CompleteParticipant} from "../../../participant/participantTypes";
-import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsSymbolConfig} from "../../../participant/api/participantApi";
 import ErrorComponent from "../../../error/ErrorComponent";
 import InvestmentSymbol from "../../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "./InvestmentOrderForm";
 import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
 import {useTheme} from "@mui/material/styles";
+import {CompleteParticipant} from "../../../domain/participant/participantTypes";
+import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsSymbolConfig} from "../../../domain/participant/participantApi";
 
 
 interface Props {

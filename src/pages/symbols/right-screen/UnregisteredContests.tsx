@@ -5,7 +5,8 @@ import UnregisteredContest from "./UnregisteredContest";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {Contest} from "../../../domain/contests/contestTypes";
 import ErrorComponent from "../../../error/ErrorComponent";
-import {GET_ALL_UNREGISTERED_CONTESTS, getUnregisteredContestsConfig} from "../../../participant/api/participantApi";
+import {GET_ALL_UNREGISTERED_CONTESTS, getUnregisteredContestsConfig} from "../../../domain/participant/participantApi";
+
 
 const UnregisteredContests = () => {
     const {apiGet} = useApiWrapper();
@@ -23,7 +24,7 @@ const UnregisteredContests = () => {
         <Box>
             <Typography variant="h6">Available Contests</Typography>
             {data.map(contest =>
-                <Card key={contest.contestNumber}>
+                <Card key={contest.contestId}>
                     <CardContent>
                         <UnregisteredContest contest={contest}/>
                     </CardContent>

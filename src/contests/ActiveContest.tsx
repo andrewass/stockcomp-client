@@ -3,16 +3,19 @@ import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
 import {useApiWrapper} from "../config/useApiWrapper";
 import {queryClient} from "../config/queryConfig";
-import {GET_CONTEST_PARTICIPANT, getContestParticipantConfig} from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {CompleteParticipant} from "../participant/participantTypes";
 import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
 import {Contest, CONTEST_STATUS} from "../domain/contests/contestTypes";
-import {getSignUpToContestConfig} from "../domain/contests/contestApi";
 import InvestmentList from "../pages/symbols/right-screen/InvestmentList";
+import {
+    GET_CONTEST_PARTICIPANT,
+    getContestParticipantConfig,
+    getSignUpParticipantConfig
+} from "../domain/participant/participantApi";
+import {CompleteParticipant} from "../domain/participant/participantTypes";
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
 
@@ -20,10 +23,10 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiPost(getSignUpToContestConfig(contest.contestNumber))
+            return apiPost(getSignUpParticipantConfig(contest.contestId))
         },
         onSuccess: () =>
-            queryClient.invalidateQueries({queryKey: [GET_CONTEST_PARTICIPANT, contest.contestNumber]}),
+            queryClient.invalidateQueries({queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId]}),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
@@ -33,8 +36,8 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     });
 
     const {isError, error, isPending, data} = useQuery<CompleteParticipant>({
-        queryKey: [GET_CONTEST_PARTICIPANT, contest.contestNumber],
-        queryFn: () => apiGet(getContestParticipantConfig(contest.contestNumber)),
+        queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId],
+        queryFn: () => apiGet(getContestParticipantConfig(contest.contestId)),
     });
 
     const getContestStatus = () => {
@@ -55,7 +58,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
         if (data) {
             return (
                 <Box>
-                    <ListItemText primary={"Rank " + data.participant.rank + " / " + contest.participantCount}/>
+                    <ListItemText primary={"Rank " + data.participant.rank + " / placeholder"}/>
                     <ParticipantPortfolioStatus participant={data.participant}/>
                 </Box>
             );
@@ -72,7 +75,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
         <ListItem>
             <Card elevation={0}>
                 <CardContent>
-                    <Typography variant="h6">Contest {contest.contestNumber}</Typography>
+                    <Typography variant="h6">Contest {contest.contestId}</Typography>
                     {getContestStatus()}
                     {getParticipantStatus()}
                 </CardContent>

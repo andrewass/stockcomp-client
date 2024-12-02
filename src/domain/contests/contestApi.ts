@@ -44,10 +44,3 @@ export const getContestConfig = (contestNumber: number) => {
         url: CONTEST_PATH + "/" + contestNumber
     }
 }
-
-export const getSignUpToContestConfig = (contestNumber: number) => {
-    return {
-        method: "post",
-        url: CONTEST_PATH + "/sign-up/" + contestNumber
-    }
-}

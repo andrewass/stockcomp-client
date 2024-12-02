@@ -7,26 +7,28 @@ export const GET_PARTICIPANTS_SYMBOL = "getParticipantsSymbol";
 export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
 export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
-export const getContestParticipantConfig = (contestNumber: number) => {
+const PARTICIPANT_PATH = CLIENT_BACKEND_BASE_PATH + "/participants";
+
+export const getContestParticipantConfig = (contestId: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/contest",
-        params: {contestNumber}
+        url: PARTICIPANT_PATH + "/contest",
+        params: {contestNumber: contestId}
     }
 }
 
-export const getSortedParticipantsConfig = (contestNumber: number, pageNumber: number, pageSize: number) => {
+export const getSortedParticipantsConfig = (contestId: number, pageNumber: number, pageSize: number) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/sorted",
-        params: {contestNumber, pageNumber, pageSize}
+        url: PARTICIPANT_PATH + "/sorted",
+        params: {contestNumber: contestId, pageNumber, pageSize}
     }
 }
 
 export const getParticipantHistoryConfig = (username: string) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/history",
+        url: PARTICIPANT_PATH + "/history",
         params: {username}
     }
 }
@@ -34,21 +36,28 @@ export const getParticipantHistoryConfig = (username: string) => {
 export const getRegisteredContestsConfig = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/registered",
+        url: PARTICIPANT_PATH + "/registered",
     }
 }
 
 export const getUnregisteredContestsConfig = () => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/unregistered",
+        url: PARTICIPANT_PATH + "/unregistered",
     }
 }
 
 export const getRunningParticipantsSymbolConfig = (symbol: string) => {
     return {
         method: "get",
-        url: CLIENT_BACKEND_BASE_PATH + "/participants/unregistered",
+        url: PARTICIPANT_PATH + "/unregistered",
         params: {symbol}
+    }
+}
+
+export const getSignUpParticipantConfig = (contestId: number) => {
+    return {
+        method: "post",
+        url: PARTICIPANT_PATH + "/sign-up/" + contestId
     }
 }

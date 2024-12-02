@@ -1,6 +1,6 @@
-import {Investment} from "../investment/investmentTypes";
-import {InvestmentOrder} from "../domain/investmentorder/investmentOrderTypes";
-import {Contest} from "../domain/contests/contestTypes";
+import {Contest} from "../contests/contestTypes";
+import {Investment} from "../../investment/investmentTypes";
+import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
 
 export type Participant = {
     displayName: string

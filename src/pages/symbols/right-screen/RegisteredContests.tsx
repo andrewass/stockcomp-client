@@ -4,11 +4,9 @@ import React from "react";
 import RegisteredContest from "./RegisteredContest";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import ErrorComponent from "../../../error/ErrorComponent";
-import {
-    GET_ALL_REGISTERED_CONTESTS,
-    getRegisteredContestsConfig
-} from "../../../participant/api/participantApi";
-import {ContestParticipant} from "../../../participant/participantTypes";
+import {ContestParticipant} from "../../../domain/participant/participantTypes";
+import {GET_ALL_REGISTERED_CONTESTS, getRegisteredContestsConfig} from "../../../domain/participant/participantApi";
+
 
 const RegisteredContests = () => {
     const {apiGet} = useApiWrapper();
@@ -26,7 +24,7 @@ const RegisteredContests = () => {
         <Box>
             <Typography variant="h6">Participating Contests</Typography>
             {data.map((contestParticipant =>
-                    <Card sx={{mb: "10px"}} key={contestParticipant.contest.contestNumber}>
+                    <Card sx={{mb: "10px"}} key={contestParticipant.contest.contestId}>
                         <CardContent>
                             <RegisteredContest contest={contestParticipant.contest}/>
                         </CardContent>

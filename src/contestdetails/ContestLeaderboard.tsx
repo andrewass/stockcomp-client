@@ -13,11 +13,11 @@ import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/useApiWrapper";
-import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../participant/api/participantApi";
 import ErrorComponent from "../error/ErrorComponent";
-import {Participant, ParticipantPage} from "../participant/participantTypes";
 import {ChangeEvent, useState} from "react";
 import {StyledTableCell} from "../styles/components/StyledTableCell";
+import {Participant, ParticipantPage} from "../domain/participant/participantTypes";
+import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../domain/participant/participantApi";
 
 
 export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) => {

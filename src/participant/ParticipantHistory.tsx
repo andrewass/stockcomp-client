@@ -3,9 +3,9 @@ import {Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recha
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../config/useApiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
-import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "./api/participantApi";
-import {DetailedParticipant} from "./participantTypes";
 import React from "react";
+import {GET_PARTICIPANT_HISTORY, getParticipantHistoryConfig} from "../domain/participant/participantApi";
+import {DetailedParticipant} from "../domain/participant/participantTypes";
 
 
 export const ParticipantHistory = ({username}: { username: string }) => {
