@@ -9,9 +9,10 @@ interface Props {
 const RegisteredContest = ({contest}: Props) => {
     return (
         <React.Fragment>
-            <Typography>Contest {contest.contestNumber}</Typography>
+            <Typography>Contest {contest.contestName}</Typography>
             <Typography>Status {contest.contestStatus}</Typography>
             <Typography>From {contest.startTime}</Typography>
+            <Typography>From {contest.endTime}</Typography>
         </React.Fragment>
     )
 }

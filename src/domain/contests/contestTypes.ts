@@ -29,6 +29,7 @@ export class Contest {
     endTime: string = "";
     contestStatus: string = "";
     leaderboardUpdateStatus: string = "";
+    participantCount?: number;
 
     constructor(fields: Contest) {
         Object.assign(this, fields);

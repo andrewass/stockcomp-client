@@ -46,12 +46,12 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
 
     const handlePageChange = (event: unknown, newPage: number) => {
         fetchParticipantEntries(newPage, rowsPerPage)
-            .catch(error => console.log(error));
+            .catch(console.error);
     }
 
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
         fetchParticipantEntries(0, +event.target.value)
-            .catch(error => console.log(error));
+            .catch(console.error);
     }
 
     if (isPending) return <CircularProgress/>
@@ -72,7 +72,7 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
                     </TableHead>
                     <TableBody>
                         {participantEntries!.map(participantEntry => <ContestLeaderboardEntry
-                            entry={participantEntry} key={participantEntry.displayName}
+                            entry={participantEntry} key={participantEntry.username}
                         />)}
                     </TableBody>
                 </Table>

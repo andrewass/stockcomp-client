@@ -1,19 +1,20 @@
-import {Box, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {Box, FormControl, InputLabel, MenuItem, Select, Stack} from "@mui/material";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {useMutation} from "@tanstack/react-query";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
-import {CompleteParticipant} from "../../../participant/participantTypes";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {codeMapTransaction, InvestmentOrderInput} from "../../../domain/investmentorder/investmentOrderTypes";
 import {
-    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
+    GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
+    GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
     getPostInvestmentOrderConfig
 } from "../../../domain/investmentorder/investmentOrderApi";
 import {queryClient} from "../../../config/queryConfig";
+import ControlledTextField from "../../../components/form/ControlledTextField";
+import {CompleteParticipant} from "../../../domain/participant/participantTypes";
+import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
 
 interface Props {
     participants: CompleteParticipant[]
@@ -57,88 +58,68 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
     }
 
     return (
-        <Box component="form" onSubmit={handleSubmit(submitForm)}
-             sx={{display: "flex", flexFlow: "column nowrap"}}>
-            <Controller
-                name="amount"
-                control={control}
-                rules={{required: "Amount is required"}}
-                render={({field: {onChange, value}}) => (
-                    <TextField sx={{mb: "1rem"}}
-                               label="Amount"
-                               variant="outlined"
-                               value={value}
-                               disabled={mutation.isPending}
-                               onChange={onChange}/>
-                )}
-            />
+        <Box
+            component="form"
+            onSubmit={handleSubmit(submitForm)}
+        >
+            <Stack gap={2}>
+                <ControlledTextField
+                    name="amount"
+                    label="Amount"
+                    control={control}
+                    rules={{required: "Amount is required"}}
+                />
 
-            <Controller
-                name="acceptedPrice"
-                control={control}
-                rules={{required: "Accepted price is required"}}
-                render={({field: {onChange, value}}) => (
-                    <TextField sx={{mb: "1rem"}}
-                               label="Accepted Price"
-                               variant="outlined"
-                               value={value}
-                               disabled={mutation.isPending}
-                               onChange={onChange}/>
-                )}
-            />
+                <ControlledTextField
+                    name="acceptedPrice"
+                    label="Accepted Price"
+                    control={control}
+                    rules={{required: "Accepted price is required"}}
+                />
 
-            <Controller
-                name="contestNumber"
-                control={control}
-                rules={{required: "Contest number is required"}}
-                render={({field}) => (
-                    <FormControl disabled={mutation.isPending} sx={{mb: "1rem"}}>
-                        <InputLabel>Operation</InputLabel>
-                        <Select label="Operation" {...field} >
-                            <MenuItem value="Buy">Buy</MenuItem>
-                            <MenuItem value="Sell">Sell</MenuItem>
-                        </Select>
-                    </FormControl>
-                )}
-            />
+                <Controller
+                    name="contestNumber"
+                    control={control}
+                    rules={{required: "Contest number is required"}}
+                    render={({field}) => (
+                        <FormControl disabled={mutation.isPending}>
+                            <InputLabel>Operation</InputLabel>
+                            <Select label="Operation" {...field} >
+                                <MenuItem value="Buy">Buy</MenuItem>
+                                <MenuItem value="Sell">Sell</MenuItem>
+                            </Select>
+                        </FormControl>
+                    )}
+                />
 
-            <Controller
-                name="transactionType"
-                control={control}
-                rules={{required: "Transaction type is required"}}
-                render={({field}) => (
-                    <FormControl disabled={mutation.isPending} sx={{mb: "1rem"}}>
-                        <InputLabel>Operation</InputLabel>
-                        <Select label="Operation" {...field} >
-                            <MenuItem value="Buy">Buy</MenuItem>
-                            <MenuItem value="Sell">Sell</MenuItem>
-                        </Select>
-                    </FormControl>
-                )}
-            />
+                <Controller
+                    name="transactionType"
+                    control={control}
+                    rules={{required: "Transaction type is required"}}
+                    render={({field}) => (
+                        <FormControl disabled={mutation.isPending}>
+                            <InputLabel>Operation</InputLabel>
+                            <Select label="Operation" {...field} >
+                                <MenuItem value="Buy">Buy</MenuItem>
+                                <MenuItem value="Sell">Sell</MenuItem>
+                            </Select>
+                        </FormControl>
+                    )}
+                />
 
-            <Controller
-                name="expirationTime"
-                control={control}
-                rules={{required: "Expiration time is required"}}
-                render={({field: {onChange, value}}) => (
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker disabled={mutation.isPending}
-                                        renderInput={(props) => <TextField {...props} />}
-                                        label="Expiration"
-                                        value={value}
-                                        onChange={onChange}
-                        />
-                    </LocalizationProvider>
-                )}
-            />
-            {mutation.isPending
-                ? <CircularProgress/>
-                : <Button type="submit" sx={{mt: "1rem"}}>
+                <ControlledDateTimePicker
+                    name="expirationTime"
+                    label="Expiration"
+                    control={control}
+                    disabled={mutation.isPending}
+                    rules={{required: "Expiration time is required"}}
+                />
+
+                <Button type="submit" variant="outlined">
                     Submit
                 </Button>
-            }
-            <Toaster/>
+                <Toaster/>
+            </Stack>
         </Box>
     );
 }

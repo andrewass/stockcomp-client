@@ -3,13 +3,13 @@ import {Investment} from "../../investment/investmentTypes";
 import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
 
 export type Participant = {
-    displayName: string
-    rank: number
+    username: string
+    rank?: number
     totalValue: number
     totalInvestmentValue: number
     remainingFunds: number
     contestNumber: number
-    country: string
+    country?: string
 }
 
 export type ContestParticipant = {

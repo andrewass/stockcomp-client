@@ -67,11 +67,12 @@ export const ContestTable = () => {
                             <StyledTableCell>Contest</StyledTableCell>
                             <StyledTableCell>Status</StyledTableCell>
                             <StyledTableCell>Start Date</StyledTableCell>
+                            <StyledTableCell>End Date</StyledTableCell>
                             <StyledTableCell>Participants</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {contestEntries.map(contest => <ContestEntry key={contest.contestNumber} contest={contest}/>)}
+                        {contestEntries.map(contest => <ContestEntry key={contest.contestId} contest={contest}/>)}
                     </TableBody>
                 </Table>
             </TableContainer>

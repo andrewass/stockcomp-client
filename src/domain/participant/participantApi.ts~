@@ -13,7 +13,7 @@ export const getContestParticipantConfig = (contestId: number) => {
     return {
         method: "get",
         url: PARTICIPANT_PATH + "/contest",
-        params: {contestId}
+        params: {contestNumber: contestId}
     }
 }
 
@@ -21,7 +21,7 @@ export const getSortedParticipantsConfig = (contestId: number, pageNumber: numbe
     return {
         method: "get",
         url: PARTICIPANT_PATH + "/sorted",
-        params: {contestId, pageNumber, pageSize}
+        params: {contestNumber: contestId, pageNumber, pageSize}
     }
 }
 

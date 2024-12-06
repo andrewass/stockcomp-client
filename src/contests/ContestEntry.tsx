@@ -7,15 +7,16 @@ import {Contest, contestStatusMap} from "../domain/contests/contestTypes";
 export const ContestEntry = ({contest}: { contest: Contest }) => {
 
     return (
-        <TableRow key={contest.contestNumber}>
+        <TableRow key={contest.contestId}>
             <TableCell>
-                <NavLink to={`/contests/${contest.contestNumber}`} style={{textDecoration: "none", color: "black"}}>
-                    {contest.contestNumber}
+                <NavLink to={`/contests/${contest.contestId}`} style={{textDecoration: "none", color: "black"}}>
+                    {contest.contestName}
                 </NavLink>
             </TableCell>
             <TableCell>{contestStatusMap.get(contest.contestStatus)}</TableCell>
             <TableCell>{format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</TableCell>
-            <TableCell>{contest.participantCount}</TableCell>
+            <TableCell>{format(parseISO(contest.endTime), "yyyy-MM-dd HH:mm")}</TableCell>
+            <TableCell>{contest.contestId}</TableCell>
         </TableRow>
     );
 }

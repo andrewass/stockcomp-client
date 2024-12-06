@@ -6,7 +6,8 @@ interface Props {
     label: string,
     control: any,
     rules?: any,
-    defaultValue: string | number
+    defaultValue?: string | number
+    disabled?: boolean
 }
 
 export default function ControlledTextField({name, label, control, rules, defaultValue}: Props) {

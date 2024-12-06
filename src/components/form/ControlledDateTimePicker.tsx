@@ -7,7 +7,8 @@ interface Props {
     name: string,
     label: string,
     control: any,
-    disabled: boolean
+    disabled: boolean,
+    rules?: any,
 }
 
 
