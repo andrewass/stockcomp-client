@@ -13,7 +13,7 @@ import {
     TextField
 } from "@mui/material";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFnsV3";
 import Button from "@mui/material/Button";
 import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
@@ -33,27 +33,6 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-/*
-const useFormStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "2px",
-
-        '& .MuiTextField-root': {
-            margin: "20px",
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: "20px",
-        },
-    },
-}));
-
- */
-
 
 export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
     const [open, setOpen] = useState(false);

@@ -1,5 +1,5 @@
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFnsV3";
 import {TextField} from "@mui/material";
 import {Controller} from "react-hook-form";
 
