@@ -24,10 +24,10 @@ const ProtectedComponent = () => {
 }
 
 const AdminLayoutComponent = () => (
-    <>
+    <ProtectedRoute>
         <AdminNavigation/>
         <Outlet/>
-    </>
+    </ProtectedRoute>
 );
 
 const router = createBrowserRouter([
