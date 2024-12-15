@@ -15,12 +15,12 @@ export const leaderboardUpdateStatusMap = new Map<string, string>([
     [LEADERBOARD_UPDATE_STATUS.COMPLETED, "Completed"]
 ])
 
-export const contestStatusMap = new Map<string, string>([
-    [CONTEST_STATUS.AWAITING_START, "Awaiting Start"],
-    [CONTEST_STATUS.RUNNING, "Running"],
-    [CONTEST_STATUS.STOPPED, "Stopped"],
-    [CONTEST_STATUS.COMPLETED, "Completed"]
-])
+export const contestStatusRecord: Record<string, string> = {
+    [CONTEST_STATUS.AWAITING_START]: "Awaiting Start",
+    [CONTEST_STATUS.RUNNING]: "Running",
+    [CONTEST_STATUS.STOPPED]: "Stopped",
+    [CONTEST_STATUS.COMPLETED]: "Completed"
+}
 
 export class Contest {
     contestId: number = NaN;
@@ -55,13 +55,6 @@ export class Contest {
 export type ContestPage = {
     contests: Contest[]
     totalEntriesCount: number
-}
-
-export type UpdateContestInput = {
-    contestId: number
-    contestName: string
-    startTime: string
-    contestStatus: string
 }
 
 export type CreateContestInput = {

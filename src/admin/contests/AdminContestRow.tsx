@@ -9,18 +9,18 @@ import {queryClient} from "../../config/queryConfig";
 import {
     Contest,
     CONTEST_STATUS,
-    contestStatusMap,
+    contestStatusRecord,
     leaderboardUpdateStatusMap
 } from "../../domain/contests/contestTypes";
 import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../domain/contests/contestApi";
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
-    const {apiDeleteVoid} = useApiWrapper();
+    const {apiDelete} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiDeleteVoid(getDeleteContestConfig(contest.contestId))
+            return apiDelete(getDeleteContestConfig(contest.contestId))
         },
         onSuccess: () => queryClient.invalidateQueries({queryKey: [GET_ALL_CONTESTS]})
     });
@@ -30,7 +30,7 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
             <TableCell>{contest.contestName}</TableCell>
             <TableCell>{contest.startTime}</TableCell>
             <TableCell>
-                {contestStatusMap.get(contest.contestStatus)}
+                {contestStatusRecord[contest.contestStatus]}
             </TableCell>
             <TableCell>
                 {leaderboardUpdateStatusMap.get(contest.leaderboardUpdateStatus)}

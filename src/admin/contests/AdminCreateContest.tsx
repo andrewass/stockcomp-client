@@ -14,11 +14,11 @@ const AdminCreateContest = () => {
 
     const navigate = useNavigate();
     const {handleSubmit, control} = useForm<CreateContestInput>();
-    const {apiPostVoid} = useApiWrapper();
+    const {apiPost} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: (contestData: CreateContestInput) => {
-            return apiPostVoid(getCreateContestConfig(contestData));
+            return apiPost(getCreateContestConfig(contestData));
         },
         onSuccess: () => navigate("/admin/contests")
     });
@@ -39,13 +39,14 @@ const AdminCreateContest = () => {
                     label="Contest Name"
                     control={control}
                     defaultValue={""}
-                    rules={{required: "Contest number is required"}}
+                    rules={{required: "Contest name is required"}}
                 />
                 <ControlledDateTimePicker
                     name="startTime"
                     label="Starting Time"
                     control={control}
                     disabled={mutation.isPending}
+                    rules={{required: "Starting time is required"}}
                 />
                 <ControlledTextField
                     name="durationDays"

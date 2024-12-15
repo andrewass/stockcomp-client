@@ -51,7 +51,5 @@ export const useApiWrapper = () => {
         apiPost: request(),
         apiPut: request(),
         apiDelete: request(),
-        apiPostVoid: voidRequest(),
-        apiDeleteVoid: voidRequest(),
     }
 }

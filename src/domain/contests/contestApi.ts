@@ -1,6 +1,7 @@
 import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
-import {CreateContestInput, UpdateContestInput} from "./contestTypes";
+import {CreateContestInput} from "./contestTypes";
 import {CustomRequestConfig} from "../../config/useApiWrapper";
+import {UpdateContestRequest} from "./contestDto";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
 export const GET_ALL_CONTESTS = "getAllContestsSorted";
@@ -15,7 +16,7 @@ export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
     }
 }
 
-export const getCreateContestConfig = (contestData: CreateContestInput): CustomRequestConfig  => {
+export const getCreateContestConfig = (contestData: CreateContestInput): CustomRequestConfig => {
     return {
         method: "post",
         url: CONTEST_PATH + "/create",
@@ -30,11 +31,11 @@ export const getDeleteContestConfig = (contestNumber: number): CustomRequestConf
     }
 }
 
-export const getUpdateContestConfig = (contestData: UpdateContestInput) => {
+export const getUpdateContestConfig = (request: UpdateContestRequest) => {
     return {
-        method: "patch",
+        method: "post",
         url: CONTEST_PATH + "/update",
-        body: contestData
+        body: request
     }
 }
 

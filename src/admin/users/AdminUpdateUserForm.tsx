@@ -10,7 +10,7 @@ import {GET_ALL_USERS_ADMIN} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
 import {User} from "../../user/userTypes";
 import {getUpdateContestConfig} from "../../domain/contests/contestApi";
-import {UpdateContestInput} from "../../domain/contests/contestTypes";
+import {UpdateContestRequest} from "../../domain/contests/contestDto";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -24,34 +24,15 @@ const style = {
     p: 4,
 };
 
-/*
-const useFormStyles = makeStyles(theme => ({
-    root: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "2px",
-
-        '& .MuiTextField-root': {
-            margin: "20px",
-            width: '300px',
-        },
-        '& .MuiButtonBase-root': {
-            margin: "20px",
-        },
-    },
-}));
-*/
 
 export const AdminUpdateUserForm = ({user}: { user: User }) => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const {handleSubmit, control} = useForm<UpdateContestInput>();
+    const {handleSubmit, control} = useForm<UpdateContestRequest>();
     const {apiPut} = useApiWrapper();
 
     const mutation = useMutation({
-        mutationFn: (contestData: UpdateContestInput) => {
+        mutationFn: (contestData: UpdateContestRequest) => {
             return apiPut(getUpdateContestConfig(contestData));
         },
         onSuccess: () => {
@@ -63,7 +44,7 @@ export const AdminUpdateUserForm = ({user}: { user: User }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const submitForm: SubmitHandler<UpdateContestInput> = data => {
+    const submitForm: SubmitHandler<UpdateContestRequest> = data => {
         mutation.mutate(data);
     }
 

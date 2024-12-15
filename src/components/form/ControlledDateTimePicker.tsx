@@ -1,31 +1,31 @@
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFnsV3";
-import {TextField} from "@mui/material";
+import {DateTimePicker} from "@mui/x-date-pickers";
 import {Controller} from "react-hook-form";
 
 interface Props {
     name: string,
     label: string,
     control: any,
-    disabled: boolean,
+    disabled?: boolean,
+    defaultValue?: string
     rules?: any,
 }
 
 
-export default function ControlledDateTimePicker({name, label, control, disabled}:Props){
+export default function ControlledDateTimePicker({name, label, control, disabled, defaultValue, rules}: Props) {
+    const parsedValue = defaultValue ? new Date(defaultValue) : null;
+
     return (
         <Controller
             name={name}
             control={control}
-            render={({field}) => (
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateTimePicker
-                        {...field}
-                        label={label}
-                        disabled={disabled}
-                        renderInput={(props) => <TextField {...props} fullWidth/>}
-                    />
-                </LocalizationProvider>
+            rules={rules}
+            render={({field: {onChange}}) => (
+                <DateTimePicker
+                    value={parsedValue}
+                    onChange={onChange}
+                    label={label}
+                    disabled={disabled}
+                />
             )}
         />
     );
