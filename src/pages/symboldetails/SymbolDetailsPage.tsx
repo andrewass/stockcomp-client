@@ -6,14 +6,14 @@ import {StockPrice} from "../../domain/symbols/symbolTypes";
 import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../../domain/symbols/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import SplitScreen from "../../components/SplitScreen";
-import DetailBlock from "./leftpage/DetailBlock";
-import {SymbolDetailsRightMenu} from "./rightpage/SymbolDetailsRightMenu";
+import DetailBlock from "./leftpart/DetailBlock";
+import {SymbolDetailsRightMenu} from "./rightpart/SymbolDetailsRightMenu";
 
 const SymbolDetailsPage = () => {
     const {symbol} = useParams<{ symbol: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {error, isError, isPending, data} =
+    const {error, isError, isPending, data: price} =
         useQuery<StockPrice>({
             queryKey: [GET_STOCK_SYMBOL_PRICE, symbol],
             queryFn: () => apiGet(getStockSymbolPriceConfig(symbol as string)),
@@ -26,8 +26,8 @@ const SymbolDetailsPage = () => {
     return (
         <Box>
             <SplitScreen
-                left={<DetailBlock stockPrice={data} symbol={symbol!}/>}
-                right={<SymbolDetailsRightMenu stockPrice={data}/>}
+                left={<DetailBlock stockPrice={price} symbol={symbol!}/>}
+                right={<SymbolDetailsRightMenu stockPrice={price}/>}
                 leftWeight={1}
                 rightWeight={1}
             />

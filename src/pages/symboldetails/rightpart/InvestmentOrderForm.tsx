@@ -1,11 +1,11 @@
-import {Box, FormControl, InputLabel, MenuItem, Select, Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import Button from "@mui/material/Button";
 import toast, {Toaster} from 'react-hot-toast';
 import {useMutation} from "@tanstack/react-query";
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
-import {codeMapTransaction, InvestmentOrderInput} from "../../../domain/investmentorder/investmentOrderTypes";
+import {InvestmentOrderRequest} from "../../../domain/investmentorder/investmentOrderTypes";
 import {
     GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
     GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
@@ -15,6 +15,7 @@ import {queryClient} from "../../../config/queryConfig";
 import ControlledTextField from "../../../components/form/ControlledTextField";
 import {CompleteParticipant} from "../../../domain/participant/participantTypes";
 import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
+import ControlledSelect from "../../../components/form/ControlledSelect";
 
 interface Props {
     participants: CompleteParticipant[]
@@ -22,21 +23,35 @@ interface Props {
     stockPrice: StockPrice
 }
 
-export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) => {
+export const operationTypeRecord: Record<string, string> = {
+    "BUY": "Buy",
+    "SELL": "Sell"
+}
+
+export const contestRecord = (participants: CompleteParticipant[]): Record<number, string> => {
+    const records = participants.reduce((record, participant) => {
+        record[participant.participant.participantId] = participant.participant.contestName;
+        return record;
+    }, {} as Record<number, string>);
+    return records;
+};
+
+
+export const InvestmentOrderForm = ({participants, stockPrice, symbol}: Props) => {
     const {apiPost} = useApiWrapper();
-    const {handleSubmit, control} = useForm<InvestmentOrderInput>({
+    const {handleSubmit, control} = useForm<InvestmentOrderRequest>({
         defaultValues: {
-            transactionType: "Buy",
+            symbol: symbol,
+            transactionType: "BUY",
+            participantId: participants[0].participant.participantId,
             amount: 1,
-            acceptedPrice: stockPrice.currentPrice
+            acceptedPrice: stockPrice.currentPrice,
+            currency: stockPrice.currency,
         }
     });
 
     const mutation = useMutation({
-        mutationFn: (orderData: InvestmentOrderInput) => {
-            orderData.symbol = symbol
-            orderData.currency = stockPrice.currency
-            orderData.transactionType = codeMapTransaction.get(orderData.transactionType) as string
+        mutationFn: (orderData: InvestmentOrderRequest) => {
             return apiPost(getPostInvestmentOrderConfig(orderData))
         },
         onSuccess: async () => {
@@ -52,8 +67,7 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
         },
     });
 
-
-    const submitForm: SubmitHandler<InvestmentOrderInput> = data => {
+    const submitForm: SubmitHandler<InvestmentOrderRequest> = data => {
         mutation.mutate(data);
     }
 
@@ -69,44 +83,28 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                     control={control}
                     rules={{required: "Amount is required"}}
                 />
-
                 <ControlledTextField
                     name="acceptedPrice"
                     label="Accepted Price"
                     control={control}
                     rules={{required: "Accepted price is required"}}
                 />
-
-                <Controller
-                    name="contestNumber"
+                <ControlledSelect
+                    name="participantId"
+                    label="Contest"
                     control={control}
-                    rules={{required: "Contest number is required"}}
-                    render={({field}) => (
-                        <FormControl disabled={mutation.isPending}>
-                            <InputLabel>Operation</InputLabel>
-                            <Select label="Operation" {...field} >
-                                <MenuItem value="Buy">Buy</MenuItem>
-                                <MenuItem value="Sell">Sell</MenuItem>
-                            </Select>
-                        </FormControl>
-                    )}
+                    items={contestRecord(participants)}
+                    rules={{required: "Contest is required"}}
+                    disabled={mutation.isPending}
                 />
-
-                <Controller
+                <ControlledSelect
                     name="transactionType"
+                    label="Operation"
                     control={control}
+                    items={operationTypeRecord}
                     rules={{required: "Transaction type is required"}}
-                    render={({field}) => (
-                        <FormControl disabled={mutation.isPending}>
-                            <InputLabel>Operation</InputLabel>
-                            <Select label="Operation" {...field} >
-                                <MenuItem value="Buy">Buy</MenuItem>
-                                <MenuItem value="Sell">Sell</MenuItem>
-                            </Select>
-                        </FormControl>
-                    )}
+                    disabled={mutation.isPending}
                 />
-
                 <ControlledDateTimePicker
                     name="expirationTime"
                     label="Expiration"
@@ -114,7 +112,6 @@ export const InvestmentOrderForm = ({stockPrice, symbol, participants}: Props) =
                     disabled={mutation.isPending}
                     rules={{required: "Expiration time is required"}}
                 />
-
                 <Button type="submit" variant="outlined">
                     Submit
                 </Button>

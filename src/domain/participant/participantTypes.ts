@@ -3,12 +3,14 @@ import {Investment} from "../../investment/investmentTypes";
 import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
 
 export type Participant = {
+    participantId: number
     username: string
     rank?: number
     totalValue: number
     totalInvestmentValue: number
     remainingFunds: number
     contestNumber: number
+    contestName: string
     country?: string
 }
 

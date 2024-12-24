@@ -47,13 +47,10 @@ export const getUnregisteredContestsConfig = () => {
     }
 }
 
-export const getRunningParticipantsSymbolConfig = (symbol: string) => {
-    return {
-        method: "get",
-        url: PARTICIPANT_PATH + "/unregistered",
-        params: {symbol}
-    }
-}
+export const getRunningParticipantsForSymbolConfig = (symbol: string) => ({
+    method: "get",
+    url: `${PARTICIPANT_PATH}/symbol/${symbol}`,
+});
 
 export const getSignUpParticipantConfig = (contestId: number) => {
     return {
