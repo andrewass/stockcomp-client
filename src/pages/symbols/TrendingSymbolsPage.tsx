@@ -1,9 +1,9 @@
-import {SymbolsRightMenu} from "./right-screen/SymbolsRightMenu";
+import {SymbolsRightMenu} from "./right/SymbolsRightMenu";
 import {Box} from "@mui/material";
 import React from "react";
 import SearchField from "../../search/SearchField";
 import SplitScreen from "../../components/SplitScreen";
-import SymbolGrid from "./left-screen/SymbolGrid";
+import SymbolGrid from "./left/SymbolGrid";
 
 
 const TrendingSymbolsPage = () => {

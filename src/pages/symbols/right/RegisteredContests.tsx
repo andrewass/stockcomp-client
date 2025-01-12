@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
+import {Box, Card, CardContent, CircularProgress, Stack, Typography} from "@mui/material";
 import React from "react";
 import RegisteredContest from "./RegisteredContest";
 import {useApiWrapper} from "../../../config/useApiWrapper";
@@ -23,13 +23,15 @@ const RegisteredContests = () => {
     return (
         <Box>
             <Typography variant="h6">Participating Contests</Typography>
-            {data.map((contestParticipant =>
-                    <Card sx={{mb: "10px"}} key={contestParticipant.contest.contestId}>
-                        <CardContent>
-                            <RegisteredContest contest={contestParticipant.contest}/>
-                        </CardContent>
-                    </Card>
-            ))}
+            <Stack spacing={3} className={"mt-3"}>
+                {data.map((contestParticipant =>
+                        <Card sx={{mb: "10px"}} key={contestParticipant.contest.contestId}>
+                            <CardContent>
+                                <RegisteredContest contest={contestParticipant.contest}/>
+                            </CardContent>
+                        </Card>
+                ))}
+            </Stack>
         </Box>
     );
 }

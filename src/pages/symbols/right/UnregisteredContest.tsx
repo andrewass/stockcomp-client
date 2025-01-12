@@ -10,6 +10,7 @@ import {
     GET_ALL_UNREGISTERED_CONTESTS,
     getSignUpParticipantConfig
 } from "../../../domain/participant/participantApi";
+import {formatDate} from "../../../util/dateUtils";
 
 
 interface Props {
@@ -17,11 +18,11 @@ interface Props {
 }
 
 const UnregisteredContest = ({contest}: Props) => {
-    const {apiPostVoid} = useApiWrapper();
+    const {apiPost} = useApiWrapper();
 
     const mutation = useMutation({
         mutationFn: () => {
-            return apiPostVoid(getSignUpParticipantConfig(contest.contestId));
+            return apiPost(getSignUpParticipantConfig(contest.contestId));
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [GET_ALL_REGISTERED_CONTESTS]});
@@ -39,7 +40,7 @@ const UnregisteredContest = ({contest}: Props) => {
         <React.Fragment>
             <Typography>Contest {contest.contestId}</Typography>
             <Typography>Status {contest.contestStatus}</Typography>
-            <Typography>From {contest.startTime}</Typography>
+            <Typography>From {formatDate(contest.startTime)}</Typography>
             <Button onClick={() => mutation.mutate()}>Sign Up</Button>
         </React.Fragment>
     );

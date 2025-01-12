@@ -9,7 +9,7 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
 import {Contest, CONTEST_STATUS} from "../domain/contests/contestTypes";
-import InvestmentList from "../pages/symbols/right-screen/InvestmentList";
+import InvestmentList from "../pages/symbols/right/InvestmentList";
 import {
     GET_CONTEST_PARTICIPANT,
     getContestParticipantConfig,
