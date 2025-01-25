@@ -1,7 +1,8 @@
-import {TableCell, TableRow} from "@mui/material";
-import {format, parseISO} from "date-fns";
+import {Box, TableCell, TableRow, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {Contest, contestStatusRecord} from "../domain/contests/contestTypes";
+import {Contest, contestStatusRecord, getStatusByColor} from "../domain/contests/contestTypes";
+import {formatDate} from "../util/dateUtils";
+import CircleIcon from "@mui/icons-material/Circle";
 
 
 export const ContestEntry = ({contest}: { contest: Contest }) => {
@@ -13,9 +14,14 @@ export const ContestEntry = ({contest}: { contest: Contest }) => {
                     {contest.contestName}
                 </NavLink>
             </TableCell>
-            <TableCell>{contestStatusRecord[contest.contestStatus]}</TableCell>
-            <TableCell>{format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</TableCell>
-            <TableCell>{format(parseISO(contest.endTime), "yyyy-MM-dd HH:mm")}</TableCell>
+            <TableCell>
+                <Box display="flex" flexDirection="row">
+                    <Typography>{contestStatusRecord[contest.contestStatus]}</Typography>
+                    <CircleIcon sx={{color: getStatusByColor(contest), marginRight: 1}}/>
+                </Box>
+            </TableCell>
+            <TableCell>{formatDate(contest.startTime)}</TableCell>
+            <TableCell>{formatDate(contest.endTime)}</TableCell>
             <TableCell>{contest.contestId}</TableCell>
         </TableRow>
     );

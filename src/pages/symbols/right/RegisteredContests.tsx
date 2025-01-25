@@ -23,7 +23,7 @@ const RegisteredContests = () => {
     return (
         <Box>
             <Typography variant="h6">Participating Contests</Typography>
-            <Stack spacing={3} className={"mt-3"}>
+            <Stack spacing={3} sx={{mt: "30px"}}>
                 {data.map((contestParticipant =>
                         <Card sx={{mb: "10px"}} key={contestParticipant.contest.contestId}>
                             <CardContent>

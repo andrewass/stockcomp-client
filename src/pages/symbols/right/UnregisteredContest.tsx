@@ -1,7 +1,7 @@
 import React from "react";
 import {useMutation} from "@tanstack/react-query";
-import {Button, Typography} from "@mui/material";
-import {Contest} from "../../../domain/contests/contestTypes";
+import {Box, Button, Tooltip, Typography} from "@mui/material";
+import {Contest, contestStatusRecord, getStatusByColor} from "../../../domain/contests/contestTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {queryClient} from "../../../config/queryConfig";
 import toast from "react-hot-toast";
@@ -11,6 +11,7 @@ import {
     getSignUpParticipantConfig
 } from "../../../domain/participant/participantApi";
 import {formatDate} from "../../../util/dateUtils";
+import CircleIcon from "@mui/icons-material/Circle";
 
 
 interface Props {
@@ -38,8 +39,12 @@ const UnregisteredContest = ({contest}: Props) => {
 
     return (
         <React.Fragment>
-            <Typography>Contest {contest.contestId}</Typography>
-            <Typography>Status {contest.contestStatus}</Typography>
+            <Box display="flex" flexDirection="row">
+                <Typography>{contest.contestName}</Typography>
+                <Tooltip title={contestStatusRecord[contest.contestStatus]} placement="top">
+                    <CircleIcon sx={{color: getStatusByColor(contest), marginRight: 1}}/>
+                </Tooltip>
+            </Box>
             <Typography>From {formatDate(contest.startTime)}</Typography>
             <Button onClick={() => mutation.mutate()}>Sign Up</Button>
         </React.Fragment>

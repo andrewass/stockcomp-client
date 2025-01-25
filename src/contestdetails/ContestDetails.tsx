@@ -7,14 +7,14 @@ import {ContestLeaderboard} from "./ContestLeaderboard";
 import ErrorComponent from "../error/ErrorComponent";
 import {useQuery} from "@tanstack/react-query";
 import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../domain/contests/contestApi";
-import {Contest} from "../domain/contests/contestTypes";
+import {Contest, getStatusByColor} from "../domain/contests/contestTypes";
 
 
 export const ContestDetails = () => {
     const {contestNumber} = useParams<{ contestNumber: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {isPending, isError, error, data} = useQuery({
+    const {isPending, isError, error, data: contest} = useQuery<Contest>({
         queryKey: [GET_CONTEST_BY_NUMBER, contestNumber],
         queryFn: () => apiGet(getContestConfig(Number(contestNumber!))),
     });
@@ -23,13 +23,12 @@ export const ContestDetails = () => {
 
     if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
-    const contest = new Contest(data);
 
     const getContestStatus = () => {
         return (
             <Box display="flex">
                 <Typography> {contest.contestStatus}</Typography>
-                <CircleIcon sx={{color: contest.getStatusByColor(), marginLeft: "0.5rem"}}/>
+                <CircleIcon sx={{color: getStatusByColor(contest), marginLeft: "0.5rem"}}/>
             </Box>
         );
     }

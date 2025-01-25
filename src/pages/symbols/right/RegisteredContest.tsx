@@ -1,7 +1,7 @@
-import {Typography} from "@mui/material";
+import {Box, Tooltip, Typography} from "@mui/material";
 import CircleIcon from '@mui/icons-material/Circle';
 import React from "react";
-import {Contest} from "../../../domain/contests/contestTypes";
+import {Contest, contestStatusRecord, getStatusByColor} from "../../../domain/contests/contestTypes";
 import {formatDate} from "../../../util/dateUtils";
 
 interface Props {
@@ -11,9 +11,12 @@ interface Props {
 const RegisteredContest = ({contest}: Props) => {
     return (
         <React.Fragment>
-            <Typography>Contest {contest.contestName}</Typography>
-            <Typography>Status {contest.contestStatus}</Typography>
-            <CircleIcon sx={{color: contest.getStatusByColor(), marginRight: 1}}/>
+            <Box display="flex" flexDirection="row">
+                <Typography>{contest.contestName}</Typography>
+                <Tooltip title={contestStatusRecord[contest.contestStatus]} placement="top">
+                    <CircleIcon sx={{color: getStatusByColor(contest), marginRight: 1}}/>
+                </Tooltip>
+            </Box>
             <Typography>Ending {formatDate(contest.endTime)}</Typography>
         </React.Fragment>
     )

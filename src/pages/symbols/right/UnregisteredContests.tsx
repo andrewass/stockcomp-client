@@ -23,7 +23,7 @@ const UnregisteredContests = () => {
     return (
         <Box>
             <Typography variant="h6">Available Contests</Typography>
-            <Stack spacing={3} className="mt-3">
+            <Stack spacing={3} sx={{mt: 3}}>
                 {data.map(contest =>
                     <Card key={contest.contestId}>
                         <CardContent>

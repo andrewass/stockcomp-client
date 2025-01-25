@@ -8,7 +8,7 @@ import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioSta
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
 import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
-import {Contest, CONTEST_STATUS} from "../domain/contests/contestTypes";
+import {Contest, CONTEST_STATUS, getStatusByColor} from "../domain/contests/contestTypes";
 import InvestmentList from "../pages/symbols/right/InvestmentList";
 import {
     GET_CONTEST_PARTICIPANT,
@@ -43,7 +43,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     const getContestStatus = () => {
         return (
             <Box display="flex">
-                <CircleIcon sx={{color: contest.getStatusByColor(), marginRight: 1}}/>
+                <CircleIcon sx={{color: getStatusByColor(contest), marginRight: 1}}/>
                 <Typography>
                     {contest.contestStatus === CONTEST_STATUS.RUNNING
                         ? "Ending " + contest.endTime

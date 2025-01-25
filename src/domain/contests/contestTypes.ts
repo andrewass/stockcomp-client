@@ -22,34 +22,30 @@ export const contestStatusRecord: Record<string, string> = {
     [CONTEST_STATUS.COMPLETED]: "Completed"
 }
 
-export class Contest {
-    contestId: number = NaN;
-    contestName: string = "";
-    startTime: string = "";
-    endTime: string = "";
-    contestStatus: string = "";
-    leaderboardUpdateStatus: string = "";
-    participantCount?: number;
+export interface Contest{
+    contestId: number
+    contestName: string
+    startTime: string
+    endTime: string
+    contestStatus: string
+    leaderboardUpdateStatus: string
+    participantCount?: number
+}
 
-    constructor(fields: Contest) {
-        Object.assign(this, fields);
+export function getStatusByColor(contest: Contest): string {
+    switch (contest.contestStatus) {
+        case CONTEST_STATUS.RUNNING :
+            return "green";
+        case CONTEST_STATUS.COMPLETED :
+            return "grey";
+        case CONTEST_STATUS.AWAITING_START :
+            return "yellow";
+        case CONTEST_STATUS.STOPPED :
+            return "red";
+        default:
+            console.error("Invalid contest status " + contest.contestStatus);
     }
-
-    getStatusByColor(): string {
-        switch (this.contestStatus) {
-            case CONTEST_STATUS.RUNNING :
-                return "green";
-            case CONTEST_STATUS.COMPLETED :
-                return "grey";
-            case CONTEST_STATUS.AWAITING_START :
-                return "yellow";
-            case CONTEST_STATUS.STOPPED :
-                return "red";
-            default:
-                console.error("Invalid contest status " + this.contestStatus);
-        }
-        return "red";
-    }
+    return "red";
 }
 
 export type ContestPage = {
