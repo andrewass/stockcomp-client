@@ -28,7 +28,6 @@ export interface Contest{
     startTime: string
     endTime: string
     contestStatus: string
-    leaderboardUpdateStatus: string
     participantCount?: number
 }
 

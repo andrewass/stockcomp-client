@@ -1,9 +1,9 @@
 import InvestmentDetails from "./InvestmentDetails";
 import {Box, Card, CardContent, Typography} from "@mui/material";
-import {CompleteParticipant} from "../participant/participantTypes";
+import {DetailedParticipant} from "../domain/participant/participantTypes";
 
 interface Props {
-    participants: CompleteParticipant[]
+    participants: DetailedParticipant[]
     symbol: string
 }
 

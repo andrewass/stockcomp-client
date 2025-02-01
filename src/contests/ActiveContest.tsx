@@ -15,7 +15,7 @@ import {
     getContestParticipantConfig,
     getSignUpParticipantConfig
 } from "../domain/participant/participantApi";
-import {CompleteParticipant} from "../domain/participant/participantTypes";
+import {DetailedParticipant} from "../domain/participant/participantTypes";
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
 
@@ -35,7 +35,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
         }
     });
 
-    const {isError, error, isPending, data} = useQuery<CompleteParticipant>({
+    const {isError, error, isPending, data} = useQuery<DetailedParticipant>({
         queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId],
         queryFn: () => apiGet(getContestParticipantConfig(contest.contestId)),
     });

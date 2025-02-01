@@ -1,6 +1,5 @@
 import React from "react";
 import {useMutation} from "@tanstack/react-query";
-import {CompleteParticipant} from "../../../participant/participantTypes";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {
     GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL, GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
@@ -9,9 +8,10 @@ import {
 import {queryClient} from "../../../config/queryConfig";
 import toast from "react-hot-toast";
 import {ActiveOrders} from "../../../investmentorder/ActiveOrders";
+import {DetailedParticipant} from "../../../domain/participant/participantTypes";
 
 interface Props {
-    participants: CompleteParticipant[],
+    participants: DetailedParticipant[],
     symbol: string
 }
 

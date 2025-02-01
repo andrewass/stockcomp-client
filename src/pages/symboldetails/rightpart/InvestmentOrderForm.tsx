@@ -13,12 +13,12 @@ import {
 } from "../../../domain/investmentorder/investmentOrderApi";
 import {queryClient} from "../../../config/queryConfig";
 import ControlledTextField from "../../../components/form/ControlledTextField";
-import {CompleteParticipant} from "../../../domain/participant/participantTypes";
+import {DetailedParticipant} from "../../../domain/participant/participantTypes";
 import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
 import ControlledSelect from "../../../components/form/ControlledSelect";
 
 interface Props {
-    participants: CompleteParticipant[]
+    participants: DetailedParticipant[]
     symbol: string
     stockPrice: StockPrice
 }
@@ -28,14 +28,12 @@ export const operationTypeRecord: Record<string, string> = {
     "SELL": "Sell"
 }
 
-export const contestRecord = (participants: CompleteParticipant[]): Record<number, string> => {
-    const records = participants.reduce((record, participant) => {
-        record[participant.participant.participantId] = participant.participant.contestName;
+const contestRecord = (participants: DetailedParticipant[]): Record<number, string> => {
+    return participants.reduce((record, participant) => {
+        record[participant.contest.contestId] = participant.contest.contestName;
         return record;
     }, {} as Record<number, string>);
-    return records;
 };
-
 
 export const InvestmentOrderForm = ({participants, stockPrice, symbol}: Props) => {
     const {apiPost} = useApiWrapper();

@@ -1,36 +1,20 @@
-import {useQuery} from "@tanstack/react-query";
-import {Box, CircularProgress, useMediaQuery} from "@mui/material";
+import {Box, useMediaQuery} from "@mui/material";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
-import {useApiWrapper} from "../../../config/useApiWrapper";
-import ErrorComponent from "../../../error/ErrorComponent";
 import InvestmentSymbol from "../../../investment/InvestmentSymbol";
 import {InvestmentOrderForm} from "./InvestmentOrderForm";
 import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
 import {useTheme} from "@mui/material/styles";
-import {CompleteParticipant} from "../../../domain/participant/participantTypes";
-import {
-    GET_PARTICIPANTS_SYMBOL,
-    getRunningParticipantsForSymbolConfig
-} from "../../../domain/participant/participantApi";
+import {DetailedParticipant} from "../../../domain/participant/participantTypes";
 
 
 interface Props {
-    stockPrice: StockPrice
+    stockPrice: StockPrice,
+    participants: DetailedParticipant[]
 }
 
-export const SymbolDetailsRightMenu = ({stockPrice}: Props) => {
+export const SymbolDetailsRightMenu = ({stockPrice, participants}: Props) => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
-    const {apiGet} = useApiWrapper();
-
-    const {isPending, isError, error, data} = useQuery<CompleteParticipant[]>({
-        queryKey: [GET_PARTICIPANTS_SYMBOL],
-        queryFn: () => apiGet(getRunningParticipantsForSymbolConfig(stockPrice.symbol)),
-    });
-
-    if (isPending) return <CircularProgress/>;
-
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
     return (
         <Box id="symbolDetailsRighMenu"
@@ -38,9 +22,9 @@ export const SymbolDetailsRightMenu = ({stockPrice}: Props) => {
              flexDirection="column"
              sx={{width: isLargeWidth ? "30%" : "70%", padding: "50px 30px", margin: "auto"}}
         >
-            <InvestmentSymbol participants={data} symbol={stockPrice.symbol}/>
-            <InvestmentOrderForm participants={data} symbol={stockPrice.symbol} stockPrice={stockPrice}/>
-            <InvestmentOrdersSymbol participants={data} symbol={stockPrice.symbol}/>
+            <InvestmentSymbol participants={participants} symbol={stockPrice.symbol}/>
+            <InvestmentOrderForm participants={participants} symbol={stockPrice.symbol} stockPrice={stockPrice}/>
+            <InvestmentOrdersSymbol participants={participants} symbol={stockPrice.symbol}/>
         </Box>
     );
 }
