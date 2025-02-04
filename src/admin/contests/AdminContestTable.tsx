@@ -8,7 +8,7 @@ import {AdminContestRow} from "./AdminContestRow";
 import {StyledTableCell} from "../../styles/components/StyledTableCell";
 import {useQuery} from "@tanstack/react-query";
 import {ChangeEvent, useState} from "react";
-import {CircularProgress, TablePagination} from "@mui/material";
+import {Box, CircularProgress, TablePagination} from "@mui/material";
 import ErrorComponent from "../../error/ErrorComponent";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {Contest, ContestPage} from "../../domain/contests/contestTypes";
@@ -53,8 +53,8 @@ export const AdminContestTable = () => {
     if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
-        <Paper>
-            <TableContainer component={Paper} sx={{mt: "10%"}}>
+        <Box>
+            <TableContainer component={Paper} >
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -78,6 +78,6 @@ export const AdminContestTable = () => {
                 rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+        </Box>
     );
 }

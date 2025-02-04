@@ -3,7 +3,7 @@ import TableCell from "@mui/material/TableCell";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {IconButton} from "@mui/material";
 import {useMutation} from "@tanstack/react-query";
-import {AdminUpdateContestForm} from "./AdminUpdateContestForm";
+import {AdminUpdateContestModal} from "./AdminUpdateContestModal";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {queryClient} from "../../config/queryConfig";
 import {
@@ -33,10 +33,10 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
                 {contestStatusRecord[contest.contestStatus]}
             </TableCell>
             <TableCell>
-                {leaderboardUpdateStatusMap.get(contest.leaderboardUpdateStatus)}
+                {contest.contestId}
             </TableCell>
             <TableCell>
-                <AdminUpdateContestForm contest={contest}/>
+                <AdminUpdateContestModal contest={contest}/>
             </TableCell>
             <TableCell>
                 <IconButton disabled={contest.contestStatus === CONTEST_STATUS.COMPLETED}

@@ -51,9 +51,3 @@ export type ContestPage = {
     contests: Contest[]
     totalEntriesCount: number
 }
-
-export type CreateContestInput = {
-    startTime: string
-    contestName: string
-    durationDays: number
-}

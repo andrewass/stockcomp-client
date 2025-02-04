@@ -14,7 +14,7 @@ import ControlledSelect from "../../components/form/ControlledSelect";
 import {UpdateContestRequest} from "../../domain/contests/contestDto";
 
 
-export const AdminUpdateContestForm = ({contest}: { contest: Contest }) => {
+export const AdminUpdateContestModal = ({contest}: { contest: Contest }) => {
     const [open, setOpen] = useState(false);
     const {handleSubmit, control} = useForm<UpdateContestRequest>({
             defaultValues: {

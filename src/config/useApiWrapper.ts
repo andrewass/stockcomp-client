@@ -18,7 +18,7 @@ export const useApiWrapper = () => {
     const request = () => {
         return async (config: CustomRequestConfig) => {
             const url = new URL(config.url, "http://stockcomp.io");
-            for(const item in config.params){
+            for (const item in config.params) {
                 url.searchParams.set(item, String(config.params[item]))
             }
             const response = await fetch(url, {
@@ -27,22 +27,13 @@ export const useApiWrapper = () => {
                     body: JSON.stringify(config.body),
                 }
             )
-            return await response.json();
-        }
-    }
-
-    const voidRequest = () => {
-        return async (config: CustomRequestConfig) => {
-            const url = new URL(config.url, "http://stockcomp.io");
-            for(const item in config.params){
-                url.searchParams.set(item, String(config.params[item]))
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            await fetch(url, {
-                    method: config.method,
-                    credentials: "include",
-                    body: JSON.stringify(config.body),
-                }
-            )
+            const responseData = await response.text();
+            if (responseData) {
+                return JSON.parse(responseData);
+            }
         }
     }
 

@@ -6,8 +6,7 @@ import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
 import AccountDetails from "./account/AccountDetails";
-import AdminContests from "./admin/contests/AdminContests";
-import AdminCreateContest from "./admin/contests/AdminCreateContest";
+import AdminContestsPage from "./admin/contests/AdminContestsPage";
 import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
 import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
@@ -47,9 +46,8 @@ const router = createBrowserRouter([
         {
             element: <AdminLayoutComponent/>,
             children: [
-                {path: "admin/", element: <AdminContests/>},
-                {path: "admin/contests", element: <AdminContests/>},
-                {path: "admin/contests/create", element: <AdminCreateContest/>},
+                {path: "admin/", element: <AdminContestsPage/>},
+                {path: "admin/contests", element: <AdminContestsPage/>},
                 {path: "admin/users", element: <AdminUsers/>}
             ]
         },

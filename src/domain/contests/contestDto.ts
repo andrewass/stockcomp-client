@@ -5,3 +5,9 @@ export type UpdateContestRequest = {
     startTime: string
     contestStatus: string
 }
+
+export type CreateContestRequest = {
+    startTime: string
+    contestName: string
+    durationDays: number
+}
