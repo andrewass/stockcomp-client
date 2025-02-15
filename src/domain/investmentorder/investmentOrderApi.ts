@@ -1,4 +1,4 @@
-import {CLIENT_BACKEND_BASE_PATH, CLIENT_BACKEND_BASE_URL} from "../../config/properties";
+import {CLIENT_BACKEND_BASE_PATH} from "../../config/properties";
 import {InvestmentOrderRequest} from "./investmentOrderTypes";
 
 export const GET_ALL_ACTIVE_INVESTMENT_ORDERS = "getActiveInvestmentOrders"
@@ -12,7 +12,7 @@ const baseUrl = CLIENT_BACKEND_BASE_PATH + "/investmentorders"
 export const getPostInvestmentOrderConfig = (request: InvestmentOrderRequest) => {
     return {
         method: "post",
-        url: baseUrl,
+        url: `${baseUrl}/order`,
         body: request
     };
 }
@@ -20,7 +20,7 @@ export const getPostInvestmentOrderConfig = (request: InvestmentOrderRequest) =>
 export const getDeleteInvestmentOrderConfig = (orderId: number) => {
     return {
         method: "delete",
-        url: baseUrl+"/delete-order",
+        url: baseUrl + "/delete-order",
         params: {orderId}
     };
 }

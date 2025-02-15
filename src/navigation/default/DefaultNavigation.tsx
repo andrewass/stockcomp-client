@@ -1,11 +1,6 @@
 import React, {SyntheticEvent, useState} from "react";
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import EventIcon from '@mui/icons-material/Event';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {AppBar, Box, Button, Stack, ThemeProvider, Toolbar, Typography, useMediaQuery} from "@mui/material";
+import {Link} from "react-router-dom";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
@@ -30,19 +25,36 @@ export const DefaultNavigation = () => {
 
     const renderWideNavBar = () => {
         return (
-            <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
-                    <Tab label="STOCK COMP" color="secondary" component={NavLink} to="/symbols" sx={{fontSize: "3rem"}}/>
-                    <Tab label="STOCKS" icon={<ShowChartIcon/>} component={NavLink} to="/symbols"/>
-                    <Tab label="LEADERBOARD" icon={<LeaderboardIcon/>} component={NavLink} to="/leaderboard"/>
-                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/contests"/>
-                    <Tab label="ACCOUNT" icon={<AccountCircleIcon/>} component={NavLink} to="/account"/>
-                    <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
-                </Tabs>
+            <AppBar position="static" component="nav">
+                <Toolbar>
+                    <Box display="flex" justifyContent="center" width="100%">
+                        <Stack direction="row" alignItems="center" spacing={20}>
+                            <Stack direction="row" alignItems="center" gap={8}>
+                                <Typography>STOCK COMP</Typography>
+                                <Button sx={{color: "white"}} component={Link} to="/symbols">
+                                    Symbols
+                                </Button>
+                                <Button sx={{color: "white"}} component={Link} to="/leaderboard">
+                                    Leaderboard
+                                </Button>
+                                <Button sx={{color: "white"}} component={Link} to="/contests">
+                                    Contests
+                                </Button>
+                                <Button sx={{color: "white"}} component={Link} to="/account">
+                                    Account
+                                </Button>
+                            </Stack>
+                            <Stack>
+                                <Button sx={{color: "white"}} onClick={signOutUser}>
+                                    Logout
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Toolbar>
             </AppBar>
-        )
+        );
     }
-
 
     return (
         <ThemeProvider theme={navigationBarTheme}>

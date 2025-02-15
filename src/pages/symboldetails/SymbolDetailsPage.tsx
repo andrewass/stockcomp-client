@@ -47,8 +47,6 @@ const SymbolDetailsPage = () => {
             <SplitScreen
                 left={<DetailBlock stockPrice={stockPrice} symbol={symbol!}/>}
                 right={<SymbolDetailsRightMenu stockPrice={stockPrice} participants={participants}/>}
-                leftWeight={1}
-                rightWeight={1}
             />
         );
     } else {

@@ -1,14 +1,13 @@
 import {Box, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
+import {ReactNode} from "react";
 
 interface Props {
-    left: JSX.Element
-    right: JSX.Element
-    leftWeight: number
-    rightWeight: number
+    left: ReactNode
+    right: ReactNode
 }
 
-const SplitScreen = ({left, right, leftWeight, rightWeight}: Props) => {
+const SplitScreen = ({left, right}: Props) => {
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 

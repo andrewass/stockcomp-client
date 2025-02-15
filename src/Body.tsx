@@ -11,13 +11,16 @@ import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
 import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
 import SymbolDetailsPage from "./pages/symboldetails/SymbolDetailsPage";
+import DefaultLayout from "./DefaultLayout";
 
 
 const ProtectedComponent = () => {
     return (
         <ProtectedRoute>
             <DefaultNavigation/>
-            <Outlet/>
+            <DefaultLayout>
+                <Outlet/>
+            </DefaultLayout>
         </ProtectedRoute>
     );
 }
@@ -25,7 +28,9 @@ const ProtectedComponent = () => {
 const AdminLayoutComponent = () => (
     <ProtectedRoute>
         <AdminNavigation/>
-        <Outlet/>
+        <DefaultLayout>
+            <Outlet/>
+        </DefaultLayout>
     </ProtectedRoute>
 );
 

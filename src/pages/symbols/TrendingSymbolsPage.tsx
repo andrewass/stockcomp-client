@@ -14,8 +14,6 @@ const TrendingSymbolsPage = () => {
             <SplitScreen
                 left={<SymbolGrid/>}
                 right={<SymbolsRightMenu/>}
-                leftWeight={1}
-                rightWeight={1}
             />
         </Box>
     );
