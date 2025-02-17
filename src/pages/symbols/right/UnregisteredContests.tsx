@@ -11,7 +11,7 @@ import {GET_ALL_UNREGISTERED_CONTESTS, getUnregisteredContestsConfig} from "../.
 const UnregisteredContests = () => {
     const {apiGet} = useApiWrapper();
 
-    const {isPending, isError, error, data} = useQuery<Contest[]>({
+    const {isPending, isError, error, data: contests} = useQuery<Contest[]>({
         queryKey: [GET_ALL_UNREGISTERED_CONTESTS],
         queryFn: () => apiGet(getUnregisteredContestsConfig()),
     })
@@ -20,11 +20,13 @@ const UnregisteredContests = () => {
 
     if (isPending) return <CircularProgress/>;
 
+    if (contests.length === 0) return null;
+
     return (
         <Box>
             <Typography variant="h6">Available Contests</Typography>
             <Stack spacing={3} sx={{mt: 3}}>
-                {data.map(contest =>
+                {contests.map(contest =>
                     <Card key={contest.contestId}>
                         <CardContent>
                             <UnregisteredContest contest={contest}/>

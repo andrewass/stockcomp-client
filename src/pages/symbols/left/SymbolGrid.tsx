@@ -1,4 +1,5 @@
-import {CircularProgress, Grid} from "@mui/material";
+import {CircularProgress} from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import SymbolCard from "./SymbolCard";
 import React from "react";
 import {useApiWrapper} from "../../../config/useApiWrapper";
@@ -24,9 +25,9 @@ const SymbolGrid = () => {
     }
 
     return (
-        <Grid container rowSpacing={1} columnSpacing={1}>
+        <Grid container rowSpacing={1} columnSpacing={4}>
             {data.map((symbol) =>
-                <Grid item key={symbol.symbol} md={6} sm={12}>
+                <Grid key={symbol.symbol} size={6}>
                     <SymbolCard stockQuote={symbol}/>
                 </Grid>
             )}

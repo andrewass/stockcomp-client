@@ -4,7 +4,7 @@ import RegisteredContests from "./RegisteredContests";
 
 export const SymbolsRightMenu = () => {
     return (
-        <Stack spacing={6}>
+        <Stack direction="column" spacing={6}>
             <UnregisteredContests/>
             <RegisteredContests/>
         </Stack>

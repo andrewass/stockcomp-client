@@ -1,21 +1,24 @@
 import {SymbolsRightMenu} from "./right/SymbolsRightMenu";
-import {Box} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import React from "react";
 import SearchField from "../../search/SearchField";
-import SplitScreen from "../../components/SplitScreen";
 import SymbolGrid from "./left/SymbolGrid";
 
 
 const TrendingSymbolsPage = () => {
 
     return (
-        <Box>
+        <Stack direction="column" gap={4}>
             <SearchField/>
-            <SplitScreen
-                left={<SymbolGrid/>}
-                right={<SymbolsRightMenu/>}
-            />
-        </Box>
+            <Stack direction="row" gap={8}>
+                <Box width="70%">
+                    <SymbolGrid/>
+                </Box>
+                <Box width="30%">
+                    <SymbolsRightMenu/>
+                </Box>
+            </Stack>
+        </Stack>
     );
 }
 
