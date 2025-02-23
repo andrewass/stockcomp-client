@@ -5,6 +5,7 @@ import {InvestmentOrderForm} from "./InvestmentOrderForm";
 import {InvestmentOrdersSymbol} from "./InvestmentOrdersSymbol";
 import {useTheme} from "@mui/material/styles";
 import {DetailedParticipant} from "../../../domain/participant/participantTypes";
+import ParticipantAccordionList from "./ParticipantAccordionList";
 
 
 interface Props {
@@ -25,6 +26,7 @@ export const SymbolDetailsRightMenu = ({stockPrice, participants}: Props) => {
             <InvestmentSymbol participants={participants} symbol={stockPrice.symbol}/>
             <InvestmentOrderForm participants={participants} symbol={stockPrice.symbol} stockPrice={stockPrice}/>
             <InvestmentOrdersSymbol participants={participants} symbol={stockPrice.symbol}/>
+            <ParticipantAccordionList participants={participants} symbol={stockPrice.symbol}/>
         </Box>
     );
 }
