@@ -8,7 +8,7 @@ interface Props {
 
 export default function DefaultLayout({children}: Props) {
     return (
-        <Container sx={{backgroundColor: "yellow"}} maxWidth="xl">
+        <Container sx={{backgroundColor: "yellow", mt: "4em"}} maxWidth="xl">
             {children}
         </Container>
     );

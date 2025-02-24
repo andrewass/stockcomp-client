@@ -9,9 +9,9 @@ interface Props {
 export default function ParticipantAccordionList({participants, symbol}: Props) {
     return (
         <div>
-            {participants.map(participant =>
-                <ParticipantAccordion participant={participant} symbol={symbol}/>
-            )}
+            {participants.map(((participant, index) =>
+                    <ParticipantAccordion participant={participant} symbol={symbol} index={index}/>
+            ))}
         </div>
     );
 }

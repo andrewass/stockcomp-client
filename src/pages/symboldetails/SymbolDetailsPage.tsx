@@ -2,8 +2,13 @@ import {CircularProgress, Stack} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/useApiWrapper";
-import {StockPrice} from "../../domain/symbols/symbolTypes";
-import {GET_STOCK_SYMBOL_PRICE, getStockSymbolPriceConfig} from "../../domain/symbols/symbolsApi";
+import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
+import {
+    GET_STOCK_SYMBOL_FINANCIALS,
+    GET_STOCK_SYMBOL_PRICE,
+    getStockSymbolFinancialsConfig,
+    getStockSymbolPriceConfig
+} from "../../domain/symbols/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import DetailBlock from "./leftpart/DetailBlock";
 import {SymbolDetailsRightMenu} from "./rightpart/SymbolDetailsRightMenu";
@@ -11,6 +16,7 @@ import {DetailedParticipant} from "../../domain/participant/participantTypes";
 import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsForSymbolConfig} from "../../domain/participant/participantApi";
 import SearchField from "../../search/SearchField";
 import React from "react";
+import SymbolStatistics from "./SymbolStatistics";
 
 const SymbolDetailsPage = () => {
     const {symbol} = useParams<{ symbol: string }>();
@@ -28,6 +34,17 @@ const SymbolDetailsPage = () => {
         });
 
     const {
+        error: financialsError,
+        isError: isFinancialsError,
+        isPending: isFinancialsPending,
+        data: financials
+    } =
+        useQuery<StockFinancials>({
+            queryKey: [GET_STOCK_SYMBOL_FINANCIALS, symbol],
+            queryFn: () => apiGet(getStockSymbolFinancialsConfig(symbol as string)),
+        });
+
+    const {
         isPending: isParticipantPending,
         isError: isParticipantError,
         error: participantError,
@@ -37,16 +54,19 @@ const SymbolDetailsPage = () => {
         queryFn: () => apiGet(getRunningParticipantsForSymbolConfig(symbol!!)),
     });
 
-    if (isStockPricePending || isParticipantPending) return <CircularProgress/>;
+    if (isStockPricePending || isParticipantPending || isFinancialsPending) {
+        return <CircularProgress/>;
+    }
 
-    if (isParticipantError || isStockPriceError) {
+    if (isParticipantError || isStockPriceError || isFinancialsError) {
         return <ErrorComponent errorMessage={participantError?.message ?? stockPriceError!.message}/>;
     }
 
     if (participants.length > 0) {
         return (
-            <Stack direction="column" gap={4}>
+            <Stack direction="column" gap={4} paddingTop="40px">
                 <SearchField/>
+                <SymbolStatistics stockFinancials={financials} stockPrice={stockPrice}/>
                 <Stack direction="row">
                     <DetailBlock stockPrice={stockPrice} symbol={symbol!}/>
                     <SymbolDetailsRightMenu stockPrice={stockPrice} participants={participants}/>
@@ -57,6 +77,7 @@ const SymbolDetailsPage = () => {
         return (
             <Stack direction="column" gap={4}>
                 <SearchField/>
+                <SymbolStatistics stockFinancials={financials} stockPrice={stockPrice}/>
                 <DetailBlock stockPrice={stockPrice} symbol={symbol!}/>
             </Stack>
         );

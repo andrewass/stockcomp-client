@@ -1,7 +1,13 @@
-import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
-import {StockFinancials, StockPrice} from "../../../domain/symbols/symbolTypes";
+import {Box, Card, CardContent, Typography} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
 
-const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFinancials, stockPrice: StockPrice }) => {
+interface Props{
+    stockFinancials: StockFinancials,
+    stockPrice: StockPrice
+}
+
+const SymbolStatistics = ({stockFinancials, stockPrice}: Props) => {
 
     const {
         symbol, currency, currentPrice,
@@ -53,28 +59,28 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
 
             <Card elevation={0}>
                 <CardContent>
-                    <Grid container rowSpacing={2} columnSpacing={2} sx={{mt: "1rem"}}>
-                        <Grid key="key1" item xs={6}>
+                    <Grid container rowSpacing={2} columnSpacing={2} sx={{mt: "1em"}}>
+                        <Grid key="key1" size={6}>
                             <Typography>
                                 Dividend Rate: {dividendRate ? dividendRate.toFixed(2)+" "+currency : "N/A"}
                             </Typography>
                         </Grid>
-                        <Grid key="key2" item xs={6}>
+                        <Grid key="key2" size={6}>
                             <Typography>
                                 Dividend Yield: {dividendYieldPercentage ? dividendYieldPercentage.toFixed(2) + "%" : "N/A"}
                             </Typography>
                         </Grid>
-                        <Grid key="key3" item xs={6}>
+                        <Grid key="key3" size={6}>
                             <Typography>
                                 Earnings Per Share: {earningsPerShare ? earningsPerShare.toFixed(2) : "N/A"} {currency}
                             </Typography>
                         </Grid>
-                        <Grid key="key4" item xs={6}>
+                        <Grid key="key4" size={6}>
                             <Typography>
                                 Price/Earnings: {priceToEarnings ? priceToEarnings.toFixed(2) : "N/A"}
                             </Typography>
                         </Grid>
-                        <Grid key="key5" item xs={6}>
+                        <Grid key="key5" size={6}>
                             <Typography>
                                 Price/Book: {priceToBook ? priceToBook.toFixed(2) : "N/A"}
                             </Typography>
@@ -86,4 +92,4 @@ const SymbolStats = ({stockFinancials, stockPrice}: { stockFinancials: StockFina
     );
 }
 
-export default SymbolStats;
+export default SymbolStatistics;

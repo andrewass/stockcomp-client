@@ -7,9 +7,10 @@ import {SyntheticEvent, useState} from "react";
 interface Props {
     participant: DetailedParticipant
     symbol: string
+    index: number
 }
 
-export default function ParticipantAccordion({participant, symbol}: Props) {
+export default function ParticipantAccordion({participant, symbol, index}: Props) {
     const [value, setValue] = useState<string>("1");
 
     const handleChange = (event: SyntheticEvent, newValue: string) => {
@@ -17,7 +18,7 @@ export default function ParticipantAccordion({participant, symbol}: Props) {
     };
 
     return (
-        <Accordion>
+        <Accordion defaultExpanded={index === 0}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
             >
@@ -38,13 +39,11 @@ export default function ParticipantAccordion({participant, symbol}: Props) {
                     </Card>
                     <TabContext value={value}>
                         <TabList onChange={handleChange}>
-                            <Tab label="Investment" value="1"/>
-                            <Tab label="Active orders" value="2"/>
-                            <Tab label="Completed orders" value="3"/>
+                            <Tab label="Active orders" value="1"/>
+                            <Tab label="Completed orders" value="2"/>
                         </TabList>
                         <TabPanel value="1">Item One</TabPanel>
                         <TabPanel value="2">Item Two</TabPanel>
-                        <TabPanel value="3">Item Three</TabPanel>
                     </TabContext>
                 </Stack>
             </AccordionDetails>
