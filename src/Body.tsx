@@ -1,7 +1,6 @@
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Contests from "./contests/Contests";
 import {UserDetails} from "./user/UserDetails";
-import {ContestDetails} from "./contestdetails/ContestDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 import {AdminNavigation} from "./navigation/admin/AdminNavigation";
@@ -12,6 +11,7 @@ import {ProtectedRoute} from "./config/ProtectedRoute";
 import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
 import SymbolDetailsPage from "./pages/symboldetails/SymbolDetailsPage";
 import DefaultLayout from "./DefaultLayout";
+import ContestPage from "./pages/contest/ContestPage";
 
 
 const ProtectedComponent = () => {
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
                 {path: "symbols/:symbol", element: <SymbolDetailsPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
                 {path: "contests", element: <Contests/>},
-                {path: "contests/:contestNumber", element: <ContestDetails/>},
+                {path: "contests/:contestNumber", element: <ContestPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
                 {path: "account", element: <AccountDetails/>},
                 {path: "user/:username", element: <UserDetails/>}

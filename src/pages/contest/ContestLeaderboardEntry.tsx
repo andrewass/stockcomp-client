@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
-import {Participant} from "../domain/participant/participantTypes";
+import {Participant} from "../../domain/participant/participantTypes";
 
 
 export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {
@@ -14,7 +14,9 @@ export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {
                 </NavLink>
             </TableCell>
             <TableCell>
-                <ReactCountryFlag style={{width: "2em", height: "2em",}} countryCode={entry.country} svg/>
+                {entry.country &&
+                    <ReactCountryFlag style={{width: "2em", height: "2em",}} countryCode={entry.country} svg/>
+                }
             </TableCell>
             <TableCell>{entry.totalValue.toFixed(2)} USD</TableCell>
         </TableRow>

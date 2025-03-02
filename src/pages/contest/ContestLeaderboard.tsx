@@ -12,12 +12,12 @@ import {
 import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/useApiWrapper";
-import ErrorComponent from "../error/ErrorComponent";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {ChangeEvent, useState} from "react";
-import {StyledTableCell} from "../styles/components/StyledTableCell";
-import {Participant, ParticipantPage} from "../domain/participant/participantTypes";
-import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../domain/participant/participantApi";
+import {Participant, ParticipantPage} from "../../domain/participant/participantTypes";
+import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../domain/participant/participantApi";
+import ErrorComponent from "../../error/ErrorComponent";
+import {StyledTableCell} from "../../styles/components/StyledTableCell";
 
 
 export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) => {
