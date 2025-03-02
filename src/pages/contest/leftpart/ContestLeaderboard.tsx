@@ -12,15 +12,19 @@ import {
 import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../../config/useApiWrapper";
+import {useApiWrapper} from "../../../config/useApiWrapper";
 import {ChangeEvent, useState} from "react";
-import {Participant, ParticipantPage} from "../../domain/participant/participantTypes";
-import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../domain/participant/participantApi";
-import ErrorComponent from "../../error/ErrorComponent";
-import {StyledTableCell} from "../../styles/components/StyledTableCell";
+import {Participant, ParticipantPage} from "../../../domain/participant/participantTypes";
+import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../../domain/participant/participantApi";
+import ErrorComponent from "../../../error/ErrorComponent";
+import {StyledTableCell} from "../../../styles/components/StyledTableCell";
+
+interface Props {
+    contestId: number
+}
 
 
-export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) => {
+export const ContestLeaderboard = ({contestId}: Props) => {
     const {apiGet} = useApiWrapper();
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
@@ -30,7 +34,7 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
     const [rowsPerPage, setRowsPerPage] = useState<number>(1);
 
     const fetchParticipantEntries = async (page: number, pageRowCount: number) => {
-        const data = await apiGet(getSortedParticipantsConfig(contestNumber, page, pageRowCount));
+        const data = await apiGet(getSortedParticipantsConfig(contestId, page, pageRowCount));
         setTotalEntriesCount(data.totalEntriesCount);
         setParticipantEntries(data.participants);
         setCurrentPage(page);
@@ -40,7 +44,7 @@ export const ContestLeaderboard = ({contestNumber}: { contestNumber: number }) =
     }
 
     const {error, isError, isPending} = useQuery<ParticipantPage>({
-        queryKey: [GET_SORTED_PARTICIPANTS, contestNumber],
+        queryKey: [GET_SORTED_PARTICIPANTS, contestId],
         queryFn: () => fetchParticipantEntries(currentPage, rowsPerPage),
     });
 

@@ -1,13 +1,12 @@
-import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {format, parseISO} from "date-fns";
+import {CircularProgress, Stack} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
-import {Contest, getStatusByColor} from "../../domain/contests/contestTypes";
+import {Contest} from "../../domain/contests/contestTypes";
 import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../../domain/contests/contestApi";
 import ErrorComponent from "../../error/ErrorComponent";
-import CircleIcon from "@mui/icons-material/Circle";
-import {ContestLeaderboard} from "./ContestLeaderboard";
+import ContestLeftPart from "./leftpart/ContestLeftPart";
+import ContestRightPart from "./rightpart/ContestRightPart";
 
 export default function ContestPage() {
     const {contestNumber} = useParams<{ contestNumber: string }>();
@@ -22,26 +21,10 @@ export default function ContestPage() {
 
     if (isError) return <ErrorComponent errorMessage={error.message}/>;
 
-
-    const getContestStatus = () => {
-        return (
-            <Box display="flex">
-                <Typography> {contest.contestStatus}</Typography>
-                <CircleIcon sx={{color: getStatusByColor(contest), marginLeft: "0.5rem"}}/>
-            </Box>
-        );
-    }
-
     return (
-        <div>
-            <Card elevation={0}>
-                <CardContent sx={{ml: "23%", mt: "10%"}}>
-                    <Typography variant="h5">Contest {contestNumber}</Typography>
-                    <Typography> Start date : {format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}</Typography>
-                    {getContestStatus()}
-                    <Typography>Participants : {contest.participantCount}</Typography>
-                </CardContent>
-            </Card>
-            <ContestLeaderboard contestNumber={parseInt(contestNumber!)}/></div>
+        <Stack direction="row">
+            <ContestLeftPart contest={contest}/>
+            <ContestRightPart contestId={contest.contestId}/>
+        </Stack>
     );
 }
