@@ -1,5 +1,10 @@
+import {InvestmentOrder} from "../../../domain/investmentorder/investmentOrderTypes";
 
-export default function ContestActiveOrders() {
+interface Props {
+    orders: InvestmentOrder[]
+}
+
+export default function ContestActiveOrders({orders}: Props) {
     return (
         <div>
             ContestActiveOrders

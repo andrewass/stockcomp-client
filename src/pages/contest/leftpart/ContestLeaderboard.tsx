@@ -75,8 +75,8 @@ export const ContestLeaderboard = ({contestId}: Props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {participantEntries!.map(participantEntry => <ContestLeaderboardEntry
-                            entry={participantEntry} key={participantEntry.username}
+                        {participantEntries!.map((participantEntry, index) => <ContestLeaderboardEntry
+                            entry={participantEntry} key={index}
                         />)}
                     </TableBody>
                 </Table>

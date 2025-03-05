@@ -9,13 +9,17 @@ export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
 const PARTICIPANT_PATH = CLIENT_BACKEND_BASE_PATH + "/participants";
 
-export const getContestParticipantConfig = (contestId: number) => {
+export const getDetailedParticipantForContestConfig = (contestId: number) => {
     return {
         method: "get",
-        url: PARTICIPANT_PATH + "/contest",
-        params: {contestId}
+        url: `${PARTICIPANT_PATH}/detailed/contest/${contestId}`,
     }
 }
+
+export const getDetailedParticipantsForSymbolConfig = (symbol: string) => ({
+    method: "get",
+    url: `${PARTICIPANT_PATH}/detailed/symbol/${symbol}`,
+});
 
 export const getSortedParticipantsConfig = (contestId: number, pageNumber: number, pageSize: number) => {
     return {
@@ -46,11 +50,6 @@ export const getUnregisteredContestsConfig = () => {
         url: PARTICIPANT_PATH + "/unregistered",
     }
 }
-
-export const getRunningParticipantsForSymbolConfig = (symbol: string) => ({
-    method: "get",
-    url: `${PARTICIPANT_PATH}/symbol/${symbol}`,
-});
 
 export const getSignUpParticipantConfig = (contestId: number) => {
     return {

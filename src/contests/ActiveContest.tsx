@@ -12,7 +12,7 @@ import {Contest, CONTEST_STATUS, getStatusByColor} from "../domain/contests/cont
 import InvestmentList from "../pages/symbols/right/InvestmentList";
 import {
     GET_CONTEST_PARTICIPANT,
-    getContestParticipantConfig,
+    getDetailedParticipantForContestConfig,
     getSignUpParticipantConfig
 } from "../domain/participant/participantApi";
 import {DetailedParticipant} from "../domain/participant/participantTypes";
@@ -37,7 +37,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
 
     const {isError, error, isPending, data} = useQuery<DetailedParticipant>({
         queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId],
-        queryFn: () => apiGet(getContestParticipantConfig(contest.contestId)),
+        queryFn: () => apiGet(getDetailedParticipantForContestConfig(contest.contestId)),
     });
 
     const getContestStatus = () => {

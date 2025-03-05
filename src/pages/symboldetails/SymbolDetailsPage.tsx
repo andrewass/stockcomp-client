@@ -13,7 +13,7 @@ import ErrorComponent from "../../error/ErrorComponent";
 import DetailBlock from "./leftpart/DetailBlock";
 import {SymbolDetailsRightMenu} from "./rightpart/SymbolDetailsRightMenu";
 import {DetailedParticipant} from "../../domain/participant/participantTypes";
-import {GET_PARTICIPANTS_SYMBOL, getRunningParticipantsForSymbolConfig} from "../../domain/participant/participantApi";
+import {GET_PARTICIPANTS_SYMBOL, getDetailedParticipantsForSymbolConfig} from "../../domain/participant/participantApi";
 import SearchField from "../../search/SearchField";
 import React from "react";
 import SymbolStatistics from "./SymbolStatistics";
@@ -51,7 +51,7 @@ const SymbolDetailsPage = () => {
         data: participants
     } = useQuery<DetailedParticipant[]>({
         queryKey: [GET_PARTICIPANTS_SYMBOL],
-        queryFn: () => apiGet(getRunningParticipantsForSymbolConfig(symbol!!)),
+        queryFn: () => apiGet(getDetailedParticipantsForSymbolConfig(symbol!!)),
     });
 
     if (isStockPricePending || isParticipantPending || isFinancialsPending) {
