@@ -28,7 +28,7 @@ export default function ContestRightPart({contestId}: Props) {
     if(participant === null) return null;
 
     return (
-        <Stack>
+        <Stack direction="column" bgcolor="red" width="40%">
             <ContestInvestments investments={participant.investments}/>
             <ContestActiveOrders orders={participant.activeOrders}/>
             <ContestCompletedOrders orders={participant.completedOrders}/>

@@ -59,7 +59,7 @@ const SymbolDetailsPage = () => {
     }
 
     if (isParticipantError || isStockPriceError || isFinancialsError) {
-        return <ErrorComponent errorMessage={participantError?.message ?? stockPriceError!.message}/>;
+        return <ErrorComponent errorMessage={participantError?.message ?? (stockPriceError?.message ?? financialsError?.message!!)}/>;
     }
 
     if (participants.length > 0) {
