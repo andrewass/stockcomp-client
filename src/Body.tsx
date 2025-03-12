@@ -1,5 +1,4 @@
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-import Contests from "./contests/Contests";
 import {UserDetails} from "./user/UserDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
@@ -8,10 +7,11 @@ import AccountDetails from "./account/AccountDetails";
 import AdminContestsPage from "./admin/contests/AdminContestsPage";
 import {AdminUsers} from "./admin/users/AdminUsers";
 import {ProtectedRoute} from "./config/ProtectedRoute";
-import TrendingSymbolsPage from "./pages/symbols/TrendingSymbolsPage";
+import SymbolsPage from "./pages/symbols/SymbolsPage";
 import SymbolDetailsPage from "./pages/symboldetails/SymbolDetailsPage";
 import DefaultLayout from "./DefaultLayout";
 import ContestPage from "./pages/contest/ContestPage";
+import ContestsPage from "./pages/contests/ContestsPage";
 
 
 const ProtectedComponent = () => {
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
         {
             element: <ProtectedComponent/>,
             children: [
-                {path: "symbols", element: <TrendingSymbolsPage/>},
+                {path: "symbols", element: <SymbolsPage/>},
                 {path: "symbols/:symbol", element: <SymbolDetailsPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
-                {path: "contests", element: <Contests/>},
+                {path: "contests", element: <ContestsPage/>},
                 {path: "contests/:contestNumber", element: <ContestPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
                 {path: "account", element: <AccountDetails/>},

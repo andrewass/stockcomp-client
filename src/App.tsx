@@ -1,5 +1,5 @@
 import React from 'react';
-import {ThemeProvider} from "@mui/material";
+import {CssBaseline, ThemeProvider} from "@mui/material";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {queryClient} from "./config/queryConfig";
@@ -14,7 +14,9 @@ const App = () => {
         <ThemeProvider theme={myTheme}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <QueryClientProvider client={queryClient}>
-                    <Body/>
+                    <CssBaseline>
+                        <Body/>
+                    </CssBaseline>
                     <ReactQueryDevtools initialIsOpen={false}/>
                 </QueryClientProvider>
             </LocalizationProvider>

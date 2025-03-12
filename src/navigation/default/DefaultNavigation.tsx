@@ -25,7 +25,7 @@ export const DefaultNavigation = () => {
 
     const renderWideNavBar = () => {
         return (
-            <AppBar position="fixed" component="nav">
+            <AppBar position="fixed" component="nav" sx={{height: "100px"}}>
                 <Toolbar>
                     <Box display="flex" justifyContent="center" width="100%">
                         <Stack direction="row" alignItems="center" spacing={20}>

@@ -5,7 +5,7 @@ import SearchField from "../../search/SearchField";
 import SymbolGrid from "./left/SymbolGrid";
 
 
-const TrendingSymbolsPage = () => {
+const SymbolsPage = () => {
 
     return (
         <Stack direction="column" gap={4}>
@@ -22,4 +22,4 @@ const TrendingSymbolsPage = () => {
     );
 }
 
-export default TrendingSymbolsPage;
+export default SymbolsPage;

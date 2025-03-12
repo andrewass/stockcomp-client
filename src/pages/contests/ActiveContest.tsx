@@ -1,21 +1,22 @@
 import {Box, Button, Card, CardContent, CircularProgress, ListItem, ListItemText, Typography} from "@mui/material";
 import toast from "react-hot-toast";
 import CircleIcon from "@mui/icons-material/Circle";
-import {useApiWrapper} from "../config/useApiWrapper";
-import {queryClient} from "../config/queryConfig";
-import ErrorComponent from "../error/ErrorComponent";
-import {ParticipantPortfolioStatus} from "../participant/ParticipantPortfolioStatus";
+import {Contest, CONTEST_STATUS, getStatusByColor} from "../../domain/contests/contestTypes";
+import {useApiWrapper} from "../../config/useApiWrapper";
 import {useMutation, useQuery} from "@tanstack/react-query";
-import {ActiveOrdersTotal} from "../investmentorder/total/ActiveOrdersTotal";
-import {CompletedOrdersTotal} from "../investmentorder/total/CompletedOrdersTotal";
-import {Contest, CONTEST_STATUS, getStatusByColor} from "../domain/contests/contestTypes";
-import InvestmentList from "../pages/symbols/right/InvestmentList";
 import {
     GET_CONTEST_PARTICIPANT,
     getDetailedParticipantForContestConfig,
     getSignUpParticipantConfig
-} from "../domain/participant/participantApi";
-import {DetailedParticipant} from "../domain/participant/participantTypes";
+} from "../../domain/participant/participantApi";
+import {DetailedParticipant} from "../../domain/participant/participantTypes";
+import InvestmentList from "../symbols/right/InvestmentList";
+import {ActiveOrdersTotal} from "../../investmentorder/total/ActiveOrdersTotal";
+import {CompletedOrdersTotal} from "../../investmentorder/total/CompletedOrdersTotal";
+import {queryClient} from "../../config/queryConfig";
+import {ParticipantPortfolioStatus} from "../../participant/ParticipantPortfolioStatus";
+import ErrorComponent from "../../error/ErrorComponent";
+
 
 export const ActiveContest = ({contest}: { contest: Contest }) => {
 
