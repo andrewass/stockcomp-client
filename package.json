@@ -23,7 +23,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.41.5",
     "react-hot-toast": "^2.2.0",
-    "react-router-dom": "^7.0.2",
+    "react-router": "^7.4.0",
     "recharts": "^2.14.1",
     "websocket": "^1.0.34"
   },
