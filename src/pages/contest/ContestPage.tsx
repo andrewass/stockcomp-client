@@ -1,5 +1,5 @@
 import {Box, CircularProgress, Stack} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
 import {Contest} from "../../domain/contests/contestTypes";

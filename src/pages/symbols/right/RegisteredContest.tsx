@@ -3,7 +3,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import React from "react";
 import {Contest, contestStatusRecord, getStatusByColor} from "../../../domain/contests/contestTypes";
 import {formatDate} from "../../../util/dateUtils";
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 
 interface Props {
     contest: Contest

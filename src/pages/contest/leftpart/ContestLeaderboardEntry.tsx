@@ -1,5 +1,5 @@
 import {TableCell, TableRow} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import ReactCountryFlag from "react-country-flag";
 import {Participant} from "../../../domain/participant/participantTypes";
 

@@ -1,7 +1,7 @@
 import {UserGeneralDetails} from "./UserGeneralDetails";
 import {Box, CircularProgress} from "@mui/material";
 import {useApiWrapper} from "../config/useApiWrapper";
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
 import {UserExtended} from "./userTypes";
 import {GET_USER_DETAILS, getUserDetailsConfig} from "./api/userApi";

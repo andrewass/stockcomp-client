@@ -1,6 +1,6 @@
 import {Box, useMediaQuery, useTheme} from "@mui/material";
 import {AdminContestTable} from "./AdminContestTable";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import AdminCreateContestModal from "./AdminCreateContestModal";
 
 

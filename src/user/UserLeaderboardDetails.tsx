@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
 import {useApiWrapper} from "../config/useApiWrapper";

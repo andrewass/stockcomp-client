@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, styled, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';

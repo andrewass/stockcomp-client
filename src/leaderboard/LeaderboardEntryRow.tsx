@@ -1,5 +1,5 @@
 import {Box, Grid, TableCell, TableRow} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import ReactCountryFlag from "react-country-flag";
 import {LeaderboardEntry, Medal, MedalValue} from "./leaderboardTypes";
 import goldMedal from "../icons/gold-medal.svg";

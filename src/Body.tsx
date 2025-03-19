@@ -1,4 +1,4 @@
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router";
 import {UserDetails} from "./user/UserDetails";
 import {Leaderboard} from "./leaderboard/Leaderboard";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";

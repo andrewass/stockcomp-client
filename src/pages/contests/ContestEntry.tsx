@@ -1,5 +1,5 @@
 import {Box, TableCell, TableRow, Typography} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, contestStatusRecord, getStatusByColor} from "../../domain/contests/contestTypes";
 import {formatDate} from "../../util/dateUtils";

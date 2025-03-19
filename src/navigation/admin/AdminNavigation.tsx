@@ -1,7 +1,7 @@
 import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink} from "react-router";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DropDownMenu from "../default/DropDownMenu";
