@@ -20,7 +20,7 @@ export default function ContestLeftPart({contest}: Props) {
     }
 
     return (
-        <Stack direction="column" width="60%">
+        <Stack direction="column" width="100%">
             <Card elevation={0}>
                 <CardContent>
                     <Typography variant="h5">Contest {contest.contestName}</Typography>

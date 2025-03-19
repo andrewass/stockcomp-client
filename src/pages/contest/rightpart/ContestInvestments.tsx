@@ -15,19 +15,19 @@ export default function ContestInvestments({investments}: Props) {
             <AccordionDetails>
                 <List>
                     {investments.map((investment, index) =>
-                        <ListItem>
+                        <ListItem key={index}>
                             <Grid container spacing={1} bgcolor="orange">
                                 <Grid size={6}>
-                                    <Typography key={index}>{investment.symbol}</Typography>
+                                    <Typography>{investment.symbol}</Typography>
                                 </Grid>
                                 <Grid size={6}>
-                                    <Typography key={index}>Amount: {investment.amount}</Typography>
+                                    <Typography>Amount: {investment.amount}</Typography>
                                 </Grid>
                                 <Grid size={6}>
-                                    <Typography key={index}>Value : {investment.totalValue} USD</Typography>
+                                    <Typography>Value : {investment.totalValue} USD</Typography>
                                 </Grid>
                                 <Grid size={6}>
-                                    <Typography key={index}>Profit: {investment.totalProfit} USD</Typography>
+                                    <Typography>Profit: {investment.totalProfit.toFixed(2)} USD</Typography>
                                 </Grid>
                             </Grid>
                         </ListItem>

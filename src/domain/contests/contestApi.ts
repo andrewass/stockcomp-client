@@ -23,10 +23,10 @@ export const getCreateContestConfig = (contestData: CreateContestRequest): Custo
     }
 }
 
-export const getDeleteContestConfig = (contestNumber: number): CustomRequestConfig => {
+export const getDeleteContestConfig = (contestId: number): CustomRequestConfig => {
     return {
         method: "delete",
-        url: CONTEST_PATH + "/" + contestNumber,
+        url: CONTEST_PATH + "/" + contestId,
     }
 }
 
@@ -38,9 +38,9 @@ export const getUpdateContestConfig = (request: UpdateContestRequest) => {
     }
 }
 
-export const getContestConfig = (contestNumber: number) => {
+export const getContestConfig = (contestId: number) => {
     return {
         method: "get",
-        url: CONTEST_PATH + "/" + contestNumber
+        url: CONTEST_PATH + "/" + contestId
     }
 }

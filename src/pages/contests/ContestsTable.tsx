@@ -2,6 +2,7 @@ import {
     Paper,
     Table,
     TableBody,
+    TableCell,
     TableContainer,
     TableHead,
     TablePagination,
@@ -12,7 +13,6 @@ import {useTheme} from '@mui/material/styles';
 import {ContestEntry} from "./ContestEntry";
 import {Contest} from "../../domain/contests/contestTypes";
 import {ChangeEvent} from "react";
-import {StyledTableCell} from "../../styles/components/StyledTableCell";
 
 
 interface Props {
@@ -37,16 +37,16 @@ export const ContestsTable = ({
 
 
     return (
-        <Paper sx={{width: isLargeWidth ? "60%" : "95%"}}>
+        <Paper sx={{width: isLargeWidth ? "1200px" : "400px"}}>
             <TableContainer>
-                <Table>
-                    <TableHead sx={{backgroundColor: "greenyellow"}}>
+                <Table stickyHeader>
+                    <TableHead>
                         <TableRow>
-                            <StyledTableCell>Contest</StyledTableCell>
-                            <StyledTableCell>Status</StyledTableCell>
-                            <StyledTableCell>Start Date</StyledTableCell>
-                            <StyledTableCell>End Date</StyledTableCell>
-                            <StyledTableCell>Participants</StyledTableCell>
+                            <TableCell>Contest</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Start Date</TableCell>
+                            <TableCell>End Date</TableCell>
+                            <TableCell>Participants</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -15,7 +15,7 @@ import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {ChangeEvent, useState} from "react";
 import {Participant, ParticipantPage} from "../../../domain/participant/participantTypes";
-import {GET_SORTED_PARTICIPANTS, getSortedParticipantsConfig} from "../../../domain/participant/participantApi";
+import {GET_PARTICIPANTS_SORTED, getSortedParticipantsConfig} from "../../../domain/participant/participantApi";
 import ErrorComponent from "../../../error/ErrorComponent";
 import {StyledTableCell} from "../../../styles/components/StyledTableCell";
 
@@ -44,7 +44,7 @@ export const ContestLeaderboard = ({contestId}: Props) => {
     }
 
     const {error, isError, isPending} = useQuery<ParticipantPage>({
-        queryKey: [GET_SORTED_PARTICIPANTS, contestId],
+        queryKey: [GET_PARTICIPANTS_SORTED, contestId],
         queryFn: () => fetchParticipantEntries(currentPage, rowsPerPage),
     });
 
@@ -63,7 +63,7 @@ export const ContestLeaderboard = ({contestId}: Props) => {
     if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
-        <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
+        <Paper>
             <TableContainer>
                 <Table>
                     <TableHead>

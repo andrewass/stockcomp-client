@@ -42,7 +42,7 @@ const router = createBrowserRouter([
                 {path: "symbols/:symbol", element: <SymbolDetailsPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
                 {path: "contests", element: <ContestsPage/>},
-                {path: "contests/:contestNumber", element: <ContestPage/>},
+                {path: "contests/:contestId", element: <ContestPage/>},
                 {path: "leaderboard", element: <Leaderboard/>},
                 {path: "account", element: <AccountDetails/>},
                 {path: "user/:username", element: <UserDetails/>}

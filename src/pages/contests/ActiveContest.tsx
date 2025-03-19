@@ -5,7 +5,7 @@ import {Contest, CONTEST_STATUS, getStatusByColor} from "../../domain/contests/c
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {
-    GET_CONTEST_PARTICIPANT,
+    GET_PARTICIPANT_CONTEST,
     getDetailedParticipantForContestConfig,
     getSignUpParticipantConfig
 } from "../../domain/participant/participantApi";
@@ -27,7 +27,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
             return apiPost(getSignUpParticipantConfig(contest.contestId))
         },
         onSuccess: () =>
-            queryClient.invalidateQueries({queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId]}),
+            queryClient.invalidateQueries({queryKey: [GET_PARTICIPANT_CONTEST, contest.contestId]}),
         onError: () => {
             toast.error("Unable to sign up for contest", {
                 duration: 4000,
@@ -37,7 +37,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
     });
 
     const {isError, error, isPending, data} = useQuery<DetailedParticipant>({
-        queryKey: [GET_CONTEST_PARTICIPANT, contest.contestId],
+        queryKey: [GET_PARTICIPANT_CONTEST, contest.contestId],
         queryFn: () => apiGet(getDetailedParticipantForContestConfig(contest.contestId)),
     });
 

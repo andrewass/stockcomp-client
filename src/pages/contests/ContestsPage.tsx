@@ -1,7 +1,7 @@
 import {ContestsTable} from "./ContestsTable";
 import {useQuery} from "@tanstack/react-query";
 import {ChangeEvent, useState} from "react";
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Container} from "@mui/material";
 import {ContestPage} from "../../domain/contests/contestTypes";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import {GET_ALL_CONTESTS, getAllContestsConfig} from "../../domain/contests/contestApi";
@@ -10,7 +10,7 @@ import ErrorComponent from "../../error/ErrorComponent";
 export default function ContestsPage() {
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
-    const [rowsPerPage, setRowsPerPage] = useState<number>(1);
+    const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
     const {apiGet} = useApiWrapper();
 
@@ -43,7 +43,7 @@ export default function ContestsPage() {
     if (isError) return <ErrorComponent errorMessage={error.message}/>
 
     return (
-        <div>
+        <Container sx={{paddingTop: "100px"}}>
             <ContestsTable
                 contests={contestPage.contests}
                 totalEntriesCount={totalEntriesCount}
@@ -52,6 +52,6 @@ export default function ContestsPage() {
                 handlePageChange={handlePageChange}
                 rowsPerPage={rowsPerPage}
             />
-        </div>
+        </Container>
     );
 }

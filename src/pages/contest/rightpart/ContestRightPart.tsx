@@ -1,37 +1,26 @@
-import {CircularProgress, Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import ContestInvestments from "./ContestInvestments";
 import ContestActiveOrders from "./ContestActiveOrders";
 import ContestCompletedOrders from "./ContestCompletedOrders";
-import {useQuery} from "@tanstack/react-query";
-import {GET_CONTEST_BY_NUMBER} from "../../../domain/contests/contestApi";
-import ErrorComponent from "../../../error/ErrorComponent";
-import {getDetailedParticipantForContestConfig} from "../../../domain/participant/participantApi";
-import {useApiWrapper} from "../../../config/useApiWrapper";
 import {DetailedParticipant} from "../../../domain/participant/participantTypes";
+import ContestParticipantDetails from "./ContestParticipantDetails";
 
 interface Props {
-    contestId: number
+    participant: DetailedParticipant
 }
 
-export default function ContestRightPart({contestId}: Props) {
-    const {apiGet} = useApiWrapper();
-
-    const {isPending, isError, error, data: participant} = useQuery<DetailedParticipant>({
-        queryKey: [GET_CONTEST_BY_NUMBER, contestId],
-        queryFn: () => apiGet(getDetailedParticipantForContestConfig(contestId)),
-    });
-
-    if (isPending) return <CircularProgress/>;
-
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
-
-    if(participant === null) return null;
+export default function ContestRightPart({participant}: Props) {
 
     return (
-        <Stack direction="column" bgcolor="red" width="40%">
-            <ContestInvestments investments={participant.investments}/>
-            <ContestActiveOrders orders={participant.activeOrders}/>
-            <ContestCompletedOrders orders={participant.completedOrders}/>
+        <Stack direction="column" bgcolor="red" gap={3}>
+            <Box>
+                <ContestParticipantDetails participant={participant.participant} contest={participant.contest}/>
+            </Box>
+            <Box>
+                <ContestInvestments investments={participant.investments}/>
+                <ContestActiveOrders orders={participant.activeOrders}/>
+                <ContestCompletedOrders orders={participant.completedOrders}/>
+            </Box>
         </Stack>
     );
 }

@@ -1,4 +1,4 @@
-import {CircularProgress, Stack} from "@mui/material";
+import {Box, CircularProgress, Stack} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
@@ -7,24 +7,47 @@ import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../../domain/contests/con
 import ErrorComponent from "../../error/ErrorComponent";
 import ContestLeftPart from "./leftpart/ContestLeftPart";
 import ContestRightPart from "./rightpart/ContestRightPart";
+import {DetailedParticipant} from "../../domain/participant/participantTypes";
+import {GET_PARTICIPANT_CONTEST, getDetailedParticipantForContestConfig} from "../../domain/participant/participantApi";
 
 export default function ContestPage() {
-    const {contestNumber} = useParams<{ contestNumber: string }>();
+    const {contestId} = useParams<{ contestId: string }>();
     const {apiGet} = useApiWrapper();
 
-    const {isPending, isError, error, data: contest} = useQuery<Contest>({
-        queryKey: [GET_CONTEST_BY_NUMBER, contestNumber],
-        queryFn: () => apiGet(getContestConfig(Number(contestNumber!))),
+    const {
+        isPending: isContestPending,
+        isError: isContestError,
+        error: contestError,
+        data: contest
+    } = useQuery<Contest>({
+        queryKey: [GET_CONTEST_BY_NUMBER, contestId],
+        queryFn: () => apiGet(getContestConfig(Number(contestId))),
     });
 
-    if (isPending) return <CircularProgress/>;
+    const {
+        isPending: isParticipantPending,
+        isError: isParticipantError,
+        error: participantError,
+        data: participant
+    } = useQuery<DetailedParticipant>({
+        queryKey: [GET_PARTICIPANT_CONTEST, contestId],
+        queryFn: () => apiGet(getDetailedParticipantForContestConfig(Number(contestId))),
+    });
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
+    if (isContestPending || isParticipantPending) return <CircularProgress/>;
 
+    if (isContestError || isParticipantError) {
+        return <ErrorComponent errorMessage={contestError?.message ?? participantError!!.message}/>;
+    }
+    
     return (
-        <Stack direction="row">
-            <ContestLeftPart contest={contest}/>
-            <ContestRightPart contestId={contest.contestId}/>
-        </Stack>
+        <Box sx={{paddingTop: "100px", backgroundColor: "purple"}}>
+            <Stack direction="row">
+                <ContestLeftPart contest={contest}/>
+                {participant &&
+                    <ContestRightPart participant={participant}/>
+                }
+            </Stack>
+        </Box>
     );
 }
