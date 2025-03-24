@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
 import {NavLink} from "react-router";
 import ReactCountryFlag from "react-country-flag";
-import {Participant} from "../../../domain/participant/participantTypes";
+import type {Participant} from "@/domain/participant/participantTypes";
 
 
 export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {

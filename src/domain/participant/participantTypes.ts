@@ -1,6 +1,6 @@
-import {Contest} from "../contests/contestTypes";
-import {Investment} from "../../investment/investmentTypes";
-import {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
+import type {Contest} from "../contests/contestTypes";
+import type {Investment} from "@/investment/investmentTypes";
+import type {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
 
 export type Participant = {
     participantId: number
