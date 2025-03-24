@@ -32,6 +32,7 @@
   "devDependencies": {
     "@react-router/dev": "^7.4.0",
     "@tanstack/react-router-devtools": "^1.114.27",
+    "@tanstack/router-plugin": "^1.114.27",
     "@vitejs/plugin-react": "^4.3.3",
     "typescript": "^5.3.3",
     "vite": "^6.0.3"
