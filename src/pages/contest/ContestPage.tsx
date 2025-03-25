@@ -1,14 +1,14 @@
 import {Box, CircularProgress, Stack} from "@mui/material";
 import {useParams} from "react-router";
-import {useApiWrapper} from "@/config/useApiWrapper";
 import {useQuery} from "@tanstack/react-query";
-import type {Contest} from "@/domain/contests/contestTypes";
-import {GET_CONTEST_BY_NUMBER, getContestConfig} from "@/domain/contests/contestApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import ContestLeftPart from "./leftpart/ContestLeftPart";
 import ContestRightPart from "./rightpart/ContestRightPart";
-import type {DetailedParticipant} from "@/domain/participant/participantTypes";
-import {GET_PARTICIPANT_CONTEST, getDetailedParticipantForContestConfig} from "@/domain/participant/participantApi";
+import { useApiWrapper } from "../../config/useApiWrapper";
+import {Contest} from "../../domain/contests/contestTypes";
+import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../../domain/contests/contestApi";
+import { DetailedParticipant } from "../../domain/participant/participantTypes";
+import {GET_PARTICIPANT_CONTEST, getDetailedParticipantForContestConfig} from "../../domain/participant/participantApi";
 
 export default function ContestPage() {
     const {contestId} = useParams<{ contestId: string }>();

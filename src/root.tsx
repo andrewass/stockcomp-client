@@ -1,17 +1,3 @@
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router";
-import {UserDetails} from "./user/UserDetails";
-import {Leaderboard} from "./leaderboard/Leaderboard";
-import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
-import {AdminNavigation} from "./navigation/admin/AdminNavigation";
-import AccountDetails from "./account/AccountDetails";
-import AdminContestsPage from "./admin/contests/AdminContestsPage";
-import {AdminUsers} from "./admin/users/AdminUsers";
-import {ProtectedRoute} from "./config/ProtectedRoute";
-import SymbolsPage from "./pages/symbols/SymbolsPage";
-import SymbolDetailsPage from "./pages/symboldetails/SymbolDetailsPage";
-import DefaultLayout from "./DefaultLayout";
-import ContestPage from "./pages/contest/ContestPage";
-import ContestsPage from "./pages/contests/ContestsPage";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {myTheme} from "./styles/theme/myTheme";
 import {LocalizationProvider} from "@mui/x-date-pickers";
@@ -22,7 +8,10 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./root.css";
+import {routeTree} from './routeTree.gen'
+import {createRouter, RouterProvider} from "@tanstack/react-router";
 
+/*
 const ProtectedComponent = () => {
     return (
         <ProtectedRoute>
@@ -33,6 +22,7 @@ const ProtectedComponent = () => {
         </ProtectedRoute>
     );
 }
+
 
 const AdminLayoutComponent = () => (
     <ProtectedRoute>
@@ -67,6 +57,17 @@ const router = createBrowserRouter([
         },
     ]
 );
+
+
+ */
+
+const router = createRouter({routeTree})
+
+declare module "@tanstack/react-router" {
+    interface Register {
+        router: typeof router
+    }
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
