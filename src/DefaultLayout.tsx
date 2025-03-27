@@ -1,15 +1,25 @@
-import {Container} from "@mui/material";
+import {Box, Container} from "@mui/material";
 import {ReactNode} from "react";
+import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
 
 
 interface Props {
     children: ReactNode
 }
 
-export default function DefaultLayout({children}: Props) {
+function DefaultLayout({children}: Props) {
     return (
-        <Container sx={{backgroundColor: "yellow", mt: "100px"}} maxWidth="xl">
-            {children}
-        </Container>
+        <Box>
+            <DefaultNavigation/>
+            <Container sx={{backgroundColor: "yellow", mt: "100px"}} maxWidth="xl">
+                {children}
+            </Container>
+        </Box>
+    );
+}
+
+export function withDefaultLayout(children: ReactNode) {
+    return (
+        <DefaultLayout children={children}/>
     );
 }

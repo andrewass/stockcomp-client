@@ -1,7 +1,7 @@
 import {TableCell, TableRow} from "@mui/material";
-import {NavLink} from "react-router";
 import ReactCountryFlag from "react-country-flag";
-import type {Participant} from "@/domain/participant/participantTypes";
+import {Participant} from "../../../domain/participant/participantTypes";
+import {Link} from "@tanstack/react-router";
 
 
 export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {
@@ -9,9 +9,9 @@ export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {
         <TableRow key={entry.username} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
             <TableCell>
-                <NavLink to={`/user/${entry.username}`} style={{textDecoration: "none", color: "black"}}>
+                <Link to="/users/$userId" params={{userId: entry.username!!}}>
                     {entry.username}
-                </NavLink>
+                </Link>
             </TableCell>
             <TableCell>
                 {entry.country &&

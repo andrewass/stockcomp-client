@@ -1,11 +1,11 @@
 import React, {SyntheticEvent, useState} from "react";
 import {AppBar, Box, Button, Stack, ThemeProvider, Toolbar, Typography, useMediaQuery} from "@mui/material";
-import {Link} from "react-router";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {getLogOutConfig} from "../../auth/api/authApi";
+import {Link} from "@tanstack/react-router";
 
 export const DefaultNavigation = () => {
 

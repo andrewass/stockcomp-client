@@ -1,8 +1,8 @@
 import {Box, TableCell, TableRow, Typography} from "@mui/material";
-import {NavLink} from "react-router";
 import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, contestStatusRecord, getStatusByColor} from "../../domain/contests/contestTypes";
 import {formatDate} from "../../util/dateUtils";
+import {Link} from "@tanstack/react-router";
 
 
 export const ContestEntry = ({contest}: { contest: Contest }) => {
@@ -10,9 +10,9 @@ export const ContestEntry = ({contest}: { contest: Contest }) => {
     return (
         <TableRow key={contest.contestId}>
             <TableCell>
-                <NavLink to={`/contests/${contest.contestId}`} style={{textDecoration: "none", color: "black"}}>
+                <Link to="/contests/$contestId" params={{contestId: contest.contestId.toString()}}>
                     {contest.contestName}
-                </NavLink>
+                </Link>
             </TableCell>
             <TableCell>
                 <Box display="flex" flexDirection="row">

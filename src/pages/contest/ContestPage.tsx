@@ -1,5 +1,4 @@
 import {Box, CircularProgress, Stack} from "@mui/material";
-import {useParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
 import ErrorComponent from "../../error/ErrorComponent";
 import ContestLeftPart from "./leftpart/ContestLeftPart";
@@ -10,8 +9,11 @@ import {GET_CONTEST_BY_NUMBER, getContestConfig} from "../../domain/contests/con
 import { DetailedParticipant } from "../../domain/participant/participantTypes";
 import {GET_PARTICIPANT_CONTEST, getDetailedParticipantForContestConfig} from "../../domain/participant/participantApi";
 
-export default function ContestPage() {
-    const {contestId} = useParams<{ contestId: string }>();
+interface Props{
+    contestId: number
+}
+
+export default function ContestPage({contestId}: Props) {
     const {apiGet} = useApiWrapper();
 
     const {
