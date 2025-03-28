@@ -1,5 +1,4 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import {useNavigate} from "react-router";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
 
 const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
@@ -8,12 +7,6 @@ const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
         currency, percentageChange, currentPrice,
         usdPrice, priceChange, symbol, companyName
     } = stockQuote
-
-    const navigate = useNavigate();
-
-    const redirectToSymbolDetail = () => {
-        navigate(`/symbols/${symbol}`);
-    }
 
     const getPriceDifferenceUSD = () => {
         return priceChange >= 0.00
@@ -45,7 +38,7 @@ const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
 
     return (
         <Card elevation={0}>
-            <CardActionArea onClick={redirectToSymbolDetail}>
+            <CardActionArea>
                 <CardContent>
                     <Typography variant="h5">
                         {companyName} ({symbol})

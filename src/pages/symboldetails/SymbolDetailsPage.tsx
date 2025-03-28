@@ -1,5 +1,4 @@
 import {CircularProgress, Stack} from "@mui/material";
-import {useParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
@@ -18,8 +17,11 @@ import SearchField from "../../search/SearchField";
 import React from "react";
 import SymbolStatistics from "./SymbolStatistics";
 
-const SymbolDetailsPage = () => {
-    const {symbol} = useParams<{ symbol: string }>();
+interface Props {
+    symbol: string
+}
+
+const SymbolDetailsPage = ({symbol}: Props) => {
     const {apiGet} = useApiWrapper();
 
     const {

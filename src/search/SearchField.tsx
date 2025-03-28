@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {Autocomplete, Box, TextField} from "@mui/material";
-import {useNavigate} from "react-router";
 import {useApiWrapper} from "../config/useApiWrapper";
 import {getSuggestionsFromQueryConfig} from "./api/searchApi";
 import {SymbolSuggestion} from "./searchTypes";
+import {useNavigate} from "@tanstack/react-router";
 
 const SearchField = () => {
     const {apiGet} = useApiWrapper();
@@ -20,7 +20,8 @@ const SearchField = () => {
     }
 
     const redirectToSymbolDetail = (symbol: any) => {
-        navigate(`/symbols/${symbol.symbol}`);
+        navigate({to: "/symbols/$symbol", params: {symbol: symbol.symbol}})
+            .catch(console.error);
     }
 
     const buildOptionLabel = (option: any) => {
@@ -33,8 +34,8 @@ const SearchField = () => {
                 freeSolo
                 options={suggestionList}
                 getOptionLabel={(option) => buildOptionLabel(option)}
-                onChange={(event, value) => redirectToSymbolDetail(value)}
-                onInputChange={(event, value) => getSuggestions(value)}
+                onChange={(_event, value) => redirectToSymbolDetail(value)}
+                onInputChange={(_event, value) => getSuggestions(value)}
                 renderInput={params => <TextField {...params} label="Search symbols"/>}
             />
         </Box>

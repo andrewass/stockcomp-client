@@ -1,6 +1,6 @@
 import {createFileRoute} from "@tanstack/react-router";
-import ContestPage from "../pages/contest/ContestPage";
-import {withDefaultLayout} from "../DefaultLayout";
+import ContestPage from "../../pages/contest/ContestPage";
+import {withDefaultLayout} from "../../DefaultLayout";
 
 export const Route = createFileRoute("/contests/$contestId")({
     component: Contest
