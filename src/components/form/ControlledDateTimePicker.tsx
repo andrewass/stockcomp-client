@@ -7,7 +7,7 @@ interface Props {
     control: any,
     disabled?: boolean,
     defaultValue?: string
-    rules?: any,
+    rules?: Record<string, string>,
 }
 
 

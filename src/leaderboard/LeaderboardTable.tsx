@@ -56,7 +56,7 @@ export const LeaderboardTable = () => {
 
     if (isPending) return <CircularProgress/>
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>
+    if (isError) return <ErrorComponent error={error}/>
 
     return (
         <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>

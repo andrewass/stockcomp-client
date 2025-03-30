@@ -8,7 +8,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {GET_ALL_USERS_ADMIN} from "../api/adminApi";
 import {queryClient} from "../../config/queryConfig";
-import {User} from "../../user/userTypes";
 import {getUpdateContestConfig} from "../../domain/contests/contestApi";
 import {UpdateContestRequest} from "../../domain/contests/contestDto";
 
@@ -25,10 +24,10 @@ const style = {
 };
 
 
-export const AdminUpdateUserForm = ({user}: { user: User }) => {
+export const AdminUpdateUserForm = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const {handleSubmit, control} = useForm<UpdateContestRequest>();
+    const {handleSubmit} = useForm<UpdateContestRequest>();
     const {apiPut} = useApiWrapper();
 
     const mutation = useMutation({

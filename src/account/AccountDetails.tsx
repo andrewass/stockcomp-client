@@ -19,7 +19,7 @@ const AccountDetails = () => {
 
     if (isPending) return <CircularProgress/>;
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
+    if (isError) return <ErrorComponent error={error}/>;
 
     return (
         <Box sx={{width: "400px", m: "0 auto", mt: "80px"}}>

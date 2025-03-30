@@ -15,7 +15,7 @@ export default function ContestCompletedOrders({orders}: Props) {
             <AccordionDetails>
                 <List>
                     {orders.map((order, index) =>
-                        <ListItem>
+                        <ListItem key={index}>
                             <Grid container spacing={1} bgcolor="orange">
                                 <Grid size={6}>
                                     <Typography key={index}>{order.symbol}</Typography>

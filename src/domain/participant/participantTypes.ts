@@ -1,10 +1,10 @@
 import type {Contest} from "../contests/contestTypes";
-import type {Investment} from "@/investment/investmentTypes";
 import type {InvestmentOrder} from "../investmentorder/investmentOrderTypes";
+import {Investment} from "../../investment/investmentTypes";
 
 export type Participant = {
     participantId: number
-    username?: string
+    username: string
     rank?: number
     totalValue: number
     totalInvestmentValue: number

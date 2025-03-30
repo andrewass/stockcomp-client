@@ -5,6 +5,7 @@ import {ValidSession} from "../auth/authTypes";
 import {CircularProgress} from "@mui/material";
 import ErrorComponent from "../error/ErrorComponent";
 import {CLIENT_BACKEND_BASE_URL} from "./properties";
+import {JSX} from "react";
 
 export const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
 
@@ -22,7 +23,7 @@ export const ProtectedRoute = ({children}: { children: JSX.Element[] }) => {
 
     if (isPending) return <CircularProgress/>;
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
+    if (isError) return <ErrorComponent error={error}/>;
 
     if (data.validSession) {
         return <>{children}</>;

@@ -39,7 +39,7 @@ export default function ContestPage({contestId}: Props) {
     if (isContestPending || isParticipantPending) return <CircularProgress/>;
 
     if (isContestError || isParticipantError) {
-        return <ErrorComponent errorMessage={contestError?.message ?? participantError!!.message}/>;
+        return <ErrorComponent error={contestError ?? participantError}/>;
     }
     
     return (

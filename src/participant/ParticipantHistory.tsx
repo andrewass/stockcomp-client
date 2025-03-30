@@ -19,7 +19,7 @@ export const ParticipantHistory = ({username}: { username: string }) => {
 
     if (isPending) return <CircularProgress/>
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>
+    if (isError) return <ErrorComponent error={error}/>
 
     if (data.length > 0) {
         const participants = data.map(detailedEntry => detailedEntry.participant);

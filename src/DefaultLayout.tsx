@@ -7,7 +7,7 @@ interface Props {
     children: ReactNode
 }
 
-function DefaultLayout({children}: Props) {
+export function DefaultLayout({children}: Props) {
     return (
         <Box>
             <DefaultNavigation/>
@@ -15,11 +15,5 @@ function DefaultLayout({children}: Props) {
                 {children}
             </Container>
         </Box>
-    );
-}
-
-export function withDefaultLayout(children: ReactNode) {
-    return (
-        <DefaultLayout children={children}/>
     );
 }

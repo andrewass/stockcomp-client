@@ -1,8 +1,10 @@
 
-const ErrorComponent = ({errorMessage}: { errorMessage: string }) => {
-    return(
-        <h5>{errorMessage}</h5>
-    )
+interface Props {
+    error: Error | null
 }
 
-export default ErrorComponent
+export default function ErrorComponent({error}: Props){
+    return (
+        <h5>Error : {error?.message ?? "Unknown error"}</h5>
+    )
+}

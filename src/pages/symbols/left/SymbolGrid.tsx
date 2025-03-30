@@ -21,7 +21,7 @@ const SymbolGrid = () => {
     if (isPending) return <CircularProgress/>
 
     if (isError) {
-        return <ErrorComponent errorMessage={error.message}/>
+        return <ErrorComponent error={error}/>
     }
 
     return (

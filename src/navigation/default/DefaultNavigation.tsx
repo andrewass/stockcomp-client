@@ -1,4 +1,3 @@
-import React, {SyntheticEvent, useState} from "react";
 import {AppBar, Box, Button, Stack, ThemeProvider, Toolbar, Typography, useMediaQuery} from "@mui/material";
 import DropDownMenu from "./DropDownMenu";
 import {useTheme} from "@mui/material/styles";
@@ -11,17 +10,12 @@ export const DefaultNavigation = () => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
-    const [value, setValue] = useState(0);
     const {apiPost} = useApiWrapper();
 
     const signOutUser = async () => {
         await apiPost(getLogOutConfig());
         window.location.reload();
     };
-
-    const handleChange = (event: SyntheticEvent, newValue: number) => {
-        setValue(newValue)
-    }
 
     const renderWideNavBar = () => {
         return (

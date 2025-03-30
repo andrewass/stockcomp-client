@@ -16,7 +16,7 @@ const UnregisteredContests = () => {
         queryFn: () => apiGet(getUnregisteredContestsConfig()),
     })
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
+    if (isError) return <ErrorComponent error={error}/>;
 
     if (isPending) return <CircularProgress/>;
 

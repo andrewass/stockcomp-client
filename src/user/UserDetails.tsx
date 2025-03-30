@@ -19,7 +19,7 @@ export const UserDetails = () => {
 
     if (isLoading) return <CircularProgress/>
 
-    if (error) return <ErrorComponent errorMessage={error.message}/>
+    if (error) return <ErrorComponent error={error}/>
 
     return (
         <Box>

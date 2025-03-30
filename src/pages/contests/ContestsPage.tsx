@@ -40,7 +40,7 @@ export default function ContestsPage() {
 
     if (isPending) return <CircularProgress/>
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>
+    if (isError) return <ErrorComponent error={error}/>
 
     return (
         <Container sx={{paddingTop: "100px"}}>

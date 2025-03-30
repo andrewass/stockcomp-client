@@ -9,8 +9,7 @@ import {queryClient} from "../../config/queryConfig";
 import {
     Contest,
     CONTEST_STATUS,
-    contestStatusRecord,
-    leaderboardUpdateStatusMap
+    contestStatusRecord
 } from "../../domain/contests/contestTypes";
 import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../domain/contests/contestApi";
 

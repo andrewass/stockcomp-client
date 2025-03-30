@@ -53,7 +53,7 @@ const SymbolDetailsPage = ({symbol}: Props) => {
         data: participants
     } = useQuery<DetailedParticipant[]>({
         queryKey: [GET_PARTICIPANTS_SYMBOL],
-        queryFn: () => apiGet(getDetailedParticipantsForSymbolConfig(symbol!!)),
+        queryFn: () => apiGet(getDetailedParticipantsForSymbolConfig(symbol)),
     });
 
     if (isStockPricePending || isParticipantPending || isFinancialsPending) {
@@ -61,7 +61,8 @@ const SymbolDetailsPage = ({symbol}: Props) => {
     }
 
     if (isParticipantError || isStockPriceError || isFinancialsError) {
-        return <ErrorComponent errorMessage={participantError?.message ?? (stockPriceError?.message ?? financialsError?.message!!)}/>;
+        const error= participantError ?? (stockPriceError ?? financialsError);
+        return <ErrorComponent error={error} />;
     }
 
     if (participants.length > 0) {

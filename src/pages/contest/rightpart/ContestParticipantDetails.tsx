@@ -8,7 +8,7 @@ interface Props {
     contest: Contest
 }
 
-export default function ContestParticipantDetails({participant, contest}: Props) {
+export default function ContestParticipantDetails({participant}: Props) {
 
     return (
         <Container>

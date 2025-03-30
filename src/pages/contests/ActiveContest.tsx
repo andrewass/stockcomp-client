@@ -70,7 +70,7 @@ export const ActiveContest = ({contest}: { contest: Contest }) => {
 
     if (isPending) return <CircularProgress/>;
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>;
+    if (isError) return <ErrorComponent error={error}/>;
 
     return (
         <ListItem>

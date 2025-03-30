@@ -6,10 +6,8 @@ import {
     TableContainer,
     TableHead,
     TablePagination,
-    TableRow,
-    useMediaQuery
+    TableRow
 } from "@mui/material";
-import {useTheme} from "@mui/material/styles";
 import {ContestLeaderboardEntry} from "./ContestLeaderboardEntry";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../../config/useApiWrapper";
@@ -26,8 +24,6 @@ interface Props {
 
 export const ContestLeaderboard = ({contestId}: Props) => {
     const {apiGet} = useApiWrapper();
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [participantEntries, setParticipantEntries] = useState<Participant[]>([]);
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
@@ -48,7 +44,7 @@ export const ContestLeaderboard = ({contestId}: Props) => {
         queryFn: () => fetchParticipantEntries(currentPage, rowsPerPage),
     });
 
-    const handlePageChange = (event: unknown, newPage: number) => {
+    const handlePageChange = (_event: unknown, newPage: number) => {
         fetchParticipantEntries(newPage, rowsPerPage)
             .catch(console.error);
     }
@@ -60,7 +56,7 @@ export const ContestLeaderboard = ({contestId}: Props) => {
 
     if (isPending) return <CircularProgress/>
 
-    if (isError) return <ErrorComponent errorMessage={error.message}/>
+    if (isError) return <ErrorComponent error={error}/>
 
     return (
         <Paper>

@@ -9,7 +9,7 @@ export const ContestLeaderboardEntry = ({entry}: { entry: Participant }) => {
         <TableRow key={entry.username} sx={{height: "4rem"}}>
             <TableCell>{entry.rank}</TableCell>
             <TableCell>
-                <Link to="/users/$userId" params={{userId: entry.username!!}}>
+                <Link to="/users/$username" params={{username: entry.username}}>
                     {entry.username}
                 </Link>
             </TableCell>

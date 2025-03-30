@@ -10,7 +10,7 @@ export default function ParticipantAccordionList({participants, symbol}: Props) 
     return (
         <div>
             {participants.map(((participant, index) =>
-                    <ParticipantAccordion participant={participant} symbol={symbol} index={index}/>
+                    <ParticipantAccordion participant={participant} symbol={symbol} index={index} key={index}/>
             ))}
         </div>
     );
