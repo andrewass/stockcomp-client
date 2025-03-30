@@ -1,16 +1,18 @@
-import {Controller} from "react-hook-form";
+import {Control, Controller, FieldValues, Path, PathValue} from "react-hook-form";
 import {TextField} from "@mui/material";
 
-interface Props {
-    name: string,
-    label: string,
-    control: any,
-    rules?: Record<string, string>,
-    defaultValue?: string | number
-    disabled?: boolean
+interface Props<T extends FieldValues> {
+    name: Path<T>;
+    label: string;
+    control: Control<T>;
+    rules?: Record<string, string>;
+    defaultValue?: PathValue<T, Path<T>>;
+    disabled?: boolean;
 }
 
-export default function ControlledTextField({name, label, control, rules, defaultValue}: Props) {
+export default function ControlledTextField<T extends FieldValues>(
+    {name, label, control, rules, defaultValue}: Props<T>
+) {
     return (
         <Controller
             name={name}

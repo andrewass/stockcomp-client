@@ -19,9 +19,10 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event: any) => {
-        setAnchorEl(event.currentTarget);
+    const handleClick = () => {
+        setAnchorEl(null);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };

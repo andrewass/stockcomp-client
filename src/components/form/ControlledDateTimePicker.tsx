@@ -1,17 +1,19 @@
 import {DateTimePicker} from "@mui/x-date-pickers";
-import {Controller} from "react-hook-form";
+import {Control, Controller, FieldValues, Path} from "react-hook-form";
 
-interface Props {
-    name: string,
+interface Props<T extends FieldValues> {
+    name: Path<T>,
     label: string,
-    control: any,
+    control: Control<T>,
     disabled?: boolean,
     defaultValue?: string
     rules?: Record<string, string>,
 }
 
 
-export default function ControlledDateTimePicker({name, label, control, disabled, defaultValue, rules}: Props) {
+export default function ControlledDateTimePicker<T extends FieldValues>(
+    {name, label, control, disabled, defaultValue, rules}: Props<T>
+) {
     const parsedValue = defaultValue ? new Date(defaultValue) : null;
 
     return (

@@ -1,6 +1,5 @@
 import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
-import React, {useState} from "react";
 import {NavLink} from "react-router";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -12,8 +11,6 @@ export const AdminNavigation = () => {
 
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
-    const [value, setValue] = useState(0);
-
 
     const signOutUser = async () => {
         alert("Sign out user")
@@ -22,7 +19,7 @@ export const AdminNavigation = () => {
     const renderWideNavBar = () => {
         return (
             <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} textColor="secondary" variant="fullWidth" centered>
+                <Tabs value={0} textColor="secondary" variant="fullWidth" centered>
                     <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin"
                          sx={{fontSize: "3rem"}}/>
                     <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin/contests"/>
@@ -31,10 +28,6 @@ export const AdminNavigation = () => {
                 </Tabs>
             </AppBar>
         )
-    }
-
-    const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
-        setValue(newValue);
     }
 
     return (

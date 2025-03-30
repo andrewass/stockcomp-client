@@ -41,7 +41,7 @@ export const InvestmentOrderForm = ({participants, stockPrice, symbol}: Props) =
         defaultValues: {
             symbol: symbol,
             transactionType: "BUY",
-            participantId: participants[0].participant.participantId,
+            participantId: participants[0]!.participant.participantId,
             amount: 1,
             acceptedPrice: stockPrice.currentPrice,
             currency: stockPrice.currency,

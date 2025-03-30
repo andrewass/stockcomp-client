@@ -15,5 +15,5 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "jsx": "react-jsx",
   },
-  "include": ["src/**/*", "custom.d.ts"]
+  "include": ["src/**/*"]
 }

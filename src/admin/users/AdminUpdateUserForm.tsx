@@ -12,7 +12,7 @@ import {getUpdateContestConfig} from "../../domain/contests/contestApi";
 import {UpdateContestRequest} from "../../domain/contests/contestDto";
 
 const style = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',

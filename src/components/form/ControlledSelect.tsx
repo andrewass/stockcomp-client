@@ -1,18 +1,19 @@
-import {Controller} from "react-hook-form";
+import {Control, Controller, FieldValues, Path, PathValue} from "react-hook-form";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import React from "react";
 
-interface Props {
-    name: string;
+interface Props<T extends FieldValues> {
+    name: Path<T>;
     label: string;
-    control: any;
+    control: Control<T>;
     disabled?: boolean;
-    defaultValue?: string;
-    rules?: any;
+    defaultValue?: PathValue<T, Path<T>>;
+    rules?: Record<string, string>;
     items: Record<string, string>
 }
 
-export default function ControlledSelect({name, label, control, defaultValue, items}: Props) {
+export default function ControlledSelect<T extends FieldValues>(
+    {name, label, control, defaultValue, items}: Props<T>
+) {
     return (
         <Controller
             name={name}
