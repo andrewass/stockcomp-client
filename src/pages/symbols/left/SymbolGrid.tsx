@@ -1,5 +1,4 @@
-import {CircularProgress} from "@mui/material";
-import Grid from '@mui/material/Grid2';
+import {CircularProgress, Grid} from "@mui/material";
 import SymbolCard from "./SymbolCard";
 import React from "react";
 import {useApiWrapper} from "../../../config/useApiWrapper";

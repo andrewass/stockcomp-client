@@ -1,7 +1,6 @@
 import {Participant} from "../../../domain/participant/participantTypes";
 import {Contest} from "../../../domain/contests/contestTypes";
-import Grid from "@mui/material/Grid2";
-import {Container, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 
 interface Props {
     participant: Participant,

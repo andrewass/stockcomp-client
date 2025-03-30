@@ -1,6 +1,5 @@
 import {Investment} from "../../../investment/investmentTypes";
-import {Accordion, AccordionDetails, AccordionSummary, List, ListItem, Typography} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import {Accordion, AccordionDetails, AccordionSummary, Grid, List, ListItem, Typography} from "@mui/material";
 
 interface Props {
     investments: Investment[]

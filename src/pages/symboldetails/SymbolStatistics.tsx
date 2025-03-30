@@ -1,5 +1,4 @@
-import {Box, Card, CardContent, Typography} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
 import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
 
 interface Props{
