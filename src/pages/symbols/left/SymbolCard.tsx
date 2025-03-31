@@ -1,5 +1,6 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {StockPrice} from "../../../domain/symbols/symbolTypes";
+import {Link} from "@tanstack/react-router";
 
 const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
 
@@ -40,9 +41,11 @@ const SymbolCard = ({stockQuote}: { stockQuote: StockPrice }) => {
         <Card elevation={0}>
             <CardActionArea>
                 <CardContent>
-                    <Typography variant="h5">
-                        {companyName} ({symbol})
-                    </Typography>
+                    <Link to="/symbols/$symbol" params={{symbol: symbol}} style={{textDecoration: "none"}}>
+                        <Typography variant="h5">
+                            {companyName} ({symbol})
+                        </Typography>
+                    </Link>
 
                     {displayCurrentPrice()}
 

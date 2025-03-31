@@ -1,12 +1,12 @@
 import {useState} from "react";
 import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, styled, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {NavLink} from "react-router";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Link} from "@tanstack/react-router";
 
 
 const StyledItemIcon = styled(ListItemIcon)({
@@ -30,7 +30,7 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography color="secondary" component={NavLink} to="/symbols"
+                <Typography color="secondary" component={Link} to="/symbols"
                             sx={{fontSize: "3rem", marginLeft: "5%"}}>
                     STOCK COMP
                 </Typography>
@@ -39,25 +39,25 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
                         <MenuIcon sx={{fontSize: "3.5rem"}}/>
                     </IconButton>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                        <MenuItem color="primary" component={NavLink} to={"/symbols"} onClick={handleClose}>
+                        <MenuItem color="primary" component={Link} to={"/symbols"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <ShowChartIcon/>
                             </StyledItemIcon>
                             Stocks
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/leaderboard"} onClick={handleClose}>
+                        <MenuItem component={Link} to={"/leaderboard"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <LeaderboardIcon/>
                             </StyledItemIcon>
                             Leaderboard
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/contests"} onClick={handleClose}>
+                        <MenuItem component={Link} to={"/contests"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <EventIcon/>
                             </StyledItemIcon>
                             Contests
                         </MenuItem>
-                        <MenuItem component={NavLink} to={"/account"} onClick={handleClose}>
+                        <MenuItem component={Link} to={"/account"} onClick={handleClose}>
                             <StyledItemIcon>
                                 <AccountCircleIcon/>
                             </StyledItemIcon>

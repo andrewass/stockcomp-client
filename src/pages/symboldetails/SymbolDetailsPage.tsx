@@ -1,4 +1,4 @@
-import {CircularProgress, Stack} from "@mui/material";
+import {Box, CircularProgress, Stack} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {StockFinancials, StockPrice} from "../../domain/symbols/symbolTypes";
@@ -67,8 +67,10 @@ const SymbolDetailsPage = ({symbol}: Props) => {
 
     if (participants.length > 0) {
         return (
-            <Stack direction="column" gap={4} paddingTop="40px">
-                <SearchField/>
+            <Stack direction="column" gap={4}>
+                <Box display="flex" sx={{p: "40px 0", justifyContent: "center"}}>
+                    <SearchField/>
+                </Box>
                 <SymbolStatistics stockFinancials={financials} stockPrice={stockPrice}/>
                 <Stack direction="row">
                     <DetailBlock stockPrice={stockPrice} symbol={symbol!}/>
@@ -79,7 +81,9 @@ const SymbolDetailsPage = ({symbol}: Props) => {
     } else {
         return (
             <Stack direction="column" gap={4}>
-                <SearchField/>
+                <Box display="flex" sx={{p: "40px 0", justifyContent: "center"}}>
+                    <SearchField/>
+                </Box>
                 <SymbolStatistics stockFinancials={financials} stockPrice={stockPrice}/>
                 <DetailBlock stockPrice={stockPrice} symbol={symbol!}/>
             </Stack>

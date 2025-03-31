@@ -9,7 +9,9 @@ const SymbolsPage = () => {
 
     return (
         <Stack direction="column" gap={4}>
-            <SearchField/>
+            <Box display="flex" sx={{p: "40px 0", justifyContent: "center"}}>
+                <SearchField/>
+            </Box>
             <Stack direction="row" gap={8}>
                 <Box width="70%">
                     <SymbolGrid/>
