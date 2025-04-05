@@ -10,14 +10,14 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import {LeaderboardEntry, LeaderboardEntryPage} from "./leaderboardTypes";
-import LeaderboardEntryRow from "./LeaderboardEntryRow";
-import {StyledTableCell} from "../styles/components/StyledTableCell";
-import {ChangeEvent, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {useApiWrapper} from "../config/useApiWrapper";
-import {GET_SORTED_LEADERBOARD_ENTRIES, getSortedLeaderboardEntriesConfig} from "./api/leaderboardApi";
-import ErrorComponent from "../error/ErrorComponent";
+import {ChangeEvent, useState} from 'react';
+import {LeaderboardEntry, LeaderboardEntryPage} from '../../leaderboard/leaderboardTypes';
+import {useApiWrapper} from '../../config/useApiWrapper';
+import {useQuery} from '@tanstack/react-query';
+import {GET_SORTED_LEADERBOARD_ENTRIES, getSortedLeaderboardEntriesConfig} from '../../leaderboard/api/leaderboardApi';
+import ErrorComponent from '../../error/ErrorComponent';
+import {StyledTableCell} from '../../styles/components/StyledTableCell';
+import LeaderboardEntryRow from './LeaderboardEntryRow';
 
 
 export const LeaderboardTable = () => {

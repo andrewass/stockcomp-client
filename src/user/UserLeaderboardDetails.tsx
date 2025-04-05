@@ -1,5 +1,4 @@
 import {Box, Card, CardContent, CircularProgress, Typography} from "@mui/material";
-import {useParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
 import {GET_LEADERBOARD_USER_ENTRY, getLeaderboardEntryUserConfig} from "../leaderboard/api/leaderboardApi";
 import {useApiWrapper} from "../config/useApiWrapper";
@@ -7,9 +6,11 @@ import ErrorComponent from "../error/ErrorComponent";
 import {ParticipantHistory} from "../participant/ParticipantHistory";
 import {LeaderboardEntry} from "../leaderboard/leaderboardTypes";
 
+interface Props {
+    username: string
+}
 
-export const UserLeaderboardDetails = () => {
-    const {username} = useParams<{ username: string }>()
+export const UserLeaderboardDetails = ({username}: Props) => {
     const {apiGet} = useApiWrapper();
 
     const {isPending, isError, error, data} = useQuery<LeaderboardEntry>({

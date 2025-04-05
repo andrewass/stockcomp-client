@@ -1,11 +1,8 @@
 import {Box, Grid, TableCell, TableRow} from "@mui/material";
 import ReactCountryFlag from "react-country-flag";
-import {LeaderboardEntry, Medal, MedalValue} from "./leaderboardTypes";
-import goldMedal from "../icons/gold-medal.svg";
-import silverMedal from "../icons/silver-medal.svg";
-import bronzeMedal from "../icons/bronze-medal.svg";
 import {Link} from "@tanstack/react-router";
-
+import {LeaderboardEntry, Medal, MedalValue} from "../../leaderboard/leaderboardTypes";
+import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
 
 const LeaderboardEntryRow = ({entry}: { entry: LeaderboardEntry }) => {
 
@@ -19,28 +16,13 @@ const LeaderboardEntryRow = ({entry}: { entry: LeaderboardEntry }) => {
                 <Box sx={{width: "70px"}}>
                     <Grid container rowSpacing={1} columnSpacing={2}>
                         <Grid size={4}>
-                            <Box
-                                component="img"
-                                sx={{height: 30, width: 40}}
-                                alt="Gold medal"
-                                src={goldMedal}
-                            />
+                            <BronzeMedalIcon/>
                         </Grid>
                         <Grid size={4}>
-                            <Box
-                                component="img"
-                                sx={{height: 30, width: 40}}
-                                alt="Silver medal"
-                                src={silverMedal}
-                            />
+                            <BronzeMedalIcon/>
                         </Grid>
                         <Grid size={4}>
-                            <Box
-                                component="img"
-                                sx={{height: 30, width: 40}}
-                                alt="Bronze medal"
-                                src={bronzeMedal}
-                            />
+                            <BronzeMedalIcon/>
                         </Grid>
                         <Grid size={4}>
                             <p>{getMedalCount(MedalValue.Gold, medals)}</p>
@@ -63,7 +45,7 @@ const LeaderboardEntryRow = ({entry}: { entry: LeaderboardEntry }) => {
         <TableRow key={entry.displayName}>
             <TableCell>{entry.ranking}</TableCell>
             <TableCell>
-                <Link style={{textDecoration: "none", color: "black"}} to={`/user/${entry.displayName}`}>
+                <Link to="/users/$username" params={{username: entry.displayName}}>
                     {entry.displayName}
                 </Link>
             </TableCell>

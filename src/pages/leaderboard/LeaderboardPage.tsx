@@ -1,7 +1,7 @@
 import {LeaderboardTable} from "./LeaderboardTable";
 
 
-export const Leaderboard = () => {
+export const LeaderboardPage = () => {
 
     return (
         <>
