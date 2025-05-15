@@ -1,11 +1,11 @@
 import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
-import {NavLink} from "react-router";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DropDownMenu from "../default/DropDownMenu";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {Link} from "@tanstack/react-router";
 
 export const AdminNavigation = () => {
 
@@ -20,10 +20,10 @@ export const AdminNavigation = () => {
         return (
             <AppBar position="static">
                 <Tabs value={0} textColor="secondary" variant="fullWidth" centered>
-                    <Tab label="STOCK COMP ADMIN" color="secondary" component={NavLink} to="/admin"
+                    <Tab label="STOCK COMP ADMIN" color="secondary" component={Link} to="/admin"
                          sx={{fontSize: "3rem"}}/>
-                    <Tab label="CONTESTS" icon={<EventIcon/>} component={NavLink} to="/admin/contests"/>
-                    <Tab label="USERS" icon={<AccountCircleIcon/>} component={NavLink} to="/admin/users"/>
+                    <Tab label="CONTESTS" icon={<EventIcon/>} component={Link} to="/admin/contests"/>
+                    <Tab label="USERS" icon={<AccountCircleIcon/>} component={Link} to="/admin/users"/>
                     <Tab label="SIGN OUT" icon={<LogoutIcon/>} component={Button} onClick={signOutUser}/>
                 </Tabs>
             </AppBar>
