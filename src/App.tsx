@@ -8,14 +8,28 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import React from "react";
 import {routeTree} from "./routeTree.gen";
 import {lightTheme} from "../themes";
+import {AuthProvider, useAuth} from "./auth/Auth";
 
 
-const router = createRouter({routeTree})
+const router = createRouter({
+    routeTree,
+    context: {
+        auth: undefined!
+    },
+});
 
 declare module "@tanstack/react-router" {
     interface Register {
         router: typeof router
     }
+}
+
+
+function InnerApp(){
+    const auth = useAuth();
+    return(
+        <RouterProvider router={router} context={{auth}}/>
+    )
 }
 
 export default function App() {
@@ -25,7 +39,9 @@ export default function App() {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <QueryClientProvider client={queryClient}>
                     <CssBaseline>
-                        <RouterProvider router={router}/>
+                        <AuthProvider>
+                            <InnerApp/>
+                        </AuthProvider>
                     </CssBaseline>
                     <ReactQueryDevtools initialIsOpen={false}/>
                 </QueryClientProvider>
