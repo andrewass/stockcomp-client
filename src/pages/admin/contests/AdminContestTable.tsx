@@ -5,15 +5,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {AdminContestRow} from "./AdminContestRow";
-import {StyledTableCell} from "../../styles/components/StyledTableCell";
 import {useQuery} from "@tanstack/react-query";
 import {ChangeEvent, useState} from "react";
 import {Box, CircularProgress, TablePagination} from "@mui/material";
-import ErrorComponent from "../../error/ErrorComponent";
-import {useApiWrapper} from "../../config/useApiWrapper";
-import {Contest, ContestPage} from "../../domain/contests/contestTypes";
-import {GET_ALL_CONTESTS, getAllContestsConfig} from "../../domain/contests/contestApi";
-
+import {useApiWrapper} from '../../../config/useApiWrapper';
+import {Contest, ContestPage} from '../../../domain/contests/contestTypes';
+import {GET_ALL_CONTESTS, getAllContestsConfig} from '../../../domain/contests/contestApi';
+import ErrorComponent from '../../../error/ErrorComponent';
+import {StyledTableCell} from "../../../styles/components/StyledTableCell";
 
 export const AdminContestTable = () => {
     const {apiGet} = useApiWrapper();

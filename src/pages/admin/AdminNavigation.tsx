@@ -2,10 +2,10 @@ import {useTheme} from "@mui/material/styles";
 import {AppBar, Button, Tab, Tabs, ThemeProvider, useMediaQuery} from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";
 import LogoutIcon from "@mui/icons-material/Logout";
-import DropDownMenu from "../default/DropDownMenu";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {Link} from "@tanstack/react-router";
+import DropDownMenu from "../../navigation/default/DropDownMenu";
 
 export const AdminNavigation = () => {
 

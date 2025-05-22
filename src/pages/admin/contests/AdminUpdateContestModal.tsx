@@ -4,14 +4,14 @@ import {Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack} fr
 import Button from "@mui/material/Button";
 import React, {useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import {useApiWrapper} from "../../config/useApiWrapper";
-import {queryClient} from "../../config/queryConfig";
-import {Contest, CONTEST_STATUS, contestStatusRecord} from "../../domain/contests/contestTypes";
-import {GET_ALL_CONTESTS, getUpdateContestConfig} from "../../domain/contests/contestApi";
-import ControlledDateTimePicker from "../../components/form/ControlledDateTimePicker";
-import ControlledTextField from "../../components/form/ControlledTextField";
-import ControlledSelect from "../../components/form/ControlledSelect";
-import {UpdateContestRequest} from "../../domain/contests/contestDto";
+import {Contest, CONTEST_STATUS, contestStatusRecord} from "../../../domain/contests/contestTypes";
+import { UpdateContestRequest } from "../../../domain/contests/contestDto";
+import { useApiWrapper } from "../../../config/useApiWrapper";
+import {GET_ALL_CONTESTS, getUpdateContestConfig } from "../../../domain/contests/contestApi";
+import {queryClient} from "../../../config/queryConfig";
+import ControlledTextField from "../../../components/form/ControlledTextField";
+import ControlledSelect from "../../../components/form/ControlledSelect";
+import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
 
 
 export const AdminUpdateContestModal = ({contest}: { contest: Contest }) => {

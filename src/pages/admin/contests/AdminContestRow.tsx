@@ -4,14 +4,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {IconButton} from "@mui/material";
 import {useMutation} from "@tanstack/react-query";
 import {AdminUpdateContestModal} from "./AdminUpdateContestModal";
-import {useApiWrapper} from "../../config/useApiWrapper";
-import {queryClient} from "../../config/queryConfig";
-import {
-    Contest,
-    CONTEST_STATUS,
-    contestStatusRecord
-} from "../../domain/contests/contestTypes";
-import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../domain/contests/contestApi";
+import {Contest, CONTEST_STATUS, contestStatusRecord} from "../../../domain/contests/contestTypes";
+import {useApiWrapper} from "../../../config/useApiWrapper";
+import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../../domain/contests/contestApi";
+import {queryClient} from "../../../config/queryConfig";
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
