@@ -8,6 +8,7 @@ import {Contest, CONTEST_STATUS, contestStatusRecord} from "../../../domain/cont
 import {useApiWrapper} from "../../../config/useApiWrapper";
 import {GET_ALL_CONTESTS, getDeleteContestConfig} from "../../../domain/contests/contestApi";
 import {queryClient} from "../../../config/queryConfig";
+import {formatDate} from "../../../util/dateUtils";
 
 
 export const AdminContestRow = ({contest}: { contest: Contest }) => {
@@ -23,7 +24,7 @@ export const AdminContestRow = ({contest}: { contest: Contest }) => {
     return (
         <TableRow key={contest.contestId}>
             <TableCell>{contest.contestName}</TableCell>
-            <TableCell>{contest.startTime}</TableCell>
+            <TableCell>{formatDate(contest.startTime)}</TableCell>
             <TableCell>
                 {contestStatusRecord[contest.contestStatus]}
             </TableCell>
