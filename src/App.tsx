@@ -2,13 +2,13 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFnsV3";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./config/queryConfig";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {CssBaseline} from "@mui/material";
 import {createRouter, RouterProvider} from "@tanstack/react-router";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import React from "react";
 import {routeTree} from "./routeTree.gen";
-import {lightTheme} from "../themes";
 import {AuthProvider, useAuth} from "./auth/Auth";
+import {AppThemeProvider} from "./theme/AppThemeContext";
 
 
 const router = createRouter({
@@ -35,7 +35,7 @@ function InnerApp(){
 export default function App() {
 
     return (
-        <ThemeProvider theme={lightTheme}>
+        <AppThemeProvider>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <QueryClientProvider client={queryClient}>
                     <CssBaseline>
@@ -46,6 +46,6 @@ export default function App() {
                     <ReactQueryDevtools initialIsOpen={false}/>
                 </QueryClientProvider>
             </LocalizationProvider>
-        </ThemeProvider>
+        </AppThemeProvider>
     );
 }

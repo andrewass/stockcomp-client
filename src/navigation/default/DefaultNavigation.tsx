@@ -5,9 +5,10 @@ import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {getLogOutConfig} from "../../auth/api/authApi";
 import {Link} from "@tanstack/react-router";
+import {useThemeContext} from "../../theme/AppThemeContext";
 
 export const DefaultNavigation = () => {
-
+    const {toggleTheme} = useThemeContext();
     const theme = useTheme();
     const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
     const {apiPost} = useApiWrapper();
@@ -38,7 +39,8 @@ export const DefaultNavigation = () => {
                                     Account
                                 </Button>
                             </Stack>
-                            <Stack>
+                            <Stack direction="row">
+                                <Button sx={{color: "white"}} onClick={toggleTheme} >Toggle Theme</Button>
                                 <Button sx={{color: "white"}} onClick={signOutUser}>
                                     Logout
                                 </Button>
