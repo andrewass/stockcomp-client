@@ -1,4 +1,5 @@
 import {createTheme, responsiveFontSizes, Theme, TypographyVariantsOptions} from '@mui/material/styles';
+import {styledTableCell} from "./tableTheme";
 
 const baseTypography: TypographyVariantsOptions = {
     fontFamily: 'Open Sans", Arial, sans-serif',
@@ -16,22 +17,6 @@ const baseTypography: TypographyVariantsOptions = {
 };
 
 const baseComponents = {
-    MuiTypography: {
-        styleOverrides: {
-            root: {
-                textDecoration: "none",
-                fontFamily: "'Roboto', sans-serif"
-            }
-        }
-    },
-    MuiSvgIcon: {
-        styleOverrides: {
-            root: {
-                fontSize: "2.5rem",
-                color: "#fff"
-            }
-        }
-    },
     MuiTab: {
         styleOverrides: {
             root: {
@@ -49,14 +34,7 @@ const baseComponents = {
             selected: {}
         }
     },
-    MuiPaper: {
-        styleOverrides: {
-            root: {
-                padding: "8px 16px",
-                boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.25)"
-            }
-        }
-    },
+    MuiTableCell: styledTableCell
 }
 
 export const lightTheme: Theme = responsiveFontSizes(createTheme({

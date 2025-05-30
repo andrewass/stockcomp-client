@@ -3,12 +3,11 @@ import {
     Paper,
     Table,
     TableBody,
+    TableCell,
     TableContainer,
     TableHead,
     TablePagination,
     TableRow,
-    useMediaQuery,
-    useTheme,
 } from '@mui/material';
 import {ChangeEvent, useState} from 'react';
 import {LeaderboardEntry, LeaderboardEntryPage} from '../../leaderboard/leaderboardTypes';
@@ -16,13 +15,10 @@ import {useApiWrapper} from '../../config/useApiWrapper';
 import {useQuery} from '@tanstack/react-query';
 import {GET_SORTED_LEADERBOARD_ENTRIES, getSortedLeaderboardEntriesConfig} from '../../leaderboard/api/leaderboardApi';
 import ErrorComponent from '../../error/ErrorComponent';
-import {StyledTableCell} from '../../styles/components/StyledTableCell';
 import LeaderboardEntryRow from './LeaderboardEntryRow';
 
 
 export const LeaderboardTable = () => {
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [leaderboardEntries, setLeaderboardEntries] = useState<LeaderboardEntry[]>([]);
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
@@ -59,16 +55,16 @@ export const LeaderboardTable = () => {
     if (isError) return <ErrorComponent error={error}/>
 
     return (
-        <Paper sx={{width: isLargeWidth ? "60%" : "95%", m: "0 auto", mt: "10%"}}>
+        <Paper>
             <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Ranking</StyledTableCell>
-                            <StyledTableCell>Username</StyledTableCell>
-                            <StyledTableCell>Country</StyledTableCell>
-                            <StyledTableCell>Score</StyledTableCell>
-                            <StyledTableCell>Medals</StyledTableCell>
+                            <TableCell>Ranking</TableCell>
+                            <TableCell>Username</TableCell>
+                            <TableCell>Country</TableCell>
+                            <TableCell>Score</TableCell>
+                            <TableCell>Medals</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

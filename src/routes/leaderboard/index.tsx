@@ -1,6 +1,6 @@
 import {createFileRoute} from "@tanstack/react-router";
 import {DefaultLayout} from "../../DefaultLayout";
-import {LeaderboardPage} from "../../pages/leaderboard/LeaderboardPage";
+import LeaderboardPage from "../../pages/leaderboard/LeaderboardPage";
 import {CLIENT_BACKEND_BASE_URL} from "../../config/properties";
 
 

@@ -11,7 +11,7 @@ export function DefaultLayout({children}: Props) {
     return (
         <Box>
             <DefaultNavigation/>
-            <Container sx={{backgroundColor: "yellow", mt: "100px"}} maxWidth="xl">
+            <Container sx={{backgroundColor: "purple", mt: "100px"}} maxWidth="xl">
                 {children}
             </Container>
         </Box>

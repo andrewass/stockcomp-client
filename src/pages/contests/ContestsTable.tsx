@@ -6,10 +6,8 @@ import {
     TableContainer,
     TableHead,
     TablePagination,
-    TableRow,
-    useMediaQuery
+    TableRow
 } from "@mui/material";
-import {useTheme} from '@mui/material/styles';
 import {ContestEntry} from "./ContestEntry";
 import {Contest} from "../../domain/contests/contestTypes";
 import {ChangeEvent} from "react";
@@ -24,20 +22,16 @@ interface Props {
     handleChangeRowsPerPage: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const ContestsTable = ({
+export default function ContestsTable({
                                   contests,
                                   totalEntriesCount,
                                   currentPage,
                                   rowsPerPage,
                                   handlePageChange,
                                   handleChangeRowsPerPage
-                              }: Props) => {
-    const theme = useTheme();
-    const isLargeWidth = useMediaQuery(theme.breakpoints.up("md"));
-
-
+                              }: Props){
     return (
-        <Paper sx={{width: isLargeWidth ? "1200px" : "400px"}}>
+        <Paper>
             <TableContainer>
                 <Table stickyHeader>
                     <TableHead>

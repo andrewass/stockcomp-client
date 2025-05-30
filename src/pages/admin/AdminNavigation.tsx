@@ -5,7 +5,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {Link} from "@tanstack/react-router";
-import DropDownMenu from "../../navigation/default/DropDownMenu";
+import DropDownNavigationDefault from "../../navigation/default/DropDownNavigationDefault";
 
 export const AdminNavigation = () => {
 
@@ -32,7 +32,7 @@ export const AdminNavigation = () => {
 
     return (
         <ThemeProvider theme={navigationBarTheme}>
-            {isLargeWidth ? renderWideNavBar() : <DropDownMenu signOutUser={signOutUser}/>}
+            {isLargeWidth ? renderWideNavBar() : <DropDownNavigationDefault signOutUser={signOutUser}/>}
         </ThemeProvider>
     );
 };

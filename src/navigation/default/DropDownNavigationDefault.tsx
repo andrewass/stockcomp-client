@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {AppBar, Box, IconButton, ListItemIcon, Menu, MenuItem, styled, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
@@ -9,12 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Link} from "@tanstack/react-router";
 
 
-const StyledItemIcon = styled(ListItemIcon)({
-    marginRight: "0.5rem"
-});
-
-
-const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
+const DropDownNavigationDefault = ({signOutUser}: { signOutUser: () => void }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -28,10 +23,10 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" sx={{height: "100px"}}>
             <Toolbar>
                 <Typography color="secondary" component={Link} to="/symbols"
-                            sx={{fontSize: "3rem", marginLeft: "5%"}}>
+                            sx={{fontSize: "3rem", paddingLeft: "5%"}}>
                     STOCK COMP
                 </Typography>
                 <Box sx={{marginLeft: "auto", marginRight: "5%"}}>
@@ -40,33 +35,23 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
                     </IconButton>
                     <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                         <MenuItem color="primary" component={Link} to={"/symbols"} onClick={handleClose}>
-                            <StyledItemIcon>
-                                <ShowChartIcon/>
-                            </StyledItemIcon>
+                            <ShowChartIcon/>
                             Stocks
                         </MenuItem>
                         <MenuItem component={Link} to={"/leaderboard"} onClick={handleClose}>
-                            <StyledItemIcon>
-                                <LeaderboardIcon/>
-                            </StyledItemIcon>
+                            <LeaderboardIcon/>
                             Leaderboard
                         </MenuItem>
                         <MenuItem component={Link} to={"/contests"} onClick={handleClose}>
-                            <StyledItemIcon>
-                                <EventIcon/>
-                            </StyledItemIcon>
+                            <EventIcon/>
                             Contests
                         </MenuItem>
                         <MenuItem component={Link} to={"/account"} onClick={handleClose}>
-                            <StyledItemIcon>
-                                <AccountCircleIcon/>
-                            </StyledItemIcon>
+                            <AccountCircleIcon/>
                             Account
                         </MenuItem>
                         <MenuItem onClick={signOutUser}>
-                            <StyledItemIcon>
-                                <LogoutIcon/>
-                            </StyledItemIcon>
+                            <LogoutIcon/>
                             Sign Out
                         </MenuItem>
                     </Menu>
@@ -76,4 +61,4 @@ const DropDownMenu = ({signOutUser}: { signOutUser: () => void }) => {
     )
 }
 
-export default DropDownMenu;
+export default DropDownNavigationDefault;

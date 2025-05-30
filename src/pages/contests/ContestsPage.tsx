@@ -1,4 +1,4 @@
-import {ContestsTable} from "./ContestsTable";
+import ContestsTable from "./ContestsTable";
 import {useQuery} from "@tanstack/react-query";
 import {ChangeEvent, useState} from "react";
 import {CircularProgress, Container} from "@mui/material";

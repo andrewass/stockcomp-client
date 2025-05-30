@@ -1,7 +1,6 @@
-import {AppBar, Box, Button, Stack, ThemeProvider, Toolbar, Typography, useMediaQuery} from "@mui/material";
-import DropDownMenu from "./DropDownMenu";
+import {AppBar, Box, Button, Stack, Toolbar, Typography, useMediaQuery} from "@mui/material";
+import DropDownNavigationDefault from "./DropDownNavigationDefault";
 import {useTheme} from "@mui/material/styles";
-import {navigationBarTheme} from "../../styles/theme/navigationBarTheme";
 import {useApiWrapper} from "../../config/useApiWrapper";
 import {getLogOutConfig} from "../../auth/api/authApi";
 import {Link} from "@tanstack/react-router";
@@ -18,7 +17,7 @@ export const DefaultNavigation = () => {
         window.location.reload();
     };
 
-    const renderWideNavBar = () => {
+    const renderWideNavigationBar = () => {
         return (
             <AppBar position="fixed" component="nav" sx={{height: "100px"}}>
                 <Toolbar>
@@ -52,9 +51,5 @@ export const DefaultNavigation = () => {
         );
     }
 
-    return (
-        <ThemeProvider theme={navigationBarTheme}>
-            {isLargeWidth ? renderWideNavBar() : <DropDownMenu signOutUser={signOutUser}/>}
-        </ThemeProvider>
-    );
+    return (isLargeWidth ? renderWideNavigationBar() : <DropDownNavigationDefault signOutUser={signOutUser}/>);
 };
