@@ -1,6 +1,7 @@
 import {Box, Container} from "@mui/material";
 import {ReactNode} from "react";
 import {DefaultNavigation} from "./navigation/default/DefaultNavigation";
+import {useThemeContext} from "./theme/AppThemeContext";
 
 
 interface Props {
@@ -8,10 +9,12 @@ interface Props {
 }
 
 export function DefaultLayout({children}: Props) {
+    const {appTheme} = useThemeContext();
+
     return (
-        <Box>
+        <Box sx={{minHeight: '100vh', backgroundColor: appTheme.palette.background.default}} >
             <DefaultNavigation/>
-            <Container sx={{backgroundColor: "purple", mt: "100px"}} maxWidth="xl">
+            <Container sx={{mt: "100px"}} maxWidth="xl">
                 {children}
             </Container>
         </Box>

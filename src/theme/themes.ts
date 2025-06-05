@@ -1,5 +1,6 @@
 import {createTheme, responsiveFontSizes, Theme, TypographyVariantsOptions} from '@mui/material/styles';
 import {styledTableCell} from "./tableTheme";
+import {grey} from "@mui/material/colors";
 
 const baseTypography: TypographyVariantsOptions = {
     fontFamily: 'Open Sans", Arial, sans-serif',
@@ -17,23 +18,6 @@ const baseTypography: TypographyVariantsOptions = {
 };
 
 const baseComponents = {
-    MuiTab: {
-        styleOverrides: {
-            root: {
-                fontWeight: "600",
-                fontSize: "1.1rem",
-                margin: "0 0",
-                color: "#fff",
-                "&$selected": {
-                    backgroundColor: "#0d47a1"
-                },
-                "&:hover": {
-                    backgroundColor: "#1976d2"
-                }
-            },
-            selected: {}
-        }
-    },
     MuiTableCell: styledTableCell
 }
 
@@ -41,16 +25,8 @@ export const lightTheme: Theme = responsiveFontSizes(createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#1976d2',
-        },
-        background: {
-            default: '#fff',
-            paper: '#f5f5f5',
-        },
-        text: {
-            primary: '#000',
-            secondary: '#555',
-        },
+            main: '#000000'
+        }
     },
     typography: baseTypography,
     components: baseComponents,
@@ -59,17 +35,13 @@ export const lightTheme: Theme = responsiveFontSizes(createTheme({
 export const darkTheme: Theme = responsiveFontSizes(createTheme({
     palette: {
         mode: 'dark',
-        primary: {
-            main: '#90caf9',
-        },
         background: {
-            default: '#121212',
-            paper: '#1d1d1d',
+            default: grey[800],
+            paper: '#000000',
         },
-        text: {
-            primary: '#fff',
-            secondary: '#bbb',
-        },
+        primary: {
+            main: '#000000'
+        }
     },
     typography: baseTypography,
     components: baseComponents
