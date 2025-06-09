@@ -1,4 +1,5 @@
-import {Link} from "@tanstack/react-router";
+import {createLink} from "@tanstack/react-router";
+import {Link as MUILink} from "@mui/material";
 import {Button} from "@mui/material";
 import {ReactNode} from "react";
 
@@ -8,10 +9,12 @@ interface Props {
     startIcon: ReactNode
 }
 
+const CustomLink = createLink(MUILink);
+
 export default function NavigationButton({to, text, startIcon}: Props) {
     return (
         <Button
-            component={Link}
+            component={CustomLink}
             to={to}
             startIcon={startIcon}
             size="large"
