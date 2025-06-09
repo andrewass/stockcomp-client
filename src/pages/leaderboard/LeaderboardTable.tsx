@@ -68,9 +68,16 @@ export const LeaderboardTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {leaderboardEntries.map((entry) => (
-                            <LeaderboardEntryRow entry={entry} key={entry.displayName}/>
-                        ))}
+                        {leaderboardEntries.length > 0 ? (
+                                leaderboardEntries.map((entry) => (
+                                    <LeaderboardEntryRow entry={entry} key={entry.displayName}/>
+                                )))
+                            : (
+                                <TableRow>
+                                    <TableCell align="center" colSpan={5}>No entries found</TableCell>
+                                </TableRow>
+                            )
+                        }
                     </TableBody>
                 </Table>
             </TableContainer>

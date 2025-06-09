@@ -3,17 +3,17 @@ import {styledTableCell} from "./tableTheme";
 import {grey} from "@mui/material/colors";
 
 const baseTypography: TypographyVariantsOptions = {
-    fontFamily: 'Open Sans", Arial, sans-serif',
+    fontFamily: "Open Sans, Arial, sans-serif",
     h1: {
-        fontSize: '5rem',
+        fontSize: 5,
         fontWeight: 700,
     },
     body1: {
-        fontSize: '1rem',
+        fontSize: 1.5,
     },
     button: {
-        fontSize: '0.875rem',
-        textTransform: 'none',
+        fontSize: 2,
+        textTransform: "none",
     },
 };
 
