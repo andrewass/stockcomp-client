@@ -27,6 +27,9 @@ export const useApiWrapper = () => {
                     body: JSON.stringify(config.body),
                 }
             )
+            if (response.status === 204) {
+                return null
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

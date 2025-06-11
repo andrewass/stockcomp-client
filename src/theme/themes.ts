@@ -1,6 +1,7 @@
 import {createTheme, responsiveFontSizes, Theme, TypographyVariantsOptions} from '@mui/material/styles';
 import {styledTableCell} from "./tableTheme";
 import {grey} from "@mui/material/colors";
+import {styledLink} from "./linkTheme";
 
 const baseTypography: TypographyVariantsOptions = {
     fontFamily: "Open Sans, Arial, sans-serif",
@@ -18,7 +19,8 @@ const baseTypography: TypographyVariantsOptions = {
 };
 
 const baseComponents = {
-    MuiTableCell: styledTableCell
+    MuiTableCell: styledTableCell,
+    MuiLink: styledLink
 }
 
 export const lightTheme: Theme = responsiveFontSizes(createTheme({

@@ -31,7 +31,7 @@ export default function ContestPage({contestId}: Props) {
         isError: isParticipantError,
         error: participantError,
         data: participant
-    } = useQuery<DetailedParticipant>({
+    } = useQuery<DetailedParticipant | null>({
         queryKey: [GET_PARTICIPANT_CONTEST, contestId],
         queryFn: () => apiGet(getDetailedParticipantForContestConfig(Number(contestId))),
     });

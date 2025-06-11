@@ -1,18 +1,19 @@
-import {Box, TableCell, TableRow, Typography} from "@mui/material";
+import {Box, Link as MUILink, TableCell, TableRow, Typography} from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, contestStatusRecord, getStatusByColor} from "../../domain/contests/contestTypes";
 import {formatDate} from "../../util/dateUtils";
-import {Link} from "@tanstack/react-router";
+import {createLink} from "@tanstack/react-router";
 
+const CustomLink = createLink(MUILink);
 
 export const ContestEntry = ({contest}: { contest: Contest }) => {
 
     return (
         <TableRow key={contest.contestId}>
             <TableCell>
-                <Link to="/contests/$contestId" params={{contestId: contest.contestId.toString()}}>
+                <CustomLink to="/contests/$contestId" params={{contestId: contest.contestId.toString()}}>
                     {contest.contestName}
-                </Link>
+                </CustomLink>
             </TableCell>
             <TableCell>
                 <Box display="flex" flexDirection="row">
