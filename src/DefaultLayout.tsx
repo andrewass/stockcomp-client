@@ -14,6 +14,7 @@ export function DefaultLayout({children}: Props) {
     return (
         <Box sx={{minHeight: '100vh', backgroundColor: appTheme.palette.background.default}} >
             <DefaultNavigation/>
+            <Box sx={{width: "100%", height: "120px", backgroundColor : appTheme.palette.secondary.main}}/>
             <Container sx={{mt: "100px"}} maxWidth="xl">
                 {children}
             </Container>

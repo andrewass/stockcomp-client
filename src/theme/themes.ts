@@ -1,6 +1,5 @@
 import {createTheme, responsiveFontSizes, Theme, TypographyVariantsOptions} from '@mui/material/styles';
 import {styledTableCell} from "./tableTheme";
-import {grey} from "@mui/material/colors";
 import {styledLink} from "./linkTheme";
 
 const baseTypography: TypographyVariantsOptions = {
@@ -20,15 +19,28 @@ const baseTypography: TypographyVariantsOptions = {
 
 const baseComponents = {
     MuiTableCell: styledTableCell,
-    MuiLink: styledLink
+    MuiLink: styledLink,
 }
 
 export const lightTheme: Theme = responsiveFontSizes(createTheme({
     palette: {
-        mode: 'light',
+        mode: "light",
         primary: {
-            main: '#000000'
-        }
+            main: "#ffffff",
+            contrastText: "#000000",
+        },
+        secondary: {
+            main: "#c3c3c3",
+            contrastText: "#ffffff",
+        },
+        background: {
+            default: "#fafafa",
+            paper: "#ffa500",
+        },
+        text: {
+            primary: "#212121",
+            secondary: "#616161",
+        },
     },
     typography: baseTypography,
     components: baseComponents,
@@ -37,13 +49,22 @@ export const lightTheme: Theme = responsiveFontSizes(createTheme({
 export const darkTheme: Theme = responsiveFontSizes(createTheme({
     palette: {
         mode: 'dark',
-        background: {
-            default: grey[800],
-            paper: '#000000',
-        },
         primary: {
-            main: '#000000'
-        }
+            main: '#100f0f',
+            contrastText: '#ffffff',
+        },
+        secondary: {
+            main: '#4c4747',
+            contrastText: '#000000',
+        },
+        background: {
+            default: "#100f0f",
+            paper: "#f61a1a",
+        },
+        text: {
+            primary: "#ffffff",
+            secondary: "#e0e0e0",
+        },
     },
     typography: baseTypography,
     components: baseComponents
