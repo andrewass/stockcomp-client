@@ -1,6 +1,6 @@
 import {
+    Box,
     CircularProgress,
-    Paper,
     Table,
     TableBody,
     TableCell,
@@ -16,6 +16,8 @@ import {useQuery} from '@tanstack/react-query';
 import {GET_SORTED_LEADERBOARD_ENTRIES, getSortedLeaderboardEntriesConfig} from '../../leaderboard/api/leaderboardApi';
 import ErrorComponent from '../../error/ErrorComponent';
 import LeaderboardEntryRow from './LeaderboardEntryRow';
+import {lightTheme} from "../../theme/themes";
+import {useThemeContext} from "../../theme/AppThemeContext";
 
 
 export const LeaderboardTable = () => {
@@ -24,6 +26,7 @@ export const LeaderboardTable = () => {
     const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = useState<number>(10);
     const {apiGet} = useApiWrapper();
+    const {appTheme} = useThemeContext();
 
     const {isError, error, isPending} = useQuery<LeaderboardEntryPage>({
         queryKey: [GET_SORTED_LEADERBOARD_ENTRIES],
@@ -55,16 +58,17 @@ export const LeaderboardTable = () => {
     if (isError) return <ErrorComponent error={error}/>
 
     return (
-        <Paper>
+        <Box sx={{border: "4px solid", borderColor: "divider", borderRadius: 2}}>
             <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Ranking</TableCell>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Country</TableCell>
-                            <TableCell>Score</TableCell>
-                            <TableCell>Medals</TableCell>
+                            {["Rank", "Username", "Country", "Score", "Medals"].map(header =>
+                                <TableCell key={header}
+                                           sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.secondary.main : appTheme.palette.primary.main}} >
+                                    {header}
+                                </TableCell>
+                            )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -82,11 +86,12 @@ export const LeaderboardTable = () => {
                 </Table>
             </TableContainer>
             <TablePagination
+                sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.secondary.main : appTheme.palette.primary.main}}
                 component="div" count={totalEntriesCount}
                 page={currentPage} rowsPerPageOptions={[1, 5, 10, 25]}
                 rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+        </Box>
     );
 }

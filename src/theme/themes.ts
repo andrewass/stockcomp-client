@@ -30,11 +30,11 @@ export const lightTheme: Theme = responsiveFontSizes(createTheme({
             contrastText: "#000000",
         },
         secondary: {
-            main: "#c3c3c3",
+            main: "#ddd6d6",
             contrastText: "#ffffff",
         },
         background: {
-            default: "#fafafa",
+            default: "#ffffff",
             paper: "#ffa500",
         },
         text: {
@@ -54,7 +54,7 @@ export const darkTheme: Theme = responsiveFontSizes(createTheme({
             contrastText: '#ffffff',
         },
         secondary: {
-            main: '#4c4747',
+            main: '#1c1919',
             contrastText: '#000000',
         },
         background: {

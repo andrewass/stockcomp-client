@@ -3,13 +3,17 @@ import CircleIcon from "@mui/icons-material/Circle";
 import {Contest, contestStatusRecord, getStatusByColor} from "../../domain/contests/contestTypes";
 import {formatDate} from "../../util/dateUtils";
 import {createLink} from "@tanstack/react-router";
+import {useThemeContext} from "../../theme/AppThemeContext";
+import {lightTheme} from "../../theme/themes";
 
 const CustomLink = createLink(MUILink);
 
 export const ContestEntry = ({contest}: { contest: Contest }) => {
+    const {appTheme} = useThemeContext();
 
     return (
-        <TableRow key={contest.contestId}>
+        <TableRow key={contest.contestId}
+                  sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.primary.main : appTheme.palette.secondary.main}}>
             <TableCell>
                 <CustomLink to="/contests/$contestId" params={{contestId: contest.contestId.toString()}}>
                     {contest.contestName}

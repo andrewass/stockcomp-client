@@ -1,16 +1,9 @@
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TablePagination,
-    TableRow
-} from "@mui/material";
+import {Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow} from "@mui/material";
 import {ContestEntry} from "./ContestEntry";
 import {Contest} from "../../domain/contests/contestTypes";
 import {ChangeEvent} from "react";
+import {useThemeContext} from "../../theme/AppThemeContext";
+import {lightTheme} from "../../theme/themes";
 
 
 interface Props {
@@ -23,24 +16,28 @@ interface Props {
 }
 
 export default function ContestsTable({
-                                  contests,
-                                  totalEntriesCount,
-                                  currentPage,
-                                  rowsPerPage,
-                                  handlePageChange,
-                                  handleChangeRowsPerPage
-                              }: Props){
+                                          contests,
+                                          totalEntriesCount,
+                                          currentPage,
+                                          rowsPerPage,
+                                          handlePageChange,
+                                          handleChangeRowsPerPage
+                                      }: Props) {
+    const {appTheme} = useThemeContext();
+
     return (
-        <Paper>
+        <Box sx={{border: "4px solid", borderColor: "divider", borderRadius: 2}}>
             <TableContainer>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Contest</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Start Date</TableCell>
-                            <TableCell>End Date</TableCell>
-                            <TableCell>Participants</TableCell>
+                            {["Contest", "Status", "Start Date", "End Date", "Participants"]
+                                .map(header =>
+                                    <TableCell key={header}
+                                               sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.secondary.main : appTheme.palette.primary.main}} >
+                                        {header}
+                                    </TableCell>
+                                )}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -49,11 +46,12 @@ export default function ContestsTable({
                 </Table>
             </TableContainer>
             <TablePagination
+                sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.secondary.main : appTheme.palette.primary.main}}
                 component="div" count={totalEntriesCount}
                 page={currentPage} rowsPerPageOptions={[1, 5, 10, 25]}
                 rowsPerPage={rowsPerPage} onPageChange={handlePageChange}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-        </Paper>
+        </Box>
     );
 }
