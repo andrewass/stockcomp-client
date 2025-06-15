@@ -5,14 +5,14 @@ metadata:
 
 build:
   artifacts:
-  - image: stockcomp-client-image
-    sync: #File sync for copying changed files to a deployed container, to avoid rebuild and redeploy pod
-      infer: #The destination for each changed files
-        - '**/*.ts'
-        - '**/*.tsx'
-        - '**/*.js'
-        - '**/*.jsx'
-        - '**/*.css'
+    - image: stockcomp-client-image
+      sync: #File sync for copying changed files to a deployed container, to avoid rebuild and redeploy pod
+        infer: #The destination for each changed files
+          - "**/*.ts"
+          - "**/*.tsx"
+          - "**/*.js"
+          - "**/*.jsx"
+          - "**/*.css"
 
 manifests:
   rawYaml:

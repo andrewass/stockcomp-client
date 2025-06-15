@@ -1,13 +1,12 @@
-
 export type UpdateContestRequest = {
-    contestId: number
-    contestName: string
-    startTime: string
-    contestStatus: string
-}
+  contestId: number;
+  contestName: string;
+  startTime: string;
+  contestStatus: string;
+};
 
 export type CreateContestRequest = {
-    startTime: string
-    contestName: string
-    durationDays: number
-}
+  startTime: string;
+  contestName: string;
+  durationDays: number;
+};

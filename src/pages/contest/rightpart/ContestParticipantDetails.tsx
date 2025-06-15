@@ -1,30 +1,35 @@
-import {Participant} from "../../../domain/participant/participantTypes";
-import {Contest} from "../../../domain/contests/contestTypes";
-import {Container, Grid, Typography} from "@mui/material";
+import { Participant } from "../../../domain/participant/participantTypes";
+import { Contest } from "../../../domain/contests/contestTypes";
+import { Container, Grid, Typography } from "@mui/material";
 
 interface Props {
-    participant: Participant,
-    contest: Contest
+  participant: Participant;
+  contest: Contest;
 }
 
-export default function ContestParticipantDetails({participant}: Props) {
-
-    return (
-        <Container>
-            <Grid container spacing={1} bgcolor="orange">
-                <Grid size={6}>
-                    <Typography>Total Value : {participant.totalValue.toFixed(2)}</Typography>
-                </Grid>
-                <Grid size={6}>
-                    <Typography>Investment Value: {participant.totalInvestmentValue.toFixed(2)}</Typography>
-                </Grid>
-                <Grid size={6}>
-                    <Typography>Remaining funds : {participant.remainingFunds.toFixed(2)} USD</Typography>
-                </Grid>
-                <Grid size={6}>
-                    <Typography>Rank: {participant.rank}</Typography>
-                </Grid>
-            </Grid>
-        </Container>
-    );
+export default function ContestParticipantDetails({ participant }: Props) {
+  return (
+    <Container>
+      <Grid container spacing={1} bgcolor="orange">
+        <Grid size={6}>
+          <Typography>
+            Total Value : {participant.totalValue.toFixed(2)}
+          </Typography>
+        </Grid>
+        <Grid size={6}>
+          <Typography>
+            Investment Value: {participant.totalInvestmentValue.toFixed(2)}
+          </Typography>
+        </Grid>
+        <Grid size={6}>
+          <Typography>
+            Remaining funds : {participant.remainingFunds.toFixed(2)} USD
+          </Typography>
+        </Grid>
+        <Grid size={6}>
+          <Typography>Rank: {participant.rank}</Typography>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 }

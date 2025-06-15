@@ -1,5 +1,1 @@
-
-
-export const styledTableCell = {
-    
-}
+export const styledTableCell = {};

@@ -1,11 +1,10 @@
-import {Box} from "@mui/material";
-import {AdminUserTable} from "./AdminUserTable";
-
+import { Box } from "@mui/material";
+import { AdminUserTable } from "./AdminUserTable";
 
 export const AdminUsers = () => {
-    return (
-        <Box>
-            <AdminUserTable/>
-        </Box>
-    );
-}
+  return (
+    <Box>
+      <AdminUserTable />
+    </Box>
+  );
+};

@@ -1,5 +1,4 @@
-
 export type SymbolSuggestion = {
-    symbol: string
-    description: string
-}
+  symbol: string;
+  description: string;
+};
