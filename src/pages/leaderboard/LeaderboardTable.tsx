@@ -77,8 +77,10 @@ export const LeaderboardTable = () => {
                                     <LeaderboardEntryRow entry={entry} key={entry.displayName}/>
                                 )))
                             : (
-                                <TableRow>
-                                    <TableCell align="center" colSpan={5}>No entries found</TableCell>
+                                <TableRow  sx={{backgroundColor: appTheme === lightTheme ? appTheme.palette.primary.main : appTheme.palette.secondary.main}}>
+                                    <TableCell align="center" colSpan={5}>
+                                        No entries found
+                                    </TableCell>
                                 </TableRow>
                             )
                         }

@@ -35,7 +35,7 @@ export const lightTheme: Theme = responsiveFontSizes(createTheme({
         },
         background: {
             default: "#ffffff",
-            paper: "#ffa500",
+            paper: "#ddd6d6",
         },
         text: {
             primary: "#212121",
@@ -59,7 +59,7 @@ export const darkTheme: Theme = responsiveFontSizes(createTheme({
         },
         background: {
             default: "#100f0f",
-            paper: "#f61a1a",
+            paper: "#1c1919",
         },
         text: {
             primary: "#ffffff",

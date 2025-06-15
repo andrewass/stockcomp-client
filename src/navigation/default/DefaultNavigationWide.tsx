@@ -16,7 +16,7 @@ export default function DefaultNavigationWide({signOutUser}: { signOutUser: () =
     const {toggleTheme, appTheme} = useThemeContext();
 
     return (
-        <AppBar position="fixed" component="nav" sx={{height: "100px", backgroundColor: appTheme.palette.primary.main, backgroundImage: "none",}}>
+        <AppBar position="fixed" component="nav" sx={{height: "100px", backgroundColor: appTheme.palette.primary.main, backgroundImage: "none"}}>
             <Toolbar sx={{height: "100%"}}>
                 <Container maxWidth="xl" sx={{display: "flex", justifyContent: "space-between", height: "100%"}}>
                     <Box sx={{display: "flex", alignItems: "center", gap: 10}}>

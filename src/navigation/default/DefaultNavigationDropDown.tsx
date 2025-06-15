@@ -1,14 +1,5 @@
 import React, {useState} from "react";
-import {
-    AppBar,
-    Box, Button,
-    Container,
-    IconButton,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
@@ -37,7 +28,8 @@ const DefaultNavigationDropDown = ({signOutUser}: { signOutUser: () => void }) =
     };
 
     return (
-        <AppBar position="fixed" sx={{height: "100px"}}>
+        <AppBar position="fixed"
+                sx={{height: "100px", backgroundColor: appTheme.palette.primary.main, backgroundImage: "none"}}>
             <Toolbar sx={{height: "100%"}}>
                 <Container sx={{
                     display: "flex",
@@ -47,17 +39,29 @@ const DefaultNavigationDropDown = ({signOutUser}: { signOutUser: () => void }) =
                     alignItems: "center"
                 }}
                 >
-                    <Typography sx={{color: "white", fontWeight: "bold", fontSize: "large"}}>STOCK COMP</Typography>
+                    <Typography
+                        sx={{color: appTheme.palette.primary.contrastText, fontWeight: "bold", fontSize: "large"}}>
+                        STOCK COMP
+                    </Typography>
 
                     <Box sx={{display: "flex", alignItems: "center", gap: 6}}>
-                        <IconButton sx={{color: "white"}} onClick={toggleTheme}>
+                        <IconButton sx={{color: appTheme.palette.primary.contrastText}} onClick={toggleTheme}>
                             {appTheme === darkTheme ? <SunnyIcon/> : <NightlightIcon/>}
                         </IconButton>
-                        <Box sx={{}}>
+                        <Box>
                             <IconButton aria-expanded={open ? "true" : undefined} onClick={handleClick}>
-                                <MenuIcon sx={{color: "white"}}/>
+                                <MenuIcon sx={{color: appTheme.palette.primary.contrastText}}/>
                             </IconButton>
-                            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}
+                                  sx={{
+                                      "& .MuiPaper-root": {
+                                          backgroundColor: appTheme.palette.secondary.main,
+                                          border: "1px solid",
+                                          borderRadius: 2,
+                                          backgroundImage: "none",
+                                          borderColor: appTheme.palette.primary.main
+                                      }
+                                  }}>
                                 <MenuItem onClick={handleClose}>
                                     <NavigationButton to="/symbols" startIcon={<ShowChartIcon/>} text="Symbols"/>
                                 </MenuItem>
@@ -71,18 +75,19 @@ const DefaultNavigationDropDown = ({signOutUser}: { signOutUser: () => void }) =
                                     <NavigationButton to="/account" startIcon={<AccountCircleIcon/>} text="Account"/>
                                 </MenuItem>
                                 <MenuItem onClick={handleClose}>
-                                    <Button sx={{color: "white"}} size="large" onClick={signOutUser} startIcon={<LogoutIcon/>}>
+                                    <Button sx={{color: appTheme.palette.primary.contrastText}} size="large"
+                                            onClick={signOutUser}
+                                            startIcon={<LogoutIcon/>}>
                                         Logout
                                     </Button>
                                 </MenuItem>
                             </Menu>
                         </Box>
                     </Box>
-
                 </Container>
             </Toolbar>
         </AppBar>
-    )
+    );
 }
 
 export default DefaultNavigationDropDown;
