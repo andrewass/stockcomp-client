@@ -10,14 +10,25 @@ import { styledLink } from "./linkTheme";
 const baseTypography: TypographyVariantsOptions = {
   fontFamily: "Open Sans, Arial, sans-serif",
   h1: {
-    fontSize: 5,
-    fontWeight: 700,
+    fontSize: "5rem",
+  },
+  h2: {
+    fontSize: "4rem",
+  },
+  h3: {
+    fontSize: "3rem",
+  },
+  h4: {
+    fontSize: "2rem",
+  },
+  h5: {
+    fontSize: "1.5rem",
   },
   body1: {
-    fontSize: 1.5,
+    fontSize: "0.90rem",
   },
   button: {
-    fontSize: 2,
+    fontSize: "0.90rem",
     textTransform: "none",
   },
 };

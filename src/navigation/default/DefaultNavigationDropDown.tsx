@@ -20,7 +20,7 @@ import { darkTheme } from "../../theme/themes";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import { useThemeContext } from "../../theme/AppThemeContext";
-import NavigationButton from "../NavigationButton";
+import NavigationLink from "../NavigationLink";
 
 const DefaultNavigationDropDown = ({
   signOutUser,
@@ -100,30 +100,30 @@ const DefaultNavigationDropDown = ({
                 }}
               >
                 <MenuItem onClick={handleClose}>
-                  <NavigationButton
+                  <NavigationLink
                     to="/symbols"
-                    startIcon={<ShowChartIcon />}
+                    icon={<ShowChartIcon />}
                     text="Symbols"
                   />
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <NavigationButton
+                  <NavigationLink
                     to="/leaderboard"
-                    startIcon={<LeaderboardIcon />}
+                    icon={<LeaderboardIcon />}
                     text="Leaderboard"
                   />
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <NavigationButton
+                  <NavigationLink
                     to="/contests"
-                    startIcon={<EventIcon />}
+                    icon={<EventIcon />}
                     text="Contests"
                   />
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <NavigationButton
+                  <NavigationLink
                     to="/account"
-                    startIcon={<AccountCircleIcon />}
+                    icon={<AccountCircleIcon />}
                     text="Account"
                   />
                 </MenuItem>

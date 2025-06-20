@@ -1,5 +1,5 @@
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import NavigationButton from "../NavigationButton";
+import NavigationLink from "../NavigationLink";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import EventIcon from "@mui/icons-material/Event";
@@ -39,32 +39,29 @@ export default function DefaultNavigationWide({
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Typography
-              sx={{
-                color: appTheme.palette.primary.contrastText,
-                fontWeight: "bold",
-                fontSize: "large",
-              }}
+              variant="h5"
+              sx={{ color: appTheme.palette.primary.contrastText }}
             >
               STOCK COMP
             </Typography>
-            <NavigationButton
+            <NavigationLink
               to="/symbols"
-              startIcon={<ShowChartIcon />}
+              icon={<ShowChartIcon />}
               text="Stocks"
             />
-            <NavigationButton
+            <NavigationLink
               to="/leaderboard"
-              startIcon={<LeaderboardIcon />}
+              icon={<LeaderboardIcon />}
               text="Leaderboard"
             />
-            <NavigationButton
+            <NavigationLink
               to="/contests"
-              startIcon={<EventIcon />}
+              icon={<EventIcon />}
               text="Contests"
             />
-            <NavigationButton
+            <NavigationLink
               to="/account"
-              startIcon={<AccountCircleIcon />}
+              icon={<AccountCircleIcon />}
               text="Account"
             />
           </Box>

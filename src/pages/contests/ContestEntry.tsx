@@ -1,6 +1,6 @@
 import {
-  Box,
   Link as MUILink,
+  Stack,
   TableCell,
   TableRow,
   Typography,
@@ -36,20 +36,24 @@ export const ContestEntry = ({ contest }: { contest: Contest }) => {
           to="/contests/$contestId"
           params={{ contestId: contest.contestId.toString() }}
         >
-          {contest.contestName}
+          <Typography>{contest.contestName}</Typography>
         </CustomLink>
       </TableCell>
       <TableCell>
-        <Box display="flex" flexDirection="row">
+        <Stack direction="row" gap={1}>
+          <CircleIcon sx={{ color: getStatusByColor(contest) }} />
           <Typography>{contestStatusRecord[contest.contestStatus]}</Typography>
-          <CircleIcon
-            sx={{ color: getStatusByColor(contest), marginRight: 1 }}
-          />
-        </Box>
+        </Stack>
       </TableCell>
-      <TableCell>{formatDate(contest.startTime)}</TableCell>
-      <TableCell>{formatDate(contest.endTime)}</TableCell>
-      <TableCell>{contest.contestId}</TableCell>
+      <TableCell>
+        <Typography>{formatDate(contest.startTime)}</Typography>
+      </TableCell>
+      <TableCell>
+        <Typography>{formatDate(contest.endTime)}</Typography>
+      </TableCell>
+      <TableCell>
+        <Typography>{contest.contestId}</Typography>
+      </TableCell>
     </TableRow>
   );
 };

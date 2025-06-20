@@ -7,6 +7,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { ContestEntry } from "./ContestEntry";
 import { Contest } from "../../domain/contests/contestTypes";
@@ -55,7 +56,7 @@ export default function ContestsTable({
                         : appTheme.palette.primary.main,
                   }}
                 >
-                  {header}
+                  <Typography variant="button">{header}</Typography>
                 </TableCell>
               ))}
             </TableRow>
