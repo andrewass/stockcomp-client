@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   AppBar,
   Box,
-  Button,
   Container,
   IconButton,
   Menu,
@@ -76,6 +75,12 @@ const DefaultNavigationDropDown = ({
             >
               {appTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />}
             </IconButton>
+            <IconButton
+              sx={{ color: appTheme.palette.primary.contrastText }}
+              onClick={signOutUser}
+            >
+              {<LogoutIcon />}
+            </IconButton>
             <Box>
               <IconButton
                 aria-expanded={open ? "true" : undefined}
@@ -126,16 +131,6 @@ const DefaultNavigationDropDown = ({
                     icon={<AccountCircleIcon />}
                     text="Account"
                   />
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Button
-                    sx={{ color: appTheme.palette.primary.contrastText }}
-                    size="large"
-                    onClick={signOutUser}
-                    startIcon={<LogoutIcon />}
-                  >
-                    Logout
-                  </Button>
                 </MenuItem>
               </Menu>
             </Box>
