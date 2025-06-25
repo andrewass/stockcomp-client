@@ -1,10 +1,4 @@
-import {
-  Link as MUILink,
-  Stack,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Link as MUILink, Stack, TableCell, Typography } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import {
   Contest,
@@ -13,24 +7,17 @@ import {
 } from "../../domain/contests/contestTypes";
 import { formatDate } from "../../util/dateUtils";
 import { createLink } from "@tanstack/react-router";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { lightTheme } from "../../theme/themes";
+import StyledTableRow from "../../components/table/StyledTableRow";
 
 const CustomLink = createLink(MUILink);
 
-export const ContestEntry = ({ contest }: { contest: Contest }) => {
-  const { appTheme } = useThemeContext();
+interface Props {
+  contest: Contest;
+}
 
+export const ContestEntry = ({ contest }: Props) => {
   return (
-    <TableRow
-      key={contest.contestId}
-      sx={{
-        backgroundColor:
-          appTheme === lightTheme
-            ? appTheme.palette.primary.main
-            : appTheme.palette.secondary.main,
-      }}
-    >
+    <StyledTableRow rowId={contest.contestId}>
       <TableCell>
         <CustomLink
           to="/contests/$contestId"
@@ -54,6 +41,6 @@ export const ContestEntry = ({ contest }: { contest: Contest }) => {
       <TableCell>
         <Typography>{contest.contestId}</Typography>
       </TableCell>
-    </TableRow>
+    </StyledTableRow>
   );
 };

@@ -1,88 +1,37 @@
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { ContestEntry } from "./ContestEntry";
+import PageableTable, { Column } from "../../components/table/PageableTable";
+import { useApiWrapper } from "../../config/useApiWrapper";
+import { getAllContestsConfig } from "../../domain/contests/contestApi";
 import { Contest } from "../../domain/contests/contestTypes";
-import { ChangeEvent } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { lightTheme } from "../../theme/themes";
+import { ContestEntry } from "./ContestEntry";
 
-interface Props {
-  contests: Contest[];
-  totalEntriesCount: number;
-  currentPage: number;
-  rowsPerPage: number;
-  handlePageChange: (event: unknown, newPage: number) => void;
-  handleChangeRowsPerPage: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+const columns: Column[] = [
+  { id: "contest", label: "Contest" },
+  { id: "status", label: "Status" },
+  { id: "startDate", label: "Start Date" },
+  { id: "endDate", label: "End Date" },
+  { id: "participants", label: "Participants" },
+];
 
-export default function ContestsTable({
-  contests,
-  totalEntriesCount,
-  currentPage,
-  rowsPerPage,
-  handlePageChange,
-  handleChangeRowsPerPage,
-}: Props) {
-  const { appTheme } = useThemeContext();
+export default function ContestsTable() {
+  const { apiGet } = useApiWrapper();
+
+  async function fetchContestEntries(page: number, pageRowCount: number) {
+    const response = await apiGet(getAllContestsConfig(page, pageRowCount));
+    return {
+      rows: response.contests,
+      total: response.totalEntriesCount,
+    };
+  }
+
+  function renderRow(row: Contest, key: number) {
+    return <ContestEntry contest={row} key={key} />;
+  }
 
   return (
-    <Box sx={{ border: "4px solid", borderColor: "divider", borderRadius: 2 }}>
-      <TableContainer>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              {[
-                "Contest",
-                "Status",
-                "Start Date",
-                "End Date",
-                "Participants",
-              ].map((header) => (
-                <TableCell
-                  key={header}
-                  sx={{
-                    backgroundColor:
-                      appTheme === lightTheme
-                        ? appTheme.palette.secondary.main
-                        : appTheme.palette.primary.main,
-                  }}
-                >
-                  <Typography variant="button">{header}</Typography>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {contests.map((contest) => (
-              <ContestEntry key={contest.contestId} contest={contest} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        sx={{
-          backgroundColor:
-            appTheme === lightTheme
-              ? appTheme.palette.secondary.main
-              : appTheme.palette.primary.main,
-        }}
-        component="div"
-        count={totalEntriesCount}
-        page={currentPage}
-        rowsPerPageOptions={[1, 5, 10, 25]}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Box>
+    <PageableTable<Contest>
+      columns={columns}
+      fetchData={fetchContestEntries}
+      renderRow={renderRow}
+    />
   );
 }
