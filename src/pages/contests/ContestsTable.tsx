@@ -2,7 +2,7 @@ import PageableTable, { Column } from "../../components/table/PageableTable";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import { getAllContestsConfig } from "../../domain/contests/contestApi";
 import { Contest } from "../../domain/contests/contestTypes";
-import { ContestEntry } from "./ContestEntry";
+import { ContestRow } from "./ContestRow";
 
 const columns: Column[] = [
   { id: "contest", label: "Contest" },
@@ -24,7 +24,7 @@ export default function ContestsTable() {
   }
 
   function renderRow(row: Contest, key: number) {
-    return <ContestEntry contest={row} key={key} />;
+    return <ContestRow contest={row} key={key} />;
   }
 
   return (

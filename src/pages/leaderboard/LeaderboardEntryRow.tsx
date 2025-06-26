@@ -8,7 +8,11 @@ import {
 } from "../../leaderboard/leaderboardTypes";
 import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
 
-const LeaderboardEntryRow = ({ entry }: { entry: LeaderboardEntry }) => {
+interface Props {
+  entry: LeaderboardEntry;
+}
+
+export default function LeaderboardEntryRow({ entry }: Props) {
   const getMedalCount = (medalValue: MedalValue, medals: Medal[]) => {
     return medals.filter((medal) => medal.medalValue === medalValue).length;
   };
@@ -66,6 +70,4 @@ const LeaderboardEntryRow = ({ entry }: { entry: LeaderboardEntry }) => {
       <TableCell>{getMedals(entry.medals)}</TableCell>
     </TableRow>
   );
-};
-
-export default LeaderboardEntryRow;
+}

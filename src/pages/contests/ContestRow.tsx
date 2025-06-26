@@ -15,7 +15,7 @@ interface Props {
   contest: Contest;
 }
 
-export const ContestEntry = ({ contest }: Props) => {
+export const ContestRow = ({ contest }: Props) => {
   return (
     <StyledTableRow rowId={contest.contestId}>
       <TableCell>

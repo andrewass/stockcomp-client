@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { LeaderboardTable } from "./LeaderboardTable";
+import LeaderboardTable from "./LeaderboardTable";
 
 export default function LeaderboardPage() {
   return (
