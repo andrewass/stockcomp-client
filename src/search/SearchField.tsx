@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Autocomplete, Box } from "@mui/material";
 import { useApiWrapper } from "../config/useApiWrapper";
 import { getSuggestionsFromQueryConfig } from "./api/searchApi";
 import { useNavigate } from "@tanstack/react-router";
 import { SymbolSuggestion } from "./searchTypes";
+import StyledTextField from "../components/input/StyledTextField";
 
 const SearchField = () => {
   const { apiGet } = useApiWrapper();
@@ -47,7 +48,7 @@ const SearchField = () => {
         onChange={(_event, value) => navigateToSymbolDetail(value)}
         onInputChange={(_event, value) => getSuggestions(value)}
         renderInput={(params) => (
-          <TextField {...params} label="Search symbols" />
+          <StyledTextField autoCompleteParams={params} label="Search symbols" />
         )}
       />
     </Box>

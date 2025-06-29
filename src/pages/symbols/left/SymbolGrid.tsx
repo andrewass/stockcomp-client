@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import SymbolCard from "./SymbolCard";
 import React from "react";
 import { useApiWrapper } from "../../../config/useApiWrapper";
@@ -9,6 +9,7 @@ import {
 } from "../../../domain/symbols/symbolsApi";
 import ErrorComponent from "../../../error/ErrorComponent";
 import { StockPrice } from "../../../domain/symbols/symbolTypes";
+import StyledCircularProgress from "../../../components/actions/StyledCircularProgress";
 
 const FETCH_QUOTE_INTERVAL = 5000;
 
@@ -20,14 +21,16 @@ const SymbolGrid = () => {
     refetchInterval: FETCH_QUOTE_INTERVAL,
   });
 
-  if (isPending) return <CircularProgress />;
+  if (isPending) {
+    return <StyledCircularProgress />;
+  }
 
   if (isError) {
     return <ErrorComponent error={error} />;
   }
 
   return (
-    <Grid container rowSpacing={1} columnSpacing={4}>
+    <Grid container rowSpacing={2} columnSpacing={4}>
       {data.map((symbol) => (
         <Grid key={symbol.symbol} size={6}>
           <SymbolCard stockQuote={symbol} />

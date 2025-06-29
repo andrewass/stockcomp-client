@@ -1,6 +1,15 @@
-import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Link as MUILink,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { StockPrice } from "../../../domain/symbols/symbolTypes";
-import { Link } from "@tanstack/react-router";
+import { createLink } from "@tanstack/react-router";
+
+const CustomLink = createLink(MUILink);
 
 const SymbolCard = ({ stockQuote }: { stockQuote: StockPrice }) => {
   const {
@@ -45,27 +54,29 @@ const SymbolCard = ({ stockQuote }: { stockQuote: StockPrice }) => {
     <Card elevation={0}>
       <CardActionArea>
         <CardContent>
-          <Link
-            to="/symbols/$symbol"
-            params={{ symbol: symbol }}
-            style={{ textDecoration: "none" }}
-          >
-            <Typography variant="h5">
-              {companyName} ({symbol})
-            </Typography>
-          </Link>
+          <Stack gap={2}>
+            <CustomLink to="/symbols/$symbol" params={{ symbol: symbol }}>
+              <Typography>
+                {companyName} ({symbol})
+              </Typography>
+            </CustomLink>
 
-          {displayCurrentPrice()}
+            <Stack>
+              {displayCurrentPrice()}
 
-          <Typography sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}>
-            {getPriceDifferenceUSD()}
-          </Typography>
+              <Typography
+                sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}
+              >
+                {getPriceDifferenceUSD()}
+              </Typography>
 
-          <Typography
-            sx={{ color: percentageChange >= 0 ? "limegreen" : "red" }}
-          >
-            {getPriceDifferencePercentage()}%
-          </Typography>
+              <Typography
+                sx={{ color: percentageChange >= 0 ? "limegreen" : "red" }}
+              >
+                {getPriceDifferencePercentage()}%
+              </Typography>
+            </Stack>
+          </Stack>
         </CardContent>
       </CardActionArea>
     </Card>

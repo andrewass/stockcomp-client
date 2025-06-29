@@ -1,4 +1,4 @@
-import { Box, Tooltip, Typography } from "@mui/material";
+import { Card, CardContent, Stack, Tooltip, Typography } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import React from "react";
 import {
@@ -8,33 +8,43 @@ import {
 } from "../../../domain/contests/contestTypes";
 import { formatDate } from "../../../util/dateUtils";
 import { Link } from "@tanstack/react-router";
+import { useThemeContext } from "../../../theme/AppThemeContext";
 
 interface Props {
   contest: Contest;
 }
 
 const RegisteredContest = ({ contest }: Props) => {
+  const { appTheme } = useThemeContext();
+
   return (
-    <React.Fragment>
-      <Box display="flex" flexDirection="row">
-        <Typography
-          component={Link}
-          to={`/contests/${contest.contestId}`}
-          sx={{ textDecoration: "none", color: "black" }}
-        >
-          {contest.contestName}
-        </Typography>
-        <Tooltip
-          title={contestStatusRecord[contest.contestStatus]}
-          placement="top"
-        >
-          <CircleIcon
-            sx={{ color: getStatusByColor(contest), marginRight: 1 }}
-          />
-        </Tooltip>
-      </Box>
-      <Typography>Ending {formatDate(contest.endTime)}</Typography>
-    </React.Fragment>
+    <Card>
+      <CardContent>
+        <Stack gap={1}>
+          <Stack direction="row" gap={0.5}>
+            <Typography
+              component={Link}
+              to={`/contests/${contest.contestId}`}
+              sx={{
+                textDecoration: "none",
+                color: appTheme.palette.primary.contrastText,
+              }}
+            >
+              {contest.contestName}
+            </Typography>
+            <Tooltip
+              title={contestStatusRecord[contest.contestStatus]}
+              placement="top"
+            >
+              <CircleIcon
+                sx={{ color: getStatusByColor(contest), marginRight: 1 }}
+              />
+            </Tooltip>
+          </Stack>
+          <Typography>Ending {formatDate(contest.endTime)}</Typography>
+        </Stack>
+      </CardContent>
+    </Card>
   );
 };
 
