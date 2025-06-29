@@ -9,8 +9,8 @@ import {
   getStockSymbolPriceConfig,
 } from "../../domain/symbols/symbolsApi";
 import ErrorComponent from "../../error/ErrorComponent";
-import DetailBlock from "./leftpart/DetailBlock";
-import { SymbolDetailsRightMenu } from "./rightpart/SymbolDetailsRightMenu";
+import SymbolDetails from "./details/SymbolDetails";
+import { SymbolInvestments } from "./investment/SymbolInvestments";
 import { DetailedParticipant } from "../../domain/participant/participantTypes";
 import {
   GET_PARTICIPANTS_SYMBOL,
@@ -18,14 +18,13 @@ import {
 } from "../../domain/participant/participantApi";
 import SearchField from "../../search/SearchField";
 import React from "react";
-import SymbolStatistics from "./SymbolStatistics";
 import StyledCircularProgress from "../../components/actions/StyledCircularProgress";
 
 interface Props {
   symbol: string;
 }
 
-const SymbolDetailsPage = ({ symbol }: Props) => {
+export default function SymbolPage({ symbol }: Props) {
   const { apiGet } = useApiWrapper();
 
   const {
@@ -73,13 +72,13 @@ const SymbolDetailsPage = ({ symbol }: Props) => {
         <Box display="flex" sx={{ justifyContent: "center" }}>
           <SearchField />
         </Box>
-        <SymbolStatistics
-          stockFinancials={financials}
-          stockPrice={stockPrice}
-        />
         <Stack direction="row">
-          <DetailBlock stockPrice={stockPrice} symbol={symbol!} />
-          <SymbolDetailsRightMenu
+          <SymbolDetails
+            stockPrice={stockPrice}
+            symbol={symbol!}
+            stockFinancials={financials}
+          />
+          <SymbolInvestments
             stockPrice={stockPrice}
             participants={participants}
           />
@@ -92,14 +91,12 @@ const SymbolDetailsPage = ({ symbol }: Props) => {
         <Box display="flex" sx={{ justifyContent: "center" }}>
           <SearchField />
         </Box>
-        <SymbolStatistics
-          stockFinancials={financials}
+        <SymbolDetails
           stockPrice={stockPrice}
+          symbol={symbol!}
+          stockFinancials={financials}
         />
-        <DetailBlock stockPrice={stockPrice} symbol={symbol!} />
       </Stack>
     );
   }
-};
-
-export default SymbolDetailsPage;
+}

@@ -10,7 +10,7 @@ interface Props {
   participants: DetailedParticipant[];
 }
 
-export const SymbolDetailsRightMenu = ({ stockPrice, participants }: Props) => {
+export const SymbolInvestments = ({ stockPrice, participants }: Props) => {
   const theme = useTheme();
   const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 

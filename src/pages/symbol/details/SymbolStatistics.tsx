@@ -1,5 +1,8 @@
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { StockFinancials, StockPrice } from "../../domain/symbols/symbolTypes";
+import {
+  StockFinancials,
+  StockPrice,
+} from "../../../domain/symbols/symbolTypes";
 
 interface Props {
   stockFinancials: StockFinancials;

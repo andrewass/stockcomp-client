@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import SymbolDetailsPage from "../../pages/symboldetails/SymbolDetailsPage";
 import { DefaultLayout } from "../../DefaultLayout";
+import SymbolPage from "../../pages/symbol/SymbolPage";
 
 export const Route = createFileRoute("/symbols/$symbol")({
   component: SymbolDetails,
@@ -11,7 +11,7 @@ function SymbolDetails() {
 
   return (
     <DefaultLayout>
-      <SymbolDetailsPage symbol={symbol} />
+      <SymbolPage symbol={symbol} />
     </DefaultLayout>
   );
 }

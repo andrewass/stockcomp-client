@@ -1,14 +1,20 @@
 import { PriceChart } from "./PriceChart";
 import { Box, useMediaQuery } from "@mui/material";
-import { StockPrice } from "../../../domain/symbols/symbolTypes";
+import {
+  StockFinancials,
+  StockPrice,
+} from "../../../domain/symbols/symbolTypes";
 import { useTheme } from "@mui/material/styles";
+import SymbolStatistics from "./SymbolStatistics";
+import React from "react";
 
 interface Props {
   stockPrice: StockPrice;
   symbol: string;
+  stockFinancials: StockFinancials;
 }
 
-const DetailBlock = (props: Props) => {
+const SymbolDetails = ({ symbol, stockPrice, stockFinancials }: Props) => {
   const theme = useTheme();
   const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 
@@ -19,9 +25,13 @@ const DetailBlock = (props: Props) => {
       alignItems="center"
       sx={{ width: isLargeWidth ? "80%" : "100%" }}
     >
-      <PriceChart symbol={props.symbol} />
+      <SymbolStatistics
+        stockFinancials={stockFinancials}
+        stockPrice={stockPrice}
+      />
+      <PriceChart symbol={symbol} />
     </Box>
   );
 };
 
-export default DetailBlock;
+export default SymbolDetails;
