@@ -1,4 +1,12 @@
-import { Card, CardContent, Stack, Tooltip, Typography } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Link as MUILink,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import React from "react";
 import {
@@ -7,7 +15,7 @@ import {
   getStatusByColor,
 } from "../../../domain/contests/contestTypes";
 import { formatDate } from "../../../util/dateUtils";
-import { Link } from "@tanstack/react-router";
+import { createLink, Link } from "@tanstack/react-router";
 import { useThemeContext } from "../../../theme/AppThemeContext";
 
 interface Props {
@@ -17,33 +25,40 @@ interface Props {
 const RegisteredContest = ({ contest }: Props) => {
   const { appTheme } = useThemeContext();
 
+  const CustomLink = createLink(MUILink);
+
   return (
-    <Card>
-      <CardContent>
-        <Stack gap={1}>
-          <Stack direction="row" gap={0.5}>
-            <Typography
-              component={Link}
-              to={`/contests/${contest.contestId}`}
-              sx={{
-                textDecoration: "none",
-                color: appTheme.palette.primary.contrastText,
-              }}
-            >
-              {contest.contestName}
-            </Typography>
-            <Tooltip
-              title={contestStatusRecord[contest.contestStatus]}
-              placement="top"
-            >
-              <CircleIcon
-                sx={{ color: getStatusByColor(contest), marginRight: 1 }}
-              />
-            </Tooltip>
+    <Card elevation={0}>
+      <CardActionArea
+        component={CustomLink}
+        to={`/contests/${contest.contestId}`}
+      >
+        <CardContent>
+          <Stack gap={1}>
+            <Stack direction="row" gap={0.5}>
+              <Typography
+                component={Link}
+                to={`/contests/${contest.contestId}`}
+                sx={{
+                  textDecoration: "none",
+                  color: appTheme.palette.primary.contrastText,
+                }}
+              >
+                {contest.contestName}
+              </Typography>
+              <Tooltip
+                title={contestStatusRecord[contest.contestStatus]}
+                placement="top"
+              >
+                <CircleIcon
+                  sx={{ color: getStatusByColor(contest), marginRight: 1 }}
+                />
+              </Tooltip>
+            </Stack>
+            <Typography>Ending {formatDate(contest.endTime)}</Typography>
           </Stack>
-          <Typography>Ending {formatDate(contest.endTime)}</Typography>
-        </Stack>
-      </CardContent>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };

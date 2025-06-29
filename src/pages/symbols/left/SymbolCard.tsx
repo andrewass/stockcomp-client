@@ -52,7 +52,7 @@ const SymbolCard = ({ stockQuote }: { stockQuote: StockPrice }) => {
 
   return (
     <Card elevation={0}>
-      <CardActionArea>
+      <CardActionArea component={CustomLink} to={`/symbols/${symbol}`}>
         <CardContent>
           <Stack gap={2}>
             <CustomLink to="/symbols/$symbol" params={{ symbol: symbol }}>

@@ -11,7 +11,7 @@ function SymbolDetails() {
 
   return (
     <DefaultLayout>
-      <SymbolDetailsPage symbol={symbol} />)
+      <SymbolDetailsPage symbol={symbol} />
     </DefaultLayout>
   );
 }

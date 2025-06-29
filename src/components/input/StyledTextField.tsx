@@ -1,14 +1,20 @@
 import { useThemeContext } from "../../theme/AppThemeContext";
 import { AutocompleteRenderInputParams, TextField } from "@mui/material";
+import React, { ReactNode } from "react";
 
 interface Props {
   label: string;
+  name?: string;
   autoCompleteParams?: AutocompleteRenderInputParams;
+  error?: boolean | undefined;
+  fullWidth?: boolean | undefined;
+  helperText?: ReactNode;
+  value?: string | number | undefined;
 }
 
 export default function StyledTextField({
-  label,
   autoCompleteParams,
+  ...props
 }: Props) {
   const { appTheme } = useThemeContext();
   const contrastColor = appTheme.palette.primary.contrastText;
@@ -17,7 +23,7 @@ export default function StyledTextField({
   return (
     <TextField
       {...autoCompleteParams}
-      label={label}
+      {...props}
       sx={{
         "& label": { color: contrastColor },
         "& label.Mui-focused": { color: contrastColor },

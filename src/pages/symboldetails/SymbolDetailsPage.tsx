@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import { StockFinancials, StockPrice } from "../../domain/symbols/symbolTypes";
@@ -19,6 +19,7 @@ import {
 import SearchField from "../../search/SearchField";
 import React from "react";
 import SymbolStatistics from "./SymbolStatistics";
+import StyledCircularProgress from "../../components/actions/StyledCircularProgress";
 
 interface Props {
   symbol: string;
@@ -58,7 +59,7 @@ const SymbolDetailsPage = ({ symbol }: Props) => {
   });
 
   if (isStockPricePending || isParticipantPending || isFinancialsPending) {
-    return <CircularProgress />;
+    return <StyledCircularProgress />;
   }
 
   if (isParticipantError || isStockPriceError || isFinancialsError) {
@@ -68,8 +69,8 @@ const SymbolDetailsPage = ({ symbol }: Props) => {
 
   if (participants.length > 0) {
     return (
-      <Stack direction="column" gap={4}>
-        <Box display="flex" sx={{ p: "40px 0", justifyContent: "center" }}>
+      <Stack direction="column" gap={8}>
+        <Box display="flex" sx={{ justifyContent: "center" }}>
           <SearchField />
         </Box>
         <SymbolStatistics
@@ -87,8 +88,8 @@ const SymbolDetailsPage = ({ symbol }: Props) => {
     );
   } else {
     return (
-      <Stack direction="column" gap={4}>
-        <Box display="flex" sx={{ p: "40px 0", justifyContent: "center" }}>
+      <Stack direction="column" gap={8}>
+        <Box display="flex" sx={{ justifyContent: "center" }}>
           <SearchField />
         </Box>
         <SymbolStatistics

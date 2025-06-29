@@ -6,8 +6,8 @@ import SymbolGrid from "./left/SymbolGrid";
 
 const SymbolsPage = () => {
   return (
-    <Stack direction="column" gap={4} alignItems="stretch">
-      <Box display="flex" sx={{ p: "40px 0", justifyContent: "center" }}>
+    <Stack direction="column" gap={8} alignItems="stretch">
+      <Box display="flex" sx={{ justifyContent: "center" }}>
         <SearchField />
       </Box>
       <Stack direction="row" gap={8}>

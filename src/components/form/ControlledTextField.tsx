@@ -5,7 +5,8 @@ import {
   Path,
   PathValue,
 } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { Stack } from "@mui/material";
+import StyledTextField from "../input/StyledTextField";
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -30,14 +31,15 @@ export default function ControlledTextField<T extends FieldValues>({
       defaultValue={defaultValue}
       rules={rules}
       render={({ field, fieldState }) => (
-        <TextField
-          {...field}
-          label={label}
-          variant="outlined"
-          fullWidth
-          error={!!fieldState.error}
-          helperText={fieldState.error?.message}
-        />
+        <Stack>
+          <StyledTextField
+            {...field}
+            label={label}
+            fullWidth
+            error={!!fieldState.error}
+            helperText={fieldState.error?.message}
+          />
+        </Stack>
       )}
     />
   );
