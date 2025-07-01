@@ -19,9 +19,8 @@ export const SymbolInvestments = ({ stockPrice, participants }: Props) => {
       direction="column"
       spacing={4}
       sx={{
+        marginTop: "50px",
         width: isLargeWidth ? "30%" : "70%",
-        padding: "50px 30px",
-        margin: "auto",
       }}
     >
       <InvestmentOrderForm

@@ -25,11 +25,11 @@ const SymbolDetails = ({ symbol, stockPrice, stockFinancials }: Props) => {
       alignItems="center"
       sx={{ width: isLargeWidth ? "80%" : "100%" }}
     >
+      <PriceChart symbol={symbol} />
       <SymbolStatistics
         stockFinancials={stockFinancials}
         stockPrice={stockPrice}
       />
-      <PriceChart symbol={symbol} />
     </Box>
   );
 };

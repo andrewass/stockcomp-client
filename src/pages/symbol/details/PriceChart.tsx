@@ -7,17 +7,20 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Box, Tab } from "@mui/material";
+import { Box } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { HistoricalPrice, Period } from "../../../domain/symbols/symbolTypes";
 import { useApiWrapper } from "../../../config/useApiWrapper";
 import { getHistoricPricesConfig } from "../../../domain/symbols/symbolsApi";
+import StyledTab from "../../../components/tabs/StyledTab";
+import { useThemeContext } from "../../../theme/AppThemeContext";
 
 export const PriceChart = ({ symbol }: { symbol: string }) => {
   const [tabValue, setTabValue] = useState<Period>(Period.THIS_YEAR);
   const [priceList, setPriceList] = useState<HistoricalPrice[]>([]);
   const { apiGet } = useApiWrapper();
+  const { appTheme } = useThemeContext();
 
   useEffect(() => {
     apiGet(getHistoricPricesConfig(symbol, tabValue)).then((response) =>
@@ -61,7 +64,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
   };
 
   return (
-    <Box id="priceChart" sx={{ marginTop: "10%", width: "80%" }}>
+    <Box id="priceChart" sx={{ width: "80%" }}>
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList
@@ -69,13 +72,18 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
               setTabValue(newValue)
             }
             aria-label="Historic Stock Price"
+            sx={{
+              "& .MuiTabs-indicator": {
+                backgroundColor: appTheme.palette.primary.contrastText,
+              },
+            }}
           >
-            <Tab label="1 Month" value={Period.MONTH1} />
-            <Tab label="6 Months" value={Period.MONTH6} />
-            <Tab label="This Year" value={Period.THIS_YEAR} />
-            <Tab label="1 Year" value={Period.YEAR1} />
-            <Tab label="5 Years" value={Period.YEAR5} />
-            <Tab label="Max" value={Period.MAX} />
+            <StyledTab label="1 Month" value={Period.MONTH1} />
+            <StyledTab label="6 Months" value={Period.MONTH6} />
+            <StyledTab label="This Year" value={Period.THIS_YEAR} />
+            <StyledTab label="1 Year" value={Period.YEAR1} />
+            <StyledTab label="5 Years" value={Period.YEAR5} />
+            <StyledTab label="Max" value={Period.MAX} />
           </TabList>
         </Box>
         <TabPanel value={Period.MONTH1}>{getResponsiveContainer()}</TabPanel>
