@@ -9,7 +9,7 @@ interface Props {
   participant: DetailedParticipant;
 }
 
-export default function ContestRightPart({ participant }: Props) {
+export default function ContestParticipant({ participant }: Props) {
   return (
     <Stack direction="column" bgcolor="red" gap={3}>
       <Box>

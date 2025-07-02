@@ -1,8 +1,8 @@
-import { Box, CircularProgress, Stack } from "@mui/material";
+import { CircularProgress, Container, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import ErrorComponent from "../../error/ErrorComponent";
-import ContestLeftPart from "./leftpart/ContestLeftPart";
-import ContestRightPart from "./rightpart/ContestRightPart";
+import ContestDetails from "./details/ContestDetails";
+import ContestParticipant from "./participant/ContestParticipant";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import { Contest } from "../../domain/contests/contestTypes";
 import {
@@ -50,11 +50,11 @@ export default function ContestPage({ contestId }: Props) {
   }
 
   return (
-    <Box sx={{ paddingTop: "100px", backgroundColor: "purple" }}>
-      <Stack direction="row">
-        <ContestLeftPart contest={contest} />
-        {participant && <ContestRightPart participant={participant} />}
+    <Container sx={{ paddingTop: "100px", backgroundColor: "yellow" }}>
+      <Stack direction="row" gap={10}>
+        <ContestDetails contest={contest} />
+        {participant && <ContestParticipant participant={participant} />}
       </Stack>
-    </Box>
+    </Container>
   );
 }
