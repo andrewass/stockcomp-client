@@ -1,5 +1,4 @@
 import { Box, Stack } from "@mui/material";
-import Button from "@mui/material/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,6 +15,7 @@ import ControlledTextField from "../../../components/form/ControlledTextField";
 import { DetailedParticipant } from "../../../domain/participant/participantTypes";
 import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
 import ControlledSelect from "../../../components/form/ControlledSelect";
+import StyledButton from "../../../components/button/StyledButton";
 
 interface Props {
   participants: DetailedParticipant[];
@@ -120,9 +120,7 @@ export const InvestmentOrderForm = ({
           disabled={mutation.isPending}
           rules={{ required: "Expiration time is required" }}
         />
-        <Button type="submit" variant="outlined">
-          Submit
-        </Button>
+        <StyledButton type="submit" variant="outlined" buttonText="Submit" />
         <Toaster />
       </Stack>
     </Box>

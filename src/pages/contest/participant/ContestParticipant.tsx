@@ -11,7 +11,7 @@ interface Props {
 
 export default function ContestParticipant({ participant }: Props) {
   return (
-    <Stack direction="column" bgcolor="red" gap={3}>
+    <Stack direction="column" gap={3}>
       <Box>
         <ContestParticipantDetails
           participant={participant.participant}

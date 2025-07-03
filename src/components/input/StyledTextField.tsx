@@ -14,7 +14,7 @@ interface Props {
 
 export default function StyledTextField({
   autoCompleteParams,
-  ...props
+  ...rest
 }: Props) {
   const { appTheme } = useThemeContext();
   const contrastColor = appTheme.palette.primary.contrastText;
@@ -23,7 +23,7 @@ export default function StyledTextField({
   return (
     <TextField
       {...autoCompleteParams}
-      {...props}
+      {...rest}
       sx={{
         "& label": { color: contrastColor },
         "& label.Mui-focused": { color: contrastColor },

@@ -6,6 +6,7 @@ import {
   PathValue,
 } from "react-hook-form";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import StyledSelect from "../input/StyledSelect";
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -31,14 +32,7 @@ export default function ControlledSelect<T extends FieldValues>({
       control={control}
       render={({ field }) => (
         <FormControl>
-          <InputLabel>{label}</InputLabel>
-          <Select label={label} {...field}>
-            {Object.entries(items).map(([key, val]) => (
-              <MenuItem key={val} value={key}>
-                {val}
-              </MenuItem>
-            ))}
-          </Select>
+          <StyledSelect label={label} items={items} {...field} />
         </FormControl>
       )}
     />

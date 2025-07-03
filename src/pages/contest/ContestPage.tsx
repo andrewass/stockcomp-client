@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Stack } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import ErrorComponent from "../../error/ErrorComponent";
 import ContestDetails from "./details/ContestDetails";
@@ -50,11 +50,9 @@ export default function ContestPage({ contestId }: Props) {
   }
 
   return (
-    <Container sx={{ paddingTop: "100px", backgroundColor: "yellow" }}>
-      <Stack direction="row" gap={10}>
-        <ContestDetails contest={contest} />
-        {participant && <ContestParticipant participant={participant} />}
-      </Stack>
-    </Container>
+    <Stack direction="row" gap={10} sx={{ paddingTop: "100px" }}>
+      <ContestDetails contest={contest} />
+      {participant && <ContestParticipant participant={participant} />}
+    </Stack>
   );
 }

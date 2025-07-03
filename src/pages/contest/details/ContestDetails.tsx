@@ -1,38 +1,28 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { format, parseISO } from "date-fns";
+import { Stack, Typography } from "@mui/material";
 import {
   Contest,
   getStatusByColor,
 } from "../../../domain/contests/contestTypes";
 import CircleIcon from "@mui/icons-material/Circle";
 import ContestLeaderboard from "./ContestLeaderboard";
+import { formatDate } from "../../../util/dateUtils";
 
 interface Props {
   contest: Contest;
 }
 
 export default function ContestDetails({ contest }: Props) {
-  const getContestStatus = () => {
-    return (
-      <Box display="flex">
-        <Typography> {contest.contestStatus}</Typography>
-        <CircleIcon
-          sx={{ color: getStatusByColor(contest), marginLeft: "0.5rem" }}
-        />
-      </Box>
-    );
-  };
-
   return (
-    <Stack direction="column" width="100%">
-      <Box>
-        <Typography variant="h5">{contest.contestName}</Typography>
+    <Stack direction="column" width="100%" gap={5}>
+      <Stack gap={1}>
+        <Stack direction="row" gap={1.2} alignItems="center">
+          <Typography variant="h5">{contest.contestName}</Typography>
+          <CircleIcon sx={{ color: getStatusByColor(contest) }} />
+        </Stack>
         <Typography>
-          {" "}
-          Start date : {format(parseISO(contest.startTime), "yyyy-MM-dd HH:mm")}
+          {formatDate(contest.startTime)} to {formatDate(contest.endTime)}
         </Typography>
-        {getContestStatus()}
-      </Box>
+      </Stack>
       <ContestLeaderboard contestId={contest.contestId} />
     </Stack>
   );
