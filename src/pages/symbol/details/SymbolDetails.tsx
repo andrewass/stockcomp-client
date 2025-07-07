@@ -23,7 +23,7 @@ const SymbolDetails = ({ symbol, stockPrice, stockFinancials }: Props) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      sx={{ width: isLargeWidth ? "80%" : "100%" }}
+      sx={{ width: isLargeWidth ? "70%" : "100%" }}
     >
       <PriceChart symbol={symbol} />
       <SymbolStatistics

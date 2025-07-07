@@ -1,5 +1,6 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { useThemeContext } from "../../theme/AppThemeContext";
+import { customBorderColor } from "../../theme/themes";
 
 type ItemMap = Record<string, string>;
 
@@ -11,8 +12,6 @@ interface Props {
 export default function StyledSelect({ label, items, ...rest }: Props) {
   const { appTheme } = useThemeContext();
   const contrastColor = appTheme.palette.primary.contrastText;
-  const borderColor = "#878484";
-
   return (
     <>
       <InputLabel
@@ -31,7 +30,7 @@ export default function StyledSelect({ label, items, ...rest }: Props) {
         sx={{
           color: contrastColor,
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: borderColor,
+            borderColor: customBorderColor,
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: contrastColor,

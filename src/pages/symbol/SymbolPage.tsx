@@ -87,7 +87,7 @@ export default function SymbolPage({ symbol }: Props) {
     );
   } else {
     return (
-      <Stack direction="column" gap={8}>
+      <Stack direction="column" gap={12}>
         <Box display="flex" sx={{ justifyContent: "center" }}>
           <SearchField />
         </Box>

@@ -4,7 +4,6 @@ import {
   Theme,
   TypographyVariantsOptions,
 } from "@mui/material/styles";
-import { styledTableCell } from "./tableTheme";
 import { styledLink } from "./linkTheme";
 
 const baseTypography: TypographyVariantsOptions = {
@@ -34,9 +33,10 @@ const baseTypography: TypographyVariantsOptions = {
 };
 
 const baseComponents = {
-  MuiTableCell: styledTableCell,
   MuiLink: styledLink,
 };
+
+export const customBorderColor = "#878484";
 
 export const lightTheme: Theme = responsiveFontSizes(
   createTheme({

@@ -1,6 +1,7 @@
 import { useThemeContext } from "../../theme/AppThemeContext";
 import { AutocompleteRenderInputParams, TextField } from "@mui/material";
 import React, { ReactNode } from "react";
+import { customBorderColor } from "../../theme/themes";
 
 interface Props {
   label: string;
@@ -18,7 +19,6 @@ export default function StyledTextField({
 }: Props) {
   const { appTheme } = useThemeContext();
   const contrastColor = appTheme.palette.primary.contrastText;
-  const borderColor = "#878484";
 
   return (
     <TextField
@@ -29,10 +29,10 @@ export default function StyledTextField({
         "& label.Mui-focused": { color: contrastColor },
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
-            borderColor: borderColor,
+            borderColor: customBorderColor,
           },
           "&.Mui-focused fieldset": {
-            borderColor: borderColor,
+            borderColor: customBorderColor,
           },
           "&:hover fieldset": {
             borderColor: contrastColor,

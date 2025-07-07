@@ -1,7 +1,6 @@
 import { CLIENT_BACKEND_BASE_PATH } from "../../config/properties";
 
 export const GET_PARTICIPANT_CONTEST = "getContestParticipant";
-export const GET_PARTICIPANTS_SORTED = "getSortedParticipants";
 export const GET_PARTICIPANT_HISTORY = "getDetailedParticipantHistory";
 export const GET_PARTICIPANTS_SYMBOL = "getParticipantsSymbol";
 export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";

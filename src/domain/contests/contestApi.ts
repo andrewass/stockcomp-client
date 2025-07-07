@@ -4,6 +4,7 @@ import { CreateContestRequest, UpdateContestRequest } from "./contestDto";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
 export const GET_ALL_CONTESTS = "getAllContestsSorted";
+export const EXISTS_ACTIVE_CONTESTS = "existsActiveContests";
 
 const CONTEST_PATH = CLIENT_BACKEND_BASE_PATH + "/contests";
 
@@ -12,6 +13,13 @@ export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
     method: "get",
     url: CONTEST_PATH + "/all",
     params: { pageNumber, pageSize },
+  };
+};
+
+export const getExistsActiveContestsConfig = () => {
+  return {
+    method: "get",
+    url: CONTEST_PATH + "/exists-active",
   };
 };
 

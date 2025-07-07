@@ -5,7 +5,7 @@ import {
   Path,
   PathValue,
 } from "react-hook-form";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl } from "@mui/material";
 import StyledSelect from "../input/StyledSelect";
 
 interface Props<T extends FieldValues> {
