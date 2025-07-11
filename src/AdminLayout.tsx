@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material";
 import { ReactNode } from "react";
 import { useThemeContext } from "./theme/AppThemeContext";
-import { AdminNavigation } from "./pages/admin/AdminNavigation";
+import AdminNavigation from "./navigation/admin/AdminNavigation";
 
 interface Props {
   children: ReactNode;
