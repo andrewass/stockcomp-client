@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CLIENT_BACKEND_BASE_URL } from "../../config/properties";
 import AdminContestsPage from "../../pages/admin/contests/AdminContestsPage";
-import { AdminLayout } from "../../layout/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 
 export const Route = createFileRoute("/admin/contests")({
   beforeLoad: async ({ context }) => {

@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import {
   StockFinancials,
   StockPrice,
@@ -9,7 +9,10 @@ interface Props {
   stockPrice: StockPrice;
 }
 
-const SymbolStatistics = ({ stockFinancials, stockPrice }: Props) => {
+export default function SymbolStatistics({
+  stockFinancials,
+  stockPrice,
+}: Props) {
   const {
     symbol,
     currency,
@@ -28,6 +31,8 @@ const SymbolStatistics = ({ stockFinancials, stockPrice }: Props) => {
     dividendRate,
   } = stockFinancials;
 
+  const gridSize = 6;
+
   const getCurrentPrice = () => {
     if (currency === "USD") {
       return (
@@ -45,69 +50,56 @@ const SymbolStatistics = ({ stockFinancials, stockPrice }: Props) => {
   };
 
   return (
-    <Box id="symbolStats" sx={{ padding: "0px 30px" }}>
-      <Card elevation={0} sx={{ mb: "30px" }}>
-        <CardContent>
-          <Box>
-            <Typography component="h2" gutterBottom>
-              {companyName} ({symbol})
-            </Typography>
+    <Stack direction="row" sx={{ marginLeft: "50px" }} gap={5}>
+      <Box>
+        <Typography variant="h5" gutterBottom>
+          {companyName} ({symbol})
+        </Typography>
 
-            {getCurrentPrice()}
+        {getCurrentPrice()}
 
-            <Typography sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}>
-              {priceChange.toFixed(2)} {currency}
-            </Typography>
+        <Typography sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}>
+          {priceChange.toFixed(2)} {currency}
+        </Typography>
 
-            <Typography sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}>
-              {percentageChange.toFixed(2)}%
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+        <Typography sx={{ color: priceChange >= 0 ? "limegreen" : "red" }}>
+          {percentageChange.toFixed(2)}%
+        </Typography>
+      </Box>
 
-      <Card elevation={0}>
-        <CardContent>
-          <Grid container rowSpacing={2} columnSpacing={2} sx={{ mt: "1em" }}>
-            <Grid key="key1" size={6}>
-              <Typography>
-                Dividend Rate:{" "}
-                {dividendRate
-                  ? dividendRate.toFixed(2) + " " + currency
-                  : "N/A"}
-              </Typography>
-            </Grid>
-            <Grid key="key2" size={6}>
-              <Typography>
-                Dividend Yield:{" "}
-                {dividendYieldPercentage
-                  ? dividendYieldPercentage.toFixed(2) + "%"
-                  : "N/A"}
-              </Typography>
-            </Grid>
-            <Grid key="key3" size={6}>
-              <Typography>
-                Earnings Per Share:{" "}
-                {earningsPerShare ? earningsPerShare.toFixed(2) : "N/A"}{" "}
-                {currency}
-              </Typography>
-            </Grid>
-            <Grid key="key4" size={6}>
-              <Typography>
-                Price/Earnings:{" "}
-                {priceToEarnings ? priceToEarnings.toFixed(2) : "N/A"}
-              </Typography>
-            </Grid>
-            <Grid key="key5" size={6}>
-              <Typography>
-                Price/Book: {priceToBook ? priceToBook.toFixed(2) : "N/A"}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-    </Box>
+      <Grid container rowSpacing={1} columnSpacing={1} sx={{ width: "500px" }}>
+        <Grid key="key1" size={gridSize}>
+          <Typography>
+            Dividend Rate:{" "}
+            {dividendRate ? dividendRate.toFixed(2) + " " + currency : "N/A"}
+          </Typography>
+        </Grid>
+        <Grid key="key2" size={gridSize}>
+          <Typography>
+            Dividend Yield:{" "}
+            {dividendYieldPercentage
+              ? dividendYieldPercentage.toFixed(2) + "%"
+              : "N/A"}
+          </Typography>
+        </Grid>
+        <Grid key="key3" size={gridSize}>
+          <Typography>
+            Earnings Per Share:{" "}
+            {earningsPerShare ? earningsPerShare.toFixed(2) : "N/A"} {currency}
+          </Typography>
+        </Grid>
+        <Grid key="key4" size={gridSize}>
+          <Typography>
+            Price/Earnings:{" "}
+            {priceToEarnings ? priceToEarnings.toFixed(2) : "N/A"}
+          </Typography>
+        </Grid>
+        <Grid key="key5" size={gridSize}>
+          <Typography>
+            Price/Book: {priceToBook ? priceToBook.toFixed(2) : "N/A"}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Stack>
   );
-};
-
-export default SymbolStatistics;
+}
