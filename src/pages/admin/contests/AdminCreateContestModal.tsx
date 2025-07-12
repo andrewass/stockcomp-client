@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CreateContestRequest } from "../../../domain/contests/contestDto";
 import { useApiWrapper } from "../../../config/useApiWrapper";
@@ -17,7 +10,9 @@ import {
 } from "../../../domain/contests/contestApi";
 import { queryClient } from "../../../config/queryConfig";
 import ControlledTextField from "../../../components/form/ControlledTextField";
-import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
+import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
+import StyledModalForm from "../../../components/form/StyledModalForm";
+import StyledButton from "../../../components/button/StyledButton";
 
 export default function AdminCreateContestModal() {
   const [open, setOpen] = useState(false);
@@ -43,44 +38,38 @@ export default function AdminCreateContestModal() {
 
   return (
     <Box>
-      <Button onClick={handleOpen}>Create Contest</Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create Contest</DialogTitle>
-        <DialogContent>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(submitForm)}
-            sx={{ maxWidth: "400px", margin: "auto", mt: 8 }}
-          >
-            <Stack spacing={3}>
-              <ControlledTextField
-                name="contestName"
-                label="Contest Name"
-                control={control}
-                defaultValue={""}
-                rules={{ required: "Contest name is required" }}
-              />
-              <ControlledDateTimePicker
-                name="startTime"
-                label="Starting Time"
-                control={control}
-                disabled={mutation.isPending}
-                rules={{ required: "Starting time is required" }}
-              />
-              <ControlledTextField
-                name="durationDays"
-                label="Contest Duration Days"
-                control={control}
-                defaultValue={30}
-                rules={{ required: "Contest duration is required" }}
-              />
-              <Button variant="outlined" type="submit">
-                Create
-              </Button>
-            </Stack>
-          </Box>
-        </DialogContent>
-      </Dialog>
+      <StyledButton buttonText="Create Contest" onClick={handleOpen} />
+      <StyledModalForm
+        open={open}
+        onClose={handleClose}
+        title="Create Contest"
+        onSubmit={handleSubmit(submitForm)}
+      >
+        <Stack spacing={3}>
+          <ControlledTextField
+            name="contestName"
+            label="Contest Name"
+            control={control}
+            defaultValue={""}
+            rules={{ required: "Contest name is required" }}
+          />
+          <ControlledDateTimeField
+            name="startTime"
+            label="Starting Time"
+            control={control}
+            disabled={mutation.isPending}
+            rules={{ required: "Starting time is required" }}
+          />
+          <ControlledTextField
+            name="durationDays"
+            label="Contest Duration Days"
+            control={control}
+            defaultValue={30}
+            rules={{ required: "Contest duration is required" }}
+          />
+          <StyledButton variant="outlined" type="submit" buttonText="Create" />
+        </Stack>
+      </StyledModalForm>
     </Box>
   );
 }

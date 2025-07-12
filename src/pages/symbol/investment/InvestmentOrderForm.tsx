@@ -13,7 +13,7 @@ import {
 import { queryClient } from "../../../config/queryConfig";
 import ControlledTextField from "../../../components/form/ControlledTextField";
 import { DetailedParticipant } from "../../../domain/participant/participantTypes";
-import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
+import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
 import ControlledSelect from "../../../components/form/ControlledSelect";
 import StyledButton from "../../../components/button/StyledButton";
 
@@ -113,7 +113,7 @@ export const InvestmentOrderForm = ({
           rules={{ required: "Transaction type is required" }}
           disabled={mutation.isPending}
         />
-        <ControlledDateTimePicker
+        <ControlledDateTimeField
           name="expirationTime"
           label="Expiration"
           control={control}

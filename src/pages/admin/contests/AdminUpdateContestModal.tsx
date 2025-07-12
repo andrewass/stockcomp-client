@@ -25,7 +25,7 @@ import {
 import { queryClient } from "../../../config/queryConfig";
 import ControlledTextField from "../../../components/form/ControlledTextField";
 import ControlledSelect from "../../../components/form/ControlledSelect";
-import ControlledDateTimePicker from "../../../components/form/ControlledDateTimePicker";
+import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
 
 export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
   const [open, setOpen] = useState(false);
@@ -82,7 +82,7 @@ export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
               defaultValue={contest.contestStatus}
               items={contestStatusRecord}
             />
-            <ControlledDateTimePicker
+            <ControlledDateTimeField
               name="startTime"
               label="Starting Time"
               control={control}
