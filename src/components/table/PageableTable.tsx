@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -10,7 +11,7 @@ import {
 } from "@mui/material";
 import { lightTheme } from "../../theme/themes";
 import { useThemeContext } from "../../theme/AppThemeContext";
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import StyledTableRow from "./StyledTableRow";
 
 export interface Column {
@@ -20,44 +21,43 @@ export interface Column {
 
 interface Props<T> {
   columns: Column[];
-  fetchData: (
-    page: number,
-    pageSize: number,
-  ) => Promise<{
-    rows: T[];
-    total: number;
-  }>;
+  rows: T[] | undefined;
   renderRow: (row: T, key: number) => ReactNode;
+  page: number;
+  rowsPerPage: number;
+  totalEntriesCount: number | undefined;
+  isLoading: boolean;
+  onChangePage: (newPage: number) => void;
+  onChangeRowsPerPage: (newRowsPerPage: number) => void;
 }
 
 export default function PageableTable<T>({
   columns,
-  fetchData,
+  rows,
   renderRow,
+  page,
+  rowsPerPage,
+  totalEntriesCount,
+  isLoading,
+  onChangePage,
+  onChangeRowsPerPage,
 }: Props<T>) {
   const { appTheme } = useThemeContext();
-  const [totalEntriesCount, setTotalEntriesCount] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
-  const [rows, setRows] = useState<T[]>([]);
-
-  useEffect(() => {
-    fetchData(currentPage, rowsPerPage).then((data) => {
-      setRows(data.rows);
-      setTotalEntriesCount(data.total);
-    });
-  }, [currentPage, rowsPerPage]);
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(0);
+    onChangeRowsPerPage(parseInt(event.target.value, 10));
   };
 
-  const handlePageChange = (event: unknown, newPage: number) => {
-    fetchData(newPage, rowsPerPage).catch((error) => console.error(error));
-  };
+  function handlePageChange(
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    page: number,
+  ) {
+    onChangePage(page);
+  }
+
+  if (isLoading) return <CircularProgress />;
 
   return (
     <Box sx={{ border: "4px solid", borderColor: "divider", borderRadius: 2 }}>
@@ -83,14 +83,14 @@ export default function PageableTable<T>({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.length === 0 ? (
+            {rows!.length === 0 ? (
               <StyledTableRow rowId={0}>
                 <TableCell align="center" colSpan={columns.length}>
                   No entries found
                 </TableCell>
               </StyledTableRow>
             ) : (
-              rows.map((row, index) => renderRow(row, index))
+              rows!.map((row, index) => renderRow(row, index))
             )}
           </TableBody>
         </Table>
@@ -103,8 +103,8 @@ export default function PageableTable<T>({
               : appTheme.palette.primary.main,
         }}
         component="div"
-        count={totalEntriesCount}
-        page={currentPage}
+        count={totalEntriesCount!}
+        page={page}
         rowsPerPageOptions={[1, 5, 10, 25]}
         rowsPerPage={rowsPerPage}
         onPageChange={handlePageChange}
