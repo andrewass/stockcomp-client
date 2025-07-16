@@ -1,8 +1,8 @@
-import { useApiWrapper } from "../../../config/useApiWrapper";
-import { getSortedParticipantsConfig } from "../../../domain/participant/participantApi";
 import PageableTable, { Column } from "../../../components/table/PageableTable";
 import { Participant } from "../../../domain/participant/participantTypes";
 import ContestLeaderboardEntry from "./ContestLeaderboardEntry";
+import { useState } from "react";
+import { useGetSortedParticipants } from "../../../domain/participant/useParticipant";
 
 interface Props {
   contestId: number;
@@ -15,18 +15,14 @@ const columns: Column[] = [
   { id: "totalValue", label: "Total Value" },
 ];
 
-export default function ContestLeaderboard({ contestId }: Props) {
-  const { apiGet } = useApiWrapper();
-
-  async function fetchParticipantEntries(page: number, pageRowCount: number) {
-    const data = await apiGet(
-      getSortedParticipantsConfig(contestId, page, pageRowCount),
-    );
-    return {
-      rows: data.participants,
-      total: data.totalEntriesCount,
-    };
-  }
+export default function ContestLeaderboardTable({ contestId }: Props) {
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const { data, isLoading } = useGetSortedParticipants(
+    contestId,
+    page,
+    rowsPerPage,
+  );
 
   function renderRow(row: Participant, key: number) {
     return <ContestLeaderboardEntry participant={row} key={key} />;
@@ -34,9 +30,15 @@ export default function ContestLeaderboard({ contestId }: Props) {
 
   return (
     <PageableTable
-      fetchData={fetchParticipantEntries}
       columns={columns}
       renderRow={renderRow}
+      rows={data?.participants}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      totalEntriesCount={data?.totalEntriesCount}
+      isLoading={isLoading}
+      onChangePage={setPage}
+      onChangeRowsPerPage={setRowsPerPage}
     />
   );
 }

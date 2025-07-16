@@ -33,7 +33,7 @@ interface Props<T> {
 
 export default function PageableTable<T>({
   columns,
-  rows,
+  rows = [],
   renderRow,
   page,
   rowsPerPage,

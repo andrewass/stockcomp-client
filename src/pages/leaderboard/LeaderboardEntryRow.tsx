@@ -1,12 +1,12 @@
 import { Box, Grid, TableCell, TableRow } from "@mui/material";
 import ReactCountryFlag from "react-country-flag";
 import { Link } from "@tanstack/react-router";
+import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
 import {
   LeaderboardEntry,
   Medal,
   MedalValue,
-} from "../../leaderboard/leaderboardTypes";
-import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
+} from "../../domain/leaderboard/leaderboardTypes";
 
 interface Props {
   entry: LeaderboardEntry;

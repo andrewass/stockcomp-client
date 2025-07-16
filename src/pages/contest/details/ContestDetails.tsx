@@ -4,7 +4,7 @@ import {
   getStatusByColor,
 } from "../../../domain/contests/contestTypes";
 import CircleIcon from "@mui/icons-material/Circle";
-import ContestLeaderboard from "./ContestLeaderboard";
+import ContestLeaderboardTable from "./ContestLeaderboardTable";
 import { formatDate } from "../../../util/dateUtils";
 
 interface Props {
@@ -23,7 +23,7 @@ export default function ContestDetails({ contest }: Props) {
           {formatDate(contest.startTime)} to {formatDate(contest.endTime)}
         </Typography>
       </Stack>
-      <ContestLeaderboard contestId={contest.contestId} />
+      <ContestLeaderboardTable contestId={contest.contestId} />
     </Stack>
   );
 }

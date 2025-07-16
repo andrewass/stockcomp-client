@@ -1,8 +1,9 @@
 import PageableTable, { Column } from "../../components/table/PageableTable";
-import { useApiWrapper } from "../../config/useApiWrapper";
-import { getAllContestsConfig } from "../../domain/contests/contestApi";
 import { Contest } from "../../domain/contests/contestTypes";
 import { ContestRow } from "./ContestRow";
+import { useGetPageableContests } from "../../domain/contests/useContest";
+import { useState } from "react";
+import ErrorComponent from "../../error/ErrorComponent";
 
 const columns: Column[] = [
   { id: "contest", label: "Contest" },
@@ -13,25 +14,33 @@ const columns: Column[] = [
 ];
 
 export default function ContestsTable() {
-  const { apiGet } = useApiWrapper();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  async function fetchContestEntries(page: number, pageRowCount: number) {
-    const response = await apiGet(getAllContestsConfig(page, pageRowCount));
-    return {
-      rows: response.contests,
-      total: response.totalEntriesCount,
-    };
-  }
+  const { data, isLoading, isError, error } = useGetPageableContests(
+    page,
+    rowsPerPage,
+  );
 
   function renderRow(row: Contest, key: number) {
     return <ContestRow contest={row} key={key} />;
   }
 
+  if (isError) {
+    return <ErrorComponent error={error} />;
+  }
+
   return (
     <PageableTable<Contest>
       columns={columns}
-      fetchData={fetchContestEntries}
       renderRow={renderRow}
+      rows={data?.contests}
+      page={page}
+      rowsPerPage={rowsPerPage}
+      totalEntriesCount={data?.totalEntriesCount}
+      isLoading={isLoading}
+      onChangePage={setPage}
+      onChangeRowsPerPage={setRowsPerPage}
     />
   );
 }

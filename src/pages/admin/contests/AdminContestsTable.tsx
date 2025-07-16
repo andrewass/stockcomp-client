@@ -1,7 +1,7 @@
 import PageableTable, { Column } from "../../../components/table/PageableTable";
 import { AdminContestRow } from "./AdminContestRow";
 import { Contest } from "../../../domain/contests/contestTypes";
-import { useGetPageableContests } from "../../../domain/contests/useContests";
+import { useGetPageableContests } from "../../../domain/contests/useContest";
 import { useState } from "react";
 import ErrorComponent from "../../../error/ErrorComponent";
 
@@ -32,7 +32,7 @@ export default function AdminContestsTable() {
   }
 
   return (
-    <PageableTable
+    <PageableTable<Contest>
       columns={columns}
       page={page}
       rowsPerPage={rowsPerPage}
