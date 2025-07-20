@@ -23,7 +23,7 @@ import {
   getSignUpParticipantConfig,
 } from "../../domain/participant/participantApi";
 import { DetailedParticipant } from "../../domain/participant/participantTypes";
-import InvestmentList from "../symbols/right/InvestmentList";
+import InvestmentList from "../symbols/contests/InvestmentList";
 import { ActiveOrdersTotal } from "../../investmentorder/total/ActiveOrdersTotal";
 import { CompletedOrdersTotal } from "../../investmentorder/total/CompletedOrdersTotal";
 import { queryClient } from "../../config/queryConfig";

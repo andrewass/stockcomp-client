@@ -1,8 +1,8 @@
-import { ContestsMenu } from "./right/ContestsMenu";
+import { ContestsMenu } from "./contests/ContestsMenu";
 import { Box, CircularProgress, Divider, Stack } from "@mui/material";
 import React from "react";
 import SearchField from "../../search/SearchField";
-import SymbolGrid from "./left/SymbolGrid";
+import SymbolGrid from "./presentation/SymbolGrid";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import { useQuery } from "@tanstack/react-query";
 import ErrorComponent from "../../error/ErrorComponent";
