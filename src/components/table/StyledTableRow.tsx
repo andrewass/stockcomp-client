@@ -5,7 +5,7 @@ import { useThemeContext } from "../../theme/AppThemeContext";
 
 interface Props {
   children: ReactNode;
-  rowId: number;
+  rowId: number | string;
 }
 
 export default function StyledTableRow({ children, rowId }: Props) {

@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Box, IconButton, Modal } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import { useApiWrapper } from "../../config/useApiWrapper";
-import { GET_ALL_USERS_ADMIN } from "../api/adminApi";
-import { queryClient } from "../../config/queryConfig";
-import { getUpdateContestConfig } from "../../domain/contests/contestApi";
-import { UpdateContestRequest } from "../../domain/contests/contestDto";
+import { GET_ALL_USERS } from "../../../domain/user/userApi";
+import { useNavigate } from "@tanstack/react-router";
+import { UpdateContestRequest } from "../../../domain/contests/contestDto";
+import { useApiWrapper } from "../../../config/useApiWrapper";
+import { getUpdateContestConfig } from "../../../domain/contests/contestApi";
+import { queryClient } from "../../../config/queryConfig";
 
 const style = {
   position: "absolute",
@@ -35,8 +35,8 @@ export const AdminUpdateUserForm = () => {
     },
     onSuccess: () => {
       queryClient
-        .invalidateQueries({ queryKey: [GET_ALL_USERS_ADMIN] })
-        .then(() => navigate("/admin/users"));
+        .invalidateQueries({ queryKey: [GET_ALL_USERS] })
+        .then(() => navigate({ to: "/admin/users" }).catch(console.error));
     },
   });
 
