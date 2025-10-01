@@ -1,12 +1,14 @@
-import { TableCell } from "@mui/material";
+import {Link as MUILink, TableCell} from "@mui/material";
 import ReactCountryFlag from "react-country-flag";
 import { Participant } from "../../../domain/participant/participantTypes";
-import { Link } from "@tanstack/react-router";
+import {createLink} from "@tanstack/react-router";
 import StyledTableRow from "../../../components/table/StyledTableRow";
 
 interface Props {
   participant: Participant;
 }
+
+const CustomLink = createLink(MUILink);
 
 export default function ContestLeaderboardEntry({ participant }: Props) {
   return (
@@ -16,9 +18,9 @@ export default function ContestLeaderboardEntry({ participant }: Props) {
     >
       <TableCell>{participant.rank}</TableCell>
       <TableCell>
-        <Link to="/users/$username" params={{ username: participant.username }}>
+        <CustomLink to="/users/$username" params={{ username: participant.username }}>
           {participant.username}
-        </Link>
+        </CustomLink>
       </TableCell>
       <TableCell>
         {participant.country && (

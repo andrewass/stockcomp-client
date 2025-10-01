@@ -30,13 +30,13 @@ export const operationTypeRecord: Record<string, string> = {
 
 const contestRecord = (
   participants: DetailedParticipant[],
-): Record<number, string> => {
+): Record<string, string> => {
   return participants.reduce(
     (record, participant) => {
-      record[participant.contest.contestId] = participant.contest.contestName;
+      record[participant.participant.participantId.toString()] = participant.contest.contestName;
       return record;
     },
-    {} as Record<number, string>,
+    {} as Record<string, string>,
   );
 };
 
@@ -46,6 +46,7 @@ export const InvestmentOrderForm = ({
   symbol,
 }: Props) => {
   const { apiPost } = useApiWrapper();
+
   const { handleSubmit, control } = useForm<InvestmentOrderRequest>({
     defaultValues: {
       symbol: symbol,

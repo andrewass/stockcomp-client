@@ -41,8 +41,8 @@ export default function StyledSelect({ label, items, ...rest }: Props) {
         }}
       >
         {Object.entries(items).map(([key, val]) => (
-          <MenuItem key={key} value={val}>
-            {val}
+          <MenuItem key={key} value={key}>
+              {val}
           </MenuItem>
         ))}
       </Select>
