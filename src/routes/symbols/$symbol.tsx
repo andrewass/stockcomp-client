@@ -3,15 +3,15 @@ import { DefaultLayout } from "../../DefaultLayout";
 import SymbolPage from "../../pages/symbol/SymbolPage";
 
 export const Route = createFileRoute("/symbols/$symbol")({
-  component: SymbolDetails,
+	component: SymbolDetails,
 });
 
 function SymbolDetails() {
-  const { symbol } = Route.useParams();
+	const { symbol } = Route.useParams();
 
-  return (
-    <DefaultLayout>
-      <SymbolPage symbol={symbol} />
-    </DefaultLayout>
-  );
+	return (
+		<DefaultLayout>
+			<SymbolPage symbol={symbol} />
+		</DefaultLayout>
+	);
 }

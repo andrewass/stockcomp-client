@@ -1,30 +1,30 @@
-import { PriceChart } from "./PriceChart";
 import { Stack } from "@mui/material";
-import {
-  StockFinancials,
-  StockPrice,
-} from "../../../domain/symbols/symbolTypes";
-import SymbolStatistics from "./SymbolStatistics";
 import React from "react";
+import type {
+	StockFinancials,
+	StockPrice,
+} from "../../../domain/symbols/symbolTypes";
+import { PriceChart } from "./PriceChart";
+import SymbolStatistics from "./SymbolStatistics";
 
 interface Props {
-  stockPrice: StockPrice;
-  symbol: string;
-  stockFinancials: StockFinancials;
+	stockPrice: StockPrice;
+	symbol: string;
+	stockFinancials: StockFinancials;
 }
 
 export default function SymbolDetails({
-  symbol,
-  stockPrice,
-  stockFinancials,
+	symbol,
+	stockPrice,
+	stockFinancials,
 }: Props) {
-  return (
-    <Stack>
-      <PriceChart symbol={symbol} />
-      <SymbolStatistics
-        stockFinancials={stockFinancials}
-        stockPrice={stockPrice}
-      />
-    </Stack>
-  );
+	return (
+		<Stack>
+			<PriceChart symbol={symbol} />
+			<SymbolStatistics
+				stockFinancials={stockFinancials}
+				stockPrice={stockPrice}
+			/>
+		</Stack>
+	);
 }

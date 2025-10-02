@@ -1,26 +1,26 @@
-import { useApiWrapper } from "../../config/useApiWrapper";
-import { LeaderboardEntry } from "./leaderboardTypes";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useApiWrapper } from "../../config/useApiWrapper";
 import {
-  GET_SORTED_LEADERBOARD_ENTRIES,
-  getSortedLeaderboardEntriesConfig,
+	GET_SORTED_LEADERBOARD_ENTRIES,
+	getSortedLeaderboardEntriesConfig,
 } from "./leaderboardApi";
+import type { LeaderboardEntry } from "./leaderboardTypes";
 
 interface LeaderboardResponse {
-  leaderboardEntries: LeaderboardEntry[];
-  totalEntriesCount: number;
+	leaderboardEntries: LeaderboardEntry[];
+	totalEntriesCount: number;
 }
 
 export function useGetPageableLeaderboardEntries(
-  pageNumber: number,
-  pageSize: number,
+	pageNumber: number,
+	pageSize: number,
 ) {
-  const { apiGet } = useApiWrapper();
+	const { apiGet } = useApiWrapper();
 
-  return useQuery<LeaderboardResponse>({
-    queryKey: [GET_SORTED_LEADERBOARD_ENTRIES, pageNumber],
-    queryFn: () =>
-      apiGet(getSortedLeaderboardEntriesConfig(pageNumber, pageSize)),
-    placeholderData: keepPreviousData,
-  });
+	return useQuery<LeaderboardResponse>({
+		queryKey: [GET_SORTED_LEADERBOARD_ENTRIES, pageNumber],
+		queryFn: () =>
+			apiGet(getSortedLeaderboardEntriesConfig(pageNumber, pageSize)),
+		placeholderData: keepPreviousData,
+	});
 }

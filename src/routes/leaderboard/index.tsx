@@ -3,13 +3,13 @@ import { DefaultLayout } from "../../DefaultLayout";
 import LeaderboardPage from "../../pages/leaderboard/LeaderboardPage";
 
 export const Route = createFileRoute("/leaderboard/")({
-  component: Leaderboard,
+	component: Leaderboard,
 });
 
 function Leaderboard() {
-  return (
-    <DefaultLayout>
-      <LeaderboardPage />
-    </DefaultLayout>
-  );
+	return (
+		<DefaultLayout>
+			<LeaderboardPage />
+		</DefaultLayout>
+	);
 }

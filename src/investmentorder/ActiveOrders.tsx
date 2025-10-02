@@ -1,71 +1,71 @@
-import {
-  Collapse,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemSecondaryAction,
-  ListItemText,
-  Typography,
-} from "@mui/material";
 import { Delete, ExpandLess, ExpandMore } from "@mui/icons-material";
+import {
+	Collapse,
+	IconButton,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemSecondaryAction,
+	ListItemText,
+	Typography,
+} from "@mui/material";
 import { useState } from "react";
-import { InvestmentOrder } from "../domain/investmentorder/investmentOrderTypes";
+import type { InvestmentOrder } from "../domain/investmentorder/investmentOrderTypes";
 
 export const ActiveOrders = ({
-  activeOrders,
-  deleteOrder,
+	activeOrders,
+	deleteOrder,
 }: {
-  activeOrders: InvestmentOrder[];
-  deleteOrder: (orderId: number) => void;
+	activeOrders: InvestmentOrder[];
+	deleteOrder: (orderId: number) => void;
 }) => {
-  const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(false);
 
-  const createListItem = (order: InvestmentOrder) => {
-    return (
-      <ListItem key={order.orderId} sx={{ pl: 2 }}>
-        <ListItemText
-          primary={
-            order.symbol +
-            " : " +
-            order.transactionType +
-            " status " +
-            (order.totalAmount - order.remainingAmount) +
-            "/" +
-            order.totalAmount +
-            " . Price " +
-            order.acceptedPrice +
-            " " +
-            order.currency
-          }
-        />
+	const createListItem = (order: InvestmentOrder) => {
+		return (
+			<ListItem key={order.orderId} sx={{ pl: 2 }}>
+				<ListItemText
+					primary={
+						order.symbol +
+						" : " +
+						order.transactionType +
+						" status " +
+						(order.totalAmount - order.remainingAmount) +
+						"/" +
+						order.totalAmount +
+						" . Price " +
+						order.acceptedPrice +
+						" " +
+						order.currency
+					}
+				/>
 
-        <ListItemSecondaryAction>
-          <IconButton
-            aria-label="Delete"
-            onClick={() => deleteOrder(order.orderId)}
-          >
-            <Delete />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-    );
-  };
+				<ListItemSecondaryAction>
+					<IconButton
+						aria-label="Delete"
+						onClick={() => deleteOrder(order.orderId)}
+					>
+						<Delete />
+					</IconButton>
+				</ListItemSecondaryAction>
+			</ListItem>
+		);
+	};
 
-  return (
-    <List>
-      <ListItemButton sx={{ p: 0 }} onClick={() => setOpen(!open)}>
-        <ListItemText
-          primary={<Typography variant="h5">Active Orders</Typography>}
-        />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
+	return (
+		<List>
+			<ListItemButton sx={{ p: 0 }} onClick={() => setOpen(!open)}>
+				<ListItemText
+					primary={<Typography variant="h5">Active Orders</Typography>}
+				/>
+				{open ? <ExpandLess /> : <ExpandMore />}
+			</ListItemButton>
 
-      <Collapse in={open} unmountOnExit>
-        <List sx={{ width: "100%", maxHeight: "15rem", overflow: "auto" }}>
-          {activeOrders.map((order) => createListItem(order))}
-        </List>
-      </Collapse>
-    </List>
-  );
+			<Collapse in={open} unmountOnExit>
+				<List sx={{ width: "100%", maxHeight: "15rem", overflow: "auto" }}>
+					{activeOrders.map((order) => createListItem(order))}
+				</List>
+			</Collapse>
+		</List>
+	);
 };

@@ -1,10 +1,10 @@
+import type { InvestmentOrder } from "../../domain/investmentorder/investmentOrderTypes";
 import { CompletedOrders } from "../CompletedOrders";
-import { InvestmentOrder } from "../../domain/investmentorder/investmentOrderTypes";
 
 export const CompletedOrdersTotal = ({
-  completedOrders,
+	completedOrders,
 }: {
-  completedOrders: InvestmentOrder[];
+	completedOrders: InvestmentOrder[];
 }) => {
-  return <CompletedOrders completedOrders={completedOrders} />;
+	return <CompletedOrders completedOrders={completedOrders} />;
 };

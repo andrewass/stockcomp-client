@@ -1,10 +1,10 @@
-import { InvestmentOrder } from "../../../domain/investmentorder/investmentOrderTypes";
+import type { InvestmentOrder } from "../../../domain/investmentorder/investmentOrderTypes";
 import { CompletedOrders } from "../../../investmentorder/CompletedOrders";
 
 export const CompletedOrdersSymbol = ({
-  completedOrders,
+	completedOrders,
 }: {
-  completedOrders: InvestmentOrder[];
+	completedOrders: InvestmentOrder[];
 }) => {
-  return <CompletedOrders completedOrders={completedOrders} />;
+	return <CompletedOrders completedOrders={completedOrders} />;
 };

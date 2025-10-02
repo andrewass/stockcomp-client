@@ -1,70 +1,70 @@
 import { CLIENT_BACKEND_BASE_PATH } from "../../config/properties";
-import { InvestmentOrderRequest } from "./investmentOrderTypes";
+import type { InvestmentOrderRequest } from "./investmentOrderTypes";
 
 export const GET_ALL_ACTIVE_INVESTMENT_ORDERS = "getActiveInvestmentOrders";
 export const GET_ALL_COMPLETED_INVESTMENT_ORDERS =
-  "getCompletedInvestmentOrders";
+	"getCompletedInvestmentOrders";
 export const GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL =
-  "getActiveInvestmentOrdersSymbol";
+	"getActiveInvestmentOrdersSymbol";
 export const GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL =
-  "getCompletedInvestmentOrders";
+	"getCompletedInvestmentOrders";
 
 const baseUrl = CLIENT_BACKEND_BASE_PATH + "/investmentorders";
 
 export const getPostInvestmentOrderConfig = (
-  request: InvestmentOrderRequest,
+	request: InvestmentOrderRequest,
 ) => {
-  return {
-    method: "post",
-    url: `${baseUrl}/order`,
-    body: request,
-  };
+	return {
+		method: "post",
+		url: `${baseUrl}/order`,
+		body: request,
+	};
 };
 
 export const getDeleteInvestmentOrderConfig = (orderId: number) => {
-  return {
-    method: "delete",
-    url: baseUrl + "/delete-order",
-    params: { orderId },
-  };
+	return {
+		method: "delete",
+		url: baseUrl + "/delete-order",
+		params: { orderId },
+	};
 };
 
 export const getAllActiveInvestmentOrdersConfig = (contestNumber: number) => {
-  return {
-    method: "get",
-    url: baseUrl + "/all-active",
-    params: { contestNumber },
-  };
+	return {
+		method: "get",
+		url: baseUrl + "/all-active",
+		params: { contestNumber },
+	};
 };
 
 export const getAllCompletedInvestmentOrdersConfig = (
-  contestNumber: number,
+	contestNumber: number,
 ) => {
-  return {
-    method: "get",
-    url: baseUrl + "/all-completed",
-    params: { contestNumber },
-  };
+	return {
+		method: "get",
+		url: baseUrl + "/all-completed",
+		params: { contestNumber },
+	};
 };
 
 export const getSymbolActiveInvestmentOrdersConfig = (
-  contestNumber: number,
-  symbol: string,
+	contestNumber: number,
+	symbol: string,
 ) => {
-  return {
-    method: "get",
-    url: baseUrl + "/symbol-active",
-    params: { contestNumber, symbol },
-  };
+	return {
+		method: "get",
+		url: baseUrl + "/symbol-active",
+		params: { contestNumber, symbol },
+	};
 };
 
 export const getSymbolCompletedInvestmentOrdersConfig = (
-  contestNumber: number,
-  symbol: string,
+	contestNumber: number,
+	symbol: string,
 ) => {
-  return {
-    method: "get",
-    url: baseUrl + "/symbol-completed",
-    params: { contestNumber, symbol },
-  };
+	return {
+		method: "get",
+		url: baseUrl + "/symbol-completed",
+		params: { contestNumber, symbol },
+	};
 };

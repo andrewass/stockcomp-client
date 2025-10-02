@@ -4,20 +4,20 @@ export const GET_ALL_USERS = "getAllUsers";
 export const GET_USER_DETAILS = "getUserDetails";
 
 export const getAllUsersSortedConfig = (
-  pageNumber: number,
-  pageSize: number,
+	pageNumber: number,
+	pageSize: number,
 ) => {
-  return {
-    method: "get",
-    url: CLIENT_BACKEND_BASE_PATH + "/user/sorted",
-    params: { pageNumber, pageSize },
-  };
+	return {
+		method: "get",
+		url: CLIENT_BACKEND_BASE_PATH + "/user/sorted",
+		params: { pageNumber, pageSize },
+	};
 };
 
 export const getUserDetailsConfig = (username: string) => {
-  return {
-    method: "get",
-    url: CLIENT_BACKEND_BASE_PATH + "/user/details",
-    params: { username },
-  };
+	return {
+		method: "get",
+		url: CLIENT_BACKEND_BASE_PATH + "/user/details",
+		params: { username },
+	};
 };

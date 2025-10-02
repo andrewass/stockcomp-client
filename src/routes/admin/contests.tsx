@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import AdminContestsPage from "../../pages/admin/contests/AdminContestsPage";
 import AdminLayout from "../../AdminLayout";
+import AdminContestsPage from "../../pages/admin/contests/AdminContestsPage";
 
 export const Route = createFileRoute("/admin/contests")({
-  component: AdminContests,
+	component: AdminContests,
 });
 
 export default function AdminContests() {
-  return (
-    <AdminLayout>
-      <AdminContestsPage />
-    </AdminLayout>
-  );
+	return (
+		<AdminLayout>
+			<AdminContestsPage />
+		</AdminLayout>
+	);
 }

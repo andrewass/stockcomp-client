@@ -1,25 +1,25 @@
-import { DetailedParticipant } from "../../../domain/participant/participantTypes";
+import type { DetailedParticipant } from "../../../domain/participant/participantTypes";
 import ParticipantAccordion from "./ParticipantAccordion";
 
 interface Props {
-  participants: DetailedParticipant[];
-  symbol: string;
+	participants: DetailedParticipant[];
+	symbol: string;
 }
 
 export default function ParticipantAccordionList({
-  participants,
-  symbol,
+	participants,
+	symbol,
 }: Props) {
-  return (
-    <div>
-      {participants.map((participant, index) => (
-        <ParticipantAccordion
-          participant={participant}
-          symbol={symbol}
-          index={index}
-          key={index}
-        />
-      ))}
-    </div>
-  );
+	return (
+		<div>
+			{participants.map((participant, index) => (
+				<ParticipantAccordion
+					participant={participant}
+					symbol={symbol}
+					index={index}
+					key={index}
+				/>
+			))}
+		</div>
+	);
 }

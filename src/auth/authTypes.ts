@@ -1,3 +1,3 @@
 export type ValidSession = {
-  validSession: boolean;
+	validSession: boolean;
 };
