@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useId } from "react";
 import {
 	Area,
 	AreaChart,
@@ -19,6 +19,7 @@ import ErrorComponent from "../error/ErrorComponent";
 
 export const ParticipantHistory = ({ username }: { username: string }) => {
 	const { apiGet } = useApiWrapper();
+	const uniqueId = useId();
 
 	const { isPending, isError, error, data } = useQuery<DetailedParticipant[]>({
 		queryKey: [GET_PARTICIPANT_HISTORY, username],
@@ -33,7 +34,7 @@ export const ParticipantHistory = ({ username }: { username: string }) => {
 		const participants = data.map((detailedEntry) => detailedEntry.participant);
 		return (
 			<Box
-				id="participantHistory"
+				id={uniqueId}
 				sx={{ marginTop: "10%", marginLeft: "10%", width: "80%" }}
 			>
 				<Typography variant="h5" align="center" marginBottom="3rem">

@@ -10,9 +10,7 @@ import AppThemeProvider from "./theme/AppThemeProvider";
 
 const router = createRouter({
 	routeTree,
-	context: {
-		auth: undefined!,
-	},
+	context: {} as { auth: ReturnType<typeof useAuth> },
 });
 
 declare module "@tanstack/react-router" {

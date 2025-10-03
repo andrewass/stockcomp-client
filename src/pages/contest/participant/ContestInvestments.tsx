@@ -7,7 +7,7 @@ import {
 	ListItem,
 	Typography,
 } from "@mui/material";
-import type { Investment } from "../../../investment/investmentTypes";
+import type { Investment } from "../../../domain/investment/investmentTypes";
 
 interface Props {
 	investments: Investment[];
@@ -21,8 +21,8 @@ export default function ContestInvestments({ investments }: Props) {
 			</AccordionSummary>
 			<AccordionDetails>
 				<List>
-					{investments.map((investment, index) => (
-						<ListItem key={index}>
+					{investments.map((investment, _index) => (
+						<ListItem key={investment.investmentId}>
 							<Grid container spacing={1} bgcolor="orange">
 								<Grid size={6}>
 									<Typography>{investment.symbol}</Typography>

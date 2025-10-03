@@ -1,13 +1,18 @@
+import { useId } from "react";
+
 export default function BronzeMedalIcon() {
+	const uniqueId = useId();
+
 	return (
 		<svg
 			version="1.1"
-			id="Layer_1"
+			id={uniqueId}
 			xmlns="http://www.w3.org/2000/svg"
 			x="0px"
 			y="0px"
 			viewBox="0 0 300.439 300.439"
 		>
+			<title>Bronze medal icon</title>
 			<g>
 				<path
 					fill="#BF392C"

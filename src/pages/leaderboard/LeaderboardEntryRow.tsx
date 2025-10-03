@@ -44,7 +44,7 @@ export default function LeaderboardEntryRow({ entry }: Props) {
 				</Box>
 			);
 		} else {
-			return <></>;
+			return null;
 		}
 	};
 

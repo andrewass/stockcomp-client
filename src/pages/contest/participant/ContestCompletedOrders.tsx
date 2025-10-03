@@ -21,26 +21,26 @@ export default function ContestCompletedOrders({ orders }: Props) {
 			</AccordionSummary>
 			<AccordionDetails>
 				<List>
-					{orders.map((order, index) => (
-						<ListItem key={index}>
+					{orders.map((order) => (
+						<ListItem key={order.orderId}>
 							<Grid container spacing={1} bgcolor="orange">
 								<Grid size={6}>
-									<Typography key={index}>{order.symbol}</Typography>
+									<Typography>{order.symbol}</Typography>
 								</Grid>
 								<Grid size={6}>
-									<Typography key={index}>
+									<Typography>
 										Order Type:{" "}
 										{order.transactionType === "BUY" ? "Buy" : "Sell"}
 									</Typography>
 								</Grid>
 								<Grid size={6}>
-									<Typography key={index}>
+									<Typography>
 										Processed: {order.totalAmount - order.remainingAmount}/
 										{order.totalAmount}
 									</Typography>
 								</Grid>
 								<Grid size={6}>
-									<Typography key={index}>
+									<Typography>
 										Accepted Price {order.acceptedPrice} {order.currency}
 									</Typography>
 								</Grid>

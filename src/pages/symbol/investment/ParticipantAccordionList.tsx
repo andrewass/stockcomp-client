@@ -17,7 +17,7 @@ export default function ParticipantAccordionList({
 					participant={participant}
 					symbol={symbol}
 					index={index}
-					key={index}
+					key={participant.participant.participantId}
 				/>
 			))}
 		</div>

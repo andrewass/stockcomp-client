@@ -1,11 +1,11 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useApiWrapper } from "../config/useApiWrapper";
+import { GET_USER_DETAILS, getUserDetailsConfig } from "../domain/user/userApi";
+import type { User } from "../domain/user/userTypes";
 import ErrorComponent from "../error/ErrorComponent";
-import { GET_USER_DETAILS, getUserDetailsConfig } from "./api/userApi";
 import { UserGeneralDetails } from "./UserGeneralDetails";
 import { UserLeaderboardDetails } from "./UserLeaderboardDetails";
-import type { UserExtended } from "./userTypes";
 
 interface Props {
 	username: string;
@@ -18,9 +18,9 @@ export const UserDetails = ({ username }: Props) => {
 		isLoading,
 		error,
 		data: userData,
-	} = useQuery<UserExtended>({
+	} = useQuery<User>({
 		queryKey: [GET_USER_DETAILS, username],
-		queryFn: () => apiGet(getUserDetailsConfig(username!)),
+		queryFn: () => apiGet(getUserDetailsConfig(username)),
 	});
 
 	if (isLoading) return <CircularProgress />;
@@ -29,7 +29,7 @@ export const UserDetails = ({ username }: Props) => {
 
 	return (
 		<Box>
-			<UserGeneralDetails userData={userData!} />
+			<UserGeneralDetails userData={userData} />
 			<UserLeaderboardDetails username={"placeholder-name"} />
 		</Box>
 	);

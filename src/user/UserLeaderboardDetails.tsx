@@ -7,12 +7,12 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useApiWrapper } from "../config/useApiWrapper";
-import ErrorComponent from "../error/ErrorComponent";
 import {
 	GET_LEADERBOARD_USER_ENTRY,
 	getLeaderboardEntryUserConfig,
-} from "../leaderboard/api/leaderboardApi";
-import type { LeaderboardEntry } from "../leaderboard/leaderboardTypes";
+} from "../domain/leaderboard/leaderboardApi";
+import type { LeaderboardEntry } from "../domain/leaderboard/leaderboardTypes";
+import ErrorComponent from "../error/ErrorComponent";
 import { ParticipantHistory } from "../participant/ParticipantHistory";
 
 interface Props {
@@ -24,7 +24,7 @@ export const UserLeaderboardDetails = ({ username }: Props) => {
 
 	const { isPending, isError, error, data } = useQuery<LeaderboardEntry>({
 		queryKey: [GET_LEADERBOARD_USER_ENTRY, username],
-		queryFn: () => apiGet(getLeaderboardEntryUserConfig(username!)),
+		queryFn: () => apiGet(getLeaderboardEntryUserConfig(username)),
 	});
 
 	if (isPending) return <CircularProgress />;
@@ -43,7 +43,7 @@ export const UserLeaderboardDetails = ({ username }: Props) => {
 					<Typography>Contest participation : {data.ranking}</Typography>
 				</CardContent>
 			</Card>
-			<ParticipantHistory username={username!} />
+			<ParticipantHistory username={username} />
 		</Box>
 	);
 };

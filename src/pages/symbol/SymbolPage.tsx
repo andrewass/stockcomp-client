@@ -77,7 +77,7 @@ export default function SymbolPage({ symbol }: Props) {
 				<Stack direction="row">
 					<SymbolDetails
 						stockPrice={stockPrice}
-						symbol={symbol!}
+						symbol={symbol}
 						stockFinancials={financials}
 					/>
 					<SymbolInvestments
@@ -95,7 +95,7 @@ export default function SymbolPage({ symbol }: Props) {
 				</Box>
 				<SymbolDetails
 					stockPrice={stockPrice}
-					symbol={symbol!}
+					symbol={symbol}
 					stockFinancials={financials}
 				/>
 			</Stack>

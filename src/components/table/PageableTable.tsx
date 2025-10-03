@@ -104,7 +104,7 @@ export default function PageableTable<T>({
 							: appTheme.palette.primary.main,
 				}}
 				component="div"
-				count={totalEntriesCount!}
+				count={totalEntriesCount ?? 0}
 				page={page}
 				rowsPerPageOptions={[1, 5, 10, 25]}
 				rowsPerPage={rowsPerPage}

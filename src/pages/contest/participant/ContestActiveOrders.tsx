@@ -21,8 +21,8 @@ export default function ContestActiveOrders({ orders }: Props) {
 			</AccordionSummary>
 			<AccordionDetails>
 				<List>
-					{orders.map((order, index) => (
-						<ListItem key={index}>
+					{orders.map((order) => (
+						<ListItem key={order.orderId}>
 							<Grid container spacing={1} bgcolor="orange">
 								<Grid size={6}>
 									<Typography>{order.symbol}</Typography>

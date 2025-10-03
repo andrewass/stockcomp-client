@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box } from "@mui/material";
-import { type SyntheticEvent, useEffect, useState } from "react";
+import { type SyntheticEvent, useEffect, useId, useState } from "react";
 import {
 	Area,
 	AreaChart,
@@ -24,6 +24,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 	const [priceList, setPriceList] = useState<HistoricalPrice[]>([]);
 	const { apiGet } = useApiWrapper();
 	const { appTheme } = useThemeContext();
+	const uniqueId = useId();
 
 	useEffect(() => {
 		apiGet(getHistoricPricesConfig(symbol, tabValue)).then((response) =>
@@ -39,7 +40,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 					margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
 				>
 					<defs>
-						<linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+						<linearGradient id={uniqueId} x1="0" y1="0" x2="0" y2="1">
 							<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
 							<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
 						</linearGradient>
@@ -59,7 +60,6 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 						dataKey="price"
 						stroke="#82ca9d"
 						fillOpacity={1}
-						fill="url(#colorPrice)"
 					/>
 				</AreaChart>
 			</ResponsiveContainer>
@@ -67,7 +67,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 	};
 
 	return (
-		<Box id="priceChart" sx={{ width: "80%" }}>
+		<Box sx={{ width: "80%" }}>
 			<TabContext value={tabValue}>
 				<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 					<TabList
