@@ -42,7 +42,7 @@ export function getStatusByColor(contest: Contest): string {
 		case CONTEST_STATUS.STOPPED:
 			return "red";
 		default:
-			console.error("Invalid contest status " + contest.contestStatus);
+			console.error(`Invalid contest status ${contest.contestStatus}`);
 	}
 	return "red";
 }

@@ -61,8 +61,8 @@ export const ActiveContest = ({ contest }: { contest: Contest }) => {
 				<CircleIcon sx={{ color: getStatusByColor(contest), marginRight: 1 }} />
 				<Typography>
 					{contest.contestStatus === CONTEST_STATUS.RUNNING
-						? "Ending " + contest.endTime
-						: "Starting " + contest.startTime}
+						? `Ending ${contest.endTime}`
+						: `Starting ${contest.startTime}`}
 				</Typography>
 			</Box>
 		);
@@ -73,7 +73,7 @@ export const ActiveContest = ({ contest }: { contest: Contest }) => {
 			return (
 				<Box>
 					<ListItemText
-						primary={"Rank " + data.participant.rank + " / placeholder"}
+						primary={`Rank ${data.participant.rank} / placeholder`}
 					/>
 					<ParticipantPortfolioStatus participant={data.participant} />
 				</Box>

@@ -52,7 +52,7 @@ export const InvestmentOrderForm = ({
 		defaultValues: {
 			symbol: symbol,
 			transactionType: "BUY",
-			participantId: participants[0]!.participant.participantId,
+			participantId: participants[0]?.participant.participantId,
 			amount: 1,
 			acceptedPrice: stockPrice.currentPrice,
 			currency: stockPrice.currency,
@@ -70,7 +70,7 @@ export const InvestmentOrderForm = ({
 			await queryClient.invalidateQueries({
 				queryKey: [GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol],
 			});
-			toast.success("Successfully submitted order for symbol " + symbol);
+			toast.success(`Successfully submitted order for symbol ${symbol}`);
 		},
 		onError: () => {
 			toast.error("Unable to submit investment order", {

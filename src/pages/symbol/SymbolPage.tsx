@@ -1,6 +1,5 @@
 import { Box, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import StyledCircularProgress from "../../components/actions/StyledCircularProgress";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import {

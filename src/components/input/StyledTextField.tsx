@@ -1,5 +1,5 @@
 import { type AutocompleteRenderInputParams, TextField } from "@mui/material";
-import React, { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useThemeContext } from "../../theme/AppThemeContext";
 import { customBorderColor } from "../../theme/themes";
 

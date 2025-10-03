@@ -71,14 +71,14 @@ export default function SymbolStatistics({
 				<Grid key="key1" size={gridSize}>
 					<Typography>
 						Dividend Rate:{" "}
-						{dividendRate ? dividendRate.toFixed(2) + " " + currency : "N/A"}
+						{dividendRate ? `${dividendRate.toFixed(2)} ${currency}` : "N/A"}
 					</Typography>
 				</Grid>
 				<Grid key="key2" size={gridSize}>
 					<Typography>
 						Dividend Yield:{" "}
 						{dividendYieldPercentage
-							? dividendYieldPercentage.toFixed(2) + "%"
+							? `${dividendYieldPercentage.toFixed(2)}%`
 							: "N/A"}
 					</Typography>
 				</Grid>

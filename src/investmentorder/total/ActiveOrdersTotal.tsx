@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import toast from "react-hot-toast";
 import { queryClient } from "../../config/queryConfig";
 import { useApiWrapper } from "../../config/useApiWrapper";

@@ -9,7 +9,7 @@ export const getAllUsersSortedConfig = (
 ) => {
 	return {
 		method: "get",
-		url: CLIENT_BACKEND_BASE_PATH + "/user/sorted",
+		url: `${CLIENT_BACKEND_BASE_PATH}/user/sorted`,
 		params: { pageNumber, pageSize },
 	};
 };
@@ -17,7 +17,7 @@ export const getAllUsersSortedConfig = (
 export const getUserDetailsConfig = (username: string) => {
 	return {
 		method: "get",
-		url: CLIENT_BACKEND_BASE_PATH + "/user/details",
+		url: `${CLIENT_BACKEND_BASE_PATH}/user/details`,
 		params: { username },
 	};
 };

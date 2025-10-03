@@ -9,7 +9,7 @@ export const GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL =
 export const GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL =
 	"getCompletedInvestmentOrders";
 
-const baseUrl = CLIENT_BACKEND_BASE_PATH + "/investmentorders";
+const baseUrl = `${CLIENT_BACKEND_BASE_PATH}/investmentorders`;
 
 export const getPostInvestmentOrderConfig = (
 	request: InvestmentOrderRequest,
@@ -24,7 +24,7 @@ export const getPostInvestmentOrderConfig = (
 export const getDeleteInvestmentOrderConfig = (orderId: number) => {
 	return {
 		method: "delete",
-		url: baseUrl + "/delete-order",
+		url: `${baseUrl}/delete-order`,
 		params: { orderId },
 	};
 };
@@ -32,7 +32,7 @@ export const getDeleteInvestmentOrderConfig = (orderId: number) => {
 export const getAllActiveInvestmentOrdersConfig = (contestNumber: number) => {
 	return {
 		method: "get",
-		url: baseUrl + "/all-active",
+		url: `${baseUrl}/all-active`,
 		params: { contestNumber },
 	};
 };
@@ -42,7 +42,7 @@ export const getAllCompletedInvestmentOrdersConfig = (
 ) => {
 	return {
 		method: "get",
-		url: baseUrl + "/all-completed",
+		url: `${baseUrl}/all-completed`,
 		params: { contestNumber },
 	};
 };
@@ -53,7 +53,7 @@ export const getSymbolActiveInvestmentOrdersConfig = (
 ) => {
 	return {
 		method: "get",
-		url: baseUrl + "/symbol-active",
+		url: `${baseUrl}/symbol-active`,
 		params: { contestNumber, symbol },
 	};
 };
@@ -64,7 +64,7 @@ export const getSymbolCompletedInvestmentOrdersConfig = (
 ) => {
 	return {
 		method: "get",
-		url: baseUrl + "/symbol-completed",
+		url: `${baseUrl}/symbol-completed`,
 		params: { contestNumber, symbol },
 	};
 };

@@ -30,7 +30,7 @@ export default function ContestCompletedOrders({ orders }: Props) {
 								<Grid size={6}>
 									<Typography key={index}>
 										Order Type:{" "}
-										{order.transactionType == "BUY" ? "Buy" : "Sell"}
+										{order.transactionType === "BUY" ? "Buy" : "Sell"}
 									</Typography>
 								</Grid>
 								<Grid size={6}>

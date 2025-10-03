@@ -7,7 +7,7 @@ import {
 	ListItemText,
 	Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { InvestmentOrder } from "../domain/investmentorder/investmentOrderTypes";
 
 export const CompletedOrders = ({

@@ -29,7 +29,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 		apiGet(getHistoricPricesConfig(symbol, tabValue)).then((response) =>
 			setPriceList(response.prices),
 		);
-	}, [tabValue]);
+	}, [tabValue, apiGet, symbol]);
 
 	const getResponsiveContainer = () => {
 		return (
@@ -71,7 +71,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 			<TabContext value={tabValue}>
 				<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
 					<TabList
-						onChange={(event: SyntheticEvent, newValue: Period) =>
+						onChange={(_event: SyntheticEvent, newValue: Period) =>
 							setTabValue(newValue)
 						}
 						aria-label="Historic Stock Price"

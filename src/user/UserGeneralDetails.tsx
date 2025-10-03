@@ -22,10 +22,10 @@ export const UserGeneralDetails = ({
 						OP
 					</Avatar>
 					<Typography sx={{ mt: "20px" }}>
-						Username: {userData!.username}
+						Username: {userData?.username}
 					</Typography>
 					<Typography sx={{ mt: "20px" }}>
-						Full name : {userData!.fullName ? userData!.fullName : "N/A"}
+						Full name : {userData?.fullName ? userData?.fullName : "N/A"}
 					</Typography>
 					<Box
 						display="flex"
@@ -39,7 +39,7 @@ export const UserGeneralDetails = ({
 								width: "2em",
 								height: "2em",
 							}}
-							countryCode={userData!.country}
+							countryCode={userData?.country}
 							svg
 						/>
 					</Box>

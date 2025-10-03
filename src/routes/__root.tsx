@@ -11,7 +11,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	beforeLoad: async ({ context }) => {
 		const response = await context.auth.isAuthenticated();
 		if (!response.validSession) {
-			window.location.href = CLIENT_BACKEND_BASE_URL + "/auth/login";
+			window.location.href = `${CLIENT_BACKEND_BASE_URL}/auth/login`;
 		}
 	},
 	component: () => (

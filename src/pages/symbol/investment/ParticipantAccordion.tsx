@@ -26,7 +26,7 @@ export default function ParticipantAccordion({
 }: Props) {
 	const [value, setValue] = useState<string>("1");
 
-	const handleChange = (event: SyntheticEvent, newValue: string) => {
+	const handleChange = (_event: SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};
 

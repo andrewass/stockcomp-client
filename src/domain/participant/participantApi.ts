@@ -7,7 +7,7 @@ export const GET_PARTICIPANTS_SYMBOL = "getParticipantsSymbol";
 export const GET_ALL_REGISTERED_CONTESTS = "getAllRegisteredContests";
 export const GET_ALL_UNREGISTERED_CONTESTS = "getAllUnregisteredContests";
 
-const PARTICIPANT_PATH = CLIENT_BACKEND_BASE_PATH + "/participants";
+const PARTICIPANT_PATH = `${CLIENT_BACKEND_BASE_PATH}/participants`;
 
 export const getDetailedParticipantForContestConfig = (contestId: number) => {
 	return {
@@ -28,7 +28,7 @@ export const getSortedParticipantsConfig = (
 ) => {
 	return {
 		method: "get",
-		url: PARTICIPANT_PATH + "/sorted",
+		url: `${PARTICIPANT_PATH}/sorted`,
 		params: { contestId, pageNumber, pageSize },
 	};
 };
@@ -36,7 +36,7 @@ export const getSortedParticipantsConfig = (
 export const getParticipantHistoryConfig = (username: string) => {
 	return {
 		method: "get",
-		url: PARTICIPANT_PATH + "/history",
+		url: `${PARTICIPANT_PATH}/history`,
 		params: { username },
 	};
 };
@@ -44,20 +44,20 @@ export const getParticipantHistoryConfig = (username: string) => {
 export const getRegisteredContestsConfig = () => {
 	return {
 		method: "get",
-		url: PARTICIPANT_PATH + "/registered",
+		url: `${PARTICIPANT_PATH}/registered`,
 	};
 };
 
 export const getUnregisteredContestsConfig = () => {
 	return {
 		method: "get",
-		url: PARTICIPANT_PATH + "/unregistered",
+		url: `${PARTICIPANT_PATH}/unregistered`,
 	};
 };
 
 export const getSignUpParticipantConfig = (contestId: number) => {
 	return {
 		method: "post",
-		url: PARTICIPANT_PATH + "/sign-up/" + contestId,
+		url: `${PARTICIPANT_PATH}/sign-up/${contestId}`,
 	};
 };

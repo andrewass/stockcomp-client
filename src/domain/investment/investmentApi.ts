@@ -6,7 +6,7 @@ export const GET_INVESTMENT_FOR_SYMBOL = "getInvestmentForSymbol";
 export const getAllInvestmentsConfig = () => {
 	return {
 		method: "get",
-		url: CLIENT_BACKEND_BASE_PATH + "/investment/get-all",
+		url: `${CLIENT_BACKEND_BASE_PATH}/investment/get-all`,
 	};
 };
 
@@ -16,7 +16,7 @@ export const getSymbolInvestmentConfig = (
 ) => {
 	return {
 		method: "post",
-		url: CLIENT_BACKEND_BASE_PATH + "/investment/get-by-symbol",
+		url: `${CLIENT_BACKEND_BASE_PATH}/investment/get-by-symbol`,
 		data: { symbol, contestNumber },
 	};
 };

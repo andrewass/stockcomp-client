@@ -52,7 +52,7 @@ export default function PageableTable<T>({
 	};
 
 	function handlePageChange(
-		event: React.MouseEvent<HTMLButtonElement> | null,
+		_event: React.MouseEvent<HTMLButtonElement> | null,
 		page: number,
 	) {
 		onChangePage(page);
@@ -84,14 +84,14 @@ export default function PageableTable<T>({
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rows!.length === 0 ? (
+						{rows?.length === 0 ? (
 							<StyledTableRow rowId={0}>
 								<TableCell align="center" colSpan={columns.length}>
 									No entries found
 								</TableCell>
 							</StyledTableRow>
 						) : (
-							rows!.map((row, index) => renderRow(row, index))
+							rows?.map((row, index) => renderRow(row, index))
 						)}
 					</TableBody>
 				</Table>

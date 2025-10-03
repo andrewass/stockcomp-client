@@ -6,12 +6,12 @@ export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
 export const GET_ALL_CONTESTS = "getAllContestsSorted";
 export const EXISTS_ACTIVE_CONTESTS = "existsActiveContests";
 
-const CONTEST_PATH = CLIENT_BACKEND_BASE_PATH + "/contests";
+const CONTEST_PATH = `${CLIENT_BACKEND_BASE_PATH}/contests`;
 
 export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
 	return {
 		method: "get",
-		url: CONTEST_PATH + "/all",
+		url: `${CONTEST_PATH}/all`,
 		params: { pageNumber, pageSize },
 	};
 };
@@ -19,7 +19,7 @@ export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
 export const getExistsActiveContestsConfig = () => {
 	return {
 		method: "get",
-		url: CONTEST_PATH + "/exists-active",
+		url: `${CONTEST_PATH}/exists-active`,
 	};
 };
 
@@ -28,7 +28,7 @@ export const getCreateContestConfig = (
 ): CustomRequestConfig => {
 	return {
 		method: "post",
-		url: CONTEST_PATH + "/create",
+		url: `${CONTEST_PATH}/create`,
 		body: contestData,
 	};
 };
@@ -38,14 +38,14 @@ export const getDeleteContestConfig = (
 ): CustomRequestConfig => {
 	return {
 		method: "delete",
-		url: CONTEST_PATH + "/" + contestId,
+		url: `${CONTEST_PATH}/${contestId}`,
 	};
 };
 
 export const getUpdateContestConfig = (request: UpdateContestRequest) => {
 	return {
 		method: "post",
-		url: CONTEST_PATH + "/update",
+		url: `${CONTEST_PATH}/update`,
 		body: request,
 	};
 };
@@ -53,6 +53,6 @@ export const getUpdateContestConfig = (request: UpdateContestRequest) => {
 export const getContestConfig = (contestId: number) => {
 	return {
 		method: "get",
-		url: CONTEST_PATH + "/" + contestId,
+		url: `${CONTEST_PATH}/${contestId}`,
 	};
 };

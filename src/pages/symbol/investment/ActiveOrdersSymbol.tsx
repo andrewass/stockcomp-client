@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../config/queryConfig";
 import { useApiWrapper } from "../../../config/useApiWrapper";
@@ -29,7 +28,7 @@ export const ActiveOrdersSymbol = ({ participants, symbol }: Props) => {
 			await queryClient.invalidateQueries({
 				queryKey: [GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL, symbol],
 			});
-			toast.success("Successfully deleted order for symbol " + symbol);
+			toast.success(`Successfully deleted order for symbol ${symbol}`);
 		},
 		onError: () => {
 			toast.error("Unable to delete investment order", {

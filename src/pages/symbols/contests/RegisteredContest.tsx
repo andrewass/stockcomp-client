@@ -9,7 +9,6 @@ import {
 	Typography,
 } from "@mui/material";
 import { createLink, Link } from "@tanstack/react-router";
-import React from "react";
 import {
 	type Contest,
 	contestStatusRecord,

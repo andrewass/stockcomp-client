@@ -1,6 +1,5 @@
 import { CircularProgress, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ALL_REGISTERED_CONTESTS,

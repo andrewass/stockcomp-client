@@ -3,7 +3,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import React from "react";
 import { AuthProvider, useAuth } from "./auth/Auth";
 import { queryClient } from "./config/queryConfig";
 import { routeTree } from "./routeTree.gen";

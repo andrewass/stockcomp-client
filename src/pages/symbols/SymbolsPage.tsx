@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Divider, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { useApiWrapper } from "../../config/useApiWrapper";
 import {
 	EXISTS_ACTIVE_CONTESTS,

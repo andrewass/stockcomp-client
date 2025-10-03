@@ -24,13 +24,13 @@ const SymbolCard = ({ stockQuote }: { stockQuote: StockPrice }) => {
 
 	const getPriceDifferenceUSD = () => {
 		return priceChange >= 0.0
-			? "+" + priceChange.toFixed(2) + " " + currency
-			: priceChange.toFixed(2) + " " + currency;
+			? `+${priceChange.toFixed(2)} ${currency}`
+			: `${priceChange.toFixed(2)} ${currency}`;
 	};
 
 	const getPriceDifferencePercentage = () => {
 		return percentageChange >= 0.0
-			? "+" + percentageChange.toFixed(2)
+			? `+${percentageChange.toFixed(2)}`
 			: percentageChange.toFixed(2);
 	};
 

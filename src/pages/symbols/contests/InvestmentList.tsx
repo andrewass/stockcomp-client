@@ -6,7 +6,7 @@ import {
 	ListItemText,
 	Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import InvestmentDetails from "../../../investment/InvestmentDetails";
 import type { Investment } from "../../../investment/investmentTypes";
 

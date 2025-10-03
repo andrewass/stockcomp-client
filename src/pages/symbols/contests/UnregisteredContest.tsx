@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { createLink, Link } from "@tanstack/react-router";
-import React from "react";
 import toast from "react-hot-toast";
 import StyledButton from "../../../components/button/StyledButton";
 import { queryClient } from "../../../config/queryConfig";
