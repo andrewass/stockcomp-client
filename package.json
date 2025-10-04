@@ -28,7 +28,7 @@
 		"websocket": "^1.0.34"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.4",
+		"@biomejs/biome": "2.2.5",
 		"@tanstack/react-router-devtools": "^1.114.27",
 		"@tanstack/router-plugin": "^1.114.27",
 		"@vitejs/plugin-react": "^4.3.3",
