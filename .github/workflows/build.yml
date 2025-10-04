@@ -1,35 +1,41 @@
-name: Node.js CI
+name: Build and push Docker image
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
+  IMAGE_NAME: stockcomp-client
   STOCK_QUOTE_URL_ARG: REACT_APP_STOCK_QUOTE_BASE_URL=http://stock-fetcher:8088
   STOCK_CONTEST_URL_ARG: REACT_APP_STOCK_CONTEST_BASE_URL=http://stockcomp-service:8080
 
 jobs:
-  build:
+  build_and_push:
+    name: Build and push
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v5
         with:
-          node-version: 14.18.0
+          node-version: 22.20.0
 
-      - name: Build & push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          image: stockclient
-          tags: latest
-          dockerfile: Dockerfile.prod
-          buildArgs: ${{ env.STOCK_QUOTE_URL_ARG }}, ${{ env.STOCK_CONTEST_URL_ARG }}
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          build-args:
+            REACT_APP_STOCK_QUOTE_BASE_URL=${{ env.STOCK_QUOTE_URL_ARG }}
+            REACT_APP_STOCK_CONTEST_BASE_URL=${{ env.STOCK_CONTEST_URL_ARG }}

@@ -1,15 +1,18 @@
-FROM node:22.11.0-alpine3.20
-
+FROM node:22.20.0-alpine3.22 AS build
 WORKDIR /app
 
-COPY package.json .
+ARG REACT_APP_STOCK_QUOTE_BASE_URL
+ARG REACT_APP_STOCK_CONTEST_BASE_URL
 
-RUN npm install
+ENV REACT_APP_STOCK_QUOTE_BASE_URL=$REACT_APP_STOCK_QUOTE_BASE_URL
+ENV REACT_APP_STOCK_CONTEST_BASE_URL=$REACT_APP_STOCK_CONTEST_BASE_URL
 
+COPY package*.json ./
+RUN npm ci
 COPY . .
+RUN npm run build
 
-EXPOSE 3000
-
-CMD ["npm","run","start"]
-
-
+FROM nginx:stable-alpine AS production
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
