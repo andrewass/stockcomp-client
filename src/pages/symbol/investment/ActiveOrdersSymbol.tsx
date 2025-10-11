@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { apiDelete } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
 	GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
@@ -16,7 +16,6 @@ interface Props {
 }
 
 export const ActiveOrdersSymbol = ({ participants, symbol }: Props) => {
-	const { apiDelete } = useApiWrapper();
 	const mutation = useMutation({
 		mutationFn: (orderId: number) => {
 			return apiDelete(getDeleteInvestmentOrderConfig(orderId));

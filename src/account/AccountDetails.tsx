@@ -10,15 +10,13 @@ import {
 import { deepPurple } from "@mui/material/colors";
 import { useQuery } from "@tanstack/react-query";
 import ReactCountryFlag from "react-country-flag";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import ErrorComponent from "../error/ErrorComponent";
 import { AccountDetailsForm } from "./AccountDetailsForm";
 import type { AccountData } from "./accountDetailTypes";
 import { GET_ACCOUNT_DETAILS, getAccountDetailsConfig } from "./api/accountApi";
 
 const AccountDetails = () => {
-	const { apiGet } = useApiWrapper();
-
 	const { isPending, isError, error, data } = useQuery<AccountData>({
 		queryKey: [GET_ACCOUNT_DETAILS],
 		queryFn: () => apiGet(getAccountDetailsConfig()),

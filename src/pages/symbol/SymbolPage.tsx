@@ -1,7 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import StyledCircularProgress from "../../components/actions/StyledCircularProgress";
-import { useApiWrapper } from "../../config/useApiWrapper";
+import { apiGet } from "../../config/apiWrapper";
 import {
 	GET_PARTICIPANTS_SYMBOL,
 	getDetailedParticipantsForSymbolConfig,
@@ -27,8 +27,6 @@ interface Props {
 }
 
 export default function SymbolPage({ symbol }: Props) {
-	const { apiGet } = useApiWrapper();
-
 	const {
 		isPending: isStockPricePending,
 		isError: isStockPriceError,

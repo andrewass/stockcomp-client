@@ -1,6 +1,6 @@
 import { CircularProgress, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../../config/useApiWrapper";
+import { apiGet } from "../../config/apiWrapper";
 import {
 	GET_CONTEST_BY_NUMBER,
 	getContestConfig,
@@ -20,8 +20,6 @@ interface Props {
 }
 
 export default function ContestPage({ contestId }: Props) {
-	const { apiGet } = useApiWrapper();
-
 	const {
 		isPending: isContestPending,
 		isError: isContestError,

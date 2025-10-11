@@ -2,12 +2,11 @@ import { Autocomplete, Box } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import StyledTextField from "../components/input/StyledTextField";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import { getSuggestionsFromQueryConfig } from "./api/searchApi";
 import type { SymbolSuggestion } from "./searchTypes";
 
 const SearchField = () => {
-	const { apiGet } = useApiWrapper();
 	const navigate = useNavigate();
 	const [suggestionList, setSuggestionList] = useState<SymbolSuggestion[]>([]);
 

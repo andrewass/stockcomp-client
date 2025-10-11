@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { apiDelete } from "../../config/apiWrapper";
 import { queryClient } from "../../config/queryConfig";
-import { useApiWrapper } from "../../config/useApiWrapper";
 import {
 	GET_ALL_ACTIVE_INVESTMENT_ORDERS,
 	GET_ALL_COMPLETED_INVESTMENT_ORDERS,
@@ -15,8 +15,6 @@ export const ActiveOrdersTotal = ({
 }: {
 	activeOrders: InvestmentOrder[];
 }) => {
-	const { apiDelete } = useApiWrapper();
-
 	const mutation = useMutation({
 		mutationFn: (orderId: number) => {
 			return apiDelete(getDeleteInvestmentOrderConfig(orderId));

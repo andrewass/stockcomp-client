@@ -14,8 +14,8 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
 import ControlledSelect from "../../../components/form/ControlledSelect";
 import ControlledTextField from "../../../components/form/ControlledTextField";
+import { apiPost } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ALL_CONTESTS,
 	getUpdateContestConfig,
@@ -37,7 +37,6 @@ export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
 			contestId: contest.contestId,
 		},
 	});
-	const { apiPost } = useApiWrapper();
 
 	const mutation = useMutation({
 		mutationFn: (contestData: UpdateContestRequest) => {

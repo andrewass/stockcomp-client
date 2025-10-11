@@ -1,5 +1,5 @@
 import { createContext, type ReactNode, useContext } from "react";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import { getValidSessionConfig } from "./api/authApi";
 import type { ValidSession } from "./authTypes";
 
@@ -10,7 +10,6 @@ export interface AuthContext {
 const AuthContext = createContext<AuthContext | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-	const { apiGet } = useApiWrapper();
 	const isAuthenticated = () => apiGet(getValidSessionConfig());
 
 	return (

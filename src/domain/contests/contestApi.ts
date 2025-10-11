@@ -1,5 +1,5 @@
+import type { CustomRequestConfig } from "../../config/apiWrapper";
 import { CLIENT_BACKEND_BASE_PATH } from "../../config/properties";
-import type { CustomRequestConfig } from "../../config/useApiWrapper";
 import type { CreateContestRequest, UpdateContestRequest } from "./contestDto";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";

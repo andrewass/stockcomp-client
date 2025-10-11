@@ -5,8 +5,8 @@ import enLocale from "i18n-iso-countries/langs/en.json";
 import { useState } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { apiPost } from "../config/apiWrapper";
 import { queryClient } from "../config/queryConfig";
-import { useApiWrapper } from "../config/useApiWrapper";
 import type { AccountData } from "./accountDetailTypes";
 import { GET_ACCOUNT_DETAILS, updateAccountDataConfig } from "./api/accountApi";
 
@@ -61,7 +61,6 @@ export const AccountDetailsForm = ({ accountData }: Props) => {
 			country: accountData.country,
 		},
 	});
-	const { apiPost } = useApiWrapper();
 	const [open, setOpen] = useState(false);
 
 	countries.registerLocale(enLocale);

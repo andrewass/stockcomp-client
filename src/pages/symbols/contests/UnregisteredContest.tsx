@@ -12,8 +12,8 @@ import { useMutation } from "@tanstack/react-query";
 import { createLink, Link } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 import StyledButton from "../../../components/button/StyledButton";
+import { apiPost } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	type Contest,
 	contestStatusRecord,
@@ -34,7 +34,6 @@ interface Props {
 const CustomLink = createLink(MUILink);
 
 const UnregisteredContest = ({ contest }: Props) => {
-	const { apiPost } = useApiWrapper();
 	const { appTheme } = useThemeContext();
 
 	const mutation = useMutation({

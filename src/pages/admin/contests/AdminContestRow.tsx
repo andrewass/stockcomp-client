@@ -4,8 +4,8 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import { useMutation } from "@tanstack/react-query";
 import StyledTableRow from "../../../components/table/StyledTableRow";
+import { apiDelete } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ALL_CONTESTS,
 	getDeleteContestConfig,
@@ -20,8 +20,6 @@ import { formatDate } from "../../../util/dateUtils";
 import { AdminUpdateContestModal } from "./AdminUpdateContestModal";
 
 export const AdminContestRow = ({ contest }: { contest: Contest }) => {
-	const { apiDelete } = useApiWrapper();
-
 	const mutation = useMutation({
 		mutationFn: () => {
 			return apiDelete(getDeleteContestConfig(contest.contestId));

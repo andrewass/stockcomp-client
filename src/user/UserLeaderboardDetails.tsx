@@ -6,7 +6,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import {
 	GET_LEADERBOARD_USER_ENTRY,
 	getLeaderboardEntryUserConfig,
@@ -20,8 +20,6 @@ interface Props {
 }
 
 export const UserLeaderboardDetails = ({ username }: Props) => {
-	const { apiGet } = useApiWrapper();
-
 	const { isPending, isError, error, data } = useQuery<LeaderboardEntry>({
 		queryKey: [GET_LEADERBOARD_USER_ENTRY, username],
 		queryFn: () => apiGet(getLeaderboardEntryUserConfig(username)),

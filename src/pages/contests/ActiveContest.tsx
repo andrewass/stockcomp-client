@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { apiGet, apiPost } from "../../config/apiWrapper";
 import { queryClient } from "../../config/queryConfig";
-import { useApiWrapper } from "../../config/useApiWrapper";
 import {
 	CONTEST_STATUS,
 	type Contest,
@@ -31,8 +31,6 @@ import { ParticipantPortfolioStatus } from "../../participant/ParticipantPortfol
 import InvestmentList from "../symbols/contests/InvestmentList";
 
 export const ActiveContest = ({ contest }: { contest: Contest }) => {
-	const { apiGet, apiPost } = useApiWrapper();
-
 	const mutation = useMutation({
 		mutationFn: () => {
 			return apiPost(getSignUpParticipantConfig(contest.contestId));

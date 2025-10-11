@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Divider, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../../config/useApiWrapper";
+import { apiGet } from "../../config/apiWrapper";
 import {
 	EXISTS_ACTIVE_CONTESTS,
 	getExistsActiveContestsConfig,
@@ -11,8 +11,6 @@ import { ContestsMenu } from "./contests/ContestsMenu";
 import SymbolGrid from "./presentation/SymbolGrid";
 
 const SymbolsPage = () => {
-	const { apiGet } = useApiWrapper();
-
 	const { isPending, isError, error, data } = useQuery({
 		queryKey: [EXISTS_ACTIVE_CONTESTS],
 		queryFn: () => apiGet(getExistsActiveContestsConfig()),

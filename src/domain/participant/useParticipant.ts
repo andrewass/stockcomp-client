@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../../config/useApiWrapper";
+import { apiGet } from "../../config/apiWrapper";
 import {
 	GET_SORTED_PARTICIPANTS,
 	getSortedParticipantsConfig,
@@ -16,8 +16,6 @@ export function useGetSortedParticipants(
 	pageNumber: number,
 	pageSize: number,
 ) {
-	const { apiGet } = useApiWrapper();
-
 	return useQuery<SortedParticipantsResponse>({
 		queryKey: [GET_SORTED_PARTICIPANTS, pageNumber],
 		queryFn: () =>

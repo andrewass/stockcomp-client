@@ -6,8 +6,8 @@ import StyledButton from "../../../components/button/StyledButton";
 import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
 import ControlledTextField from "../../../components/form/ControlledTextField";
 import StyledModalForm from "../../../components/form/StyledModalForm";
+import { apiPost } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ALL_CONTESTS,
 	getCreateContestConfig,
@@ -17,7 +17,6 @@ import type { CreateContestRequest } from "../../../domain/contests/contestDto";
 export default function AdminCreateContestModal() {
 	const [open, setOpen] = useState(false);
 	const { handleSubmit, control } = useForm<CreateContestRequest>();
-	const { apiPost } = useApiWrapper();
 
 	const mutation = useMutation({
 		mutationFn: (contestData: CreateContestRequest) =>

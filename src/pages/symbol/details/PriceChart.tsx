@@ -11,13 +11,13 @@ import {
 	YAxis,
 } from "recharts";
 import StyledTab from "../../../components/tabs/StyledTab";
+import { apiGet } from "../../../config/apiWrapper";
 import { getHistoricPricesConfig } from "../../../domain/symbols/symbolsApi";
 import {
 	type HistoricalPrice,
 	Period,
 } from "../../../domain/symbols/symbolTypes";
 import { useThemeContext } from "../../../theme/AppThemeContext";
-import {apiGet} from "../../../config/apiWrapper";
 
 export const PriceChart = ({ symbol }: { symbol: string }) => {
 	const [tabValue, setTabValue] = useState<Period>(Period.THIS_YEAR);

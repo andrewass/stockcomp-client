@@ -6,8 +6,8 @@ import StyledButton from "../../../components/button/StyledButton";
 import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
 import ControlledSelect from "../../../components/form/ControlledSelect";
 import ControlledTextField from "../../../components/form/ControlledTextField";
+import { apiPost } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import {
 	GET_ACTIVE_INVESTMENT_ORDERS_SYMBOL,
 	GET_COMPLETED_INVESTMENT_ORDERS_SYMBOL,
@@ -46,8 +46,6 @@ export const InvestmentOrderForm = ({
 	stockPrice,
 	symbol,
 }: Props) => {
-	const { apiPost } = useApiWrapper();
-
 	const { handleSubmit, control } = useForm<InvestmentOrderRequest>({
 		defaultValues: {
 			symbol: symbol,

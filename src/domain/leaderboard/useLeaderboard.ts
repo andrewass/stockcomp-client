@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../../config/useApiWrapper";
+import { apiGet } from "../../config/apiWrapper";
 import {
 	GET_SORTED_LEADERBOARD_ENTRIES,
 	getSortedLeaderboardEntriesConfig,
@@ -15,8 +15,6 @@ export function useGetPageableLeaderboardEntries(
 	pageNumber: number,
 	pageSize: number,
 ) {
-	const { apiGet } = useApiWrapper();
-
 	return useQuery<LeaderboardResponse>({
 		queryKey: [GET_SORTED_LEADERBOARD_ENTRIES, pageNumber],
 		queryFn: () =>

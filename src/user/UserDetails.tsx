@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import { GET_USER_DETAILS, getUserDetailsConfig } from "../domain/user/userApi";
 import type { User } from "../domain/user/userTypes";
 import ErrorComponent from "../error/ErrorComponent";
@@ -12,8 +12,6 @@ interface Props {
 }
 
 export const UserDetails = ({ username }: Props) => {
-	const { apiGet } = useApiWrapper();
-
 	const {
 		isLoading,
 		error,

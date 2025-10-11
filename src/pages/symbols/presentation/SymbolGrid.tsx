@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import StyledCircularProgress from "../../../components/actions/StyledCircularProgress";
-import { useApiWrapper } from "../../../config/useApiWrapper";
+import { apiGet } from "../../../config/apiWrapper";
 import {
 	GET_PRICE_TRENDING_SYMBOLS,
 	getTrendingSymbolsPriceConfig,
@@ -13,7 +13,6 @@ import SymbolCard from "./SymbolCard";
 const FETCH_QUOTE_INTERVAL = 5000;
 
 const SymbolGrid = () => {
-	const { apiGet } = useApiWrapper();
 	const { isError, isPending, error, data } = useQuery<StockPrice[]>({
 		queryKey: [GET_PRICE_TRENDING_SYMBOLS],
 		queryFn: () => apiGet(getTrendingSymbolsPriceConfig()),

@@ -5,8 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
+import { apiPut } from "../../../config/apiWrapper";
 import { queryClient } from "../../../config/queryConfig";
-import { useApiWrapper } from "../../../config/useApiWrapper";
 import { getUpdateContestConfig } from "../../../domain/contests/contestApi";
 import type { UpdateContestRequest } from "../../../domain/contests/contestDto";
 import { GET_ALL_USERS } from "../../../domain/user/userApi";
@@ -27,7 +27,6 @@ export const AdminUpdateUserForm = () => {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const { handleSubmit } = useForm<UpdateContestRequest>();
-	const { apiPut } = useApiWrapper();
 
 	const mutation = useMutation({
 		mutationFn: (contestData: UpdateContestRequest) => {

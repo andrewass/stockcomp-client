@@ -9,7 +9,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import { useApiWrapper } from "../config/useApiWrapper";
+import { apiGet } from "../config/apiWrapper";
 import {
 	GET_PARTICIPANT_HISTORY,
 	getParticipantHistoryConfig,
@@ -18,7 +18,6 @@ import type { DetailedParticipant } from "../domain/participant/participantTypes
 import ErrorComponent from "../error/ErrorComponent";
 
 export const ParticipantHistory = ({ username }: { username: string }) => {
-	const { apiGet } = useApiWrapper();
 	const uniqueId = useId();
 
 	const { isPending, isError, error, data } = useQuery<DetailedParticipant[]>({

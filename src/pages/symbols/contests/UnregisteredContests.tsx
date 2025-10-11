@@ -1,6 +1,6 @@
 import { CircularProgress, Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useApiWrapper } from "../../../config/useApiWrapper";
+import { apiGet } from "../../../config/apiWrapper";
 import type { Contest } from "../../../domain/contests/contestTypes";
 import {
 	GET_ALL_UNREGISTERED_CONTESTS,
@@ -10,8 +10,6 @@ import ErrorComponent from "../../../error/ErrorComponent";
 import UnregisteredContest from "./UnregisteredContest";
 
 const UnregisteredContests = () => {
-	const { apiGet } = useApiWrapper();
-
 	const {
 		isPending,
 		isError,
