@@ -6,6 +6,7 @@ interface Props {
 	variant?: "outlined" | "contained" | "text";
 	type?: "submit" | "button";
 	buttonText: string;
+	disabled?: boolean;
 	onClick?: () => void;
 }
 
@@ -14,6 +15,7 @@ export default function StyledButton({
 	type = "button",
 	buttonText,
 	onClick,
+	disabled,
 	...rest
 }: Props) {
 	const { appTheme } = useThemeContext();
@@ -22,6 +24,7 @@ export default function StyledButton({
 		<Button
 			variant={variant}
 			type={type}
+			disabled={disabled}
 			onClick={onClick}
 			sx={{
 				border: "0.5px solid",

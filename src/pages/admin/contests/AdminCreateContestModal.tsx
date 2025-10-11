@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
@@ -17,13 +17,11 @@ import type { CreateContestRequest } from "../../../domain/contests/contestDto";
 export default function AdminCreateContestModal() {
 	const [open, setOpen] = useState(false);
 	const { handleSubmit, control } = useForm<CreateContestRequest>();
-
 	const { apiPost } = useApiWrapper();
 
 	const mutation = useMutation({
-		mutationFn: (contestData: CreateContestRequest) => {
-			return apiPost(getCreateContestConfig(contestData));
-		},
+		mutationFn: (contestData: CreateContestRequest) =>
+			apiPost(getCreateContestConfig(contestData)),
 		onSuccess: () => {
 			queryClient
 				.invalidateQueries({ queryKey: [GET_ALL_CONTESTS] })
@@ -45,12 +43,18 @@ export default function AdminCreateContestModal() {
 				title="Create Contest"
 				onSubmit={handleSubmit(submitForm)}
 			>
-				<Stack spacing={3}>
+				<Stack spacing={3} sx={{ mt: 1 }}>
+					<Typography>
+						Fill in the details below to create a new contest
+					</Typography>
+					<Divider />
+
 					<ControlledTextField
 						name="contestName"
 						label="Contest Name"
 						control={control}
 						defaultValue={""}
+						disabled={mutation.isPending}
 						rules={{ required: "Contest name is required" }}
 					/>
 					<ControlledDateTimeField
@@ -65,9 +69,26 @@ export default function AdminCreateContestModal() {
 						label="Contest Duration Days"
 						control={control}
 						defaultValue={30}
+						disabled={mutation.isPending}
 						rules={{ required: "Contest duration is required" }}
 					/>
-					<StyledButton variant="outlined" type="submit" buttonText="Create" />
+
+					<Divider sx={{ mt: 2 }} />
+
+					<Stack direction="row" spacing={2}>
+						<StyledButton
+							variant="outlined"
+							type="submit"
+							buttonText="Create contest"
+							disabled={mutation.isPending}
+						/>
+						<StyledButton
+							variant="outlined"
+							buttonText="Cancel"
+							onClick={handleClose}
+							disabled={mutation.isPending}
+						/>
+					</Stack>
 				</Stack>
 			</StyledModalForm>
 		</Box>

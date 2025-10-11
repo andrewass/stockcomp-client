@@ -30,7 +30,7 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 		apiGet(getHistoricPricesConfig(symbol, tabValue)).then((response) =>
 			setPriceList(response.prices),
 		);
-	}, [tabValue, apiGet, symbol]);
+	}, [tabValue, symbol]);
 
 	const getResponsiveContainer = () => {
 		return (
