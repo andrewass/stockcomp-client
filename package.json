@@ -24,7 +24,7 @@
 		"react-dom": "^19.0.0",
 		"react-hook-form": "^7.41.5",
 		"react-hot-toast": "^2.2.0",
-		"recharts": "^2.14.1",
+		"recharts": "^3.2.1",
 		"websocket": "^1.0.34"
 	},
 	"devDependencies": {
