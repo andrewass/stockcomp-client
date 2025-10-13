@@ -30,7 +30,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.5",
 		"@tanstack/react-router-devtools": "^1.114.27",
-		"@tanstack/router-plugin": "^1.114.27",
+		"@tanstack/router-plugin": "^1.132.56",
 		"@vitejs/plugin-react": "^5.0.4",
 		"typescript": "^5.3.3",
 		"vite": "^7.1.9"
