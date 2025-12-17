@@ -7,7 +7,7 @@ import {
 } from "../../domain/contests/contestApi";
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";
-import { ContestsMenu } from "./contests/ContestsMenu";
+import ContestsMenu from "./contests/ContestsMenu";
 import SymbolGrid from "./presentation/SymbolGrid";
 
 const SymbolsPage = () => {

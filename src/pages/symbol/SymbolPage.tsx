@@ -20,7 +20,7 @@ import type {
 import ErrorComponent from "../../error/ErrorComponent";
 import SearchField from "../../search/SearchField";
 import SymbolDetails from "./details/SymbolDetails";
-import { SymbolInvestments } from "./investment/SymbolInvestments";
+import SymbolInvestments from "./investment/SymbolInvestments";
 
 interface Props {
 	symbol: string;

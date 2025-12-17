@@ -19,7 +19,7 @@ import {
 } from "../../../domain/symbols/symbolTypes";
 import { useThemeContext } from "../../../theme/AppThemeContext";
 
-export const PriceChart = ({ symbol }: { symbol: string }) => {
+export default function PriceChart({ symbol }: { symbol: string }) {
 	const [tabValue, setTabValue] = useState<Period>(Period.THIS_YEAR);
 	const [priceList, setPriceList] = useState<HistoricalPrice[]>([]);
 	const { appTheme } = useThemeContext();
@@ -97,4 +97,4 @@ export const PriceChart = ({ symbol }: { symbol: string }) => {
 			</TabContext>
 		</Box>
 	);
-};
+}

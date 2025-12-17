@@ -15,7 +15,7 @@ interface Props {
 	symbol: string;
 }
 
-export const ActiveOrdersSymbol = ({ participants, symbol }: Props) => {
+export default function ActiveOrdersSymbol({ participants, symbol }: Props) {
 	const mutation = useMutation({
 		mutationFn: (orderId: number) => {
 			return apiDelete(getDeleteInvestmentOrderConfig(orderId));
@@ -45,4 +45,4 @@ export const ActiveOrdersSymbol = ({ participants, symbol }: Props) => {
 			deleteOrder={mutation.mutate}
 		/>
 	);
-};
+}

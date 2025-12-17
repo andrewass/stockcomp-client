@@ -17,9 +17,9 @@ import {
 	getStatusByColor,
 } from "../../../domain/contests/contestTypes";
 import { formatDate } from "../../../util/dateUtils";
-import { AdminUpdateContestModal } from "./AdminUpdateContestModal";
+import AdminUpdateContestModal from "./AdminUpdateContestModal";
 
-export const AdminContestRow = ({ contest }: { contest: Contest }) => {
+export default function AdminContestRow({ contest }: { contest: Contest }) {
 	const mutation = useMutation({
 		mutationFn: () => {
 			return apiDelete(getDeleteContestConfig(contest.contestId));
@@ -56,4 +56,4 @@ export const AdminContestRow = ({ contest }: { contest: Contest }) => {
 			</TableCell>
 		</StyledTableRow>
 	);
-};
+}

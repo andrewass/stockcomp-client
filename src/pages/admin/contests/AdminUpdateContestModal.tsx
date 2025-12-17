@@ -27,7 +27,11 @@ import {
 	contestStatusRecord,
 } from "../../../domain/contests/contestTypes";
 
-export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
+export default function AdminUpdateContestModal({
+	contest,
+}: {
+	contest: Contest;
+}) {
 	const [open, setOpen] = useState(false);
 	const { handleSubmit, control } = useForm<UpdateContestRequest>({
 		defaultValues: {
@@ -85,7 +89,6 @@ export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
 							name="startTime"
 							label="Starting Time"
 							control={control}
-							defaultValue={contest.startTime}
 						/>
 					</Stack>
 				</DialogContent>
@@ -97,4 +100,4 @@ export const AdminUpdateContestModal = ({ contest }: { contest: Contest }) => {
 			</Dialog>
 		</React.Fragment>
 	);
-};
+}

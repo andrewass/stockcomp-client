@@ -5,7 +5,7 @@ import PageableTable, {
 import type { Contest } from "../../domain/contests/contestTypes";
 import { useGetPageableContests } from "../../domain/contests/useContest";
 import ErrorComponent from "../../error/ErrorComponent";
-import { ContestRow } from "./ContestRow";
+import ContestRow from "./ContestRow";
 
 const columns: Column[] = [
 	{ id: "contest", label: "Contest" },

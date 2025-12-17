@@ -1,6 +1,6 @@
-import type { Investment } from "../../investment/investmentTypes";
 import type { Contest } from "../contests/contestTypes";
 import type { InvestmentOrder } from "../investmentorder/investmentOrderTypes";
+import { Investment } from "../investment/investmentTypes.ts";
 
 export type Participant = {
 	participantId: number;

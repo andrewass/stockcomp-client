@@ -15,7 +15,7 @@ interface Props {
 	contest: Contest;
 }
 
-export const ContestRow = ({ contest }: Props) => {
+export default function ContestRow({ contest }: Props) {
 	return (
 		<StyledTableRow rowId={contest.contestId}>
 			<TableCell>
@@ -43,4 +43,4 @@ export const ContestRow = ({ contest }: Props) => {
 			</TableCell>
 		</StyledTableRow>
 	);
-};
+}

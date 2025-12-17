@@ -5,9 +5,9 @@ import {
 	userRoleRecord,
 	userStatusRecord,
 } from "../../../domain/user/userTypes";
-import { AdminUpdateUserForm } from "./AdminUpdateUserForm";
+import AdminUpdateUserForm from "./AdminUpdateUserForm";
 
-export const AdminUserRow = ({ user }: { user: User }) => {
+export default function AdminUserRow({ user }: { user: User }) {
 	return (
 		<StyledTableRow rowId={user.username}>
 			<TableCell>{user.username}</TableCell>
@@ -19,4 +19,4 @@ export const AdminUserRow = ({ user }: { user: User }) => {
 			</TableCell>
 		</StyledTableRow>
 	);
-};
+}

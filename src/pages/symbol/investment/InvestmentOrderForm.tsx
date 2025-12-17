@@ -41,11 +41,11 @@ const contestRecord = (
 	);
 };
 
-export const InvestmentOrderForm = ({
+export default function InvestmentOrderForm({
 	participants,
 	stockPrice,
 	symbol,
-}: Props) => {
+}: Props) {
 	const { handleSubmit, control } = useForm<InvestmentOrderRequest>({
 		defaultValues: {
 			symbol: symbol,
@@ -125,4 +125,4 @@ export const InvestmentOrderForm = ({
 			</Stack>
 		</Box>
 	);
-};
+}

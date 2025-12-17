@@ -1,3 +1,5 @@
+"use client";
+
 import CircleIcon from "@mui/icons-material/Circle";
 import {
 	Box,
@@ -30,7 +32,7 @@ import { CompletedOrdersTotal } from "../../investmentorder/total/CompletedOrder
 import { ParticipantPortfolioStatus } from "../../participant/ParticipantPortfolioStatus";
 import InvestmentList from "../symbols/contests/InvestmentList";
 
-export const ActiveContest = ({ contest }: { contest: Contest }) => {
+export default function ActiveContest({ contest }: { contest: Contest }) {
 	const mutation = useMutation({
 		mutationFn: () => {
 			return apiPost(getSignUpParticipantConfig(contest.contestId));
@@ -103,4 +105,4 @@ export const ActiveContest = ({ contest }: { contest: Contest }) => {
 			</Card>
 		</ListItem>
 	);
-};
+}

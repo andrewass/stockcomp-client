@@ -5,7 +5,7 @@ import PageableTable, {
 import type { User } from "../../../domain/user/userTypes";
 import { useGetPageableUsers } from "../../../domain/user/useUser";
 import ErrorComponent from "../../../error/ErrorComponent";
-import { AdminUserRow } from "./AdminUserRow";
+import AdminUserRow from "./AdminUserRow";
 
 const columns: Column[] = [
 	{ id: "username", label: "Username" },

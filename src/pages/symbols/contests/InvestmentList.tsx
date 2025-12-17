@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import InvestmentDetails from "../../../investment/InvestmentDetails";
-import type { Investment } from "../../../investment/investmentTypes";
+import { Investment } from "../../../domain/investment/investmentTypes.ts";
 
 const InvestmentList = ({ investments }: { investments: Investment[] }) => {
 	const [open, setOpen] = useState(false);

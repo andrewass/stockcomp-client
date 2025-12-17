@@ -39,9 +39,9 @@
 	},
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
-		"start": "vite",
-		"build": "vite build",
-		"serve": "vite preview"
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
 	},
 	"browserslist": {
 		"production": [

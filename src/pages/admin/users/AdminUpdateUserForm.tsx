@@ -23,7 +23,7 @@ const style = {
 	p: 4,
 };
 
-export const AdminUpdateUserForm = () => {
+export default function AdminUpdateUserForm() {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const { handleSubmit } = useForm<UpdateContestRequest>();
@@ -70,4 +70,4 @@ export const AdminUpdateUserForm = () => {
 			</Modal>
 		</Box>
 	);
-};
+}

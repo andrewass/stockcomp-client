@@ -8,6 +8,13 @@
 /.pnp
 .pnp.js
 
+
+
+# Next
+next-env.d.ts
+/.next
+/dist
+
 # testing
 /coverage
 

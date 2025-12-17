@@ -3,7 +3,7 @@ import type {
 	StockFinancials,
 	StockPrice,
 } from "../../../domain/symbols/symbolTypes";
-import { PriceChart } from "./PriceChart";
+import PriceChart from "./PriceChart";
 import SymbolStatistics from "./SymbolStatistics";
 
 interface Props {

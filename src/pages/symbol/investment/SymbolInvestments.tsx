@@ -2,7 +2,7 @@ import { Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import type { DetailedParticipant } from "../../../domain/participant/participantTypes";
 import type { StockPrice } from "../../../domain/symbols/symbolTypes";
-import { InvestmentOrderForm } from "./InvestmentOrderForm";
+import InvestmentOrderForm from "./InvestmentOrderForm";
 import ParticipantAccordionList from "./ParticipantAccordionList";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 	participants: DetailedParticipant[];
 }
 
-export const SymbolInvestments = ({ stockPrice, participants }: Props) => {
+export default function SymbolInvestments({ stockPrice, participants }: Props) {
 	const theme = useTheme();
 	const isLargeWidth = useMediaQuery(theme.breakpoints.up("lg"));
 
@@ -34,4 +34,4 @@ export const SymbolInvestments = ({ stockPrice, participants }: Props) => {
 			/>
 		</Stack>
 	);
-};
+}
