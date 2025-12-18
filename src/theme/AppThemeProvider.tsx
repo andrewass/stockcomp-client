@@ -1,3 +1,5 @@
+"use client";
+
 import { CssBaseline, type Theme, ThemeProvider } from "@mui/material";
 import { type ReactNode, useEffect, useState } from "react";
 import { AppThemeContext } from "./AppThemeContext";
