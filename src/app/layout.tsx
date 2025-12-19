@@ -1,9 +1,10 @@
 import React from "react";
-import {Metadata} from "next";
+import { Metadata } from "next";
+import ThemeRegistry from "../theme/ThemeRegistry.tsx";
 
 export const metadata: Metadata = {
-    title: "Stock Comp",
-    description: "Stock Comp is a web app for arranging stock trade contests.",
+	title: "Stock Comp",
+	description: "Stock Comp is a web app for arranging stock trade contests.",
 };
 
 /**
@@ -18,17 +19,15 @@ export const metadata: Metadata = {
  */
 
 export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
+	children,
+}: {
+	children: React.ReactNode;
 }) {
-    return (
-        <html lang="en">
-        <body>
-        <div id="root">
-            <main>{children}</main>
-        </div>
-        </body>
-        </html>
-    );
+	return (
+		<html lang="en">
+			<body>
+				<ThemeRegistry>{children}</ThemeRegistry>
+			</body>
+		</html>
+	);
 }

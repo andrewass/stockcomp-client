@@ -1,17 +1,21 @@
 "use client";
 
-import { CssBaseline, type Theme, ThemeProvider } from "@mui/material";
-import { type ReactNode, useEffect, useState } from "react";
-import { AppThemeContext } from "./AppThemeContext";
-import { darkTheme, lightTheme } from "./themes";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { type ReactNode } from "react";
+import { createTheme } from "@mui/material/styles";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 
-const THEME_STORAGE_KEY = "appThemeMode";
+//const THEME_STORAGE_KEY = "appThemeMode";
 
-export default function AppThemeProvider({
-	children,
-}: {
-	children: ReactNode;
-}) {
+const appTheme = createTheme({
+	colorSchemes: {
+		dark: true, // Enables dark mode
+		light: true,
+	},
+});
+
+export default function ThemeRegistry({ children }: { children: ReactNode }) {
+	/*
 	const [appTheme, setAppTheme] = useState<Theme>(lightTheme);
 
 	useEffect(() => {
@@ -32,12 +36,14 @@ export default function AppThemeProvider({
 		);
 	};
 
+     */
+
 	return (
-		<AppThemeContext.Provider value={{ toggleTheme, appTheme }}>
-			<ThemeProvider theme={appTheme}>
+		<AppRouterCacheProvider>
+			<ThemeProvider theme={appTheme} defaultMode="system">
 				<CssBaseline />
 				{children}
 			</ThemeProvider>
-		</AppThemeContext.Provider>
+		</AppRouterCacheProvider>
 	);
 }
