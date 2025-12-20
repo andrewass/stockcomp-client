@@ -1,49 +1,49 @@
 "use client";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { type ReactNode } from "react";
-import { createTheme } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
+import { type ReactNode, useEffect, useState } from "react";
+import { ThemeContext, type ThemeMode } from "./ThemeContext.ts";
+import {
+	darkTheme,
+	darkThemeMode,
+	lightTheme,
+	lightThemeMode,
+} from "./themes.ts";
 
-//const THEME_STORAGE_KEY = "appThemeMode";
-
-const appTheme = createTheme({
-	colorSchemes: {
-		dark: true, // Enables dark mode
-		light: true,
-	},
-});
+const THEME_STORAGE_KEY = "appThemeMode";
 
 export default function ThemeRegistry({ children }: { children: ReactNode }) {
-	/*
-	const [appTheme, setAppTheme] = useState<Theme>(lightTheme);
+	const [themeMode, setThemeMode] = useState<ThemeMode>(darkThemeMode);
 
 	useEffect(() => {
 		const storedThemeMode = localStorage.getItem(THEME_STORAGE_KEY);
-		if (storedThemeMode === "dark") {
-			setAppTheme(darkTheme);
+		if (storedThemeMode && storedThemeMode === darkThemeMode) {
+			setThemeMode(darkThemeMode);
 		} else {
-			setAppTheme(lightTheme);
+			setThemeMode(lightThemeMode);
 		}
 	}, []);
 
 	const toggleTheme = () => {
-		const currentThemeIsLight = appTheme === lightTheme;
-		setAppTheme(currentThemeIsLight ? darkTheme : lightTheme);
+		const currentThemeIsLight = themeMode === lightThemeMode;
+		setThemeMode(currentThemeIsLight ? darkThemeMode : lightThemeMode);
 		localStorage.setItem(
 			THEME_STORAGE_KEY,
-			currentThemeIsLight ? "dark" : "light",
+			currentThemeIsLight ? darkThemeMode : lightThemeMode,
 		);
 	};
 
-     */
-
 	return (
 		<AppRouterCacheProvider>
-			<ThemeProvider theme={appTheme} defaultMode="system">
-				<CssBaseline />
-				{children}
-			</ThemeProvider>
+			<ThemeContext.Provider value={{ themeMode, toggleTheme }}>
+				<ThemeProvider
+					theme={themeMode === lightThemeMode ? lightTheme : darkTheme}
+				>
+					<CssBaseline />
+					{children}
+				</ThemeProvider>
+			</ThemeContext.Provider>
 		</AppRouterCacheProvider>
 	);
 }

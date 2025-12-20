@@ -1,5 +1,5 @@
-import React from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import type React from "react";
 import ThemeRegistry from "../theme/ThemeRegistry.tsx";
 
 export const metadata: Metadata = {

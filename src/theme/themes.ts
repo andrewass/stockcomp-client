@@ -1,7 +1,6 @@
 import {
 	createTheme,
 	responsiveFontSizes,
-	type Theme,
 	type TypographyVariantsOptions,
 } from "@mui/material/styles";
 import { styledLink } from "./linkTheme";
@@ -38,7 +37,10 @@ const baseComponents = {
 
 export const customBorderColor = "#878484";
 
-export const lightTheme: Theme = responsiveFontSizes(
+export const darkThemeMode = "dark";
+export const lightThemeMode = "light";
+
+export const lightTheme = responsiveFontSizes(
 	createTheme({
 		palette: {
 			mode: "light",
@@ -64,7 +66,7 @@ export const lightTheme: Theme = responsiveFontSizes(
 	}),
 );
 
-export const darkTheme: Theme = responsiveFontSizes(
+export const darkTheme = responsiveFontSizes(
 	createTheme({
 		palette: {
 			mode: "dark",

@@ -1,5 +1,5 @@
 import { Card, CardContent, Divider, Typography } from "@mui/material";
-import { Participant } from "../domain/participant/participantTypes.ts";
+import type { Participant } from "../domain/participant/participantTypes.ts";
 
 export const ParticipantPortfolioStatus = ({
 	participant,

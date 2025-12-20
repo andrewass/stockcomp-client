@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/material";
-import { Investment } from "../domain/investment/investmentTypes.ts";
+import type { Investment } from "../domain/investment/investmentTypes.ts";
 
 const InvestmentDetails = ({ investment }: { investment: Investment }) => {
 	const { symbol, amount, totalProfit, totalValue } = investment;
