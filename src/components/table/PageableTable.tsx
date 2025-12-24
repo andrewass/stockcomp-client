@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Box,
 	CircularProgress,
@@ -11,9 +13,9 @@ import {
 } from "@mui/material";
 import type React from "react";
 import type { ReactNode } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { lightTheme } from "../../theme/themes";
+import {darkTheme, lightTheme, lightThemeMode} from "../../theme/themes";
 import StyledTableRow from "./StyledTableRow";
+import {useThemeMode} from "../../theme/ThemeContext.ts";
 
 export interface Column {
 	id: string;
@@ -43,7 +45,7 @@ export default function PageableTable<T>({
 	onChangePage,
 	onChangeRowsPerPage,
 }: Props<T>) {
-	const { appTheme } = useThemeContext();
+	const { themeMode } = useThemeMode();
 
 	const handleChangeRowsPerPage = (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -73,9 +75,9 @@ export default function PageableTable<T>({
 										key={header}
 										sx={{
 											backgroundColor:
-												appTheme === lightTheme
-													? appTheme.palette.secondary.main
-													: appTheme.palette.primary.main,
+												themeMode === lightThemeMode
+													? lightTheme.palette.secondary.main
+													: darkTheme.palette.primary.main,
 										}}
 									>
 										{header}
@@ -99,9 +101,9 @@ export default function PageableTable<T>({
 			<TablePagination
 				sx={{
 					backgroundColor:
-						appTheme === lightTheme
-							? appTheme.palette.secondary.main
-							: appTheme.palette.primary.main,
+						themeMode === lightThemeMode
+							? lightTheme.palette.secondary.main
+							: darkTheme.palette.primary.main,
 				}}
 				component="div"
 				count={totalEntriesCount ?? 0}

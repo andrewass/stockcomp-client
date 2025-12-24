@@ -14,10 +14,11 @@ export interface CustomRequestConfig {
 }
 
 const request = async (config: CustomRequestConfig) => {
-	const url = new URL(config.url, "http://stockcomp.io");
+    const url = new URL(config.url, process.env.NEXT_PUBLIC_BASE_URL);
 	for (const item in config.params) {
 		url.searchParams.set(item, String(config.params[item]));
 	}
+
 	const response = await fetch(url, {
 		method: config.method,
 		credentials: "include",

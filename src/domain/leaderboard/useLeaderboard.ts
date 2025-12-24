@@ -1,10 +1,8 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { apiGet } from "../../config/apiWrapper";
-import {
-	GET_SORTED_LEADERBOARD_ENTRIES,
-	getSortedLeaderboardEntriesConfig,
-} from "./leaderboardApi";
 import type { LeaderboardEntry } from "./leaderboardTypes";
+
+const GET_SORTED_LEADERBOARD_ENTRIES = "getSortedLeaderboardEntries";
 
 interface LeaderboardResponse {
 	leaderboardEntries: LeaderboardEntry[];
@@ -22,3 +20,14 @@ export function useGetPageableLeaderboardEntries(
 		placeholderData: keepPreviousData,
 	});
 }
+
+const getSortedLeaderboardEntriesConfig = (
+    pageNumber: number,
+    pageSize: number,
+) => {
+    return {
+        method: "get",
+        url: `/api/proxy/leaderboard/sorted`,
+        params: { pageNumber, pageSize },
+    };
+};

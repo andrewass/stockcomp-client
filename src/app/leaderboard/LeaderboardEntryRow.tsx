@@ -1,0 +1,72 @@
+import {Box, Grid, TableCell, TableRow} from "@mui/material";
+import ReactCountryFlag from "react-country-flag";
+import {type LeaderboardEntry, type Medal, MedalValue,} from "../../domain/leaderboard/leaderboardTypes";
+import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
+import Link from "next/link";
+
+interface Props {
+    entry: LeaderboardEntry;
+}
+
+export default function LeaderboardEntryRow({entry}: Props) {
+    const getMedalCount = (medalValue: MedalValue, medals: Medal[]) => {
+        return medals.filter((medal) => medal.medalValue === medalValue).length;
+    };
+
+    const getMedals = (medals: Medal[]) => {
+        if (medals.length > 0) {
+            return (
+                <Box sx={{width: "70px"}}>
+                    <Grid container rowSpacing={1} columnSpacing={2}>
+                        <Grid size={4}>
+                            <BronzeMedalIcon/>
+                        </Grid>
+                        <Grid size={4}>
+                            <BronzeMedalIcon/>
+                        </Grid>
+                        <Grid size={4}>
+                            <BronzeMedalIcon/>
+                        </Grid>
+                        <Grid size={4}>
+                            <p>{getMedalCount(MedalValue.Gold, medals)}</p>
+                        </Grid>
+                        <Grid size={4}>
+                            <p>{getMedalCount(MedalValue.Silver, medals)}</p>
+                        </Grid>
+                        <Grid size={4}>
+                            <p>{getMedalCount(MedalValue.Bronze, medals)}</p>
+                        </Grid>
+                    </Grid>
+                </Box>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    return (
+        <TableRow key={entry.displayName}>
+            <TableCell>{entry.ranking}</TableCell>
+            <TableCell>
+                <Link href={{
+                    pathname: "/users/$username",
+                    query: {username: entry.displayName}
+                }}>
+                    {entry.displayName}
+                </Link>
+            </TableCell>
+            <TableCell>
+                <ReactCountryFlag
+                    style={{
+                        width: "2em",
+                        height: "2em",
+                    }}
+                    countryCode={entry.country}
+                    svg
+                />
+            </TableCell>
+            <TableCell>{entry.score}</TableCell>
+            <TableCell>{getMedals(entry.medals)}</TableCell>
+        </TableRow>
+    );
+}
