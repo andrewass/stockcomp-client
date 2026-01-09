@@ -1,8 +1,8 @@
 import {Box, Grid, TableCell, TableRow} from "@mui/material";
 import ReactCountryFlag from "react-country-flag";
-import {type LeaderboardEntry, type Medal, MedalValue,} from "../../domain/leaderboard/leaderboardTypes";
 import BronzeMedalIcon from "../../icons/BronzeMedalIcon";
 import Link from "next/link";
+import {LeaderboardEntry, Medal, MedalValue} from "./leaderboardTypes.ts";
 
 interface Props {
     entry: LeaderboardEntry;

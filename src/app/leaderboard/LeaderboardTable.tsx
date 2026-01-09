@@ -4,11 +4,11 @@ import { useState } from "react";
 import PageableTable, {
 	type Column,
 } from "../../components/table/PageableTable";
-import type { LeaderboardEntry } from "../../domain/leaderboard/leaderboardTypes";
-import { useGetPageableLeaderboardEntries } from "../../domain/leaderboard/useLeaderboard";
 import ErrorComponent from "../../error/ErrorComponent";
 import LeaderboardEntryRow from "../../app/leaderboard/LeaderboardEntryRow.tsx";
 import { CircularProgress } from "@mui/material";
+import {useGetPageableLeaderboardEntries} from "./useLeaderboard.ts";
+import {LeaderboardEntry} from "./leaderboardTypes.ts";
 
 const columns: Column[] = [
 	{ id: "rank", label: "Rank" },
@@ -42,9 +42,7 @@ export default function LeaderboardTable() {
     return (
         <p>{JSON.stringify(data)}</p>
     )
-
-
-
+    
     /*
 	return (
 		<PageableTable<LeaderboardEntry>

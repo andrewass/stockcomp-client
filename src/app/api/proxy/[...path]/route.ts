@@ -1,9 +1,11 @@
 import {NextRequest, NextResponse} from "next/server";
+import {auth} from "../../../../auth.ts";
 
 const BACKEND_BASE_URL = process.env.RESOURCE_SERVER_BASE_URL;
 
 
 async function proxy(req: NextRequest) {
+    const session = await auth();
     const path = req.nextUrl.pathname.replace("/api/proxy","");
     const url = `${BACKEND_BASE_URL}${path}${req.nextUrl.search}`;
 

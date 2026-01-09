@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import LeaderboardTable from "../../pages/leaderboard/LeaderboardTable.tsx";
+import LeaderboardTable from "./LeaderboardTable.tsx";
 
 export default async function  LeaderboardPage() {
 	return (
