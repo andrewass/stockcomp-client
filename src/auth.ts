@@ -12,12 +12,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             if (account) {
                 token.accessToken = account.access_token;
                 token.idToken = account.id_token;
+                token.provider = account.provider;
             }
             return token;
         },
         session: async ({ session, token }) => {
             session.accessToken = token.accessToken;
             session.idToken = token.idToken;
+            session.provider = token.provider;
 
             return session;
         }
