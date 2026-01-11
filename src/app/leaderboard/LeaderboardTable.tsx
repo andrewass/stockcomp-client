@@ -1,14 +1,14 @@
 "use client";
 
+import { CircularProgress } from "@mui/material";
 import { useState } from "react";
+import LeaderboardEntryRow from "../../app/leaderboard/LeaderboardEntryRow.tsx";
 import PageableTable, {
 	type Column,
 } from "../../components/table/PageableTable";
 import ErrorComponent from "../../error/ErrorComponent";
-import LeaderboardEntryRow from "../../app/leaderboard/LeaderboardEntryRow.tsx";
-import { CircularProgress } from "@mui/material";
-import {useGetPageableLeaderboardEntries} from "./useLeaderboard.ts";
-import {LeaderboardEntry} from "./leaderboardTypes.ts";
+import type { LeaderboardEntry } from "./leaderboardTypes.ts";
+import { useGetPageableLeaderboardEntries } from "./useLeaderboard.ts";
 
 const columns: Column[] = [
 	{ id: "rank", label: "Rank" },
@@ -35,13 +35,11 @@ export default function LeaderboardTable() {
 		return <ErrorComponent error={error} />;
 	}
 
-    if (isLoading) {
-        return <CircularProgress />;
-    }
+	if (isLoading) {
+		return <CircularProgress />;
+	}
 
-    return (
-        <p>{JSON.stringify(data)}</p>
-    )
+	return <p>{JSON.stringify(data)}</p>;
 
 	return (
 		<PageableTable<LeaderboardEntry>

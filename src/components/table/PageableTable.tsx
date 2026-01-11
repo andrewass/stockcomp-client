@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 import type React from "react";
 import type { ReactNode } from "react";
-import {darkTheme, lightTheme, lightThemeMode} from "../../theme/themes";
+import { useThemeMode } from "../../theme/ThemeContext.ts";
+import { darkTheme, lightTheme, lightThemeMode } from "../../theme/themes";
 import StyledTableRow from "./StyledTableRow";
-import {useThemeMode} from "../../theme/ThemeContext.ts";
 
 export interface Column {
 	id: string;

@@ -22,12 +22,12 @@ export function useGetPageableLeaderboardEntries(
 }
 
 const getSortedLeaderboardEntriesConfig = (
-    pageNumber: number,
-    pageSize: number,
+	pageNumber: number,
+	pageSize: number,
 ) => {
-    return {
-        method: "get",
-        url: `/api/proxy/leaderboard/sorted`,
-        params: { pageNumber, pageSize },
-    };
+	return {
+		method: "get",
+		url: `/api/proxy/leaderboard/sorted`,
+		params: { pageNumber, pageSize },
+	};
 };
