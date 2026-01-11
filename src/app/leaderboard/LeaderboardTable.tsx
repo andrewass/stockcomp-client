@@ -42,8 +42,7 @@ export default function LeaderboardTable() {
     return (
         <p>{JSON.stringify(data)}</p>
     )
-    
-    /*
+
 	return (
 		<PageableTable<LeaderboardEntry>
 			columns={columns}
@@ -57,6 +56,4 @@ export default function LeaderboardTable() {
 			onChangeRowsPerPage={setRowsPerPage}
 		/>
 	);
-
-     */
 }
