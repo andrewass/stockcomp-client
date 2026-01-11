@@ -1,23 +1,23 @@
 import { TableRow } from "@mui/material";
 import type { ReactNode } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { lightTheme } from "../../theme/themes";
+import type { ThemeMode } from "../../theme/ThemeContext.ts";
+import { darkTheme, lightTheme, lightThemeMode } from "../../theme/themes.ts";
 
 interface Props {
 	children: ReactNode;
 	rowId: number | string;
+	themeMode: ThemeMode;
 }
 
-export default function StyledTableRow({ children, rowId }: Props) {
-	const { appTheme } = useThemeContext();
+export default function StyledTableRow({ children, rowId, themeMode }: Props) {
 	return (
 		<TableRow
 			key={rowId}
 			sx={{
 				backgroundColor:
-					appTheme === lightTheme
-						? appTheme.palette.primary.main
-						: appTheme.palette.secondary.main,
+					themeMode === lightThemeMode
+						? lightTheme.palette.primary.main
+						: darkTheme.palette.secondary.main,
 			}}
 		>
 			{children}

@@ -2,13 +2,13 @@
 
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
-import LeaderboardEntryRow from "../../app/leaderboard/LeaderboardEntryRow.tsx";
+import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
+import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
+import { useGetPageableLeaderboardEntries } from "@/leaderboard/useLeaderboard.ts";
 import PageableTable, {
 	type Column,
-} from "../../components/table/PageableTable";
+} from "../../components/table/PageableTable.tsx";
 import ErrorComponent from "../../error/ErrorComponent";
-import type { LeaderboardEntry } from "./leaderboardTypes.ts";
-import { useGetPageableLeaderboardEntries } from "./useLeaderboard.ts";
 
 const columns: Column[] = [
 	{ id: "rank", label: "Rank" },
@@ -38,8 +38,6 @@ export default function LeaderboardTable() {
 	if (isLoading) {
 		return <CircularProgress />;
 	}
-
-	return <p>{JSON.stringify(data)}</p>;
 
 	return (
 		<PageableTable<LeaderboardEntry>

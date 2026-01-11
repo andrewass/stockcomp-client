@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src/",
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": [
@@ -27,7 +28,10 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["app/*"]
+    }
   },
   "include": [
     "./src",
