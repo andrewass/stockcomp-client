@@ -6,25 +6,24 @@ import NightlightIcon from "@mui/icons-material/Nightlight";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import StyledIconButton from "../../components/icon/StyledIconButton";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { darkTheme } from "../../theme/themes";
-import NavigationLink from "../NavigationLink";
+import Link from "next/link";
+import StyledIconButton from "../../../components/icon/StyledIconButton.tsx";
+import { useThemeMode } from "../../../theme/ThemeContext.ts";
+import { darkTheme } from "../../../theme/themes.ts";
 
-export default function DefaultNavigationWide({
-	signOutUser,
-}: {
+interface Props {
 	signOutUser: () => void;
-}) {
-	const { toggleTheme, appTheme } = useThemeContext();
+}
 
+export default function DefaultNavigationWide({ signOutUser }: Props) {
+	const { activeTheme, toggleTheme } = useThemeMode();
 	return (
 		<AppBar
 			position="fixed"
 			component="nav"
 			sx={{
 				height: "100px",
-				backgroundColor: appTheme.palette.primary.main,
+				backgroundColor: activeTheme.palette.primary.main,
 				backgroundImage: "none",
 			}}
 		>
@@ -40,34 +39,40 @@ export default function DefaultNavigationWide({
 					<Box sx={{ display: "flex", alignItems: "center", gap: 10 }}>
 						<Typography
 							variant="h5"
-							sx={{ color: appTheme.palette.primary.contrastText }}
+							sx={{ color: activeTheme.palette.primary.contrastText }}
 						>
 							STOCK COMP
 						</Typography>
-						<NavigationLink
-							to="/symbols"
-							icon={<ShowChartIcon />}
-							text="Stocks"
-						/>
-						<NavigationLink
-							to="/leaderboard"
-							icon={<LeaderboardIcon />}
-							text="Leaderboard"
-						/>
-						<NavigationLink
-							to="/contests"
-							icon={<EventIcon />}
-							text="Contests"
-						/>
-						<NavigationLink
-							to="/account"
-							icon={<AccountCircleIcon />}
-							text="Account"
-						/>
+						<Link href="/contests">
+							<div>
+								<EventIcon />
+								<span>Contests</span>
+							</div>
+						</Link>
+						<Link href="/symbols">
+							<div>
+								<ShowChartIcon />
+								<span>Stocks</span>
+							</div>
+						</Link>
+						<Link href="/leaderboard">
+							<div>
+								<LeaderboardIcon />
+								<span>Leaderboard</span>
+							</div>
+						</Link>
+						<Link href="/account">
+							<div>
+								<AccountCircleIcon />
+								<span>Account</span>
+							</div>
+						</Link>
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", gap: 6 }}>
 						<StyledIconButton
-							icon={appTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />}
+							icon={
+								activeTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />
+							}
 							onClick={toggleTheme}
 						/>
 						<StyledIconButton icon={<LogoutIcon />} onClick={signOutUser} />

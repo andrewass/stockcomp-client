@@ -1,12 +1,12 @@
 import { TableRow } from "@mui/material";
 import type { ReactNode } from "react";
-import type { ThemeMode } from "../../theme/ThemeContext.ts";
+import type { ActiveTheme } from "../../theme/ThemeContext.ts";
 import { darkTheme, lightTheme, lightThemeMode } from "../../theme/themes.ts";
 
 interface Props {
 	children: ReactNode;
 	rowId: number | string;
-	themeMode: ThemeMode;
+	themeMode: ActiveTheme;
 }
 
 export default function StyledTableRow({ children, rowId, themeMode }: Props) {

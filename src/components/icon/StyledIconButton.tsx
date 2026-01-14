@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import type { ReactNode } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
+import { useThemeMode } from "../../theme/ThemeContext.ts";
 
 interface Props {
 	icon: ReactNode;
@@ -8,11 +8,11 @@ interface Props {
 }
 
 export default function StyledIconButton({ icon, onClick }: Props) {
-	const { appTheme } = useThemeContext();
+	const { activeTheme } = useThemeMode();
 
 	return (
 		<IconButton
-			sx={{ color: appTheme.palette.primary.contrastText }}
+			sx={{ color: activeTheme.palette.primary.contrastText }}
 			onClick={onClick}
 		>
 			{icon}

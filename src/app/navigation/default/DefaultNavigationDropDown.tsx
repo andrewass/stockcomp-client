@@ -1,3 +1,5 @@
+"use client";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EventIcon from "@mui/icons-material/Event";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
@@ -16,19 +18,18 @@ import {
 	Toolbar,
 	Typography,
 } from "@mui/material";
+import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { darkTheme } from "../../theme/themes";
-import NavigationLink from "../NavigationLink";
+import { useThemeMode } from "../../../theme/ThemeContext.ts";
+import { darkTheme } from "../../../theme/themes.ts";
 
-const DefaultNavigationDropDown = ({
-	signOutUser,
-}: {
+interface Props {
 	signOutUser: () => void;
-}) => {
-	const { toggleTheme, appTheme } = useThemeContext();
+}
 
+export function DefaultNavigationDropDown({ signOutUser }: Props) {
+	const { activeTheme, toggleTheme } = useThemeMode();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 
@@ -45,7 +46,7 @@ const DefaultNavigationDropDown = ({
 			position="fixed"
 			sx={{
 				height: "100px",
-				backgroundColor: appTheme.palette.primary.main,
+				backgroundColor: activeTheme.palette.primary.main,
 				backgroundImage: "none",
 			}}
 		>
@@ -61,7 +62,7 @@ const DefaultNavigationDropDown = ({
 				>
 					<Typography
 						sx={{
-							color: appTheme.palette.primary.contrastText,
+							color: activeTheme.palette.primary.contrastText,
 							fontWeight: "bold",
 							fontSize: "large",
 						}}
@@ -71,13 +72,13 @@ const DefaultNavigationDropDown = ({
 
 					<Box sx={{ display: "flex", alignItems: "center", gap: 6 }}>
 						<IconButton
-							sx={{ color: appTheme.palette.primary.contrastText }}
+							sx={{ color: activeTheme.palette.primary.contrastText }}
 							onClick={toggleTheme}
 						>
-							{appTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />}
+							{activeTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />}
 						</IconButton>
 						<IconButton
-							sx={{ color: appTheme.palette.primary.contrastText }}
+							sx={{ color: activeTheme.palette.primary.contrastText }}
 							onClick={signOutUser}
 						>
 							{<LogoutIcon />}
@@ -88,7 +89,7 @@ const DefaultNavigationDropDown = ({
 								onClick={handleClick}
 							>
 								<MenuIcon
-									sx={{ color: appTheme.palette.primary.contrastText }}
+									sx={{ color: activeTheme.palette.primary.contrastText }}
 								/>
 							</IconButton>
 							<Menu
@@ -97,41 +98,45 @@ const DefaultNavigationDropDown = ({
 								onClose={handleClose}
 								sx={{
 									"& .MuiPaper-root": {
-										backgroundColor: appTheme.palette.secondary.main,
+										backgroundColor: activeTheme.palette.secondary.main,
 										border: "1px solid",
 										borderRadius: 2,
 										backgroundImage: "none",
-										borderColor: appTheme.palette.primary.main,
+										borderColor: activeTheme.palette.primary.main,
 									},
 								}}
 							>
 								<MenuItem onClick={handleClose}>
-									<NavigationLink
-										to="/symbols"
-										icon={<ShowChartIcon />}
-										text="Symbols"
-									/>
+									<Link href="/symbols">
+										<div>
+											<ShowChartIcon />
+											<span>Symbols</span>
+										</div>
+									</Link>
 								</MenuItem>
 								<MenuItem onClick={handleClose}>
-									<NavigationLink
-										to="/leaderboard"
-										icon={<LeaderboardIcon />}
-										text="Leaderboard"
-									/>
+									<Link href="/leaderboard">
+										<div>
+											<LeaderboardIcon />
+											<span>Leaderboard</span>
+										</div>
+									</Link>
 								</MenuItem>
 								<MenuItem onClick={handleClose}>
-									<NavigationLink
-										to="/contests"
-										icon={<EventIcon />}
-										text="Contests"
-									/>
+									<Link href="/contests">
+										<div>
+											<EventIcon />
+											<span>Contests</span>
+										</div>
+									</Link>
 								</MenuItem>
 								<MenuItem onClick={handleClose}>
-									<NavigationLink
-										to="/account"
-										icon={<AccountCircleIcon />}
-										text="Account"
-									/>
+									<Link href="/account">
+										<div>
+											<AccountCircleIcon />
+											<span>Account</span>
+										</div>
+									</Link>
 								</MenuItem>
 							</Menu>
 						</Box>
@@ -140,6 +145,6 @@ const DefaultNavigationDropDown = ({
 			</Toolbar>
 		</AppBar>
 	);
-};
+}
 
 export default DefaultNavigationDropDown;

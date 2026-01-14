@@ -4,18 +4,26 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import PeopleIcon from "@mui/icons-material/People";
 import SunnyIcon from "@mui/icons-material/Sunny";
-import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import StyledIconButton from "../../components/icon/StyledIconButton";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { darkTheme } from "../../theme/themes";
-import NavigationLink from "../NavigationLink";
+import {
+	AppBar,
+	Box,
+	Container,
+	type Theme,
+	Toolbar,
+	Typography,
+} from "@mui/material";
+import Link from "next/link";
+import StyledIconButton from "../../../components/icon/StyledIconButton.tsx";
+import { useThemeMode } from "../../../theme/ThemeContext.ts";
+import { darkTheme } from "../../../theme/themes.ts";
 
 interface Props {
 	signOutUser: () => void;
+	theme: Theme;
 }
 
 export default function AdminNavigationWide({ signOutUser }: Props) {
-	const { toggleTheme, appTheme } = useThemeContext();
+	const { toggleTheme, activeTheme } = useThemeMode();
 
 	return (
 		<AppBar
@@ -23,7 +31,7 @@ export default function AdminNavigationWide({ signOutUser }: Props) {
 			component="nav"
 			sx={{
 				height: "100px",
-				backgroundColor: appTheme.palette.primary.main,
+				backgroundColor: activeTheme.palette.primary.main,
 				backgroundImage: "none",
 			}}
 		>
@@ -39,29 +47,34 @@ export default function AdminNavigationWide({ signOutUser }: Props) {
 					<Box sx={{ display: "flex", alignItems: "center", gap: 10 }}>
 						<Typography
 							variant="h5"
-							sx={{ color: appTheme.palette.primary.contrastText }}
+							sx={{ color: activeTheme.palette.primary.contrastText }}
 						>
 							STOCK COMP ADMIN
 						</Typography>
-						<NavigationLink
-							to="/admin/contests"
-							icon={<EventIcon />}
-							text="Contests"
-						/>
-						<NavigationLink
-							to="/admin/users"
-							icon={<PeopleIcon />}
-							text="Users"
-						/>
-						<NavigationLink
-							to="/account"
-							icon={<AccountCircleIcon />}
-							text="Account"
-						/>
+						<Link href="/admin/contests">
+							<div>
+								<EventIcon />
+								<span>Contests</span>
+							</div>
+						</Link>
+						<Link href="/admin/users">
+							<div>
+								<PeopleIcon />
+								<span>Users</span>
+							</div>
+						</Link>
+						<Link href="/account">
+							<div>
+								<AccountCircleIcon />
+								<span>Account</span>
+							</div>
+						</Link>
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", gap: 6 }}>
 						<StyledIconButton
-							icon={appTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />}
+							icon={
+								activeTheme === darkTheme ? <SunnyIcon /> : <NightlightIcon />
+							}
 							onClick={toggleTheme}
 						/>
 						<StyledIconButton icon={<LogoutIcon />} onClick={signOutUser} />

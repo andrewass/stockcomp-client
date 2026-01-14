@@ -1,11 +1,12 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import type { darkTheme, lightTheme } from "./themes.ts";
 
-export type ThemeMode = "light" | "dark";
+export type ActiveTheme = typeof lightTheme | typeof darkTheme;
 
 export interface ThemeContextValue {
-	themeMode: ThemeMode;
+	activeTheme: ActiveTheme;
 	toggleTheme: () => void;
 }
 

@@ -14,7 +14,7 @@ import {
 import type React from "react";
 import type { ReactNode } from "react";
 import { useThemeMode } from "../../theme/ThemeContext.ts";
-import { darkTheme, lightTheme, lightThemeMode } from "../../theme/themes";
+import { darkTheme, lightTheme } from "../../theme/themes";
 import StyledTableRow from "./StyledTableRow";
 
 export interface Column {
@@ -45,7 +45,7 @@ export default function PageableTable<T>({
 	onChangePage,
 	onChangeRowsPerPage,
 }: Props<T>) {
-	const { themeMode } = useThemeMode();
+	const { activeTheme } = useThemeMode();
 
 	const handleChangeRowsPerPage = (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -75,7 +75,7 @@ export default function PageableTable<T>({
 										key={header}
 										sx={{
 											backgroundColor:
-												themeMode === lightThemeMode
+												activeTheme === lightTheme
 													? lightTheme.palette.secondary.main
 													: darkTheme.palette.primary.main,
 										}}
@@ -87,7 +87,7 @@ export default function PageableTable<T>({
 					</TableHead>
 					<TableBody>
 						{rows?.length === 0 ? (
-							<StyledTableRow rowId={0} themeMode={themeMode}>
+							<StyledTableRow rowId={0} themeMode={activeTheme}>
 								<TableCell align="center" colSpan={columns.length}>
 									No entries found
 								</TableCell>
@@ -101,7 +101,7 @@ export default function PageableTable<T>({
 			<TablePagination
 				sx={{
 					backgroundColor:
-						themeMode === lightThemeMode
+						activeTheme === lightTheme
 							? lightTheme.palette.secondary.main
 							: darkTheme.palette.primary.main,
 				}}
