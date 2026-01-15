@@ -87,7 +87,7 @@ export default function PageableTable<T>({
 					</TableHead>
 					<TableBody>
 						{rows?.length === 0 ? (
-							<StyledTableRow rowId={0} themeMode={activeTheme}>
+							<StyledTableRow rowId={0}>
 								<TableCell align="center" colSpan={columns.length}>
 									No entries found
 								</TableCell>

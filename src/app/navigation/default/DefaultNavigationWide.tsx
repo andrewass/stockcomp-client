@@ -6,7 +6,7 @@ import NightlightIcon from "@mui/icons-material/Nightlight";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import Link from "next/link";
+import StyledLink from "@/components/link/StyledLink.tsx";
 import StyledIconButton from "../../../components/icon/StyledIconButton.tsx";
 import { useThemeMode } from "../../../theme/ThemeContext.ts";
 import { darkTheme } from "../../../theme/themes.ts";
@@ -43,30 +43,30 @@ export default function DefaultNavigationWide({ signOutUser }: Props) {
 						>
 							STOCK COMP
 						</Typography>
-						<Link href="/contests">
-							<div>
+						<StyledLink href={{ pathname: "/contests" }}>
+							<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
 								<EventIcon />
-								<span>Contests</span>
-							</div>
-						</Link>
-						<Link href="/symbols">
-							<div>
+								<Typography component="span">Contests</Typography>
+							</Box>
+						</StyledLink>
+						<StyledLink href={{ pathname: "/symbols" }}>
+							<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
 								<ShowChartIcon />
-								<span>Stocks</span>
-							</div>
-						</Link>
-						<Link href="/leaderboard">
-							<div>
+								<Typography component="span">Stocks</Typography>
+							</Box>
+						</StyledLink>
+						<StyledLink href={{ pathname: "/leaderboard" }}>
+							<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
 								<LeaderboardIcon />
-								<span>Leaderboard</span>
-							</div>
-						</Link>
-						<Link href="/account">
-							<div>
+								<Typography component="span">Leaderboard</Typography>
+							</Box>
+						</StyledLink>
+						<StyledLink href={{ pathname: "/account" }}>
+							<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
 								<AccountCircleIcon />
-								<span>Account</span>
-							</div>
-						</Link>
+								<Typography component="span">Account</Typography>
+							</Box>
+						</StyledLink>
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", gap: 6 }}>
 						<StyledIconButton
