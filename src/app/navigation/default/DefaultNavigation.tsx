@@ -1,7 +1,7 @@
 "use client";
 
 import { useMediaQuery } from "@mui/material";
-import { useThemeMode } from "../../../theme/ThemeContext.ts";
+import { useThemeMode } from "@/theme/ThemeContext.ts";
 import DefaultNavigationDropDown from "./DefaultNavigationDropDown";
 import DefaultNavigationWide from "./DefaultNavigationWide";
 

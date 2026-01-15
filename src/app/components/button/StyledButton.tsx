@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { customBorderColor } from "../../theme/themes";
+import { useThemeContext } from "@/theme/AppThemeContext.ts";
+import { customBorderColor } from "@/theme/themes.ts";
 
 interface Props {
 	variant?: "outlined" | "contained" | "text";

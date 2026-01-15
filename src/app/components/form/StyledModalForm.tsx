@@ -1,7 +1,7 @@
 import { Box, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import type React from "react";
 import type { ReactNode } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
+import { useThemeContext } from "@/theme/AppThemeContext.ts";
 
 interface Props {
 	open: boolean;

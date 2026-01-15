@@ -1,5 +1,5 @@
 import { Tab } from "@mui/material";
-import { useThemeContext } from "../../theme/AppThemeContext";
+import { useThemeContext } from "@/theme/AppThemeContext.ts";
 
 interface Props {
 	label: string;

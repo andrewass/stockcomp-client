@@ -21,8 +21,8 @@ import {
 import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
-import { useThemeMode } from "../../../theme/ThemeContext.ts";
-import { darkTheme } from "../../../theme/themes.ts";
+import { useThemeMode } from "@/theme/ThemeContext.ts";
+import { darkTheme } from "@/theme/themes.ts";
 
 interface Props {
 	signOutUser: () => void;

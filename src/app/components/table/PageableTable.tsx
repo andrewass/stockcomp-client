@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import type React from "react";
 import type { ReactNode } from "react";
-import { useThemeMode } from "../../theme/ThemeContext.ts";
-import { darkTheme, lightTheme } from "../../theme/themes";
+import { useThemeMode } from "@/theme/ThemeContext.ts";
+import { darkTheme, lightTheme } from "@/theme/themes.ts";
 import StyledTableRow from "./StyledTableRow";
 
 export interface Column {

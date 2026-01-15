@@ -1,28 +1,31 @@
-import { type AutocompleteRenderInputParams, TextField } from "@mui/material";
-import type { ReactNode } from "react";
-import { useThemeContext } from "../../theme/AppThemeContext";
-import { customBorderColor } from "../../theme/themes";
+import { DateTimeField } from "@mui/x-date-pickers";
+import { useThemeContext } from "@/theme/AppThemeContext.ts";
+import { customBorderColor } from "@/theme/themes.ts";
 
 interface Props {
 	label: string;
-	name?: string;
-	autoCompleteParams?: AutocompleteRenderInputParams;
-	error?: boolean | undefined;
-	fullWidth?: boolean | undefined;
-	helperText?: ReactNode;
-	value?: string | number | undefined;
+	disabled?: boolean;
+	value: Date | null;
+	onChange: (value: Date | null) => void;
 }
 
-export default function StyledTextField({
-	autoCompleteParams,
+export default function StyledDateTimeField({
+	value,
+	label,
+	onChange,
+	disabled = false,
 	...rest
 }: Props) {
 	const { appTheme } = useThemeContext();
 	const contrastColor = appTheme.palette.primary.contrastText;
 
 	return (
-		<TextField
-			{...autoCompleteParams}
+		<DateTimeField
+			label={label}
+			defaultValue={value}
+			format="dd.MM.yyyy HH:mm"
+			disabled={disabled}
+			onChange={onChange}
 			{...rest}
 			sx={{
 				"& label": { color: contrastColor },

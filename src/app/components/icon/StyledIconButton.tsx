@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import type { ReactNode } from "react";
-import { useThemeMode } from "../../theme/ThemeContext.ts";
+import { useThemeMode } from "@/theme/ThemeContext.ts";
 
 interface Props {
 	icon: ReactNode;
