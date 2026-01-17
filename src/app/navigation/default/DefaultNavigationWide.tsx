@@ -6,10 +6,10 @@ import NightlightIcon from "@mui/icons-material/Nightlight";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import SunnyIcon from "@mui/icons-material/Sunny";
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
+import StyledIconButton from "@/components/icon/StyledIconButton.tsx";
 import StyledLink from "@/components/link/StyledLink.tsx";
 import { useThemeMode } from "@/theme/ThemeContext.ts";
 import { darkTheme } from "@/theme/themes.ts";
-import StyledIconButton from "../../../components/icon/StyledIconButton.tsx";
 
 interface Props {
 	signOutUser: () => void;

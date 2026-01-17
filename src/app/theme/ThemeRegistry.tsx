@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { type ReactNode, useEffect, useState } from "react";
-import { queryClient } from "../config/queryConfig.ts";
+import { queryClient } from "../../config/queryConfig.ts";
 import { type ActiveTheme, ThemeContext } from "./ThemeContext.ts";
 import { darkTheme, lightTheme } from "./themes.ts";
 
@@ -27,7 +27,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
 		setActiveTheme(newTheme);
 		localStorage.setItem(
 			THEME_STORAGE_KEY,
-			activeTheme === lightTheme ? "light" : "dark",
+			newTheme === lightTheme ? "light" : "dark",
 		);
 	}
 

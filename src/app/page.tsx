@@ -1,8 +1,8 @@
 "use client";
 
 import { FormControlLabel, Switch } from "@mui/material";
-import { useThemeMode } from "../theme/ThemeContext.ts";
-import { darkTheme } from "../theme/themes.ts";
+import { useThemeMode } from "@/theme/ThemeContext.ts";
+import { darkTheme } from "@/theme/themes.ts";
 
 export default function MainPage() {
 	const { activeTheme, toggleTheme } = useThemeMode();

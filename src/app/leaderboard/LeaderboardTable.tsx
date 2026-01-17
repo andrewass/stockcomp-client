@@ -2,12 +2,12 @@
 
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
+import PageableTable, {
+	type Column,
+} from "@/components/table/PageableTable.tsx";
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
 import { useGetPageableLeaderboardEntries } from "@/leaderboard/useLeaderboard.ts";
-import PageableTable, {
-	type Column,
-} from "../../components/table/PageableTable.tsx";
 import ErrorComponent from "../../error/ErrorComponent";
 
 const columns: Column[] = [
