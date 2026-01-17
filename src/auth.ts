@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { getRefreshToken } from "./auth/authApi.ts";
+import { getRefreshToken } from "@/api/auth/authApi.ts";
 
 const EXPIRATION_BUFFER = 60 * 1000;
 

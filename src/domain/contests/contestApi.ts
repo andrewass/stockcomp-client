@@ -2,18 +2,9 @@ import type { CustomRequestConfig } from "../../config/apiWrapper";
 import type { CreateContestRequest, UpdateContestRequest } from "./contestDto";
 
 export const GET_CONTEST_BY_NUMBER = "getContestByNumber";
-export const GET_ALL_CONTESTS = "getAllContestsSorted";
 export const EXISTS_ACTIVE_CONTESTS = "existsActiveContests";
 
-const CONTEST_PATH = `${CLIENT_BACKEND_BASE_PATH}/contests`;
-
-export const getAllContestsConfig = (pageNumber: number, pageSize: number) => {
-	return {
-		method: "get",
-		url: `${CONTEST_PATH}/all`,
-		params: { pageNumber, pageSize },
-	};
-};
+const CONTEST_PATH = "/api/proxy/contests";
 
 export const getExistsActiveContestsConfig = () => {
 	return {

@@ -1,15 +1,13 @@
 import CircleIcon from "@mui/icons-material/Circle";
-import { Link as MUILink, Stack, TableCell, Typography } from "@mui/material";
-import { createLink } from "@tanstack/react-router";
-import StyledTableRow from "../../components/table/StyledTableRow";
+import { Stack, TableCell, Typography } from "@mui/material";
+import StyledLink from "@/components/link/StyledLink.tsx";
+import StyledTableRow from "@/components/table/StyledTableRow.tsx";
 import {
 	type Contest,
 	contestStatusRecord,
 	getStatusByColor,
-} from "../../domain/contests/contestTypes";
+} from "@/contest/contestTypes.ts";
 import { formatDate } from "../../util/dateUtils";
-
-const CustomLink = createLink(MUILink);
 
 interface Props {
 	contest: Contest;
@@ -19,12 +17,14 @@ export default function ContestRow({ contest }: Props) {
 	return (
 		<StyledTableRow rowId={contest.contestId}>
 			<TableCell>
-				<CustomLink
-					to="/contests/$contestId"
-					params={{ contestId: contest.contestId.toString() }}
+				<StyledLink
+					href={{
+						pathname: "/contests/$contestId",
+						query: { contestId: contest.contestId.toString() },
+					}}
 				>
 					<Typography>{contest.contestName}</Typography>
-				</CustomLink>
+				</StyledLink>
 			</TableCell>
 			<TableCell>
 				<Stack direction="row" gap={1}>
