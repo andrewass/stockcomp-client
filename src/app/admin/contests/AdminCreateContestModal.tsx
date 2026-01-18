@@ -1,32 +1,18 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import StyledButton from "../../../components/button/StyledButton";
-import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
-import ControlledTextField from "../../../components/form/ControlledTextField";
-import StyledModalForm from "../../../components/form/StyledModalForm";
-import { apiPost } from "../../../config/apiWrapper";
-import { queryClient } from "../../../config/queryConfig";
-import {
-	GET_ALL_CONTESTS,
-	getCreateContestConfig,
-} from "../../../domain/contests/contestApi";
+import { useCreateContestMutation } from "@/admin/contests/useAdminContests.ts";
+import StyledButton from "@/components/button/StyledButton.tsx";
+import ControlledDateTimeField from "@/components/form/ControlledDateTimeField.tsx";
+import ControlledTextField from "@/components/form/ControlledTextField.tsx";
+import StyledModalForm from "@/components/form/StyledModalForm.tsx";
 import type { CreateContestRequest } from "../../../domain/contests/contestDto";
 
 export default function AdminCreateContestModal() {
 	const [open, setOpen] = useState(false);
 	const { handleSubmit, control } = useForm<CreateContestRequest>();
 
-	const mutation = useMutation({
-		mutationFn: (contestData: CreateContestRequest) =>
-			apiPost(getCreateContestConfig(contestData)),
-		onSuccess: () => {
-			queryClient
-				.invalidateQueries({ queryKey: [GET_ALL_CONTESTS] })
-				.then(handleClose);
-		},
-	});
+	const mutation = useCreateContestMutation();
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);

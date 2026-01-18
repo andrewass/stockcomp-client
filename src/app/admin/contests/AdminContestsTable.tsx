@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PageableTable, {
 	type Column,
-} from "../../../components/table/PageableTable";
-import type { Contest } from "../../../domain/contests/contestTypes";
-import { useGetPageableContests } from "../../../domain/contests/useContest";
+} from "@/components/table/PageableTable.tsx";
+import type { Contest } from "@/contest/contestTypes.ts";
+import { useGetPageableContests } from "@/contests/useContests.ts";
 import ErrorComponent from "../../../error/ErrorComponent";
 import AdminContestRow from "./AdminContestRow";
 

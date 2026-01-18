@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { Contest } from "@/contest/contestTypes.ts";
 import { apiGet } from "../../config/apiWrapper";
 
-const GET_ALL_CONTESTS = "getAllContestsSorted";
+export const GET_ALL_CONTESTS = "getAllContestsSorted";
 
 interface ContestsResponse {
 	contests: Contest[];

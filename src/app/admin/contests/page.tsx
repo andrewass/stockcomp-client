@@ -1,6 +1,6 @@
 import { Box, Container, Stack } from "@mui/material";
-import AdminContestsTable from "./AdminContestsTable";
-import AdminCreateContestModal from "./AdminCreateContestModal";
+import AdminContestsTable from "@/admin/contests/AdminContestsTable.tsx";
+import AdminCreateContestModal from "@/admin/contests/AdminCreateContestModal.tsx";
 
 export default function AdminContestsPage() {
 	return (

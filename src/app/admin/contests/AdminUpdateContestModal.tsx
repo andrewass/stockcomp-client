@@ -8,24 +8,18 @@ import {
 	Stack,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import ControlledDateTimeField from "../../../components/form/ControlledDateTimeField";
-import ControlledSelect from "../../../components/form/ControlledSelect";
-import ControlledTextField from "../../../components/form/ControlledTextField";
-import { apiPost } from "../../../config/apiWrapper";
-import { queryClient } from "../../../config/queryConfig";
-import {
-	GET_ALL_CONTESTS,
-	getUpdateContestConfig,
-} from "../../../domain/contests/contestApi";
-import type { UpdateContestRequest } from "../../../domain/contests/contestDto";
+import { useUpdateContestMutation } from "@/admin/contests/useAdminContests.ts";
+import ControlledDateTimeField from "@/components/form/ControlledDateTimeField.tsx";
+import ControlledSelect from "@/components/form/ControlledSelect.tsx";
+import ControlledTextField from "@/components/form/ControlledTextField.tsx";
 import {
 	CONTEST_STATUS,
 	type Contest,
 	contestStatusRecord,
-} from "../../../domain/contests/contestTypes";
+} from "@/contest/contestTypes.ts";
+import type { UpdateContestRequest } from "../../../domain/contests/contestDto";
 
 export default function AdminUpdateContestModal({
 	contest,
@@ -42,16 +36,7 @@ export default function AdminUpdateContestModal({
 		},
 	});
 
-	const mutation = useMutation({
-		mutationFn: (contestData: UpdateContestRequest) => {
-			return apiPost(getUpdateContestConfig(contestData));
-		},
-		onSuccess: () => {
-			queryClient
-				.invalidateQueries({ queryKey: [GET_ALL_CONTESTS] })
-				.then(handleClose);
-		},
-	});
+	const mutation = useUpdateContestMutation();
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
