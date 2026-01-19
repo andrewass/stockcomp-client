@@ -1,5 +1,5 @@
 import TableCell from "@mui/material/TableCell";
-import StyledTableRow from "../../../components/table/StyledTableRow";
+import StyledTableRow from "@/components/table/StyledTableRow.tsx";
 import {
 	type User,
 	userRoleRecord,

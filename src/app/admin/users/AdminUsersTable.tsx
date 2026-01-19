@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PageableTable, {
 	type Column,
-} from "../../../components/table/PageableTable";
+} from "@/components/table/PageableTable.tsx";
 import type { User } from "../../../domain/user/userTypes";
 import { useGetPageableUsers } from "../../../domain/user/useUser";
 import ErrorComponent from "../../../error/ErrorComponent";

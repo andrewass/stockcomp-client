@@ -1,4 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
+import type {
+	CreateContestRequest,
+	UpdateContestRequest,
+} from "@/contest/contestTypes.ts";
 import { GET_ALL_CONTESTS } from "@/contests/useContests.ts";
 import {
 	apiDelete,
@@ -6,10 +10,6 @@ import {
 	type CustomRequestConfig,
 } from "../../../config/apiWrapper.ts";
 import { queryClient } from "../../../config/queryConfig.ts";
-import type {
-	CreateContestRequest,
-	UpdateContestRequest,
-} from "../../../domain/contests/contestDto.ts";
 
 export function useDeleteContestMutation(contestId: number) {
 	return useMutation({

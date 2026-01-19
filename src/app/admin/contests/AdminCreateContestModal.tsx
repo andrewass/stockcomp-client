@@ -6,7 +6,7 @@ import StyledButton from "@/components/button/StyledButton.tsx";
 import ControlledDateTimeField from "@/components/form/ControlledDateTimeField.tsx";
 import ControlledTextField from "@/components/form/ControlledTextField.tsx";
 import StyledModalForm from "@/components/form/StyledModalForm.tsx";
-import type { CreateContestRequest } from "../../../domain/contests/contestDto";
+import type { CreateContestRequest } from "@/contest/contestTypes.ts";
 
 export default function AdminCreateContestModal() {
 	const [open, setOpen] = useState(false);
