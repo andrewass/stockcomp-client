@@ -13,7 +13,7 @@ export interface CustomRequestConfig {
 	params?: RequestParams;
 }
 
-const request = async (config: CustomRequestConfig) => {
+const request = async <T>(config: CustomRequestConfig): Promise<T> => {
 	const url = new URL(config.url, process.env.NEXT_PUBLIC_BASE_URL);
 	for (const item in config.params) {
 		url.searchParams.set(item, String(config.params[item]));
@@ -24,15 +24,15 @@ const request = async (config: CustomRequestConfig) => {
 		credentials: "include",
 		body: JSON.stringify(config.body),
 	});
-	if (response.status === 204) return null;
+	if (response.status === 204) return null as T;
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 	const responseData = await response.text();
-	return responseData ? JSON.parse(responseData) : null;
+	return responseData ? JSON.parse(responseData) : null as T;
 };
 
-export const apiGet = (config: CustomRequestConfig) => request(config);
-export const apiPost = (config: CustomRequestConfig) => request(config);
-export const apiPut = (config: CustomRequestConfig) => request(config);
-export const apiDelete = (config: CustomRequestConfig) => request(config);
+export const apiGet = <T>(config: CustomRequestConfig): Promise<T> => request(config);
+export const apiPost = <T>(config: CustomRequestConfig): Promise<T> => request(config);
+export const apiPut = <T>(config: CustomRequestConfig): Promise<T> => request(config);
+export const apiDelete = <T>(config: CustomRequestConfig): Promise<T> => request(config);
