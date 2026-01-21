@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import { DefaultNavigation } from "@/navigation/default/DefaultNavigation.tsx";
 import ThemeRegistry from "@/theme/ThemeRegistry.tsx";
+import "./globals.css";
 
 export const metadata: Metadata = {
 	title: "Stock Comp",

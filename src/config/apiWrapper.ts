@@ -29,10 +29,14 @@ const request = async <T>(config: CustomRequestConfig): Promise<T> => {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 	const responseData = await response.text();
-	return responseData ? JSON.parse(responseData) : null as T;
+	return responseData ? JSON.parse(responseData) : (null as T);
 };
 
-export const apiGet = <T>(config: CustomRequestConfig): Promise<T> => request(config);
-export const apiPost = <T>(config: CustomRequestConfig): Promise<T> => request(config);
-export const apiPut = <T>(config: CustomRequestConfig): Promise<T> => request(config);
-export const apiDelete = <T>(config: CustomRequestConfig): Promise<T> => request(config);
+export const apiGet = <T>(config: CustomRequestConfig): Promise<T> =>
+	request(config);
+export const apiPost = <T>(config: CustomRequestConfig): Promise<T> =>
+	request(config);
+export const apiPut = <T>(config: CustomRequestConfig): Promise<T> =>
+	request(config);
+export const apiDelete = <T>(config: CustomRequestConfig): Promise<T> =>
+	request(config);
