@@ -1,8 +1,5 @@
-import { Toolbar } from "@mui/material";
 import type { Metadata } from "next";
 import type React from "react";
-import { DefaultNavigation } from "@/navigation/default/DefaultNavigation.tsx";
-import ThemeRegistry from "@/theme/ThemeRegistry.tsx";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,13 +14,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>
-				<ThemeRegistry>
-					<DefaultNavigation />
-					<Toolbar sx={{ height: "100px", marginBottom: "100px" }} />
-					{children}
-				</ThemeRegistry>
-			</body>
+			<body>{children}</body>
 		</html>
 	);
 }
