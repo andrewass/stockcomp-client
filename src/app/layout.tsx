@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type React from "react";
 import "./globals.css";
+import AppProviders from "@/providers/AppProviders.tsx";
+import NavigationBar from "./navigation/NavigationBar";
 
 export const metadata: Metadata = {
 	title: "Stock Comp",
@@ -14,7 +16,12 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<AppProviders>
+					<NavigationBar />
+					<div className="flex justify-center">{children}</div>
+				</AppProviders>
+			</body>
 		</html>
 	);
 }
