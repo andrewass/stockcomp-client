@@ -48,5 +48,10 @@ export default async function LeaderboardPage({
 		),
 	);
 
-	return <div>My Post: {slug}</div>;
+	return (
+		<div>
+			My Post: {slug} resolved search params:{" "}
+			{JSON.stringify(resolvedSearchParams)}
+		</div>
+	);
 }
