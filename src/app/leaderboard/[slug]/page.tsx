@@ -1,4 +1,5 @@
-import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
+import LeaderboardTable from "@/leaderboard/LeaderboardTable.tsx";
+import type { LeaderboardEntryPage } from "@/leaderboard/leaderboardTypes.ts";
 import { parseParams } from "@/util/PageableTableUtils.ts";
 import { apiGet } from "../../../config/apiWrapper.ts";
 
@@ -23,11 +24,12 @@ export default async function LeaderboardPage({
 	const { slug } = await params;
 	const resolvedSearchParams = await searchParams;
 	const parsedParams = parseParams(slug, resolvedSearchParams);
+
 	if (!parsedParams) {
 		return <p>404: Page not found</p>;
 	}
 
-	const leaderboardEntries = await apiGet<LeaderboardEntry[]>(
+	const leaderboardResponse = await apiGet<LeaderboardEntryPage>(
 		getSortedLeaderboardEntriesConfig(
 			parsedParams.pageNumber,
 			parsedParams.pageSize,
@@ -36,8 +38,12 @@ export default async function LeaderboardPage({
 
 	return (
 		<div>
-			My Post: {slug} :
-			{JSON.stringify(leaderboardEntries)}
+			<LeaderboardTable
+				leaderboardEntries={leaderboardResponse.entries}
+				pageSize={parsedParams.pageSize}
+				currentPage={parsedParams.pageNumber}
+				totalEntriesCount={leaderboardResponse.totalEntriesCount}
+			/>
 		</div>
 	);
 }
