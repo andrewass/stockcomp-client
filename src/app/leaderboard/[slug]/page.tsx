@@ -1,4 +1,5 @@
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
+import { parseParams } from "@/util/PageableTableUtils.ts";
 import { apiGet } from "../../../config/apiWrapper.ts";
 
 function getSortedLeaderboardEntriesConfig(
@@ -7,24 +8,9 @@ function getSortedLeaderboardEntriesConfig(
 ) {
 	return {
 		method: "get",
-		url: `/api/proxy/leaderboard/sorted`,
+		url: `/leaderboard/sorted`,
 		params: { pageNumber, pageSize },
 	};
-}
-
-function parseParams(
-	pageNumber: string,
-	searchParams: { [key: string]: string | string[] | undefined },
-): { pageNumber: number; pageSize: number } | null {
-	const parsedPageNumber = parseInt(pageNumber, 10);
-	const parsedPageSize = searchParams.pageSize
-		? parseInt(String(searchParams.pageSize), 10)
-		: 10;
-
-	if (isNaN(parsedPageNumber) || isNaN(parsedPageSize)) {
-		return null;
-	}
-	return { pageNumber: parsedPageNumber, pageSize: parsedPageSize };
 }
 
 export default async function LeaderboardPage({
@@ -41,7 +27,7 @@ export default async function LeaderboardPage({
 		return <p>404: Page not found</p>;
 	}
 
-	const leaderboardEntries = apiGet<LeaderboardEntry[]>(
+	const leaderboardEntries = await apiGet<LeaderboardEntry[]>(
 		getSortedLeaderboardEntriesConfig(
 			parsedParams.pageNumber,
 			parsedParams.pageSize,
@@ -50,8 +36,8 @@ export default async function LeaderboardPage({
 
 	return (
 		<div>
-			My Post: {slug} resolved search params:{" "}
-			{JSON.stringify(resolvedSearchParams)}
+			My Post: {slug} :
+			{JSON.stringify(leaderboardEntries)}
 		</div>
 	);
 }
