@@ -19,7 +19,6 @@ export default function PageableTable<T extends Identifiable>({
 	renderRow,
 	headerItems,
 }: Props<T>) {
-
 	return (
 		<div className="border border-base-300 w-300">
 			<table className="table">
