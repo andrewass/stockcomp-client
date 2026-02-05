@@ -1,7 +1,7 @@
+import { apiGet } from "@/api/apiWrapper.ts";
 import LeaderboardTable from "@/leaderboard/LeaderboardTable.tsx";
 import type { LeaderboardEntryPage } from "@/leaderboard/leaderboardTypes.ts";
 import { parseParams } from "@/util/PageableTableUtils.ts";
-import { apiGet } from "../../../config/apiWrapper.ts";
 
 function getSortedLeaderboardEntriesConfig(
 	pageNumber: number,

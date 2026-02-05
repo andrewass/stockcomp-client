@@ -1,6 +1,6 @@
 import { RedirectType, redirect } from "next/navigation";
 import type { Session } from "next-auth";
-import { auth } from "../auth.ts";
+import { auth } from "../../auth.ts";
 
 interface RequestParams {
 	[key: string]: string | number;

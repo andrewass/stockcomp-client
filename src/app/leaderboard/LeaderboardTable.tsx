@@ -20,7 +20,6 @@ export default function LeaderboardTable({
 	leaderboardEntries,
 	pageSize,
 	currentPage,
-	totalEntriesCount,
 }: Props) {
 	return (
 		<div>

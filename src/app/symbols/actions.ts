@@ -1,7 +1,7 @@
 "use server";
 
-import type { StockPrice } from "@/symbol/symbolTypes.ts";
-import { apiGet } from "../../config/apiWrapper.ts";
+import { apiGet } from "@/api/apiWrapper.ts";
+import type { StockPrice } from "@/symbols/symbolTypes.ts";
 
 type TrendingSymbolsResponse = {
 	symbols: StockPrice[];

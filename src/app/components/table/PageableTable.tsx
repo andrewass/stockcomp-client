@@ -14,8 +14,6 @@ type Props<T extends Identifiable> = {
 
 export default function PageableTable<T extends Identifiable>({
 	items,
-	currentPage,
-	pageSize,
 	renderRow,
 	headerItems,
 }: Props<T>) {
