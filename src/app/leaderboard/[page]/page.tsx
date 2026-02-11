@@ -18,12 +18,12 @@ export default async function LeaderboardPage({
 	params,
 	searchParams,
 }: {
-	params: Promise<{ slug: string }>;
+	params: Promise<{ page: string }>;
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-	const { slug } = await params;
+	const { page } = await params;
 	const resolvedSearchParams = await searchParams;
-	const parsedParams = parseParams(slug, resolvedSearchParams);
+	const parsedParams = parseParams(page, resolvedSearchParams);
 
 	if (!parsedParams) {
 		return <p>404: Page not found</p>;

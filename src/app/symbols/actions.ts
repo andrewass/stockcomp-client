@@ -1,6 +1,7 @@
 "use server";
 
 import { apiGet } from "@/api/apiWrapper.ts";
+import type { Contest } from "@/contest/contestTypes.ts";
 import type { StockPrice } from "@/symbols/symbolTypes.ts";
 
 type TrendingSymbolsResponse = {
@@ -13,4 +14,11 @@ export async function getTrendingSymbolsPrice(): Promise<StockPrice[]> {
 		url: `/symbols/price/trending`,
 	});
 	return response.symbols;
+}
+
+export async function getUnregisteredContests(): Promise<Contest[]> {
+	return await apiGet<Contest[]>({
+		method: "get",
+		url: `/participants/unregistered`,
+	});
 }

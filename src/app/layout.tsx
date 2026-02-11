@@ -19,7 +19,7 @@ export default function RootLayout({
 			<body>
 				<AppProviders>
 					<NavigationBar />
-					<div className="flex justify-center">{children}</div>
+					<div className="flex justify-center pt-20">{children}</div>
 				</AppProviders>
 			</body>
 		</html>
