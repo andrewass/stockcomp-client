@@ -10,9 +10,15 @@ interface RequestBody {
 	[key: string]: string | number;
 }
 
+enum RequestMethod {
+	GET = "GET",
+	POST = "POST",
+	PUT = "PUT",
+	DELETE = "DELETE",
+}
+
 export interface CustomRequestConfig {
 	url: string;
-	method: string;
 	body?: RequestBody;
 	params?: RequestParams;
 }
@@ -25,7 +31,10 @@ function extractAccessToken(session: Session): string {
 	}
 }
 
-const request = async <T>(config: CustomRequestConfig): Promise<T> => {
+const request = async <T>(
+	config: CustomRequestConfig,
+	method: RequestMethod,
+): Promise<T> => {
 	const session = await auth();
 	if (!session) {
 		redirect("/api/auth/signin", RedirectType.push);
@@ -37,7 +46,7 @@ const request = async <T>(config: CustomRequestConfig): Promise<T> => {
 	}
 
 	const response = await fetch(url, {
-		method: config.method,
+		method: method,
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 			"Content-Type": "application/json",
@@ -56,10 +65,10 @@ const request = async <T>(config: CustomRequestConfig): Promise<T> => {
 };
 
 export const apiGet = <T>(config: CustomRequestConfig): Promise<T> =>
-	request(config);
+	request(config, RequestMethod.GET);
 export const apiPost = <T>(config: CustomRequestConfig): Promise<T> =>
-	request(config);
+	request(config, RequestMethod.POST);
 export const apiPut = <T>(config: CustomRequestConfig): Promise<T> =>
-	request(config);
+	request(config, RequestMethod.PUT);
 export const apiDelete = <T>(config: CustomRequestConfig): Promise<T> =>
-	request(config);
+	request(config, RequestMethod.DELETE);

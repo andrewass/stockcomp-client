@@ -22,8 +22,8 @@ export default function PageableTable<T extends Identifiable>({
 			<table className="table">
 				<thead>
 					<tr className="bg-base-300">
-						{headerItems.map((item) => (
-							<th>{item}</th>
+						{headerItems.map((item, index) => (
+							<th key={index}>{item}</th>
 						))}
 					</tr>
 				</thead>

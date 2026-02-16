@@ -7,6 +7,7 @@ declare module "next-auth" {
 		idToken?: string;
 		refreshToken?: string;
 		provider?: string;
+		userMode?: UserMode;
 	}
 }
 

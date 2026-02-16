@@ -10,7 +10,6 @@ type TrendingSymbolsResponse = {
 
 export async function getTrendingSymbolsPrice(): Promise<StockPrice[]> {
 	const response = await apiGet<TrendingSymbolsResponse>({
-		method: "get",
 		url: `/symbols/price/trending`,
 	});
 	return response.symbols;
@@ -18,7 +17,6 @@ export async function getTrendingSymbolsPrice(): Promise<StockPrice[]> {
 
 export async function getUnregisteredContests(): Promise<Contest[]> {
 	return await apiGet<Contest[]>({
-		method: "get",
 		url: `/participants/unregistered`,
 	});
 }

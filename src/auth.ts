@@ -46,7 +46,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 			session.idToken = token.idToken;
 			session.refreshToken = token.refreshToken;
 			session.provider = token.provider;
-
+			session.userMode = session ? session.userMode : UserMode.DEFAULT;
 			return session;
 		},
 	},
