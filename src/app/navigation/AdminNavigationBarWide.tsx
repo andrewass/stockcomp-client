@@ -1,10 +1,23 @@
 import { MoonIcon, SunIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/dist/client/link";
+import { useSession } from "next-auth/react";
 import { useTheme } from "@/theme/useTheme.ts";
+import { UserMode } from "../../config/UserMode.ts";
 
 export default function AdminNavigationBarWide() {
 	const { activeTheme, toggleTheme } = useTheme();
+	const { update, data: session } = useSession();
+
 	const urlSuffix = "1?pageSize=10";
+
+	async function toggleMode() {
+		await update({
+			userMode:
+				session?.userMode === UserMode.ADMIN
+					? UserMode.DEFAULT
+					: UserMode.ADMIN,
+		});
+	}
 
 	return (
 		<div className="navbar justify-center">
@@ -28,15 +41,14 @@ export default function AdminNavigationBarWide() {
 						<SunIcon />
 						<MoonIcon />
 					</label>
-					<label className="toggle">
+					<label className="label">
 						<input
 							type="checkbox"
-							value={activeTheme}
-							className="theme-controller"
-							onChange={toggleTheme}
+							defaultChecked
+							className="toggle"
+							onChange={toggleMode}
 						/>
-						<SunIcon />
-						<MoonIcon />
+						Admin
 					</label>
 					<UserIcon className="size-6" />
 				</div>

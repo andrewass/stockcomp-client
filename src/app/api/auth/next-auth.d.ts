@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { UserMode } from "../../../config/UserMode.ts";
 
 declare module "next-auth" {
 	interface Session {

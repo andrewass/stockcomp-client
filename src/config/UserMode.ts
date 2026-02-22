@@ -1,4 +1,4 @@
-enum UserMode {
+export enum UserMode {
 	ADMIN = "ADMIN",
 	DEFAULT = "DEFAULT",
 }

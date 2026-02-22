@@ -2,7 +2,9 @@
 
 import { MoonIcon, SunIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/dist/client/link";
+import { useSession } from "next-auth/react";
 import { useTheme } from "@/theme/useTheme.ts";
+import { UserMode } from "../../config/UserMode.ts";
 
 type Props = {
 	hasAdminRole: boolean;
@@ -10,8 +12,18 @@ type Props = {
 
 export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 	const { activeTheme, toggleTheme } = useTheme();
+	const { update, data: session } = useSession();
 
 	const urlSuffix = "1?pageSize=10";
+
+	async function toggleMode() {
+		await update({
+			userMode:
+				session?.userMode === UserMode.ADMIN
+					? UserMode.DEFAULT
+					: UserMode.ADMIN,
+		});
+	}
 
 	return (
 		<div className="navbar justify-center">
@@ -37,7 +49,12 @@ export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 					</label>
 					{hasAdminRole && (
 						<label className="label">
-							<input type="checkbox" defaultChecked className="toggle" />
+							<input
+								type="checkbox"
+								defaultChecked
+								className="toggle"
+								onChange={toggleMode}
+							/>
 							User
 						</label>
 					)}

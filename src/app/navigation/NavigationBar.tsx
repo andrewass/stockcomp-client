@@ -2,9 +2,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import { apiGet } from "@/api/apiWrapper.ts";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
+import { getHasAdminRole } from "@/navigation/actions.ts";
 import DefaultNavigationBarWide from "@/navigation/DefaultNavigationBarWide.tsx";
+import { UserMode } from "../../config/UserMode.ts";
 import ErrorComponent from "../../error/ErrorComponent.tsx";
 
 const HAS_ADMIN_ROLE_QUERY_KEY = "hasAdminRole";
@@ -16,8 +17,9 @@ export default function NavigationBar() {
 		error: hasAdminRoleError,
 	} = useQuery<boolean>({
 		queryKey: [HAS_ADMIN_ROLE_QUERY_KEY],
-		queryFn: () => apiGet({ url: "/users/admin" }),
+		queryFn: getHasAdminRole,
 	});
+
 	const { data: session } = useSession();
 
 	if (isHasAdminRoleLoading) {
