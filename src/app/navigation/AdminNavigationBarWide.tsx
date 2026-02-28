@@ -1,6 +1,5 @@
 import { MoonIcon, SunIcon, UserIcon } from "@heroicons/react/24/solid";
 import Link from "next/dist/client/link";
-import { useSession } from "next-auth/react";
 import { useTheme } from "@/theme/useTheme.ts";
 import { UserMode } from "../../config/UserMode.ts";
 

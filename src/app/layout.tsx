@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type React from "react";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
 import NavigationBar from "@/navigation/NavigationBar.tsx";
 import AppProviders from "@/providers/AppProviders.tsx";
 
@@ -19,9 +18,7 @@ export default async function RootLayout({
 		<html lang="en">
 			<body>
 				<AppProviders>
-					<SessionProvider>
 						<NavigationBar />
-					</SessionProvider>
 					<div className="flex justify-center pt-20">{children}</div>
 				</AppProviders>
 			</body>

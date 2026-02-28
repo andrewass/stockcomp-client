@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
 import { getHasAdminRole } from "@/navigation/actions.ts";
 import DefaultNavigationBarWide from "@/navigation/DefaultNavigationBarWide.tsx";

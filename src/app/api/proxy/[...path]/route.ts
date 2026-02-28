@@ -1,6 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import type { Session } from "next-auth";
-import { auth } from "../../../../auth.ts";
 
 const BACKEND_BASE_URL = process.env.RESOURCE_SERVER_BASE_URL;
 
