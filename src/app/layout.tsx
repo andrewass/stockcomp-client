@@ -18,7 +18,7 @@ export default async function RootLayout({
 		<html lang="en">
 			<body>
 				<AppProviders>
-						<NavigationBar />
+					<NavigationBar />
 					<div className="flex justify-center pt-20">{children}</div>
 				</AppProviders>
 			</body>

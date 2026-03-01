@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
 import { getHasAdminRole } from "@/navigation/actions.ts";
 import DefaultNavigationBarWide from "@/navigation/DefaultNavigationBarWide.tsx";
-import { UserMode } from "../../config/UserMode.ts";
 import ErrorComponent from "../../error/ErrorComponent.tsx";
 
 const HAS_ADMIN_ROLE_QUERY_KEY = "hasAdminRole";
@@ -19,8 +18,6 @@ export default function NavigationBar() {
 		queryFn: getHasAdminRole,
 	});
 
-	const { data: session } = useSession();
-
 	if (isHasAdminRoleLoading) {
 		return <p>Loading...</p>;
 	}
@@ -29,7 +26,7 @@ export default function NavigationBar() {
 		return <ErrorComponent error={hasAdminRoleError} />;
 	}
 
-	const isAdminModeSelected = session?.userMode === UserMode.ADMIN;
+	const isAdminModeSelected = false;
 
 	if (hasAdminRole && isAdminModeSelected) {
 		return <AdminNavigationBarWide />;

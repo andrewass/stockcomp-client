@@ -38,7 +38,6 @@ const request = async <T>(
 		redirect("/api/auth/signin", RedirectType.push);
 	}
 	const accessToken = extractAccessToken(session);
-    console.log("accessToken: ", accessToken);
 	const url = new URL(config.url, process.env.RESOURCE_SERVER_BASE_URL);
 	for (const item in config.params) {
 		url.searchParams.set(item, String(config.params[item]));
