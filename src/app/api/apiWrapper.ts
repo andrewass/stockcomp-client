@@ -1,4 +1,5 @@
-import { RedirectType, redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { auth } from "@/auth.ts";
 
 interface RequestParams {
 	[key: string]: string | number;
@@ -21,23 +22,23 @@ export interface CustomRequestConfig {
 	params?: RequestParams;
 }
 
-function extractAccessToken(session: Session): string {
-	if (session.provider === "google" && session.idToken) {
-		return session.idToken;
-	} else {
-		throw new Error("Error extracting access token");
-	}
+async function extractAccessToken(): Promise<string> {
+	const { idToken } = await auth.api.getAccessToken({
+		body: {
+			providerId: "google",
+		},
+		headers: await headers(),
+	});
+	if (!idToken) throw new Error("No access token found");
+	return idToken;
 }
 
 const request = async <T>(
 	config: CustomRequestConfig,
 	method: RequestMethod,
 ): Promise<T> => {
-	const session = await auth();
-	if (!session) {
-		redirect("/api/auth/signin", RedirectType.push);
-	}
-	const accessToken = extractAccessToken(session);
+	const accessToken = await extractAccessToken();
+
 	const url = new URL(config.url, process.env.RESOURCE_SERVER_BASE_URL);
 	for (const item in config.params) {
 		url.searchParams.set(item, String(config.params[item]));
@@ -51,8 +52,9 @@ const request = async <T>(
 		},
 		body: config.body ? JSON.stringify(config.body) : undefined,
 	});
+
 	if (response.status === 401) {
-		redirect("/api/auth/signin", RedirectType.push);
+		throw new Error("UNAUTHORIZED");
 	}
 	if (response.status === 204) return null as T;
 	if (!response.ok) {
