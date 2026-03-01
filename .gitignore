@@ -8,8 +8,6 @@
 /.pnp
 .pnp.js
 
-
-
 # Next
 next-env.d.ts
 /.next
@@ -32,3 +30,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /src/routeTree.gen.ts
+
+#database
+sqlite.db
+identifier.sqlite
