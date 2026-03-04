@@ -1,4 +1,5 @@
-import NavigationBar from "@/navigation/NavigationBar.tsx";
+import type React from "react";
+import DefaultNavigationBarWide from "@/navigation/DefaultNavigationBarWide.tsx";
 
 export default function MainLayout({
 	children,
@@ -7,7 +8,7 @@ export default function MainLayout({
 }) {
 	return (
 		<>
-			<NavigationBar />
+			<DefaultNavigationBarWide />
 			<div className="flex justify-center pt-20">{children}</div>
 		</>
 	);
