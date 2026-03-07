@@ -22,7 +22,7 @@ export interface CustomRequestConfig {
 	params?: RequestParams;
 }
 
-async function extractAccessToken(): Promise<string> {
+async function extractGoogleIdToken(): Promise<string> {
 	const { idToken } = await auth.api.getAccessToken({
 		body: {
 			providerId: "google",
@@ -33,11 +33,53 @@ async function extractAccessToken(): Promise<string> {
 	return idToken;
 }
 
+async function extractAccessToken(): Promise<string> {
+	const requestHeaders = await headers();
+	const session = await auth.api.getSession({ headers: requestHeaders });
+
+	if (!session) throw new Error("No session found");
+
+	const now = new Date();
+	const existingToken = session.session.resourceAccessToken;
+	const expiresAt = session.session.resourceAccessTokenExpiresAt;
+
+	// Reuse the cached token if it's still valid (with a 30s buffer)
+	if (
+		existingToken &&
+		expiresAt &&
+		expiresAt.getTime() - 30_000 > now.getTime()
+	) {
+		return existingToken;
+	}
+
+	// Token is missing or expired — exchange a new one
+	const { idToken } = await auth.api.getAccessToken({
+		body: { providerId: "google" },
+		headers: requestHeaders,
+	});
+
+	if (!idToken) throw new Error("No Google ID token found");
+
+	const { accessToken, expiresAt: newExpiresAt } =
+		await exchangeForResourceToken(idToken);
+
+	// Persist the new token back onto the session row in the DB
+	await auth.api.updateSession({
+		headers: requestHeaders,
+		body: {
+			resourceAccessToken: accessToken,
+			resourceAccessTokenExpiresAt: newExpiresAt,
+		},
+	});
+
+	return accessToken;
+}
+
 const request = async <T>(
 	config: CustomRequestConfig,
 	method: RequestMethod,
 ): Promise<T> => {
-	const accessToken = await extractAccessToken();
+	const accessToken = await extractGoogleIdToken();
 
 	const url = new URL(config.url, process.env.RESOURCE_SERVER_BASE_URL);
 	for (const item in config.params) {

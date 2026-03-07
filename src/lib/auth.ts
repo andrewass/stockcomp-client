@@ -11,4 +11,27 @@ export const auth = betterAuth({
 			prompt: "select_account consent",
 		},
 	},
+	user: {
+		additionalFields: {
+			role: {
+				type: ["user", "admin"],
+				required: false,
+				input: false,
+			},
+		},
+	},
+	session: {
+		additionalFields: {
+			resourceAccessToken: {
+				type: "string",
+				required: false,
+				input: false,
+			},
+			resourceAccessTokenExpiresAt: {
+				type: "date",
+				required: false,
+				input: false,
+			},
+		},
+	},
 });
