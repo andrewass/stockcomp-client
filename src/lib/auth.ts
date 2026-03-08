@@ -20,18 +20,4 @@ export const auth = betterAuth({
 			},
 		},
 	},
-	session: {
-		additionalFields: {
-			resourceAccessToken: {
-				type: "string",
-				required: false,
-				input: false,
-			},
-			resourceAccessTokenExpiresAt: {
-				type: "date",
-				required: false,
-				input: false,
-			},
-		},
-	},
 });
