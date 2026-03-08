@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { exchangeForResourceToken } from "@/api/auth/tokenExchange.ts";
 import { auth } from "@/auth.ts";
 
 interface RequestParams {
@@ -80,6 +81,7 @@ const request = async <T>(
 	method: RequestMethod,
 ): Promise<T> => {
 	const accessToken = await extractGoogleIdToken();
+	const exchangedToken = await extractAccessToken();
 
 	const url = new URL(config.url, process.env.RESOURCE_SERVER_BASE_URL);
 	for (const item in config.params) {
