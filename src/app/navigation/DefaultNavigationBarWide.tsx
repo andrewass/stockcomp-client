@@ -10,7 +10,7 @@ export default function DefaultNavigationBarWide() {
 	const urlSuffix = "1?pageSize=10";
 
 	return (
-		<div className="navbar justify-center">
+		<div className="navbar justify-center bg-base-300">
 			<div className="flex flex-row mt-5 mb-5 w-2/4 justify-between">
 				<div className="flex flex-row gap-8">
 					<Link href="/">Stock Comp</Link>

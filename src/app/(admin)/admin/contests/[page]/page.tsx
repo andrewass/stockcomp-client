@@ -1,3 +1,3 @@
 export default function AdminContestsPage() {
-	return <div>Contests</div>;
+	return <div>Admin Contests</div>;
 }
