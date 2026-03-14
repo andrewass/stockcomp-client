@@ -1,11 +1,25 @@
 "use client";
 
-import { MoonIcon, SunIcon, UserIcon } from "@heroicons/react/24/solid";
-import Link from "next/dist/client/link";
+import {
+	LockClosedIcon,
+	LockOpenIcon,
+	MoonIcon,
+	SunIcon,
+	UserIcon,
+} from "@heroicons/react/24/solid";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/theme/useTheme.ts";
 
-export default function DefaultNavigationBarWide() {
+interface Props {
+	hasAdminRole: boolean;
+}
+
+export default function DefaultNavigationBarWide({
+	hasAdminRole,
+}: Props) {
 	const { activeTheme, toggleTheme } = useTheme();
+	const router = useRouter();
 
 	const urlSuffix = "1?pageSize=10";
 
@@ -21,7 +35,22 @@ export default function DefaultNavigationBarWide() {
 					</Link>
 				</div>
 				<div className="flex flex-row gap-8">
-					<label className="toggle">
+					{hasAdminRole && (
+						<label className="toggle" title="Toggle admin mode">
+							<input
+								type="checkbox"
+								defaultChecked
+								onChange={(event) => {
+									if (!event.target.checked) {
+										router.push(`/`);
+									}
+								}}
+							/>
+							<LockOpenIcon />
+							<LockClosedIcon />
+						</label>
+					)}
+					<label className="toggle" title="Toggle theme">
 						<input
 							type="checkbox"
 							value={activeTheme}
