@@ -16,6 +16,9 @@ next-env.d.ts
 # testing
 /coverage
 
+# build
+tsconfig.tsbuildinfo
+
 # production
 /build
 
@@ -34,3 +37,6 @@ yarn-error.log*
 #database
 sqlite.db
 identifier.sqlite
+
+# local planning notes
+/notes/context7-quality-improvements.md
