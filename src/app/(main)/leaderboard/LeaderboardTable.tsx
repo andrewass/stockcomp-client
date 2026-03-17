@@ -1,12 +1,12 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
 
-type Props = {
+interface Props {
 	leaderboardEntries: LeaderboardEntry[];
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
-};
+}
 
 const leaderboardTableHeaderItems = [
 	"Ranking",

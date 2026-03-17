@@ -4,13 +4,13 @@ type Identifiable = {
 	id: string | number;
 };
 
-type Props<T extends Identifiable> = {
+interface Props<T extends Identifiable> {
 	items: T[];
 	pageSize: number;
 	currentPage: number;
 	headerItems: string[];
 	renderRow: (item: T) => React.ReactNode;
-};
+}
 
 export default function PageableTable<T extends Identifiable>({
 	items,

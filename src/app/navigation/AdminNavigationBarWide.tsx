@@ -3,22 +3,17 @@
 import {
 	LockClosedIcon,
 	LockOpenIcon,
-	MoonIcon,
-	SunIcon,
 	UserIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/theme/useTheme.ts";
+import ThemeToggler from "@/navigation/ThemeToggler.tsx";
 
 interface Props {
 	hasAdminRole: boolean;
 }
 
-export default function AdminNavigationBarWide({
-	hasAdminRole,
-}: Props) {
-	const { activeTheme, toggleTheme } = useTheme();
+export default function AdminNavigationBarWide({ hasAdminRole }: Props) {
 	const router = useRouter();
 
 	const urlSuffix = "1?pageSize=10";
@@ -33,13 +28,16 @@ export default function AdminNavigationBarWide({
 				</div>
 				<div className="flex flex-row gap-8">
 					{hasAdminRole && (
-						<label className="toggle" title="Toggle admin mode">
+						<label
+							className="toggle [--input-color:var(--color-base-content)]"
+							title="Toggle admin mode"
+						>
 							<input
 								type="checkbox"
-								defaultChecked
+								checked={true}
 								onChange={(event) => {
 									if (!event.target.checked) {
-										router.push(`/`);
+										router.replace("/");
 									}
 								}}
 							/>
@@ -47,16 +45,7 @@ export default function AdminNavigationBarWide({
 							<LockClosedIcon />
 						</label>
 					)}
-					<label className="toggle" title="Toggle theme">
-						<input
-							type="checkbox"
-							value={activeTheme}
-							className="theme-controller"
-							onChange={toggleTheme}
-						/>
-						<SunIcon />
-						<MoonIcon />
-					</label>
+					<ThemeToggler iconSize="size-5" />
 					<UserIcon className="size-6" />
 				</div>
 			</div>

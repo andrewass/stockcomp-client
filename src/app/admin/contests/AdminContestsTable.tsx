@@ -1,12 +1,12 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { Contest } from "@/contest/contestTypes.ts";
 
-type Props = {
+interface Props {
 	contests: Contest[];
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
-};
+}
 
 const contestTableHeaderItems = [
 	"Contest ID",

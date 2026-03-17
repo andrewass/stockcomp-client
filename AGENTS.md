@@ -18,6 +18,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Use `pnpm` for all package and script commands.
 - Keep code TypeScript-first and type-safe; avoid `any` unless unavoidable.
 - Follow existing import style with `@/...` aliases and explicit `.ts`/`.tsx` file extensions in internal imports.
+- For component props types, use an `interface` named `Props`.
 - Prefer server components by default; add `"use client"` only when hooks/browser APIs are required.
 - Put server-only mutations/loaders in server actions (`"use server"`) when appropriate.
 

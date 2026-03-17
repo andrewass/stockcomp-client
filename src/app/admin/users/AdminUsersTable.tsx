@@ -1,12 +1,12 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { User } from "@/user/userTypes.ts";
 
-type Props = {
+interface Props {
 	users: User[];
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
-};
+}
 
 const userTableHeaderItems = ["Username", "Email", "Role", "Status"];
 

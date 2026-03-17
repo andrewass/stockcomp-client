@@ -43,9 +43,9 @@ const useFormStyles = makeStyles(theme => ({
 
  */
 
-type Props = {
+interface Props {
 	accountData: AccountData;
-};
+}
 
 export type UpdateAccountInput = {
 	username: string;
