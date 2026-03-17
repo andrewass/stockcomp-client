@@ -4,7 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
 
     # Group all minor and patch updates into one PR
