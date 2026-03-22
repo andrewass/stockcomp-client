@@ -1,5 +1,5 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
-import type { User } from "@/user/userTypes.ts";
+import type { User } from "@/types/userTypes.ts";
 
 interface Props {
 	users: User[];
