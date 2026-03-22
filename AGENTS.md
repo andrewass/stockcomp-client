@@ -30,6 +30,22 @@ This file describes the project conventions for AI/code agents working in this r
 - Put server-only mutations/loaders in server actions (`"use server"`) when appropriate.
 - Use Next.js routing/navigation primitives for new code (`next/link`, `next/navigation`), not legacy router APIs.
 
+## Skills
+- Skills under `.agents/skills/**` should be repo-agnostic by default so they can be reused across projects.
+- Do not hardcode repository names, repo-specific paths, or project-only assumptions in reusable skills.
+- If project-specific behavior is needed, keep it clearly marked as optional project overlay guidance.
+
+## Skill routing
+- If the user says `use relevant skills`, automatically select and apply all matching skills from `.agents/skills/**`.
+- If the user names a skill explicitly (for example `$daisyui-best-practices`), always include it.
+- Activate `better-auth-best-practices` for Better Auth setup/config, OAuth, sessions, auth client/server wiring, and auth route handler work.
+- Activate `daisyui-best-practices` for daisyUI components, Tailwind+daisyUI setup, theming, modal/forms/layout UI work, and daisyUI migration/troubleshooting.
+- Activate `frontend-design` for visual redesign, page/component styling upgrades, landing pages, dashboards, and requests emphasizing look/feel quality.
+- Activate `next-best-practices` for App Router architecture, RSC boundaries, route handlers, metadata, async API patterns, navigation, and Next.js framework conventions.
+- Activate `vercel-react-best-practices` for performance-focused React/Next.js work: waterfalls, re-renders, bundle size, client/server fetch strategy, and rendering optimization.
+- For mixed tasks, combine all relevant skills rather than choosing only one.
+- Use this priority when guidance conflicts: correctness/security (`better-auth-best-practices`, `next-best-practices`) before performance (`vercel-react-best-practices`) before UI/design (`daisyui-best-practices`, `frontend-design`).
+
 ## Server action placement
 - Co-locate route-specific server actions in an `actions.ts` file inside the relevant `src/app/**` route segment.
 - For shared feature actions, place them in a feature-scoped module under `src/app/<feature>/actions.ts`.
