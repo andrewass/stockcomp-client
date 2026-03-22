@@ -4,9 +4,7 @@ interface Props {
 	iconSize?: string;
 }
 
-export default function ThemeToggler({
-	iconSize = "h-10 w-10",
-}: Props) {
+export default function ThemeToggler({ iconSize = "h-10 w-10" }: Props) {
 	const { activeTheme, toggleTheme } = useTheme();
 
 	return (
