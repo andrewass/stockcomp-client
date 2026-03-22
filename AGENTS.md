@@ -43,8 +43,9 @@ This file describes the project conventions for AI/code agents working in this r
 - Activate `frontend-design` for visual redesign, page/component styling upgrades, landing pages, dashboards, and requests emphasizing look/feel quality.
 - Activate `next-best-practices` for App Router architecture, RSC boundaries, route handlers, metadata, async API patterns, navigation, and Next.js framework conventions.
 - Activate `vercel-react-best-practices` for performance-focused React/Next.js work: waterfalls, re-renders, bundle size, client/server fetch strategy, and rendering optimization.
+- Activate `web-design-guidelines` for UI/UX/accessibility review and compliance checks, including prompts like "review my UI", "audit design", "review UX", or "check best practices".
 - For mixed tasks, combine all relevant skills rather than choosing only one.
-- Use this priority when guidance conflicts: correctness/security (`better-auth-best-practices`, `next-best-practices`) before performance (`vercel-react-best-practices`) before UI/design (`daisyui-best-practices`, `frontend-design`).
+- Use this priority when guidance conflicts: correctness/security (`better-auth-best-practices`, `next-best-practices`) before performance (`vercel-react-best-practices`) before UI/design (`daisyui-best-practices`, `frontend-design`, `web-design-guidelines`).
 
 ## Server action placement
 - Co-locate route-specific server actions in an `actions.ts` file inside the relevant `src/app/**` route segment.
