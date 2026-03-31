@@ -1,4 +1,4 @@
-import type { Period } from "./symbolTypes";
+import { Period } from "@/symbols/symbolTypes.ts";
 
 export const GET_PRICE_TRENDING_SYMBOLS = "getTrendingSymbols";
 export const GET_STOCK_SYMBOL_FINANCIALS = "getStockSymbolFinancials";

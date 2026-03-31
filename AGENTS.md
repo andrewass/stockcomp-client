@@ -29,6 +29,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Prefer server components by default; add `"use client"` only when hooks/browser APIs are required.
 - Put server-only mutations/loaders in server actions (`"use server"`) when appropriate.
 - Use Next.js routing/navigation primitives for new code (`next/link`, `next/navigation`), not legacy router APIs.
+- Commit messages must start with an uppercase letter and must not use conventional-commit prefixes like `feat:`, `fix:`, or `chore:`.
 
 ## Skills
 - Skills under `.agents/skills/**` should be repo-agnostic by default so they can be reused across projects.

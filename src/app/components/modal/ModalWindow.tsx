@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import type React from "react";
 
 interface Props {
@@ -19,6 +20,23 @@ export function ModalWindow({
 	footer,
 	hideCloseButton = false,
 }: Props) {
+	useEffect(() => {
+		if (!isOpen) {
+			return;
+		}
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				onClose();
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [isOpen, onClose]);
+
 	if (!isOpen) {
 		return null;
 	}
