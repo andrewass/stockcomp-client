@@ -20,6 +20,7 @@ export default function LeaderboardTable({
 	leaderboardEntries,
 	pageSize,
 	currentPage,
+	totalEntriesCount,
 }: Props) {
 	return (
 		<div>
@@ -30,6 +31,8 @@ export default function LeaderboardTable({
 				}))}
 				pageSize={pageSize}
 				currentPage={currentPage}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/leaderboard/"
 				headerItems={leaderboardTableHeaderItems}
 				renderRow={() => <p>hello</p>}
 			/>

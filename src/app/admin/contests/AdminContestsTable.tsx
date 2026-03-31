@@ -25,6 +25,7 @@ export default function AdminContestsTable({
 	contests,
 	pageSize,
 	currentPage,
+	totalEntriesCount,
 }: Props) {
 	return (
 		<div>
@@ -35,6 +36,8 @@ export default function AdminContestsTable({
 				}))}
 				pageSize={pageSize}
 				currentPage={currentPage}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/admin/contests/"
 				headerItems={contestTableHeaderItems}
 				renderRow={(contest) => (
 					<tr key={contest.id}>

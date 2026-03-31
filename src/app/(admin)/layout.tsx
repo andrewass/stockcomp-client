@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import type React from "react";
-import { apiGet } from "@/api/apiWrapper.ts";
+import { apiGet, isUnauthenticatedError } from "@/api/apiWrapper.ts";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
 
 export default async function AdminLayout({
@@ -8,7 +8,16 @@ export default async function AdminLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const hasAdminRole = await apiGet<boolean>({ url: "/users/admin" });
+	let hasAdminRole = false;
+	try {
+		hasAdminRole = await apiGet<boolean>({ url: "/users/admin" });
+	} catch (error) {
+		if (isUnauthenticatedError(error)) {
+			redirect("/signin");
+		}
+		throw error;
+	}
+
 	if (!hasAdminRole) {
 		redirect("/");
 	}

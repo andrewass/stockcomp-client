@@ -25,16 +25,22 @@ enum RequestMethod {
 	DELETE = "DELETE",
 }
 
+const UNAUTHENTICATED_ERROR = "UNAUTHENTICATED";
+
 export interface CustomRequestConfig {
 	url: string;
 	body?: RequestBody;
 	params?: RequestParams;
 }
 
+export function isUnauthenticatedError(error: unknown): boolean {
+	return error instanceof Error && error.message === UNAUTHENTICATED_ERROR;
+}
+
 async function getResourceAccessToken(): Promise<string> {
 	const requestHeaders = await headers();
 	const session = await auth.api.getSession({ headers: requestHeaders });
-	if (!session) throw new Error("No session found");
+	if (!session) throw new Error(UNAUTHENTICATED_ERROR);
 
 	const userId = session.user.id;
 	const cachedToken = getValidResourceToken(userId, RESOURCE_SERVER_AUDIENCE);
@@ -46,7 +52,7 @@ async function getResourceAccessToken(): Promise<string> {
 		body: { providerId: "google" },
 		headers: requestHeaders,
 	});
-	if (!idToken) throw new Error("No Google ID token found");
+	if (!idToken) throw new Error(UNAUTHENTICATED_ERROR);
 
 	const { accessToken, expiresAt } = await exchangeForResourceToken(idToken);
 	saveResourceToken({
@@ -87,7 +93,7 @@ const request = async <T>(
 	});
 
 	if (response.status === 401) {
-		throw new Error("UNAUTHORIZED");
+		throw new Error(UNAUTHENTICATED_ERROR);
 	}
 	if (response.status === 204) return null as T;
 	if (!response.ok) {

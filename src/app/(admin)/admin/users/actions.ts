@@ -6,6 +6,6 @@ export function getAdminUsers(
 	pageSize: number,
 ): Promise<UserPage> {
 	return apiGet<UserPage>({
-		url: `/users?page=${pageNumber}&size=${pageSize}`,
+		url: `/users/sorted?pageNumber=${pageNumber}&pageSize=${pageSize}`,
 	});
 }

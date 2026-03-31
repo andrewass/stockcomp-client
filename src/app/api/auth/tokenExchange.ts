@@ -46,7 +46,7 @@ function parseExpiresAt(responseData: RawResourceTokenResponse): Date {
 export async function exchangeForResourceToken(
 	idToken: string,
 ): Promise<ResourceTokenResponse> {
-	const response = await fetch(`${process.env.TOKEN_EXCHANGE_URL}/tokens`, {
+	const response = await fetch(`${process.env.TOKEN_EXCHANGE_URL}/token`, {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
 		body: createBody(idToken).toString(),

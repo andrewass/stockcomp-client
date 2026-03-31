@@ -18,6 +18,7 @@ export default function AdminUsersTable({
 	users,
 	pageSize,
 	currentPage,
+	totalEntriesCount,
 }: Props) {
 	return (
 		<div>
@@ -28,6 +29,8 @@ export default function AdminUsersTable({
 				}))}
 				pageSize={pageSize}
 				currentPage={currentPage}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/admin/users/"
 				headerItems={userTableHeaderItems}
 				renderRow={(user) => (
 					<tr key={user.id}>

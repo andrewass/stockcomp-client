@@ -16,7 +16,7 @@ interface Props {
 export default function AdminNavigationBarWide({ hasAdminRole }: Props) {
 	const router = useRouter();
 
-	const urlSuffix = "1?pageSize=10";
+	const urlSuffix = "0?pageSize=10";
 
 	return (
 		<div className="navbar justify-center bg-base-300">
