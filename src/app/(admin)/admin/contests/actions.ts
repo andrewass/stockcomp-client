@@ -37,7 +37,7 @@ export async function createContestAction(
 
 	try {
 		await apiPost({
-			url: "/contests",
+			url: "/contests/create",
 			body: {
 				contestName,
 				durationDays: input.durationDays,
