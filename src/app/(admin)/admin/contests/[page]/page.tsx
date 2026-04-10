@@ -1,13 +1,6 @@
+import { getAdminContests } from "@/admin/contests/actions.ts";
 import AdminContestsView from "@/admin/contests/AdminContestsView.tsx";
-import type { ContestPage } from "@/contest/contestTypes.ts";
 import { parseParams } from "@/components/table/PageableTable.tsx";
-
-async function getAdminContestsPlaceholder(): Promise<ContestPage> {
-	return {
-		contests: [],
-		totalEntriesCount: 0,
-	};
-}
 
 export default async function AdminContestsPage({
 	params,
@@ -24,8 +17,10 @@ export default async function AdminContestsPage({
 		return <p>404: Page not found</p>;
 	}
 
-	// TODO: Replace with apiGet<ContestPage>(...) when admin contests API is ready.
-	const contestsResponse = await getAdminContestsPlaceholder();
+	const contestsResponse = await getAdminContests(
+		parsedParams.pageNumber,
+		parsedParams.pageSize,
+	);
 
 	return (
 		<div>
