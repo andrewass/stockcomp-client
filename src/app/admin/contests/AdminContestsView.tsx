@@ -23,7 +23,7 @@ export default function AdminContestsView({
 
 	return (
 		<div className="space-y-4">
-			<div className="flex justify-end">
+			<div className="flex min-h-12 items-center justify-end">
 				<button
 					type="button"
 					className="btn btn-outline border-base-300 text-base-content/80 hover:border-base-content/40 hover:text-base-content"

@@ -1,5 +1,5 @@
-import AdminUsersTable from "@/(admin)/admin/users/AdminUsersTable.tsx";
-import { getAdminUsers } from "@/(admin)/admin/users/actions.ts";
+import { getAdminUsers } from "@/admin/users/actions.ts";
+import AdminUsersView from "@/admin/users/AdminUsersView.tsx";
 import { parseParams } from "@/components/table/PageableTable.tsx";
 
 export default async function AdminUsersPage({
@@ -24,7 +24,7 @@ export default async function AdminUsersPage({
 
 	return (
 		<div>
-			<AdminUsersTable
+			<AdminUsersView
 				users={usersResponse.entries}
 				pageSize={parsedParams.pageSize}
 				currentPage={parsedParams.pageNumber}

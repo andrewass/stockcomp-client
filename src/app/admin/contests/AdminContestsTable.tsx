@@ -1,5 +1,9 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
-import type { Contest } from "@/contest/contestTypes.ts";
+import {
+	contestStatusRecord,
+	type Contest,
+} from "@/contest/contestTypes.ts";
+import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 
 interface Props {
 	contests: Contest[];
@@ -43,10 +47,12 @@ export default function AdminContestsTable({
 					<tr key={contest.id}>
 						<td>{contest.contestId}</td>
 						<td>{contest.contestName}</td>
-						<td>{contest.contestStatus}</td>
+						<td>
+							{formatMappedLabel(contest.contestStatus, contestStatusRecord)}
+						</td>
 						<td>{contest.participantCount ?? "-"}</td>
-						<td>{contest.startTime}</td>
-						<td>{contest.endTime}</td>
+						<td>{formatDateTimeValue(contest.startTime)}</td>
+						<td>{formatDateTimeValue(contest.endTime)}</td>
 					</tr>
 				)}
 			/>

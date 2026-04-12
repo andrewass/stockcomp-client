@@ -40,7 +40,7 @@ This file describes the project conventions for AI/code agents working in this r
 ## Core rules
 - Use `pnpm` for all package and script commands.
 - Keep code TypeScript-first and type-safe; avoid `any` unless unavoidable.
-- Follow existing import style with `@/...` aliases and explicit `.ts`/`.tsx` file extensions in internal imports.
+- Follow existing import style with configured TypeScript aliases (`@/...`, `@/lib/...`) and explicit `.ts`/`.tsx` file extensions in internal imports.
 - Do not import through route-group paths such as `@/(admin)/...`; import feature modules via stable aliases like `@/admin/...`, `@/auth/...`, `@/components/...`.
 - For component props types, use an `interface` named `Props`.
 - Prefer server components by default; add `"use client"` only when hooks/browser APIs are required.
