@@ -22,7 +22,7 @@ type ContestTableEntry = Contest & {
 	id: number;
 };
 
-export default function AdminContestsTable({
+export default function ContestTable({
 	contests,
 	pageSize,
 	currentPage,
@@ -38,7 +38,7 @@ export default function AdminContestsTable({
 				pageSize={pageSize}
 				currentPage={currentPage}
 				totalEntriesCount={totalEntriesCount}
-				basePath="/admin/contests/"
+				basePath="/contests/"
 				headerItems={contestTableHeaderItems}
 				renderRow={(contest) => (
 					<tr key={contest.id}>

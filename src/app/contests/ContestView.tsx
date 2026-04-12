@@ -1,15 +1,15 @@
-import AdminUsersTable from "./AdminUsersTable.tsx";
-import type { User } from "@/types/userTypes.ts";
+import type { Contest } from "@/contest/contestTypes.ts";
+import ContestTable from "./ContestTable.tsx";
 
 interface Props {
-	users: User[];
+	contests: Contest[];
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
 }
 
-export default function AdminUsersView({
-	users,
+export default function ContestView({
+	contests,
 	pageSize,
 	currentPage,
 	totalEntriesCount,
@@ -20,8 +20,8 @@ export default function AdminUsersView({
 				className="flex min-h-12 items-center justify-end"
 				aria-hidden="true"
 			/>
-			<AdminUsersTable
-				users={users}
+			<ContestTable
+				contests={contests}
 				pageSize={pageSize}
 				currentPage={currentPage}
 				totalEntriesCount={totalEntriesCount}

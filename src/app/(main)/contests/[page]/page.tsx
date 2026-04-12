@@ -1,0 +1,35 @@
+import { getContests } from "@/contests/actions.ts";
+import ContestView from "@/contests/ContestView.tsx";
+import { parseParams } from "@/components/table/PageableTable.tsx";
+
+export default async function ContestsPage({
+	params,
+	searchParams,
+}: {
+	params: Promise<{ page: string }>;
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+	const { page } = await params;
+	const resolvedSearchParams = await searchParams;
+	const parsedParams = parseParams(page, resolvedSearchParams);
+
+	if (!parsedParams) {
+		return <p>404: Page not found</p>;
+	}
+
+	const contestsResponse = await getContests(
+		parsedParams.pageNumber,
+		parsedParams.pageSize,
+	);
+
+	return (
+		<div>
+			<ContestView
+				contests={contestsResponse.contests}
+				pageSize={parsedParams.pageSize}
+				currentPage={parsedParams.pageNumber}
+				totalEntriesCount={contestsResponse.totalEntriesCount}
+			/>
+		</div>
+	);
+}
