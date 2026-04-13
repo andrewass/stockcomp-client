@@ -1,6 +1,7 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import { contestStatusRecord, type Contest } from "@/contest/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
+import Link from "next/link";
 
 interface Props {
 	contests: Contest[];
@@ -43,7 +44,14 @@ export default function ContestTable({
 				renderRow={(contest) => (
 					<tr key={contest.id}>
 						<td>{contest.contestId}</td>
-						<td>{contest.contestName}</td>
+						<td>
+							<Link
+								href={`/contest/${contest.contestId}`}
+								className="link link-hover font-medium"
+							>
+								{contest.contestName}
+							</Link>
+						</td>
 						<td>
 							{formatMappedLabel(contest.contestStatus, contestStatusRecord)}
 						</td>
