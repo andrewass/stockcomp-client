@@ -1,5 +1,5 @@
 import { apiGet } from "@/api/apiWrapper.ts";
-import LeaderboardTable from "@/leaderboard/LeaderboardTable.tsx";
+import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
 import type { LeaderboardEntryPage } from "@/leaderboard/leaderboardTypes.ts";
 import { parseParams } from "@/components/table/PageableTable.tsx";
 
@@ -38,7 +38,7 @@ export default async function LeaderboardPage({
 
 	return (
 		<div>
-			<LeaderboardTable
+			<LeaderboardView
 				leaderboardEntries={leaderboardResponse.entries}
 				pageSize={parsedParams.pageSize}
 				currentPage={parsedParams.pageNumber}
