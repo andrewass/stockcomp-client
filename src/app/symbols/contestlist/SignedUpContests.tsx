@@ -1,3 +1,17 @@
-export default function SignedUpContests() {
-	return <p>Signed Up Contests</p>;
+import ContestSection from "@/symbols/contestlist/ContestSection.tsx";
+import type { SymbolContestListItemViewModel } from "@/symbols/symbolTypes.ts";
+
+interface Props {
+	contests: SymbolContestListItemViewModel[];
+}
+
+export default function SignedUpContests({ contests }: Props) {
+	return (
+		<ContestSection
+			title="Signed Up"
+			description="Contests you are already following."
+			emptyMessage="You have not joined any contests yet."
+			contests={contests}
+		/>
+	);
 }

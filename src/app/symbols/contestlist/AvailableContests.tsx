@@ -1,21 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import type { Contest } from "@/contest/contestTypes.ts";
-import { getUnregisteredContests } from "@/symbols/actions.ts";
+import ContestSection from "@/symbols/contestlist/ContestSection.tsx";
+import type { SymbolContestListItemViewModel } from "@/symbols/symbolTypes.ts";
 
-const GET_UNREGISTERED_CONTESTS = "getUnregisteredContests";
+interface Props {
+	contests: SymbolContestListItemViewModel[];
+}
 
-export default function AvailableContests() {
-	const {
-		isError,
-		isPending,
-		error,
-		data: contests,
-	} = useQuery<Contest[]>({
-		queryKey: [GET_UNREGISTERED_CONTESTS],
-		queryFn: getUnregisteredContests,
-	});
-	if (isError) return <p>Error: {error?.message}</p>;
-	if (isPending) return <p>Loading...</p>;
-
-	return <p>Available Contests</p>;
+export default function AvailableContests({ contests }: Props) {
+	return (
+		<ContestSection
+			title="Open For Sign Up"
+			description="Upcoming contests that still accept participants."
+			emptyMessage="No new contests are open for sign-up right now."
+			contests={contests}
+		/>
+	);
 }
