@@ -12,19 +12,7 @@ export default function ContestList({
 	openContests,
 }: Props) {
 	return (
-		<div className="space-y-4 rounded-box border border-base-300 bg-base-200/70 p-4 shadow-sm">
-			<div className="space-y-2 border-b border-base-300/80 pb-4">
-				<p className="text-xs font-semibold uppercase tracking-[0.3em] text-base-content/55">
-					Contest Rail
-				</p>
-				<h2 className="text-xl font-semibold tracking-tight">
-					Keep your next move visible.
-				</h2>
-				<p className="text-sm leading-6 text-base-content/70">
-					Watch what you are already in, then scan upcoming sign-up windows
-					without leaving the symbols overview.
-				</p>
-			</div>
+		<div className="space-y-8 rounded-box border border-base-300 bg-base-200/70 p-4 shadow-sm">
 			<SignedUpContests contests={signedUpContests} />
 			<AvailableContests contests={openContests} />
 		</div>

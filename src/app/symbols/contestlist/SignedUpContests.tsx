@@ -9,7 +9,6 @@ export default function SignedUpContests({ contests }: Props) {
 	return (
 		<ContestSection
 			title="Signed Up"
-			description="Contests you are already following."
 			emptyMessage="You have not joined any contests yet."
 			contests={contests}
 		/>

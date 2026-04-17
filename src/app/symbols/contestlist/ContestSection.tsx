@@ -5,7 +5,6 @@ import type { SymbolContestListItemViewModel } from "@/symbols/symbolTypes.ts";
 
 interface Props {
 	title: string;
-	description: string;
 	emptyMessage: string;
 	contests: SymbolContestListItemViewModel[];
 }
@@ -23,21 +22,14 @@ function getContestStatusBadgeClass(contestStatus: string): string {
 
 export default function ContestSection({
 	title,
-	description,
 	emptyMessage,
 	contests,
 }: Props) {
 	return (
 		<section className="space-y-3">
-			<div className="flex items-center justify-between gap-3">
-				<div className="space-y-1">
-					<h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-base-content/60">
-						{title}
-					</h2>
-					<p className="text-sm text-base-content/65">{description}</p>
-				</div>
-				<span className="badge badge-outline badge-lg">{contests.length}</span>
-			</div>
+			<h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-base-content/60">
+				{title}
+			</h2>
 			{contests.length > 0 ? (
 				<div className="space-y-3">
 					{contests.map((contest) => (
@@ -57,7 +49,7 @@ export default function ContestSection({
 										</p>
 									</div>
 									<span
-										className={`badge ${getContestStatusBadgeClass(
+										className={`badge h-auto min-h-7 whitespace-nowrap px-3 py-2 text-xs font-medium leading-none ${getContestStatusBadgeClass(
 											contest.contestStatus,
 										)}`}
 									>

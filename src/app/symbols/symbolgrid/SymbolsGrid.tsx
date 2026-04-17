@@ -31,21 +31,7 @@ function getChangeStyles(change: number): string {
 
 export function SymbolsGrid({ symbols }: Props) {
 	return (
-		<section className="space-y-4">
-			<div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-				<div className="space-y-1">
-					<h2 className="text-2xl font-semibold tracking-tight">
-						Popular symbols
-					</h2>
-					<p className="text-sm leading-6 text-base-content/70">
-						A broad watchlist layout for fast scanning. Dummy values for now,
-						but shaped like the real view models we will replace later.
-					</p>
-				</div>
-				<span className="badge badge-outline badge-lg w-fit">
-					24h price change
-				</span>
-			</div>
+		<section>
 			<div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
 				{symbols.map((symbol) => (
 					<Link
@@ -83,10 +69,6 @@ export function SymbolsGrid({ symbols }: Props) {
 										{symbol.percentageChange.toFixed(2)}%
 									</span>
 								</div>
-							</div>
-							<div className="mt-auto flex items-center justify-between text-sm text-base-content/55">
-								<span>Last 24 hours</span>
-								<span className="link link-hover font-medium">Open details</span>
 							</div>
 						</div>
 					</Link>

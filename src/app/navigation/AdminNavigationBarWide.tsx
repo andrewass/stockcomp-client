@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import BrandLink from "@/navigation/BrandLink.tsx";
 import ThemeToggler from "@/navigation/ThemeToggler.tsx";
 
 interface Props {
@@ -21,8 +22,8 @@ export default function AdminNavigationBarWide({ hasAdminRole }: Props) {
 	return (
 		<div className="navbar justify-center bg-base-300">
 			<div className="flex flex-row mt-5 mb-5 w-2/4 justify-between">
-				<div className="flex flex-row gap-8">
-					<Link href="/">Stock Comp (Admin)</Link>
+				<div className="flex flex-row items-center gap-8">
+					<BrandLink href="/" label="Stock Comp" subtitle="Admin Console" />
 					<Link href={`/admin/contests/${urlSuffix}`}>Contests</Link>
 					<Link href={`/admin/users/${urlSuffix}`}>Users</Link>
 				</div>
