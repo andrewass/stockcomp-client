@@ -4,11 +4,11 @@ import {
 	exchangeForResourceToken,
 	RESOURCE_SERVER_AUDIENCE,
 } from "@/api/auth/tokenExchange.ts";
-import { auth } from "@/auth.ts";
+import { auth } from "@/lib/auth.ts";
 import {
 	getValidResourceToken,
 	saveResourceToken,
-} from "@/resourceTokenStore.ts";
+} from "@/lib/resourceTokenStore.ts";
 
 interface RequestParams {
 	[key: string]: string | number;

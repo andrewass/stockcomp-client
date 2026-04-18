@@ -22,7 +22,7 @@ export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 
 	return (
 		<div className="navbar justify-center bg-base-300">
-			<div className="flex flex-row mt-5 mb-5 w-2/4 justify-between">
+			<div className="mt-5 mb-5 flex w-2/4 flex-row items-center justify-between">
 				<div className="flex flex-row items-center gap-8">
 					<BrandLink href="/" label="Stock Comp" subtitle="Portfolio Arena" />
 					<Link href="/symbols">Symbols</Link>
@@ -31,7 +31,7 @@ export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 						<span>Leaderboard</span>
 					</Link>
 				</div>
-				<div className="flex flex-row gap-8">
+				<div className="flex flex-row items-center gap-8">
 					{hasAdminRole && (
 						<label
 							className="toggle [--input-color:var(--color-base-content)]"

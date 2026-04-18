@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
 import type React from "react";
-import { apiGet, isUnauthenticatedError } from "@/api/apiWrapper.ts";
+import { getViewerHasAdminRole, requireViewerSession } from "@/lib/viewer.ts";
 import DefaultNavigationBarWide from "@/navigation/DefaultNavigationBarWide.tsx";
 
 export default async function MainLayout({
@@ -8,15 +7,8 @@ export default async function MainLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	let hasAdminRole = false;
-	try {
-		hasAdminRole = await apiGet<boolean>({ url: "/users/admin" });
-	} catch (error) {
-		if (isUnauthenticatedError(error)) {
-			redirect("/signin");
-		}
-		throw error;
-	}
+	await requireViewerSession();
+	const hasAdminRole = await getViewerHasAdminRole();
 
 	return (
 		<>
