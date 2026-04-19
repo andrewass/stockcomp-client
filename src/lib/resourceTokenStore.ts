@@ -39,6 +39,10 @@ const upsertResourceTokenStmt = db.prepare(`
 		updatedAt = datetime('now')
 `);
 
+const deleteResourceTokenStmt = db.prepare(
+	"DELETE FROM resource_token WHERE userId = ? AND audience = ?",
+);
+
 export function getValidResourceToken(
 	userId: string,
 	audience: string,
@@ -68,4 +72,8 @@ export function saveResourceToken(input: SaveResourceTokenInput): void {
 		input.accessToken,
 		input.expiresAt.toISOString(),
 	);
+}
+
+export function deleteResourceToken(userId: string, audience: string): void {
+	deleteResourceTokenStmt.run(userId, audience);
 }
