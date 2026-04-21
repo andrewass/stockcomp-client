@@ -11,7 +11,6 @@ export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 
 	return (
 		<ResponsiveNavigationBar
-			brandSubtitle="Portfolio Arena"
 			defaultHref="/"
 			hasAdminRole={hasAdminRole}
 			isAdminMode={false}

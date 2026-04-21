@@ -5,7 +5,7 @@ import Link from "next/link";
 interface Props {
 	href: string;
 	label: string;
-	subtitle: string;
+	subtitle?: string;
 }
 
 export default function BrandLink({ href, label, subtitle }: Props) {
@@ -21,9 +21,11 @@ export default function BrandLink({ href, label, subtitle }: Props) {
 				</span>
 			</span>
 			<span className="flex min-w-0 flex-col leading-none">
-				<span className="hidden text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-base-content/45 sm:block">
-					{subtitle}
-				</span>
+				{subtitle ? (
+					<span className="hidden text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-base-content/45 sm:block">
+						{subtitle}
+					</span>
+				) : null}
 				<span className="truncate text-sm font-semibold tracking-[0.05em] text-base-content sm:text-base sm:tracking-[0.08em]">
 					{label}
 				</span>
