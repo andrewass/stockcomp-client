@@ -2,7 +2,10 @@ import "server-only";
 import { cache } from "react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { apiGet, isUnauthenticatedError } from "@/api/apiWrapper.ts";
+import {
+	isUnauthenticatedError,
+	resourceGet,
+} from "@/api/resourceServerClient.ts";
 import { auth } from "@/lib/auth.ts";
 
 function normalizeReturnTo(returnTo?: string): string {
@@ -39,7 +42,7 @@ export const getViewerHasAdminRole = cache(async (): Promise<boolean> => {
 	}
 
 	try {
-		return await apiGet<boolean>({ url: "/users/admin" });
+		return await resourceGet<boolean>({ url: "/users/admin" });
 	} catch (error) {
 		if (isUnauthenticatedError(error)) {
 			return false;

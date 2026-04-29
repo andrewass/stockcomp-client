@@ -1,24 +1,15 @@
 "use server";
 
-import { apiGet, apiPost, isUnauthenticatedError } from "@/api/apiWrapper.ts";
-import type {
-	ContestPage,
-	CreateContestRequest,
-} from "@/contest/contestTypes.ts";
+import {
+	isUnauthenticatedError,
+	resourcePost,
+} from "@/api/resourceServerClient.ts";
+import type { CreateContestRequest } from "@/domain/contests/contestTypes.ts";
 
 export interface CreateContestActionResult {
 	ok: boolean;
 	message?: string;
 	fieldErrors?: Record<string, string>;
-}
-
-export async function getAdminContests(
-	pageNumber: number,
-	pageSize: number,
-): Promise<ContestPage> {
-	return apiGet<ContestPage>({
-		url: `/contests/all?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-	});
 }
 
 export async function createContestAction(
@@ -48,7 +39,7 @@ export async function createContestAction(
 	}
 
 	try {
-		await apiPost({
+		await resourcePost({
 			url: "/contests/create",
 			body: {
 				contestName,

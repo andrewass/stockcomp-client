@@ -1,5 +1,5 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
-import type { ContestLeaderboardParticipant } from "@/contest/contestParticipantTypes.ts";
+import type { ContestLeaderboardParticipant } from "@/domain/contests/contestParticipantTypes.ts";
 
 interface Props {
 	participants: ContestLeaderboardParticipant[];

@@ -1,11 +1,14 @@
-"use server";
-
-import { apiGet, isUnauthenticatedError } from "@/api/apiWrapper.ts";
+import "server-only";
+import { isApiHttpStatusError } from "@/api/httpClient.ts";
+import {
+	isUnauthenticatedError,
+	resourceGet,
+} from "@/api/resourceServerClient.ts";
 import type {
 	ContestLeaderboardPage,
 	ContestParticipantDetail,
-} from "@/contest/contestParticipantTypes.ts";
-import type { Contest } from "@/contest/contestTypes.ts";
+} from "@/domain/contests/contestParticipantTypes.ts";
+import type { Contest } from "@/domain/contests/contestTypes.ts";
 
 export interface ContestDetailPageData {
 	contest: Contest;
@@ -13,12 +16,8 @@ export interface ContestDetailPageData {
 	participantDetail: ContestParticipantDetail | null;
 }
 
-function isHttpStatusError(error: unknown, status: number): boolean {
-	return error instanceof Error && error.message.includes(`status: ${status}`);
-}
-
 async function getContest(contestId: number): Promise<Contest> {
-	return apiGet<Contest>({
+	return resourceGet<Contest>({
 		url: `/contests/${contestId}`,
 	});
 }
@@ -28,7 +27,7 @@ async function getContestLeaderboard(
 	pageNumber: number,
 	pageSize: number,
 ): Promise<ContestLeaderboardPage> {
-	return apiGet<ContestLeaderboardPage>({
+	return resourceGet<ContestLeaderboardPage>({
 		url: "/participants/sorted",
 		params: { contestId, pageNumber, pageSize },
 	});
@@ -38,7 +37,7 @@ async function getParticipantDetailForContest(
 	contestId: number,
 ): Promise<ContestParticipantDetail | null> {
 	try {
-		return await apiGet<ContestParticipantDetail>({
+		return await resourceGet<ContestParticipantDetail>({
 			url: `/participants/detailed/contest/${contestId}`,
 		});
 	} catch (error) {
@@ -46,7 +45,7 @@ async function getParticipantDetailForContest(
 			throw error;
 		}
 
-		if (isHttpStatusError(error, 400) || isHttpStatusError(error, 404)) {
+		if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
 			return null;
 		}
 
@@ -72,7 +71,7 @@ export async function getContestDetailPageData(
 			participantDetail,
 		};
 	} catch (error) {
-		if (isHttpStatusError(error, 404)) {
+		if (isApiHttpStatusError(error, 404)) {
 			return null;
 		}
 

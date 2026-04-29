@@ -2,12 +2,12 @@ import ContestLeaderboardTable from "@/contest/ContestLeaderboardTable.tsx";
 import type {
 	ContestLeaderboardPage,
 	ContestParticipantDetail,
-} from "@/contest/contestParticipantTypes.ts";
+} from "@/domain/contests/contestParticipantTypes.ts";
 import {
 	contestStatusRecord,
 	getStatusByColor,
 	type Contest,
-} from "@/contest/contestTypes.ts";
+} from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 
 interface Props {

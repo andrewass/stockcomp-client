@@ -4,6 +4,11 @@ import {
 	exchangeForResourceToken,
 	RESOURCE_SERVER_AUDIENCE,
 } from "@/api/auth/tokenExchange.ts";
+import {
+	isApiHttpStatusError,
+	requestJson,
+	type RequestParams,
+} from "@/api/httpClient.ts";
 import { auth } from "@/lib/auth.ts";
 import {
 	deleteResourceToken,
@@ -11,12 +16,8 @@ import {
 	saveResourceToken,
 } from "@/lib/resourceTokenStore.ts";
 
-interface RequestParams {
-	[key: string]: string | number;
-}
-
 interface RequestBody {
-	[key: string]: string | number;
+	[key: string]: unknown;
 }
 
 enum RequestMethod {
@@ -26,9 +27,10 @@ enum RequestMethod {
 	DELETE = "DELETE",
 }
 
+const PROVIDER = "resource-server";
 const UNAUTHENTICATED_ERROR = "UNAUTHENTICATED";
 
-export interface CustomRequestConfig {
+export interface ResourceRequestConfig {
 	url: string;
 	body?: RequestBody;
 	params?: RequestParams;
@@ -76,7 +78,7 @@ async function getSessionUserId(): Promise<string> {
 }
 
 const request = async <T>(
-	config: CustomRequestConfig,
+	config: ResourceRequestConfig,
 	method: RequestMethod,
 ): Promise<T> => {
 	const baseUrl = process.env.RESOURCE_SERVER_BASE_URL;
@@ -84,51 +86,46 @@ const request = async <T>(
 		throw new Error("RESOURCE_SERVER_BASE_URL is not configured");
 	}
 
-	const url = new URL(config.url, baseUrl);
-	if (config.params) {
-		for (const item in config.params) {
-			url.searchParams.set(item, String(config.params[item]));
-		}
-	}
-
 	const executeRequest = async (resourceAccessToken: string) =>
-		fetch(url, {
-		method,
-		headers: {
-			Authorization: `Bearer ${resourceAccessToken}`,
-			"Content-Type": "application/json",
-		},
-		body: config.body ? JSON.stringify(config.body) : undefined,
-	});
+		requestJson<T>({
+			baseUrl,
+			method,
+			provider: PROVIDER,
+			url: config.url,
+			params: config.params,
+			body: config.body,
+			headers: {
+				Authorization: `Bearer ${resourceAccessToken}`,
+			},
+		});
 
-	let response = await executeRequest(await getResourceAccessTokenForUser());
+	try {
+		return await executeRequest(await getResourceAccessTokenForUser());
+	} catch (error) {
+		if (!isApiHttpStatusError(error, 401)) {
+			throw error;
+		}
 
-	if (response.status === 401) {
 		const userId = await getSessionUserId();
 		deleteResourceToken(userId, RESOURCE_SERVER_AUDIENCE);
 
-		response = await executeRequest(
-			await getResourceAccessTokenForUser(true),
-		);
+		try {
+			return await executeRequest(await getResourceAccessTokenForUser(true));
+		} catch (retryError) {
+			if (isApiHttpStatusError(retryError, 401)) {
+				throw new Error(UNAUTHENTICATED_ERROR);
+			}
 
-		if (response.status === 401) {
-			throw new Error(UNAUTHENTICATED_ERROR);
+			throw retryError;
 		}
 	}
-	if (response.status === 204) return null as T;
-	if (!response.ok) {
-		throw new Error(`HTTP error! status: ${response.status}`);
-	}
-
-	const responseData = await response.text();
-	return responseData ? JSON.parse(responseData) : (null as T);
 };
 
-export const apiGet = <T>(config: CustomRequestConfig): Promise<T> =>
+export const resourceGet = <T>(config: ResourceRequestConfig): Promise<T> =>
 	request(config, RequestMethod.GET);
-export const apiPost = <T>(config: CustomRequestConfig): Promise<T> =>
+export const resourcePost = <T>(config: ResourceRequestConfig): Promise<T> =>
 	request(config, RequestMethod.POST);
-export const apiPut = <T>(config: CustomRequestConfig): Promise<T> =>
+export const resourcePut = <T>(config: ResourceRequestConfig): Promise<T> =>
 	request(config, RequestMethod.PUT);
-export const apiDelete = <T>(config: CustomRequestConfig): Promise<T> =>
+export const resourceDelete = <T>(config: ResourceRequestConfig): Promise<T> =>
 	request(config, RequestMethod.DELETE);

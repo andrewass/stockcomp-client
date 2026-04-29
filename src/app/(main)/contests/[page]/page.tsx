@@ -1,4 +1,4 @@
-import { getContests } from "@/contests/actions.ts";
+import { getContests } from "@/contests/contestsData.ts";
 import ContestView from "@/contests/ContestView.tsx";
 import { parseParams } from "@/components/table/PageableTable.tsx";
 

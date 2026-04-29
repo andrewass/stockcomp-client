@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import type React from "react";
-import { apiGet } from "@/api/apiWrapper.ts";
-import { requireViewerSession } from "@/lib/viewer.ts";
+import { getViewerHasAdminRole, requireViewerSession } from "@/lib/viewer.ts";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
 
 export default async function AdminLayout({
@@ -10,7 +9,7 @@ export default async function AdminLayout({
 	children: React.ReactNode;
 }) {
 	await requireViewerSession("/admin");
-	const hasAdminRole = await apiGet<boolean>({ url: "/users/admin" });
+	const hasAdminRole = await getViewerHasAdminRole();
 
 	if (!hasAdminRole) {
 		redirect("/");

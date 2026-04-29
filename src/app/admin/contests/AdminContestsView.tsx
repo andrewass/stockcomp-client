@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Contest } from "@/contest/contestTypes.ts";
+import type { Contest } from "@/domain/contests/contestTypes.ts";
 import AdminContestsTable from "./AdminContestsTable.tsx";
 import CreateContestModal from "./CreateContestModal.tsx";
 

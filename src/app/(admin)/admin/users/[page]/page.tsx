@@ -1,4 +1,4 @@
-import { getAdminUsers } from "@/admin/users/actions.ts";
+import { getAdminUsers } from "@/admin/users/adminUsersData.ts";
 import AdminUsersView from "@/admin/users/AdminUsersView.tsx";
 import { parseParams } from "@/components/table/PageableTable.tsx";
 

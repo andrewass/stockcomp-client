@@ -1,4 +1,4 @@
-import type { Contest } from "@/contest/contestTypes.ts";
+import type { Contest } from "@/domain/contests/contestTypes.ts";
 import ContestTable from "./ContestTable.tsx";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { CONTEST_STATUS } from "@/contest/contestTypes.ts";
+import { CONTEST_STATUS } from "@/domain/contests/contestTypes.ts";
 import type {
 	SymbolCardViewModel,
 	SymbolContestListItemViewModel,

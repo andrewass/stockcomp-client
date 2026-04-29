@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contestStatusRecord } from "@/contest/contestTypes.ts";
+import { contestStatusRecord } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import type { SymbolContestListItemViewModel } from "@/symbols/symbolTypes.ts";
 

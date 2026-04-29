@@ -1,4 +1,4 @@
-import type { Contest } from "../contests/contestTypes";
+import type { Contest } from "@/domain/contests/contestTypes.ts";
 import type { Investment } from "../investment/investmentTypes.ts";
 import type { InvestmentOrder } from "../investmentorder/investmentOrderTypes";
 

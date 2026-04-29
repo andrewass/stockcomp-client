@@ -1,5 +1,8 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
-import { contestStatusRecord, type Contest } from "@/contest/contestTypes.ts";
+import {
+	contestStatusRecord,
+	type Contest,
+} from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import Link from "next/link";
 
