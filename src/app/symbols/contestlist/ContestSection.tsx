@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { contestStatusRecord } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
-import type { SymbolContestListItemViewModel } from "@/symbols/symbolTypes.ts";
+import { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
 	title: string;
@@ -35,7 +35,7 @@ export default function ContestSection({
 					{contests.map((contest) => (
 						<Link
 							key={contest.contestId}
-							href={`/contest/${contest.contestId}`}
+							href={`/contestdetail/${contest.contestId}`}
 							className="group block rounded-box border border-base-300 bg-base-100/90 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
 						>
 							<div className="space-y-3">
@@ -64,7 +64,9 @@ export default function ContestSection({
 										<p className="text-xs uppercase tracking-[0.18em] text-base-content/45">
 											Starts
 										</p>
-										<p>{formatDateTimeValue(contest.startTime, "dd/MM HH:mm")}</p>
+										<p>
+											{formatDateTimeValue(contest.startTime, "dd/MM HH:mm")}
+										</p>
 									</div>
 									<div>
 										<p className="text-xs uppercase tracking-[0.18em] text-base-content/45">

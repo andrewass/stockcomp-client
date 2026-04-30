@@ -1,9 +1,9 @@
 import ContestList from "@/symbols/contestlist/ContestList.tsx";
 import { SymbolsGrid } from "@/symbols/symbolgrid/SymbolsGrid.tsx";
-import type {
+import {
 	SymbolCardViewModel,
 	SymbolContestListItemViewModel,
-} from "@/symbols/symbolTypes.ts";
+} from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
 	symbols: SymbolCardViewModel[];
@@ -11,7 +11,7 @@ interface Props {
 	openContests: SymbolContestListItemViewModel[];
 }
 
-export function SymbolsLandingView({
+export function SymbolsView({
 	symbols,
 	signedUpContests,
 	openContests,

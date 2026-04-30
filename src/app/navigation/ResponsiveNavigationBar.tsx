@@ -27,8 +27,7 @@ interface Props {
 
 function isActivePath(pathname: string, activePathPrefix: string) {
 	return (
-		pathname === activePathPrefix ||
-		pathname.startsWith(`${activePathPrefix}/`)
+		pathname === activePathPrefix || pathname.startsWith(`${activePathPrefix}/`)
 	);
 }
 
@@ -81,7 +80,11 @@ export default function ResponsiveNavigationBar({
 							})}
 						</ul>
 					</div>
-					<BrandLink href={defaultHref} label="Stock Comp" subtitle={brandSubtitle} />
+					<BrandLink
+						href={defaultHref}
+						label="Stock Comp"
+						subtitle={brandSubtitle}
+					/>
 				</div>
 
 				<div className="navbar-center hidden lg:flex">
@@ -123,7 +126,10 @@ export default function ResponsiveNavigationBar({
 					<div className="flex h-10 w-10 items-center justify-center">
 						<ThemeToggler iconSize="size-5" />
 					</div>
-					<div className="hidden h-10 w-10 items-center justify-center sm:flex" aria-hidden="true">
+					<div
+						className="hidden h-10 w-10 items-center justify-center sm:flex"
+						aria-hidden="true"
+					>
 						<UserIcon className="size-5" />
 					</div>
 				</div>

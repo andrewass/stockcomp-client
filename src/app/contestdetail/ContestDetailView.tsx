@@ -1,4 +1,4 @@
-import ContestLeaderboardTable from "@/contest/ContestLeaderboardTable.tsx";
+import ContestLeaderboardTable from "./ContestLeaderboardTable.tsx";
 import type {
 	ContestLeaderboardPage,
 	ContestParticipantDetail,

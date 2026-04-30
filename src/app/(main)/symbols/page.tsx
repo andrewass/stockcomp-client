@@ -1,4 +1,4 @@
-import { SymbolsLandingView } from "@/symbols/SymbolsLandingView.tsx";
+import { SymbolsView } from "../../symbols/SymbolsView.tsx";
 import {
 	openSignUpContests,
 	signedUpContests,
@@ -7,7 +7,7 @@ import {
 
 export default function SymbolsPage() {
 	return (
-		<SymbolsLandingView
+		<SymbolsView
 			symbols={trendingSymbols}
 			signedUpContests={signedUpContests}
 			openContests={openSignUpContests}

@@ -29,7 +29,9 @@ export const getViewerSession = cache(async () => {
 export async function requireViewerSession(returnTo?: string) {
 	const session = await getViewerSession();
 	if (!session) {
-		redirect(`/signin?returnTo=${encodeURIComponent(normalizeReturnTo(returnTo))}`);
+		redirect(
+			`/signin?returnTo=${encodeURIComponent(normalizeReturnTo(returnTo))}`,
+		);
 	}
 
 	return session;

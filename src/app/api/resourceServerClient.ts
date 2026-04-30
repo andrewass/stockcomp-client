@@ -40,7 +40,9 @@ export function isUnauthenticatedError(error: unknown): boolean {
 	return error instanceof Error && error.message === UNAUTHENTICATED_ERROR;
 }
 
-async function getResourceAccessTokenForUser(forceRefresh = false): Promise<string> {
+async function getResourceAccessTokenForUser(
+	forceRefresh = false,
+): Promise<string> {
 	const requestHeaders = await headers();
 	const session = await auth.api.getSession({ headers: requestHeaders });
 	if (!session) throw new Error(UNAUTHENTICATED_ERROR);

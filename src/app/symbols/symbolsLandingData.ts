@@ -1,8 +1,8 @@
 import { CONTEST_STATUS } from "@/domain/contests/contestTypes.ts";
-import type {
+import {
 	SymbolCardViewModel,
 	SymbolContestListItemViewModel,
-} from "@/symbols/symbolTypes.ts";
+} from "@/domain/symbol/symbolTypes.ts";
 
 export const trendingSymbols: SymbolCardViewModel[] = [
 	{

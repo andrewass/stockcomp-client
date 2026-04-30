@@ -49,7 +49,7 @@ export default function ContestTable({
 						<td>{contest.contestId}</td>
 						<td>
 							<Link
-								href={`/contest/${contest.contestId}`}
+								href={`/contestdetail/${contest.contestId}`}
 								className="link link-hover font-medium"
 							>
 								{contest.contestName}

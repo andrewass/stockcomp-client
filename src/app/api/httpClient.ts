@@ -54,7 +54,10 @@ function createUrl(baseUrl: string, url: string, params?: RequestParams): URL {
 	return requestUrl;
 }
 
-function createHeaders(headers: HeadersInit | undefined, body: unknown): Headers {
+function createHeaders(
+	headers: HeadersInit | undefined,
+	body: unknown,
+): Headers {
 	const requestHeaders = new Headers(headers);
 	if (body !== undefined && !requestHeaders.has("Content-Type")) {
 		requestHeaders.set("Content-Type", "application/json");

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { SymbolCardViewModel } from "@/symbols/symbolTypes.ts";
+import { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
 	symbols: SymbolCardViewModel[];
@@ -62,7 +62,9 @@ export function SymbolsGrid({ symbols }: Props) {
 										symbol.percentageChange,
 									)}`}
 								>
-									<span>{formatChange(symbol.priceChange, symbol.currency)}</span>
+									<span>
+										{formatChange(symbol.priceChange, symbol.currency)}
+									</span>
 									<span aria-hidden="true">/</span>
 									<span>
 										{symbol.percentageChange > 0 ? "+" : ""}

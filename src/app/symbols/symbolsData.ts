@@ -5,12 +5,12 @@ import {
 	getStockSymbolPrice,
 	getTrendingSymbolsPrice,
 } from "@/api/fastFinanceClient.ts";
-import type {
+import {
 	HistoricalPrice,
 	Period,
 	StockFinancials,
 	StockPrice,
-} from "@/symbols/symbolTypes.ts";
+} from "@/domain/symbol/symbolTypes.ts";
 
 function normalizeSymbol(symbol: string): string {
 	const normalizedSymbol = symbol.trim().toUpperCase();
