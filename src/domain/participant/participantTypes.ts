@@ -1,31 +1,10 @@
-import type { Contest } from "@/domain/contests/contestTypes.ts";
-import type { Investment } from "../investment/investmentTypes.ts";
-import type { InvestmentOrder } from "../investmentorder/investmentOrderTypes";
-
 export type Participant = {
-	participantId: number;
-	username: string;
-	rank?: number;
-	totalValue: number;
-	totalInvestmentValue: number;
-	remainingFunds: number;
-	country?: string;
+    participantId: number;
+    username: string;
+    rank?: number;
+    totalValue: number;
+    totalInvestmentValue: number;
+    remainingFunds: number;
+    country?: string;
 };
 
-export type ContestParticipant = {
-	participant: Participant;
-	contest: Contest;
-};
-
-export type DetailedParticipant = {
-	contest: Contest;
-	participant: Participant;
-	investments: Investment[];
-	activeOrders: InvestmentOrder[];
-	completedOrders: InvestmentOrder[];
-};
-
-export type ParticipantPage = {
-	participants: Participant[];
-	totalEntriesCount: number;
-};
