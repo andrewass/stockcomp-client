@@ -1,6 +1,9 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import ContestList from "@/symbols/contestlist/ContestList.tsx";
 import { SymbolsGrid } from "@/symbols/symbolgrid/SymbolsGrid.tsx";
-import {
+import type {
 	SymbolCardViewModel,
 	SymbolContestListItemViewModel,
 } from "@/domain/symbol/symbolTypes.ts";
@@ -11,11 +14,35 @@ interface Props {
 	openContests: SymbolContestListItemViewModel[];
 }
 
+type TrendingSymbolsResponse = {
+	symbols: SymbolCardViewModel[];
+};
+
+async function fetchTrendingSymbols(): Promise<SymbolCardViewModel[]> {
+	const response = await fetch("/symbols/api");
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	const responseData = (await response.json()) as TrendingSymbolsResponse;
+	console.log("DATA IS " + JSON.stringify(responseData));
+
+	return responseData.symbols;
+}
+
 export function SymbolsView({
 	symbols,
 	signedUpContests,
 	openContests,
 }: Props) {
+	const symbolsQuery = useQuery({
+		queryKey: ["symbols", "trending-prices"],
+		queryFn: fetchTrendingSymbols,
+		initialData: symbols,
+		refetchInterval: 5_000,
+		staleTime: 5_000,
+	});
+
 	return (
 		<div className="w-full max-w-7xl px-4 pb-12 pt-2 sm:px-6 lg:px-8">
 			<div className="grid items-start gap-6 xl:gap-12 xl:grid-cols-[minmax(0,3fr)_minmax(18rem,1fr)]">

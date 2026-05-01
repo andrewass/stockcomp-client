@@ -5,13 +5,27 @@ import type {
 	Period,
 	StockFinancials,
 	StockPrice,
-} from "@/symbols/symbolTypes.ts";
+} from "@/domain/symbol/symbolTypes.ts";
 
-type TrendingSymbolsResponse = {
-	symbols: StockPrice[];
+export type TrendingSymbolsResponse = {
+	symbols: SymbolPriceResponse[];
+};
+
+type SymbolsPriceRequest = {
+	symbols: string[];
+};
+
+export type SymbolPriceResponse = {
+	symbol: string;
+	companyName: string;
+	currentPrice: number;
+	previousClose: number;
+	currency: string;
 };
 
 const PROVIDER = "fastfinance";
+
+const TRENDING_SYMBOLS = ["AAPL", "MSFT"];
 
 function getFastFinanceBaseUrl(): string {
 	const baseUrl = process.env.FASTFINANCE_BASE_URL;
@@ -33,14 +47,15 @@ function getFastFinanceHeaders(): HeadersInit | undefined {
 	};
 }
 
-export function getTrendingSymbolsPrice(): Promise<StockPrice[]> {
-	return requestJson<TrendingSymbolsResponse>({
+export async function getTrendingSymbolsPrice(): Promise<TrendingSymbolsResponse> {
+	return await requestJson<TrendingSymbolsResponse>({
 		baseUrl: getFastFinanceBaseUrl(),
-		method: "GET",
+		method: "POST",
 		provider: PROVIDER,
-		url: "/symbols/price/trending",
+		url: "/price/symbols",
 		headers: getFastFinanceHeaders(),
-	}).then((response) => response.symbols);
+		body: { symbols: TRENDING_SYMBOLS } satisfies SymbolsPriceRequest,
+	});
 }
 
 export function getStockSymbolPrice(symbol: string): Promise<StockPrice> {

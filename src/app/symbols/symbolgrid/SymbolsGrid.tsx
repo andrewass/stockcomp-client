@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
 	symbols: SymbolCardViewModel[];

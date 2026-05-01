@@ -4,8 +4,9 @@ import {
 	getStockSymbolFinancials,
 	getStockSymbolPrice,
 	getTrendingSymbolsPrice,
+	TrendingSymbolsResponse,
 } from "@/api/fastFinanceClient.ts";
-import {
+import type {
 	HistoricalPrice,
 	Period,
 	StockFinancials,
@@ -21,7 +22,7 @@ function normalizeSymbol(symbol: string): string {
 	return normalizedSymbol;
 }
 
-export function getTrendingSymbolsPageData(): Promise<StockPrice[]> {
+export function getTrendingSymbolsPageData(): Promise<TrendingSymbolsResponse> {
 	return getTrendingSymbolsPrice();
 }
 
