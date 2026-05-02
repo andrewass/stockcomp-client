@@ -9,14 +9,9 @@ import type {
 } from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
-	symbols: SymbolCardViewModel[];
 	signedUpContests: SymbolContestListItemViewModel[];
 	openContests: SymbolContestListItemViewModel[];
 }
-
-type TrendingSymbolsResponse = {
-	symbols: SymbolCardViewModel[];
-};
 
 async function fetchTrendingSymbols(): Promise<SymbolCardViewModel[]> {
 	const response = await fetch("/symbols/api");
@@ -24,24 +19,17 @@ async function fetchTrendingSymbols(): Promise<SymbolCardViewModel[]> {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 
-	const responseData = (await response.json()) as TrendingSymbolsResponse;
-	console.log("DATA IS " + JSON.stringify(responseData));
-
-	return responseData.symbols;
+	return (await response.json()) as SymbolCardViewModel[];
 }
 
-export function SymbolsView({
-	symbols,
-	signedUpContests,
-	openContests,
-}: Props) {
-	const symbolsQuery = useQuery({
+export function SymbolsView({ signedUpContests, openContests }: Props) {
+	const trendingSymbols = useQuery({
 		queryKey: ["symbols", "trending-prices"],
 		queryFn: fetchTrendingSymbols,
-		initialData: symbols,
 		refetchInterval: 5_000,
 		staleTime: 5_000,
 	});
+	const symbols = trendingSymbols.data ?? [];
 
 	return (
 		<div className="w-full max-w-7xl px-4 pb-12 pt-2 sm:px-6 lg:px-8">
@@ -67,6 +55,11 @@ export function SymbolsView({
 							</div>
 						</div>
 					</div>
+					{trendingSymbols.isError ? (
+						<p className="text-sm text-error">
+							Unable to fetch symbol prices right now.
+						</p>
+					) : null}
 					<SymbolsGrid symbols={symbols} />
 				</section>
 				<aside className="xl:sticky xl:top-24 xl:self-start">

@@ -25,7 +25,17 @@ export type SymbolPriceResponse = {
 
 const PROVIDER = "fastfinance";
 
-const TRENDING_SYMBOLS = ["AAPL", "MSFT"];
+const TRENDING_SYMBOLS = [
+	"AAPL",
+	"MSFT",
+	"AMZN",
+	"META",
+	"TSLA",
+	"GOOGL",
+	"AMD",
+	"NVDA",
+	"NFLX",
+];
 
 function getFastFinanceBaseUrl(): string {
 	const baseUrl = process.env.FASTFINANCE_BASE_URL;
@@ -47,8 +57,10 @@ function getFastFinanceHeaders(): HeadersInit | undefined {
 	};
 }
 
-export async function getTrendingSymbolsPrice(): Promise<TrendingSymbolsResponse> {
-	return await requestJson<TrendingSymbolsResponse>({
+export async function getTrendingSymbolsPrice(): Promise<
+	SymbolPriceResponse[]
+> {
+	return await requestJson<SymbolPriceResponse[]>({
 		baseUrl: getFastFinanceBaseUrl(),
 		method: "POST",
 		provider: PROVIDER,
