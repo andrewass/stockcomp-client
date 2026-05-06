@@ -1,36 +1,13 @@
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
 import ContestList from "@/symbols/contestlist/ContestList.tsx";
 import { SymbolsGrid } from "@/symbols/symbolgrid/SymbolsGrid.tsx";
-import type {
-	SymbolCardViewModel,
-	SymbolContestListItemViewModel,
-} from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
 
 interface Props {
 	signedUpContests: SymbolContestListItemViewModel[];
 	openContests: SymbolContestListItemViewModel[];
 }
 
-async function fetchTrendingSymbols(): Promise<SymbolCardViewModel[]> {
-	const response = await fetch("/symbols/api");
-	if (!response.ok) {
-		throw new Error(`HTTP error! status: ${response.status}`);
-	}
-
-	return (await response.json()) as SymbolCardViewModel[];
-}
-
 export function SymbolsView({ signedUpContests, openContests }: Props) {
-	const trendingSymbols = useQuery({
-		queryKey: ["symbols", "trending-prices"],
-		queryFn: fetchTrendingSymbols,
-		refetchInterval: 5_000,
-		staleTime: 5_000,
-	});
-	const symbols = trendingSymbols.data ?? [];
-
 	return (
 		<div className="w-full max-w-7xl px-4 pb-12 pt-2 sm:px-6 lg:px-8">
 			<div className="grid items-start gap-6 xl:gap-12 xl:grid-cols-[minmax(0,3fr)_minmax(18rem,1fr)]">
@@ -55,12 +32,7 @@ export function SymbolsView({ signedUpContests, openContests }: Props) {
 							</div>
 						</div>
 					</div>
-					{trendingSymbols.isError ? (
-						<p className="text-sm text-error">
-							Unable to fetch symbol prices right now.
-						</p>
-					) : null}
-					<SymbolsGrid symbols={symbols} />
+					<SymbolsGrid />
 				</section>
 				<aside className="xl:sticky xl:top-24 xl:self-start">
 					<ContestList

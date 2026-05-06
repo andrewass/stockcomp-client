@@ -26,7 +26,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Keep `src/app/**` as delivery/application layer: routing, UI composition, server actions, and framework-specific orchestration.
 - Do not put business rules in `page.tsx`, `layout.tsx`, client components, or route handlers; call domain/application functions instead.
 - Enforce dependency direction: `app -> domain` is allowed, `domain -> app` is not. Domain code must not import Next.js/React/browser APIs.
-- Keep transport mapping at the edges: map API/resource-server DTOs to domain shapes in technical clients, route handlers when required, or feature `*Data.ts` modules, not inside core domain logic.
+- Keep transport mapping at the edges: map API/resource-server DTOs to domain/view shapes in technical clients, feature `*Data.ts` modules, or dedicated mappers, not inside core domain logic or client components.
 - Feature data modules and server actions should orchestrate auth/session/API calls and delegate business decisions to domain/application modules.
 
 ## Domain extraction template (incremental)
@@ -87,8 +87,9 @@ This file describes the project conventions for AI/code agents working in this r
 - Use the exported functions from [`src/app/api/resourceServerClient.ts`](src/app/api/resourceServerClient.ts) for resource-server API calls: `resourceGet`, `resourcePost`, `resourcePut`, `resourceDelete`.
 - Do not bypass `resourceServerClient` for resource-server calls unless there is a clear reason, since it centralizes token exchange/caching behavior.
 - Use [`src/app/api/fastFinanceClient.ts`](src/app/api/fastFinanceClient.ts) from feature data modules for server-side FastFinance calls.
-- Keep `src/app/api/**` limited to technical API code: provider clients, route handlers, token exchange, shared HTTP/error helpers, and transport mapping.
-- Avoid adding read-oriented `route.ts` files by default. Prefer feature `*Data.ts` modules for reads; add route handlers only when an actual HTTP endpoint is required, such as auth callbacks, webhooks, downloads, or browser-owned polling that cannot be served by server-rendered data.
+- Keep `src/app/api/**` limited to shared technical API infrastructure: provider clients, token exchange, shared HTTP/error helpers, auth route handlers, and cross-feature transport helpers.
+- Feature-owned `route.ts` files may live with the feature when they act as a gateway from client-side code to server-only data. Keep these handlers thin: parse request, call the feature `*Data.ts` module, and return JSON/status.
+- Client components and TanStack Query hooks must not import `resourceServerClient`, `fastFinanceClient`, or `server-only` feature data modules directly. They should fetch a colocated feature route instead.
 - Better Auth is configured in [`src/lib/auth.ts`](src/lib/auth.ts) (server) and [`src/lib/auth-client.ts`](src/lib/auth-client.ts) (client).
 - Auth route handler is in [`src/app/api/auth/[...all]/route.ts`](src/app/api/auth/[...all]/route.ts).
 - Prefer `resourceServerClient` from server actions, route handlers, and server components when calling the resource server.
@@ -103,7 +104,8 @@ This file describes the project conventions for AI/code agents working in this r
 
 ## Data fetching and state
 - React Query provider is set up in [`src/app/providers/AppProviders.tsx`](src/app/providers/AppProviders.tsx).
-- Use React Query only when client-owned freshness, polling, or cache invalidation is required; otherwise keep read loading in feature `*Data.ts` modules.
+- Use React Query only when client-owned freshness, polling, or cache invalidation is required. Query functions should call feature route handlers, not server-only clients or data modules.
+- Server Components should call feature `*Data.ts` modules directly instead of fetching this app's own route handlers.
 - Reuse feature `*Data.ts` modules and technical clients in `src/app/api/**`; do not add domain-owned fetch/config modules.
 - Prefer parallel data fetching (`Promise.all`) for independent requests and avoid sequential await waterfalls.
 - Keep heavy/expensive work on the server where possible and minimize client component payloads.
@@ -111,7 +113,7 @@ This file describes the project conventions for AI/code agents working in this r
 
 ## Route and layout structure
 - App Router route groups are in `src/app/(main)`, `src/app/(auth)`, and `src/app/(admin)`.
-- Keep route-group folders focused on routing entry files (`page.tsx`, `layout.tsx`, and other Next file-convention files when needed).
+- Keep route-group folders focused on routing entry files (`page.tsx`, `layout.tsx`, and other Next file-convention files when needed). Colocated feature gateway `route.ts` files are allowed when client-side code needs an HTTP boundary.
 - Do not place shared feature components, data modules, or actions under route-group paths; keep them in non-group feature folders like `src/app/contest/**`, `src/app/contests/**`, `src/app/admin/**`, `src/app/auth/**`, `src/app/components/**`.
 - Shared layout and metadata are in [`src/app/layout.tsx`](src/app/layout.tsx).
 - Route guarding/proxy logic is in [`src/proxy.ts`](src/proxy.ts).

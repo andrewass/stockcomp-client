@@ -1,9 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import type { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
+import { useQuery } from "@tanstack/react-query";
 
-interface Props {
-	symbols: SymbolCardViewModel[];
-}
+const SYMBOL_CARD_SKELETON_KEYS = [
+	"symbol-card-skeleton-1",
+	"symbol-card-skeleton-2",
+	"symbol-card-skeleton-3",
+	"symbol-card-skeleton-4",
+	"symbol-card-skeleton-5",
+	"symbol-card-skeleton-6",
+	"symbol-card-skeleton-7",
+	"symbol-card-skeleton-8",
+	"symbol-card-skeleton-9",
+];
 
 function formatPrice(value: number, currency: string): string {
 	return new Intl.NumberFormat("en-US", {
@@ -29,10 +40,59 @@ function getChangeStyles(change: number): string {
 	return "border-base-300 bg-base-200 text-base-content/70";
 }
 
-export function SymbolsGrid({ symbols }: Props) {
+async function fetchTrendingSymbols(): Promise<SymbolCardViewModel[]> {
+	const response = await fetch("/symbols/api/symbols");
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	return (await response.json()) as SymbolCardViewModel[];
+}
+
+function SymbolCardSkeleton() {
 	return (
-		<section>
+		<div
+			className="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm"
+			aria-hidden="true"
+		>
+			<div className="flex h-full flex-col gap-5">
+				<div className="flex items-start justify-between gap-3">
+					<div className="flex-1 space-y-2">
+						<div className="skeleton h-3 w-20" />
+						<div className="skeleton h-6 w-3/4" />
+					</div>
+					<div className="skeleton h-5 w-12 rounded-full" />
+				</div>
+				<div className="space-y-3">
+					<div className="skeleton h-9 w-36" />
+					<div className="skeleton h-8 w-40 rounded-full" />
+				</div>
+			</div>
+		</div>
+	);
+}
+
+export function SymbolsGrid() {
+	const trendingSymbols = useQuery({
+		queryKey: ["symbols", "trending-prices"],
+		queryFn: fetchTrendingSymbols,
+		refetchInterval: 5_000,
+		staleTime: 5_000,
+	});
+	const symbols = trendingSymbols.data ?? [];
+	const shouldShowSkeleton = symbols.length === 0 && trendingSymbols.isFetching;
+
+	return (
+		<section aria-busy={shouldShowSkeleton}>
 			<div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
+				{shouldShowSkeleton ? (
+					<>
+						<span className="sr-only">Loading symbols</span>
+						{SYMBOL_CARD_SKELETON_KEYS.map((key) => (
+							<SymbolCardSkeleton key={key} />
+						))}
+					</>
+				) : null}
 				{symbols.map((symbol) => (
 					<Link
 						key={symbol.symbol}
