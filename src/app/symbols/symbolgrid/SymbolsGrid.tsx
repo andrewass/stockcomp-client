@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolCardViewModel } from "@/symbols/domain.ts";
 import { useQuery } from "@tanstack/react-query";
 
 const SYMBOL_CARD_SKELETON_KEYS = [

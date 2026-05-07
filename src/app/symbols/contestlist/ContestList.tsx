@@ -1,17 +1,20 @@
 import AvailableContests from "@/symbols/contestlist/AvailableContests.tsx";
 import SignedUpContests from "@/symbols/contestlist/SignedUpContests.tsx";
-import { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
 
 interface Props {
-	signedUpContests: SymbolContestListItemViewModel[];
-	openContests: SymbolContestListItemViewModel[];
+	registeredContests: SymbolContestListItemViewModel[];
+	unregisteredContests: SymbolContestListItemViewModel[];
 }
 
-export default function ContestList({ signedUpContests, openContests }: Props) {
+export default function ContestList({
+	registeredContests,
+	unregisteredContests,
+}: Props) {
 	return (
 		<div className="space-y-8 rounded-box border border-base-300 bg-base-200/70 p-4 shadow-sm">
-			<SignedUpContests contests={signedUpContests} />
-			<AvailableContests contests={openContests} />
+			<SignedUpContests contests={registeredContests} />
+			<AvailableContests contests={unregisteredContests} />
 		</div>
 	);
 }

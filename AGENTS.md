@@ -32,7 +32,7 @@ This file describes the project conventions for AI/code agents working in this r
 ## Domain extraction template (incremental)
 - Use incremental migration by domain entity: extract one domain at a time, keep behavior unchanged, then move to the next entity.
 - First extraction target: `contests` as a shared domain across `(admin)` and `(main)` experiences.
-- For feature-specific read orchestration, prefer `src/app/<feature>/*Data.ts`.
+- For feature-specific read orchestration, prefer stable non-route-group feature modules such as `src/app/<feature>/*Data.ts` or `src/app/<feature>/api/*Data.ts`.
 - Keep shared provider clients, token exchange, and HTTP/error helpers in `src/app/api/**`.
 - Keep domain-owned logic/types in `src/domain/<domain>/**`; app adapters map transport DTOs to/from domain shapes.
 - Feature UIs in both admin and main must depend on the same domain contracts, not duplicate per-route-group models.

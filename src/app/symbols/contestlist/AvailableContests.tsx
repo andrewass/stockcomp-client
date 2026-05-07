@@ -1,5 +1,5 @@
 import ContestSection from "@/symbols/contestlist/ContestSection.tsx";
-import { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
 
 interface Props {
 	contests: SymbolContestListItemViewModel[];

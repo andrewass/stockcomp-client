@@ -1,19 +1,22 @@
 import ContestList from "@/symbols/contestlist/ContestList.tsx";
 import { SymbolsGrid } from "@/symbols/symbolgrid/SymbolsGrid.tsx";
-import type { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
+import {
+	getRegisteredContests,
+	getUnregisteredContests,
+} from "@/symbols/api/contestsData.ts";
 
-interface Props {
-	signedUpContests: SymbolContestListItemViewModel[];
-	openContests: SymbolContestListItemViewModel[];
-}
+export async function SymbolsView() {
+	const [unregisteredContests, registeredContests] = await Promise.all([
+		getUnregisteredContests(),
+		getRegisteredContests(),
+	]);
 
-export function SymbolsView({ signedUpContests, openContests }: Props) {
 	return (
 		<div className="w-full max-w-7xl px-4 pb-12 pt-2 sm:px-6 lg:px-8">
 			<div className="grid items-start gap-6 xl:gap-12 xl:grid-cols-[minmax(0,3fr)_minmax(18rem,1fr)]">
 				<section className="space-y-6">
 					<div className="relative overflow-hidden rounded-box border border-base-300 bg-base-200/80 p-6 shadow-sm">
-						<div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-primary/10 via-transparent to-transparent lg:block" />
+						<div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-linear-to-l from-primary/10 via-transparent to-transparent lg:block" />
 						<div className="relative">
 							<div className="max-w-3xl space-y-3">
 								<p className="text-xs font-semibold uppercase tracking-[0.32em] text-base-content/60">
@@ -36,8 +39,8 @@ export function SymbolsView({ signedUpContests, openContests }: Props) {
 				</section>
 				<aside className="xl:sticky xl:top-24 xl:self-start">
 					<ContestList
-						signedUpContests={signedUpContests}
-						openContests={openContests}
+						registeredContests={registeredContests}
+						unregisteredContests={unregisteredContests}
 					/>
 				</aside>
 			</div>

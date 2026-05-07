@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { contestStatusRecord } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
-import { SymbolContestListItemViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
 
 interface Props {
 	title: string;

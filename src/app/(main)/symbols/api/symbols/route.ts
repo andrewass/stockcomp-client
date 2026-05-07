@@ -1,6 +1,6 @@
-import { getTrendingSymbolsPageData } from "@/symbols/api/symbols/symbolsData.ts";
+import { getTrendingSymbolsData } from "@/symbols/api/symbolsData.ts";
 
 export async function GET(): Promise<Response> {
-	const symbols = await getTrendingSymbolsPageData();
+	const symbols = await getTrendingSymbolsData();
 	return Response.json(symbols);
 }

@@ -1,7 +1,7 @@
 import "server-only";
 import type { SymbolPriceResponse } from "@/api/fastFinanceClient.ts";
 import { getTrendingSymbolsPrice } from "@/api/fastFinanceClient.ts";
-import type { SymbolCardViewModel } from "@/domain/symbol/symbolTypes.ts";
+import type { SymbolCardViewModel } from "@/symbols/domain.ts";
 
 function mapToCardViewModel(
 	symbolPrice: SymbolPriceResponse,
@@ -22,9 +22,7 @@ function mapToCardViewModel(
 	};
 }
 
-export async function getTrendingSymbolsPageData(): Promise<
-	SymbolCardViewModel[]
-> {
+export async function getTrendingSymbolsData(): Promise<SymbolCardViewModel[]> {
 	const symbols = await getTrendingSymbolsPrice();
 	return symbols.map(mapToCardViewModel);
 }
