@@ -7,7 +7,8 @@ interface Props {
 	title: string;
 	emptyMessage: string;
 	contests: SymbolContestListItemViewModel[];
-	showSignUpAction?: boolean;
+	onSignUp?: (contestId: number) => void;
+	signingUpContestId?: number;
 }
 
 const contestStatusDotClasses: Record<string, string> = {
@@ -25,7 +26,8 @@ export default function ContestSection({
 	title,
 	emptyMessage,
 	contests,
-	showSignUpAction = false,
+	onSignUp,
+	signingUpContestId,
 }: Props) {
 	return (
 		<section className="space-y-3">
@@ -40,6 +42,7 @@ export default function ContestSection({
 							contestStatusRecord,
 						);
 						const contestHref = `/contest/${contest.contestId}`;
+						const isSigningUp = signingUpContestId === contest.contestId;
 
 						return (
 							<article
@@ -70,13 +73,15 @@ export default function ContestSection({
 												</span>
 											</div>
 										</div>
-										{showSignUpAction && (
-											<Link
-												href={contestHref}
+										{onSignUp && (
+											<button
+												type="button"
 												className="btn btn-primary btn-xs shrink-0 rounded-full px-3"
+												disabled={isSigningUp}
+												onClick={() => onSignUp(contest.contestId)}
 											>
 												Sign up
-											</Link>
+											</button>
 										)}
 									</div>
 									<div className="grid gap-2 text-sm text-base-content/65 sm:grid-cols-2">
