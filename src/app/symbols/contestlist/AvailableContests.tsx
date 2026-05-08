@@ -11,6 +11,7 @@ export default function AvailableContests({ contests }: Props) {
 			title="Open For Sign Up"
 			emptyMessage="No new contests are open for sign-up right now."
 			contests={contests}
+			showSignUpAction
 		/>
 	);
 }
