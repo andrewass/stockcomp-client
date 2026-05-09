@@ -25,6 +25,18 @@ export type SymbolPriceResponse = {
 
 const PROVIDER = "fastfinance";
 
+const LIVE_PRICE_REQUEST_OPTIONS = {
+	cache: "no-store",
+} satisfies Pick<RequestInit, "cache">;
+
+const FUNDAMENTALS_REQUEST_OPTIONS = {
+	next: { revalidate: 60 * 60 },
+} satisfies { next: NextFetchRequestConfig };
+
+const HISTORY_REQUEST_OPTIONS = {
+	next: { revalidate: 60 * 60 },
+} satisfies { next: NextFetchRequestConfig };
+
 const TRENDING_SYMBOLS = [
 	"AAPL",
 	"MSFT",
@@ -65,6 +77,7 @@ export async function getTrendingSymbolsPrice(): Promise<
 		method: "POST",
 		provider: PROVIDER,
 		url: "/price/symbols",
+		...LIVE_PRICE_REQUEST_OPTIONS,
 		headers: getFastFinanceHeaders(),
 		body: { symbols: TRENDING_SYMBOLS } satisfies SymbolsPriceRequest,
 	});
@@ -75,8 +88,8 @@ export function getStockSymbolPrice(symbol: string): Promise<StockPrice> {
 		baseUrl: getFastFinanceBaseUrl(),
 		method: "GET",
 		provider: PROVIDER,
-		url: "/current-price-symbol",
-		params: { symbol },
+		url: `/price/current-price/${encodeURIComponent(symbol)}`,
+		...LIVE_PRICE_REQUEST_OPTIONS,
 		headers: getFastFinanceHeaders(),
 	});
 }
@@ -88,22 +101,27 @@ export function getStockSymbolFinancials(
 		baseUrl: getFastFinanceBaseUrl(),
 		method: "GET",
 		provider: PROVIDER,
-		url: "/financial-details-symbol",
-		params: { symbol },
+		url: `/statistics/${encodeURIComponent(symbol)}`,
+		...FUNDAMENTALS_REQUEST_OPTIONS,
 		headers: getFastFinanceHeaders(),
 	});
 }
+
+type HistoricalPricesResponse = {
+	prices: HistoricalPrice[];
+};
 
 export function getHistoricPrices(
 	symbol: string,
 	period: Period,
 ): Promise<HistoricalPrice[]> {
-	return requestJson<HistoricalPrice[]>({
+	return requestJson<HistoricalPricesResponse>({
 		baseUrl: getFastFinanceBaseUrl(),
 		method: "GET",
 		provider: PROVIDER,
-		url: "/historical-price",
+		url: "/price/historical-prices",
 		params: { symbol, period },
+		...HISTORY_REQUEST_OPTIONS,
 		headers: getFastFinanceHeaders(),
-	});
+	}).then((response) => response.prices);
 }

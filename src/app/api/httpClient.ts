@@ -5,7 +5,17 @@ export type RequestParams = Record<
 	string | number | boolean | null | undefined
 >;
 
-export interface JsonRequestConfig {
+type JsonRequestCacheConfig =
+	| {
+			cache?: RequestCache;
+			next?: never;
+	  }
+	| {
+			cache?: never;
+			next?: NextFetchRequestConfig;
+	  };
+
+export type JsonRequestConfig = {
 	baseUrl: string;
 	body?: unknown;
 	headers?: HeadersInit;
@@ -13,7 +23,7 @@ export interface JsonRequestConfig {
 	params?: RequestParams;
 	provider: string;
 	url: string;
-}
+} & JsonRequestCacheConfig;
 
 export class ApiHttpError extends Error {
 	constructor(
@@ -66,10 +76,27 @@ function createHeaders(
 	return requestHeaders;
 }
 
+function hasConflictingCacheConfig(config: JsonRequestConfig): boolean {
+	const cacheConfig = config as {
+		cache?: RequestCache;
+		next?: NextFetchRequestConfig;
+	};
+
+	return cacheConfig.cache !== undefined && cacheConfig.next !== undefined;
+}
+
 export async function requestJson<T>(config: JsonRequestConfig): Promise<T> {
 	const requestUrl = createUrl(config.baseUrl, config.url, config.params);
+	if (hasConflictingCacheConfig(config)) {
+		throw new Error(
+			`Invalid fetch cache configuration for ${config.provider}: use either cache or next, not both.`,
+		);
+	}
+
 	const response = await fetch(requestUrl, {
 		method: config.method,
+		cache: config.cache,
+		next: config.next,
 		headers: createHeaders(config.headers, config.body),
 		body: config.body === undefined ? undefined : JSON.stringify(config.body),
 	});

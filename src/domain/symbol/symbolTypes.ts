@@ -1,9 +1,7 @@
 export type StockPrice = {
 	currentPrice: number;
-	priceChange: number;
-	percentageChange: number;
+	previousClose: number;
 	currency: string;
-	usdPrice: number;
 	symbol: string;
 	companyName: string;
 };
@@ -16,20 +14,25 @@ export type StockFinancials = {
 	priceToBook: number;
 	priceToEarnings: number;
 	earningsPerShare: number;
-	dividendRate?: number;
-	dividendYieldPercentage?: number;
+	dividendRate?: number | null;
+	dividendYieldPercentage?: number | null;
 };
 
 export type HistoricalPrice = {
 	price: number;
-	price_date: number;
+	price_date: string;
 };
 
 export enum Period {
-	MONTH1 = "MONTH1",
-	MONTH6 = "MONTH6",
-	THIS_YEAR = "THIS_YEAR",
-	YEAR1 = "YEAR1",
-	YEAR5 = "YEAR5",
-	MAX = "MAX",
+	DAY1 = "1d",
+	DAY5 = "5d",
+	MONTH1 = "1mo",
+	MONTH3 = "3mo",
+	MONTH6 = "6mo",
+	YEAR1 = "1y",
+	YEAR2 = "2y",
+	YEAR5 = "5y",
+	YEAR10 = "10y",
+	THIS_YEAR = "ytd",
+	MAX = "max",
 }
