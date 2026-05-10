@@ -78,10 +78,14 @@ export default function SymbolDetailView({ symbolDetail }: Props) {
 	const metrics: Metric[] = [
 		{
 			label: "Market cap",
-			value: formatCurrency(symbolDetail.financials.marketCap, symbolDetail.currency, {
-				notation: "compact",
-				maximumFractionDigits: 2,
-			}),
+			value: formatCurrency(
+				symbolDetail.financials.marketCap,
+				symbolDetail.currency,
+				{
+					notation: "compact",
+					maximumFractionDigits: 2,
+				},
+			),
 		},
 		{
 			label: "P/E",

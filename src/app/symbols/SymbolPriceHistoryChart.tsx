@@ -113,8 +113,14 @@ export function SymbolPriceHistoryChart({ currency, history }: Props) {
 	}
 
 	return (
-		<div className="h-80 w-full text-primary">
-			<ResponsiveContainer width="100%" height="100%">
+		<div className="h-80 min-h-80 w-full min-w-0 text-primary">
+			<ResponsiveContainer
+				width="100%"
+				height={320}
+				minWidth={1}
+				minHeight={1}
+				initialDimension={{ width: 1, height: 320 }}
+			>
 				<AreaChart
 					data={chartData}
 					margin={{ top: 8, right: 8, bottom: 8, left: 0 }}
