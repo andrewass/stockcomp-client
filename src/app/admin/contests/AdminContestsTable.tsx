@@ -1,7 +1,7 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import {
-	contestStatusRecord,
 	type Contest,
+	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 

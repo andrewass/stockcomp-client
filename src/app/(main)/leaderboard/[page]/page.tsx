@@ -1,6 +1,6 @@
-import { getLeaderboardEntries } from "@/leaderboard/leaderboardData.ts";
-import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
 import { parseParams } from "@/components/table/PageableTable.tsx";
+import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
+import { getLeaderboardEntries } from "@/leaderboard/leaderboardData.ts";
 
 export default async function LeaderboardPage({
 	params,

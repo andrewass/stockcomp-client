@@ -1,10 +1,10 @@
+import Link from "next/link";
 import PageableTable from "@/components/table/PageableTable.tsx";
 import {
-	contestStatusRecord,
 	type Contest,
+	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
-import Link from "next/link";
 
 interface Props {
 	contests: Contest[];

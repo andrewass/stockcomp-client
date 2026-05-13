@@ -1,14 +1,14 @@
-import ContestLeaderboardTable from "./ContestLeaderboardTable.tsx";
 import type {
 	ContestLeaderboardPage,
 	ContestParticipantDetail,
 } from "@/domain/contests/contestParticipantTypes.ts";
 import {
+	type Contest,
 	contestStatusRecord,
 	getStatusByColor,
-	type Contest,
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
+import ContestLeaderboardTable from "./ContestLeaderboardTable.tsx";
 
 interface Props {
 	contest: Contest;

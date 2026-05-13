@@ -1,5 +1,5 @@
-import { getAdminUsers } from "@/admin/users/adminUsersData.ts";
 import AdminUsersView from "@/admin/users/AdminUsersView.tsx";
+import { getAdminUsers } from "@/admin/users/adminUsersData.ts";
 import { parseParams } from "@/components/table/PageableTable.tsx";
 
 export default async function AdminUsersPage({

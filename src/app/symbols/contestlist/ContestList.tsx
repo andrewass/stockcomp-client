@@ -1,9 +1,9 @@
 "use client";
 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import AvailableContests from "@/symbols/contestlist/AvailableContests.tsx";
 import SignedUpContests from "@/symbols/contestlist/SignedUpContests.tsx";
 import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
 	registeredContests: SymbolContestListItemViewModel[];

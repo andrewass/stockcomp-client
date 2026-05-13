@@ -1,5 +1,5 @@
-import AdminUsersTable from "./AdminUsersTable.tsx";
 import type { User } from "@/types/userTypes.ts";
+import AdminUsersTable from "./AdminUsersTable.tsx";
 
 interface Props {
 	users: User[];

@@ -1,6 +1,6 @@
 "use client";
 
-import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
+import { useMemo } from "react";
 import {
 	Area,
 	AreaChart,
@@ -10,7 +10,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import { useMemo } from "react";
+import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
 
 interface Props {
 	currency: string;

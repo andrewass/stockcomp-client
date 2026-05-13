@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMemo, useState, useTransition, type FormEvent } from "react";
+import { type FormEvent, useMemo, useState, useTransition } from "react";
 import { createContestAction } from "@/admin/contests/actions.ts";
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
 
