@@ -1,14 +1,10 @@
 import "server-only";
+import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import { resourceGet, resourcePost } from "@/api/resourceServerClient.ts";
 import type { Contest } from "@/domain/contests/contestTypes.ts";
-import { CONTEST_STATUS } from "@/domain/contests/contestTypes.ts";
-import type { SymbolInvestmentSummary } from "@/domain/investment/investmentTypes.ts";
-import {
-	type CreateInvestmentOrderRequest,
-	type InvestmentOrder,
-	ORDER_STATUS,
-	TRANSACTION_TYPE,
-	type TransactionType,
+import type {
+	CreateInvestmentOrderRequest,
+	TransactionType,
 } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import type {
 	SymbolTradingContestViewModel,
@@ -16,28 +12,43 @@ import type {
 	SymbolTradingViewModel,
 } from "@/symbols/domain.ts";
 
-interface ParticipantPortfolioSummary {
-	remainingFunds?: number;
+interface UserParticipantDto {
+	participantId: number;
+	remainingFunds: number;
 }
 
-interface SymbolPortfolioContestResponse {
-	contest?: Contest;
-	contestId?: number;
-	contestName?: string;
-	contestStatus?: string;
-	startTime?: string;
-	endTime?: string;
-	participant?: ParticipantPortfolioSummary;
-	remainingFunds?: number;
-	investment?: Partial<SymbolInvestmentSummary> | null;
-	orders?: InvestmentOrder[];
-	investmentOrders?: InvestmentOrder[];
+interface ContestParticipantDto {
+	contest: Contest;
+	participant: UserParticipantDto;
 }
 
-const USE_DUMMY_TRADING_DATA = true;
+interface InvestmentDto {
+	symbol: string;
+	amount: number;
+	averageUnitCost: number;
+	totalProfit: number;
+	totalValue: number;
+}
 
-let dummyOrderSequence = 10_000;
-const dummyOrdersBySymbol = new Map<string, InvestmentOrder[]>();
+interface InvestmentOrderDto {
+	orderId: number | null;
+	symbol: string;
+	totalAmount: number;
+	remainingAmount: number;
+	acceptedPrice: number;
+	currency: string;
+	expirationTime: string;
+	transactionType: TransactionType;
+	orderStatus: string;
+}
+
+interface DetailedParticipantDto {
+	contest: Contest;
+	participant: UserParticipantDto;
+	investments: InvestmentDto[];
+	activeOrders: InvestmentOrderDto[];
+	completedOrders: InvestmentOrderDto[];
+}
 
 function normalizeSymbol(symbol: string): string {
 	return symbol.trim().toUpperCase();
@@ -49,190 +60,125 @@ function toFiniteNumber(value: number | null | undefined): number {
 		: value;
 }
 
-function mapTradingOrder(order: InvestmentOrder): SymbolTradingOrderViewModel {
+function getDefaultExpirationTime(): string {
+	const expiration = new Date(Date.now() + 24 * 60 * 60 * 1000);
+	return expiration.toISOString().slice(0, 19);
+}
+
+function mapTradingOrder(
+	order: InvestmentOrderDto,
+): SymbolTradingOrderViewModel {
 	return {
-		investmentOrderId: order.investmentOrderId,
+		investmentOrderId: order.orderId,
 		transactionType: order.transactionType,
-		amount: order.amount,
+		amount: order.totalAmount,
+		remainingAmount: order.remainingAmount,
+		acceptedPrice: order.acceptedPrice,
+		currency: order.currency,
 		orderStatus: order.orderStatus,
-		createdAt: order.createdAt ?? null,
-		updatedAt: order.updatedAt ?? null,
+		createdAt: null,
+		updatedAt: order.expirationTime,
 	};
 }
 
-function mapPortfolioContest(
-	item: SymbolPortfolioContestResponse,
+function mapContestTradingData(
+	registeredContest: ContestParticipantDto,
+	detailedParticipant: DetailedParticipantDto | null,
+	symbol: string,
 ): SymbolTradingContestViewModel {
-	const investment = item.investment;
-	const orders = item.orders ?? item.investmentOrders ?? [];
+	const investment = detailedParticipant?.investments.find(
+		(item) => normalizeSymbol(item.symbol) === symbol,
+	);
+	const totalCost =
+		toFiniteNumber(investment?.averageUnitCost) *
+		toFiniteNumber(investment?.amount);
+	const totalProfit = toFiniteNumber(investment?.totalProfit);
+	const orders = [
+		...(detailedParticipant?.activeOrders ?? []),
+		...(detailedParticipant?.completedOrders ?? []),
+	].filter((order) => normalizeSymbol(order.symbol) === symbol);
 
 	return {
-		contestId: item.contest?.contestId ?? item.contestId ?? 0,
-		contestName:
-			item.contest?.contestName ?? item.contestName ?? "Unknown contest",
-		contestStatus:
-			item.contest?.contestStatus ?? item.contestStatus ?? "UNKNOWN",
-		startTime: item.contest?.startTime ?? item.startTime ?? "",
-		endTime: item.contest?.endTime ?? item.endTime ?? "",
+		contestId: registeredContest.contest.contestId,
+		participantId: registeredContest.participant.participantId,
+		contestName: registeredContest.contest.contestName,
+		contestStatus: registeredContest.contest.contestStatus,
+		startTime: registeredContest.contest.startTime,
+		endTime: registeredContest.contest.endTime,
 		remainingFunds: toFiniteNumber(
-			item.remainingFunds ?? item.participant?.remainingFunds,
+			detailedParticipant?.participant.remainingFunds ??
+				registeredContest.participant.remainingFunds,
 		),
 		investment: {
 			amount: toFiniteNumber(investment?.amount),
-			totalCost: toFiniteNumber(investment?.totalCost),
-			totalProfit: toFiniteNumber(investment?.totalProfit),
-			totalProfitPercentage: toFiniteNumber(investment?.totalProfitPercentage),
+			totalCost,
+			totalProfit,
+			totalProfitPercentage:
+				totalCost === 0 ? 0 : (totalProfit / totalCost) * 100,
 			totalValue: toFiniteNumber(investment?.totalValue),
 		},
 		orders: orders.map(mapTradingOrder),
 	};
 }
 
-function getDummyOrders(symbol: string): InvestmentOrder[] {
-	const normalizedSymbol = normalizeSymbol(symbol);
-	const existingOrders = dummyOrdersBySymbol.get(normalizedSymbol);
-	if (existingOrders) {
-		return existingOrders;
-	}
-
-	const initialOrders: InvestmentOrder[] = [
-		{
-			investmentOrderId: 9_001,
-			contestId: 101,
-			symbol: normalizedSymbol,
-			transactionType: TRANSACTION_TYPE.BUY,
-			amount: 5,
-			orderStatus: ORDER_STATUS.COMPLETED,
-			createdAt: "2026-05-12T09:30:00Z",
-			updatedAt: "2026-05-12T09:30:08Z",
-		},
-		{
-			investmentOrderId: 9_002,
-			contestId: 102,
-			symbol: normalizedSymbol,
-			transactionType: TRANSACTION_TYPE.BUY,
-			amount: 3,
-			orderStatus: ORDER_STATUS.FAILED,
-			createdAt: "2026-05-13T13:15:00Z",
-			updatedAt: "2026-05-13T13:15:04Z",
-		},
-	];
-
-	dummyOrdersBySymbol.set(normalizedSymbol, initialOrders);
-	return initialOrders;
+async function getRegisteredContests(): Promise<ContestParticipantDto[]> {
+	return resourceGet<ContestParticipantDto[]>({
+		url: "/participants/registered",
+	});
 }
 
-function getDummySymbolTradingData(symbol: string): SymbolTradingViewModel {
-	const normalizedSymbol = normalizeSymbol(symbol);
-	const orders = getDummyOrders(normalizedSymbol);
+async function getDetailedParticipantForContest(
+	contestId: number,
+): Promise<DetailedParticipantDto | null> {
+	try {
+		return await resourceGet<DetailedParticipantDto | null>({
+			url: `/participants/detailed/contest/${contestId}`,
+		});
+	} catch (error) {
+		if (isApiHttpStatusError(error, 404)) {
+			return null;
+		}
 
-	return {
-		symbol: normalizedSymbol,
-		contests: [
-			{
-				contestId: 101,
-				contestName: "Spring Trading League",
-				contestStatus: CONTEST_STATUS.RUNNING,
-				startTime: "2026-05-01T08:00:00Z",
-				endTime: "2026-06-01T08:00:00Z",
-				remainingFunds: 14_820.75,
-				investment: {
-					amount: 12,
-					totalCost: 2_040,
-					totalProfit: 318.24,
-					totalProfitPercentage: 15.6,
-					totalValue: 2_358.24,
-				},
-				orders: orders
-					.filter((order) => order.contestId === 101)
-					.map(mapTradingOrder),
-			},
-			{
-				contestId: 102,
-				contestName: "Nordic Momentum",
-				contestStatus: CONTEST_STATUS.RUNNING,
-				startTime: "2026-05-10T08:00:00Z",
-				endTime: "2026-05-31T08:00:00Z",
-				remainingFunds: 8_500,
-				investment: {
-					amount: 0,
-					totalCost: 0,
-					totalProfit: 0,
-					totalProfitPercentage: 0,
-					totalValue: 0,
-				},
-				orders: orders
-					.filter((order) => order.contestId === 102)
-					.map(mapTradingOrder),
-			},
-			{
-				contestId: 103,
-				contestName: "Summer Value Challenge",
-				contestStatus: CONTEST_STATUS.AWAITING_START,
-				startTime: "2026-06-03T08:00:00Z",
-				endTime: "2026-07-03T08:00:00Z",
-				remainingFunds: 10_000,
-				investment: {
-					amount: 4,
-					totalCost: 720,
-					totalProfit: -42.8,
-					totalProfitPercentage: -5.94,
-					totalValue: 677.2,
-				},
-				orders: [],
-			},
-		],
-	};
+		throw error;
+	}
 }
 
 export async function getSymbolTradingData(
 	symbol: string,
 ): Promise<SymbolTradingViewModel> {
 	const normalizedSymbol = normalizeSymbol(symbol);
-	if (USE_DUMMY_TRADING_DATA) {
-		return getDummySymbolTradingData(normalizedSymbol);
-	}
-
-	const contests = await resourceGet<SymbolPortfolioContestResponse[]>({
-		url: `/participants/registered/symbols/${encodeURIComponent(
-			normalizedSymbol,
-		)}/portfolio`,
-	});
+	const registeredContests = await getRegisteredContests();
+	const detailedParticipants = await Promise.all(
+		registeredContests.map((registeredContest) =>
+			getDetailedParticipantForContest(registeredContest.contest.contestId),
+		),
+	);
 
 	return {
 		symbol: normalizedSymbol,
-		contests: contests.map(mapPortfolioContest),
+		contests: registeredContests.map((registeredContest, index) =>
+			mapContestTradingData(
+				registeredContest,
+				detailedParticipants[index] ?? null,
+				normalizedSymbol,
+			),
+		),
 	};
 }
 
 export async function createInvestmentOrder(
 	request: CreateInvestmentOrderRequest,
-): Promise<InvestmentOrder | null> {
-	if (USE_DUMMY_TRADING_DATA) {
-		const normalizedSymbol = normalizeSymbol(request.symbol);
-		const order: InvestmentOrder = {
-			investmentOrderId: dummyOrderSequence++,
-			contestId: request.contestId,
-			symbol: normalizedSymbol,
-			transactionType: request.transactionType,
-			amount: request.amount,
-			orderStatus: ORDER_STATUS.ACTIVE,
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
-		};
-		const orders = getDummyOrders(normalizedSymbol);
-		dummyOrdersBySymbol.set(normalizedSymbol, [order, ...orders]);
-
-		return order;
-	}
-
-	return resourcePost<InvestmentOrder | null>({
-		url: "/investment-orders",
+): Promise<void> {
+	await resourcePost<void>({
+		url: "/participants/investmentorders/order",
 		body: {
-			contestId: request.contestId,
+			participantId: request.participantId,
 			symbol: normalizeSymbol(request.symbol),
-			transactionType: request.transactionType,
 			amount: request.amount,
+			currency: request.currency,
+			expirationTime: request.expirationTime ?? getDefaultExpirationTime(),
+			acceptedPrice: request.acceptedPrice,
+			transactionType: request.transactionType,
 		},
 	});
 }

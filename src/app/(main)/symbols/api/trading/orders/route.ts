@@ -7,9 +7,12 @@ import {
 
 interface CreateInvestmentOrderBody {
 	contestId?: unknown;
+	participantId?: unknown;
 	symbol?: unknown;
 	transactionType?: unknown;
 	amount?: unknown;
+	currency?: unknown;
+	acceptedPrice?: unknown;
 }
 
 function parsePositiveInteger(value: unknown): number | null {
@@ -48,20 +51,32 @@ export async function POST(request: Request): Promise<Response> {
 	}
 
 	const contestId = parsePositiveInteger(body.contestId);
+	const participantId = parsePositiveInteger(body.participantId);
 	const amount = parsePositiveInteger(body.amount);
 	const symbol =
 		typeof body.symbol === "string" ? body.symbol.trim().toUpperCase() : "";
+	const currency =
+		typeof body.currency === "string" ? body.currency.trim().toUpperCase() : "";
+	const acceptedPrice =
+		typeof body.acceptedPrice === "number" &&
+		Number.isFinite(body.acceptedPrice) &&
+		body.acceptedPrice > 0
+			? body.acceptedPrice
+			: null;
 
 	if (
 		!contestId ||
+		!participantId ||
 		!amount ||
 		!symbol ||
+		!currency ||
+		!acceptedPrice ||
 		!isTransactionType(body.transactionType)
 	) {
 		return Response.json(
 			{
 				message:
-					"contestId, symbol, transactionType, and positive integer amount are required.",
+					"contestId, participantId, symbol, transactionType, currency, acceptedPrice, and positive integer amount are required.",
 			},
 			{ status: 400 },
 		);
@@ -69,13 +84,15 @@ export async function POST(request: Request): Promise<Response> {
 
 	try {
 		const order = await createInvestmentOrder({
-			contestId,
+			participantId,
 			symbol,
 			transactionType: body.transactionType,
 			amount,
+			currency,
+			acceptedPrice,
 		});
 
-		return Response.json(order, { status: 201 });
+		return Response.json(order ?? null, { status: 201 });
 	} catch (error) {
 		return toErrorResponse(error);
 	}

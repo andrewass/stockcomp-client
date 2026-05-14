@@ -21,19 +21,23 @@ export type TransactionType =
 	(typeof TRANSACTION_TYPE)[keyof typeof TRANSACTION_TYPE];
 
 export interface InvestmentOrder {
-	investmentOrderId: number;
-	contestId: number;
+	orderId: number | null;
 	symbol: string;
 	transactionType: TransactionType;
-	amount: number;
+	totalAmount: number;
+	remainingAmount: number;
+	acceptedPrice: number;
+	currency: string;
+	expirationTime: string;
 	orderStatus: OrderStatus;
-	createdAt?: string;
-	updatedAt?: string;
 }
 
 export interface CreateInvestmentOrderRequest {
-	contestId: number;
+	participantId: number;
 	symbol: string;
 	transactionType: TransactionType;
 	amount: number;
+	currency: string;
+	acceptedPrice: number;
+	expirationTime?: string;
 }

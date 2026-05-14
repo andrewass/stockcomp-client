@@ -42,9 +42,12 @@ export type SymbolContestListItemViewModel = {
 };
 
 export type SymbolTradingOrderViewModel = {
-	investmentOrderId: number;
+	investmentOrderId: number | null;
 	transactionType: "BUY" | "SELL";
 	amount: number;
+	remainingAmount: number;
+	acceptedPrice: number;
+	currency: string;
 	orderStatus: string;
 	createdAt: string | null;
 	updatedAt: string | null;
@@ -52,6 +55,7 @@ export type SymbolTradingOrderViewModel = {
 
 export type SymbolTradingContestViewModel = {
 	contestId: number;
+	participantId: number;
 	contestName: string;
 	contestStatus: string;
 	startTime: string;

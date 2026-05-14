@@ -31,9 +31,12 @@ interface Props {
 
 type OrderRequest = {
 	contestId: number;
+	participantId: number;
 	symbol: string;
 	transactionType: "BUY" | "SELL";
 	amount: number;
+	currency: string;
+	acceptedPrice: number;
 };
 
 const terminalOrderStatuses = new Set<string>([
@@ -251,9 +254,12 @@ export default function SymbolTradingSidebar({
 
 		orderMutation.mutate({
 			contestId: selectedContest.contestId,
+			participantId: selectedContest.participantId,
 			symbol,
 			transactionType,
 			amount,
+			currency,
+			acceptedPrice: currentPrice,
 		});
 	}
 
@@ -506,9 +512,9 @@ export default function SymbolTradingSidebar({
 											</p>
 										) : (
 											<div className="space-y-2">
-												{contest.orders.map((order) => (
+												{contest.orders.map((order, orderIndex) => (
 													<div
-														key={order.investmentOrderId}
+														key={`${order.investmentOrderId ?? "order"}-${orderIndex}`}
 														className="flex items-center justify-between gap-3 rounded-box bg-base-200/60 px-3 py-2 text-sm"
 													>
 														<div>
@@ -521,10 +527,22 @@ export default function SymbolTradingSidebar({
 																	maximumFractionDigits: 0,
 																})}
 															</p>
-															{order.createdAt && (
+															<p className="text-xs text-base-content/50">
+																Limit{" "}
+																{formatCurrency(
+																	order.acceptedPrice,
+																	order.currency,
+																	{
+																		minimumFractionDigits: 2,
+																		maximumFractionDigits: 2,
+																	},
+																)}
+															</p>
+															{order.updatedAt && (
 																<p className="text-xs text-base-content/50">
+																	Expires{" "}
 																	{formatDateTimeValue(
-																		order.createdAt,
+																		order.updatedAt,
 																		"dd/MM HH:mm",
 																	)}
 																</p>
