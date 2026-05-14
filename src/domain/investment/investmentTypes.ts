@@ -5,3 +5,12 @@ export type Investment = {
 	totalProfit: number;
 	totalValue: number;
 };
+
+export interface SymbolInvestmentSummary {
+	symbol: string;
+	amount: number;
+	totalCost: number;
+	totalProfit: number;
+	totalProfitPercentage: number;
+	totalValue: number;
+}

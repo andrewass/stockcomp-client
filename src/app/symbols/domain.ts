@@ -40,3 +40,34 @@ export type SymbolContestListItemViewModel = {
 	startTime: string;
 	endTime: string;
 };
+
+export type SymbolTradingOrderViewModel = {
+	investmentOrderId: number;
+	transactionType: "BUY" | "SELL";
+	amount: number;
+	orderStatus: string;
+	createdAt: string | null;
+	updatedAt: string | null;
+};
+
+export type SymbolTradingContestViewModel = {
+	contestId: number;
+	contestName: string;
+	contestStatus: string;
+	startTime: string;
+	endTime: string;
+	remainingFunds: number;
+	investment: {
+		amount: number;
+		totalCost: number;
+		totalProfit: number;
+		totalProfitPercentage: number;
+		totalValue: number;
+	};
+	orders: SymbolTradingOrderViewModel[];
+};
+
+export type SymbolTradingViewModel = {
+	symbol: string;
+	contests: SymbolTradingContestViewModel[];
+};
