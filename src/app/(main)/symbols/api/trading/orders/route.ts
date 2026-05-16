@@ -11,14 +11,29 @@ interface CreateInvestmentOrderBody {
 	symbol?: unknown;
 	transactionType?: unknown;
 	amount?: unknown;
+	totalAmount?: unknown;
 	currency?: unknown;
 	acceptedPrice?: unknown;
+	expirationTime?: unknown;
 }
 
 function parsePositiveInteger(value: unknown): number | null {
 	return typeof value === "number" && Number.isInteger(value) && value > 0
 		? value
 		: null;
+}
+
+function parseFutureLocalDateTime(value: unknown): string | null {
+	if (typeof value !== "string" || !value.trim()) {
+		return null;
+	}
+
+	const expirationTimestamp = Date.parse(value);
+	if (Number.isNaN(expirationTimestamp) || expirationTimestamp <= Date.now()) {
+		return null;
+	}
+
+	return value.trim();
 }
 
 function toErrorResponse(error: unknown): Response {
@@ -52,7 +67,7 @@ export async function POST(request: Request): Promise<Response> {
 
 	const contestId = parsePositiveInteger(body.contestId);
 	const participantId = parsePositiveInteger(body.participantId);
-	const amount = parsePositiveInteger(body.amount);
+	const totalAmount = parsePositiveInteger(body.totalAmount ?? body.amount);
 	const symbol =
 		typeof body.symbol === "string" ? body.symbol.trim().toUpperCase() : "";
 	const currency =
@@ -63,20 +78,22 @@ export async function POST(request: Request): Promise<Response> {
 		body.acceptedPrice > 0
 			? body.acceptedPrice
 			: null;
+	const expirationTime = parseFutureLocalDateTime(body.expirationTime);
 
 	if (
 		!contestId ||
 		!participantId ||
-		!amount ||
+		!totalAmount ||
 		!symbol ||
 		!currency ||
 		!acceptedPrice ||
+		!expirationTime ||
 		!isTransactionType(body.transactionType)
 	) {
 		return Response.json(
 			{
 				message:
-					"contestId, participantId, symbol, transactionType, currency, acceptedPrice, and positive integer amount are required.",
+					"contestId, participantId, symbol, transactionType, currency, acceptedPrice, expirationTime, and positive integer totalAmount are required.",
 			},
 			{ status: 400 },
 		);
@@ -87,9 +104,10 @@ export async function POST(request: Request): Promise<Response> {
 			participantId,
 			symbol,
 			transactionType: body.transactionType,
-			amount,
+			totalAmount,
 			currency,
 			acceptedPrice,
+			expirationTime,
 		});
 
 		return Response.json(order ?? null, { status: 201 });

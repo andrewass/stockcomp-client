@@ -36,8 +36,8 @@ export interface CreateInvestmentOrderRequest {
 	participantId: number;
 	symbol: string;
 	transactionType: TransactionType;
-	amount: number;
+	totalAmount: number;
 	currency: string;
 	acceptedPrice: number;
-	expirationTime?: string;
+	expirationTime: string;
 }

@@ -71,13 +71,12 @@ function mapTradingOrder(
 	return {
 		investmentOrderId: order.orderId,
 		transactionType: order.transactionType,
-		amount: order.totalAmount,
+		totalAmount: order.totalAmount,
 		remainingAmount: order.remainingAmount,
 		acceptedPrice: order.acceptedPrice,
 		currency: order.currency,
 		orderStatus: order.orderStatus,
-		createdAt: null,
-		updatedAt: order.expirationTime,
+		expirationTime: order.expirationTime,
 	};
 }
 
@@ -174,9 +173,9 @@ export async function createInvestmentOrder(
 		body: {
 			participantId: request.participantId,
 			symbol: normalizeSymbol(request.symbol),
-			amount: request.amount,
+			amount: request.totalAmount,
 			currency: request.currency,
-			expirationTime: request.expirationTime ?? getDefaultExpirationTime(),
+			expirationTime: request.expirationTime || getDefaultExpirationTime(),
 			acceptedPrice: request.acceptedPrice,
 			transactionType: request.transactionType,
 		},

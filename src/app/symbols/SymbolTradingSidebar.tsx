@@ -3,6 +3,7 @@
 import {
 	ArrowPathIcon,
 	BanknotesIcon,
+	ChevronDownIcon,
 	ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -34,9 +35,10 @@ type OrderRequest = {
 	participantId: number;
 	symbol: string;
 	transactionType: "BUY" | "SELL";
-	amount: number;
+	totalAmount: number;
 	currency: string;
 	acceptedPrice: number;
+	expirationTime: string;
 };
 
 const terminalOrderStatuses = new Set<string>([
@@ -47,6 +49,23 @@ const terminalOrderStatuses = new Set<string>([
 
 function getTradingQueryKey(symbol: string) {
 	return ["symbols", "trading", symbol] as const;
+}
+
+function toDateTimeLocalInputValue(date: Date): string {
+	const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
+	return localDate.toISOString().slice(0, 16);
+}
+
+function getDefaultExpirationTimeInput(): string {
+	return toDateTimeLocalInputValue(new Date(Date.now() + 24 * 60 * 60 * 1000));
+}
+
+function getMinimumExpirationTimeInput(): string {
+	return toDateTimeLocalInputValue(new Date(Date.now() + 60_000));
+}
+
+function getLocalTimeZoneName(): string {
+	return Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
 }
 
 function hasActiveOrders(data: SymbolTradingViewModel | undefined): boolean {
@@ -132,6 +151,18 @@ function getContestStatusBadgeClassName(status: string): string {
 	}
 }
 
+function getContestTimelineLabel(contest: SymbolTradingContestViewModel): string {
+	if (contest.contestStatus === CONTEST_STATUS.AWAITING_START) {
+		return `Starts ${formatDateTimeValue(contest.startTime, "dd/MM HH:mm")}`;
+	}
+
+	if (contest.contestStatus === CONTEST_STATUS.COMPLETED) {
+		return `Ended ${formatDateTimeValue(contest.endTime, "dd/MM HH:mm")}`;
+	}
+
+	return `Ends ${formatDateTimeValue(contest.endTime, "dd/MM HH:mm")}`;
+}
+
 async function fetchTradingData(
 	symbol: string,
 ): Promise<SymbolTradingViewModel> {
@@ -181,6 +212,17 @@ export default function SymbolTradingSidebar({
 		TRANSACTION_TYPE.BUY,
 	);
 	const [amountInput, setAmountInput] = useState("");
+	const [acceptedPriceInput, setAcceptedPriceInput] = useState(() =>
+		currentPrice.toFixed(2),
+	);
+	const [expirationTimeInput, setExpirationTimeInput] = useState(
+		getDefaultExpirationTimeInput,
+	);
+	const [showOrderCreatedMessage, setShowOrderCreatedMessage] = useState(false);
+	const [expandedContestId, setExpandedContestId] = useState<
+		number | undefined
+	>(() => initialTradingData.contests[0]?.contestId);
+	const timeZoneName = useMemo(getLocalTimeZoneName, []);
 
 	const tradingQuery = useQuery({
 		queryKey: getTradingQueryKey(symbol),
@@ -205,7 +247,16 @@ export default function SymbolTradingSidebar({
 		selectedContest?.contestStatus === CONTEST_STATUS.RUNNING;
 	const amountIsPositiveInteger = /^[1-9]\d*$/.test(amountInput);
 	const amount = amountIsPositiveInteger ? Number.parseInt(amountInput, 10) : 0;
-	const estimatedValue = amount * currentPrice;
+	const acceptedPrice = Number.parseFloat(acceptedPriceInput);
+	const acceptedPriceIsValid =
+		acceptedPriceInput.trim() !== "" &&
+		Number.isFinite(acceptedPrice) &&
+		acceptedPrice > 0;
+	const expirationTimeIsValid =
+		expirationTimeInput.trim() !== "" &&
+		!Number.isNaN(Date.parse(expirationTimeInput)) &&
+		Date.parse(expirationTimeInput) > Date.now();
+	const estimatedValue = amount * (acceptedPriceIsValid ? acceptedPrice : 0);
 	const sellAmountExceedsHolding =
 		transactionType === TRANSACTION_TYPE.SELL &&
 		selectedContest !== undefined &&
@@ -218,6 +269,8 @@ export default function SymbolTradingSidebar({
 		!selectedContest ||
 		!selectedContestIsTradable ||
 		!amountIsPositiveInteger ||
+		!acceptedPriceIsValid ||
+		!expirationTimeIsValid ||
 		sellAmountExceedsHolding ||
 		buyAmountExceedsFunds;
 
@@ -225,6 +278,8 @@ export default function SymbolTradingSidebar({
 		mutationFn: createInvestmentOrder,
 		onSuccess: async () => {
 			setAmountInput("");
+			setExpirationTimeInput(getDefaultExpirationTimeInput());
+			setShowOrderCreatedMessage(true);
 			await queryClient.invalidateQueries({
 				queryKey: getTradingQueryKey(symbol),
 			});
@@ -246,6 +301,42 @@ export default function SymbolTradingSidebar({
 		setSelectedContestId(getFirstRunningContest(contests)?.contestId);
 	}, [contests, selectedContestId]);
 
+	useEffect(() => {
+		if (
+			expandedContestId !== undefined &&
+			contests.some((contest) => contest.contestId === expandedContestId)
+		) {
+			return;
+		}
+
+		setExpandedContestId(contests[0]?.contestId);
+	}, [contests, expandedContestId]);
+
+	useEffect(() => {
+		setAcceptedPriceInput(currentPrice.toFixed(2));
+		setExpirationTimeInput(getDefaultExpirationTimeInput());
+	}, [currentPrice, symbol]);
+
+	useEffect(() => {
+		if (!showOrderCreatedMessage) {
+			return;
+		}
+
+		const timeoutId = window.setTimeout(() => {
+			setShowOrderCreatedMessage(false);
+			orderMutation.reset();
+		}, 3_000);
+
+		return () => window.clearTimeout(timeoutId);
+	}, [orderMutation, showOrderCreatedMessage]);
+
+	function clearOrderCreatedMessage() {
+		if (showOrderCreatedMessage) {
+			setShowOrderCreatedMessage(false);
+			orderMutation.reset();
+		}
+	}
+
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		if (submitDisabled || !selectedContest) {
@@ -257,9 +348,10 @@ export default function SymbolTradingSidebar({
 			participantId: selectedContest.participantId,
 			symbol,
 			transactionType,
-			amount,
+			totalAmount: amount,
 			currency,
-			acceptedPrice: currentPrice,
+			acceptedPrice,
+			expirationTime: expirationTimeInput,
 		});
 	}
 
@@ -284,12 +376,14 @@ export default function SymbolTradingSidebar({
 					</label>
 					<select
 						id="symbol-trading-contest"
+						name="contestId"
 						className="select select-bordered w-full"
 						value={selectedContestId ?? ""}
 						disabled={runningContests.length === 0}
-						onChange={(event) =>
-							setSelectedContestId(Number.parseInt(event.target.value, 10))
-						}
+						onChange={(event) => {
+							clearOrderCreatedMessage();
+							setSelectedContestId(Number.parseInt(event.target.value, 10));
+						}}
 					>
 						{runningContests.length === 0 ? (
 							<option value="">No running contests</option>
@@ -307,7 +401,10 @@ export default function SymbolTradingSidebar({
 					<button
 						type="button"
 						className={`btn join-item ${transactionType === TRANSACTION_TYPE.BUY ? "btn-primary" : "btn-outline"}`}
-						onClick={() => setTransactionType(TRANSACTION_TYPE.BUY)}
+						onClick={() => {
+							clearOrderCreatedMessage();
+							setTransactionType(TRANSACTION_TYPE.BUY);
+						}}
 					>
 						<ShoppingCartIcon className="size-4" />
 						Buy
@@ -315,7 +412,10 @@ export default function SymbolTradingSidebar({
 					<button
 						type="button"
 						className={`btn join-item ${transactionType === TRANSACTION_TYPE.SELL ? "btn-primary" : "btn-outline"}`}
-						onClick={() => setTransactionType(TRANSACTION_TYPE.SELL)}
+						onClick={() => {
+							clearOrderCreatedMessage();
+							setTransactionType(TRANSACTION_TYPE.SELL);
+						}}
 					>
 						<BanknotesIcon className="size-4" />
 						Sell
@@ -324,24 +424,95 @@ export default function SymbolTradingSidebar({
 
 				<div className="form-control">
 					<label className="label" htmlFor="symbol-trading-amount">
-						<span className="label-text">Shares</span>
+						<span className="label-text">Total shares</span>
 					</label>
 					<input
 						id="symbol-trading-amount"
+						name="totalAmount"
 						type="number"
 						inputMode="numeric"
 						min="1"
 						step="1"
+						required
+						autoComplete="off"
 						className="input input-bordered w-full"
 						value={amountInput}
-						onChange={(event) => setAmountInput(event.target.value)}
+						onChange={(event) => {
+							clearOrderCreatedMessage();
+							setAmountInput(event.target.value);
+						}}
 						placeholder="0"
 					/>
 				</div>
 
+				<div className="grid gap-3 sm:grid-cols-2">
+					<div className="form-control">
+						<label className="label" htmlFor="symbol-trading-accepted-price">
+							<span className="label-text">
+								{transactionType === TRANSACTION_TYPE.BUY
+									? "Max price"
+									: "Min price"}
+							</span>
+						</label>
+						<input
+							id="symbol-trading-accepted-price"
+							name="acceptedPrice"
+							type="number"
+							inputMode="decimal"
+							min="0.01"
+							step="0.01"
+							required
+							autoComplete="off"
+							className="input input-bordered w-full"
+							value={acceptedPriceInput}
+							onChange={(event) => {
+								clearOrderCreatedMessage();
+								setAcceptedPriceInput(event.target.value);
+							}}
+							placeholder={currentPrice.toFixed(2)}
+						/>
+					</div>
+
+					<div className="form-control">
+						<label className="label" htmlFor="symbol-trading-expiration">
+							<span className="label-text">Expires</span>
+						</label>
+						<input
+							id="symbol-trading-expiration"
+							name="expirationTime"
+							type="datetime-local"
+							min={getMinimumExpirationTimeInput()}
+							required
+							autoComplete="off"
+							className="input input-bordered w-full"
+							value={expirationTimeInput}
+							onChange={(event) => {
+								clearOrderCreatedMessage();
+								setExpirationTimeInput(event.target.value);
+							}}
+						/>
+						<p className="mt-1 text-xs text-base-content/55">
+							Local time: {timeZoneName}
+						</p>
+					</div>
+				</div>
+
 				<div className="rounded-box bg-base-200/70 p-3 text-sm">
 					<div className="flex justify-between gap-3">
-						<span className="text-base-content/65">Estimated value</span>
+						<span className="text-base-content/65">Current price</span>
+						<span className="font-semibold">
+							{formatCurrency(currentPrice, currency, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2,
+							})}
+						</span>
+					</div>
+					<div className="mt-2 flex justify-between gap-3">
+						<span className="text-base-content/65">
+							{transactionType === TRANSACTION_TYPE.BUY
+								? "Max order value"
+								: "Min order value"}
+						</span>
 						<span className="font-semibold">
 							{formatCurrency(estimatedValue, currency, {
 								minimumFractionDigits: 2,
@@ -367,6 +538,16 @@ export default function SymbolTradingSidebar({
 						Not enough remaining funds for this order.
 					</div>
 				)}
+				{!acceptedPriceIsValid && acceptedPriceInput.trim() !== "" && (
+					<div className="alert alert-warning py-2 text-sm">
+						Limit price must be greater than zero.
+					</div>
+				)}
+				{!expirationTimeIsValid && expirationTimeInput.trim() !== "" && (
+					<div className="alert alert-warning py-2 text-sm">
+						Expiration must be in the future.
+					</div>
+				)}
 				{sellAmountExceedsHolding && (
 					<div className="alert alert-warning py-2 text-sm">
 						Sell quantity exceeds current holding.
@@ -377,8 +558,8 @@ export default function SymbolTradingSidebar({
 						Unable to create investment order.
 					</div>
 				)}
-				{orderMutation.isSuccess && (
-					<div className="alert alert-success py-2 text-sm">
+				{showOrderCreatedMessage && (
+					<div className="alert alert-success py-2 text-sm" aria-live="polite">
 						Investment order created.
 					</div>
 				)}
@@ -421,150 +602,217 @@ export default function SymbolTradingSidebar({
 							const profitClassName = getProfitClassName(
 								contest.investment.totalProfit,
 							);
+							const isExpanded = expandedContestId === contest.contestId;
+							const statusLabel = formatMappedLabel(
+								contest.contestStatus,
+								contestStatusRecord,
+							);
+							const panelId = `symbol-trading-contest-panel-${contest.contestId}`;
+							const triggerId = `symbol-trading-contest-trigger-${contest.contestId}`;
 
 							return (
 								<article
 									key={contest.contestId}
-									className="rounded-box border border-base-300 bg-base-100 p-4"
+									className="overflow-hidden rounded-box border border-base-300 bg-base-100"
 								>
-									<div className="flex items-start justify-between gap-3">
+									<button
+										id={triggerId}
+										type="button"
+										className="flex w-full items-start justify-between gap-3 p-4 text-left"
+										aria-expanded={isExpanded}
+										aria-controls={panelId}
+										onClick={() =>
+											setExpandedContestId(
+												isExpanded ? undefined : contest.contestId,
+											)
+										}
+									>
 										<div className="min-w-0">
-											<h4 className="truncate font-semibold">
-												{contest.contestName}
-											</h4>
-											<p className="text-xs text-base-content/55">
-												{formatDateTimeValue(contest.endTime, "dd/MM HH:mm")}
+											<div className="flex items-center gap-2">
+												<h4 className="truncate font-semibold">
+													{contest.contestName}
+												</h4>
+												<ChevronDownIcon
+													className={`size-4 shrink-0 text-base-content/45 transition-transform ${
+														isExpanded ? "rotate-180" : ""
+													}`}
+													aria-hidden="true"
+												/>
+											</div>
+											<p className="mt-1 text-xs text-base-content/55">
+												{getContestTimelineLabel(contest)}
 											</p>
 										</div>
 										<span
-											className={getContestStatusBadgeClassName(
+											className={`${getContestStatusBadgeClassName(
 												contest.contestStatus,
-											)}
+											)} shrink-0`}
 										>
-											{formatMappedLabel(
-												contest.contestStatus,
-												contestStatusRecord,
-											)}
+											{statusLabel}
 										</span>
-									</div>
+									</button>
 
-									<div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-										<div>
-											<p className="text-xs uppercase tracking-[0.16em] text-base-content/45">
-												Shares
-											</p>
-											<p className="font-semibold">
-												{formatNumber(contest.investment.amount, {
-													maximumFractionDigits: 0,
-												})}
-											</p>
-										</div>
-										<div>
-											<p className="text-xs uppercase tracking-[0.16em] text-base-content/45">
-												Value
-											</p>
-											<p className="font-semibold">
-												{formatCurrency(
-													contest.investment.totalValue,
-													currency,
-													{
-														minimumFractionDigits: 2,
-														maximumFractionDigits: 2,
-													},
-												)}
-											</p>
-										</div>
-										<div>
-											<p className="text-xs uppercase tracking-[0.16em] text-base-content/45">
-												P/L
-											</p>
-											<p className={`font-semibold ${profitClassName}`}>
-												{formatSignedCurrency(
-													contest.investment.totalProfit,
-													currency,
-												)}
-											</p>
-										</div>
-										<div>
-											<p className="text-xs uppercase tracking-[0.16em] text-base-content/45">
-												Return
-											</p>
-											<p className={`font-semibold ${profitClassName}`}>
-												{formatNumber(
-													contest.investment.totalProfitPercentage,
-													{
-														minimumFractionDigits: 2,
-														maximumFractionDigits: 2,
-													},
-												)}
-												%
-											</p>
-										</div>
-									</div>
-
-									<div className="mt-4 space-y-2">
-										<p className="text-xs font-semibold uppercase tracking-[0.16em] text-base-content/45">
-											Orders
-										</p>
-										{contest.orders.length === 0 ? (
-											<p className="text-sm text-base-content/55">
-												No orders for this symbol.
-											</p>
-										) : (
-											<div className="space-y-2">
-												{contest.orders.map((order, orderIndex) => (
-													<div
-														key={`${order.investmentOrderId ?? "order"}-${orderIndex}`}
-														className="flex items-center justify-between gap-3 rounded-box bg-base-200/60 px-3 py-2 text-sm"
+									{isExpanded && (
+										<div
+											id={panelId}
+											aria-labelledby={triggerId}
+											className="border-t border-base-300 p-4"
+										>
+											<div className="grid grid-cols-2 gap-2 text-sm">
+												<div className="rounded-box bg-base-200/60 px-3 py-2">
+													<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+														Shares
+													</p>
+													<p className="font-semibold tabular-nums">
+														{formatNumber(contest.investment.amount, {
+															maximumFractionDigits: 0,
+														})}
+													</p>
+												</div>
+												<div className="rounded-box bg-base-200/60 px-3 py-2">
+													<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+														Value
+													</p>
+													<p className="font-semibold tabular-nums">
+														{formatCurrency(
+															contest.investment.totalValue,
+															currency,
+															{
+																minimumFractionDigits: 2,
+																maximumFractionDigits: 2,
+															},
+														)}
+													</p>
+												</div>
+												<div className="rounded-box bg-base-200/60 px-3 py-2">
+													<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+														P/L
+													</p>
+													<p
+														className={`font-semibold tabular-nums ${profitClassName}`}
 													>
-														<div>
-															<p className="font-medium">
-																{formatMappedLabel(order.transactionType, {
-																	BUY: "Buy",
-																	SELL: "Sell",
-																})}{" "}
-																{formatNumber(order.amount, {
-																	maximumFractionDigits: 0,
-																})}
-															</p>
-															<p className="text-xs text-base-content/50">
-																Limit{" "}
-																{formatCurrency(
-																	order.acceptedPrice,
-																	order.currency,
-																	{
-																		minimumFractionDigits: 2,
-																		maximumFractionDigits: 2,
-																	},
-																)}
-															</p>
-															{order.updatedAt && (
-																<p className="text-xs text-base-content/50">
-																	Expires{" "}
-																	{formatDateTimeValue(
-																		order.updatedAt,
-																		"dd/MM HH:mm",
-																	)}
-																</p>
-															)}
-														</div>
-														<span
-															className={getOrderStatusBadgeClassName(
-																order.orderStatus,
-															)}
-														>
-															{formatMappedLabel(order.orderStatus, {
-																ACTIVE: "Active",
-																COMPLETED: "Completed",
-																FAILED: "Failed",
-																TERMINATED: "Terminated",
-															})}
-														</span>
-													</div>
-												))}
+														{formatSignedCurrency(
+															contest.investment.totalProfit,
+															currency,
+														)}
+													</p>
+												</div>
+												<div className="rounded-box bg-base-200/60 px-3 py-2">
+													<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+														Return
+													</p>
+													<p
+														className={`font-semibold tabular-nums ${profitClassName}`}
+													>
+														{formatNumber(
+															contest.investment.totalProfitPercentage,
+															{
+																minimumFractionDigits: 2,
+																maximumFractionDigits: 2,
+															},
+														)}
+														%
+													</p>
+												</div>
 											</div>
-										)}
-									</div>
+
+											<div className="mt-4 space-y-2">
+												<div className="flex items-center justify-between gap-3">
+													<p className="text-xs font-semibold uppercase tracking-[0.16em] text-base-content/45">
+														Orders
+													</p>
+													{contest.orders.length > 2 && (
+														<span className="text-xs text-base-content/50">
+															Scroll to view all
+														</span>
+													)}
+												</div>
+												{contest.orders.length === 0 ? (
+													<p className="text-sm text-base-content/55">
+														No orders for this symbol.
+													</p>
+												) : (
+													<div
+														className={`space-y-2 ${
+															contest.orders.length > 2
+																? "max-h-56 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]"
+																: ""
+														}`}
+													>
+														{contest.orders.map((order, orderIndex) => (
+															<div
+																key={`${order.investmentOrderId ?? "order"}-${orderIndex}`}
+																className="rounded-box bg-base-200/60 px-3 py-2 text-sm"
+															>
+																<div className="flex items-start justify-between gap-3">
+																	<div className="min-w-0">
+																		<p className="font-medium">
+																			Order{" "}
+																			{order.investmentOrderId === null
+																				? "-"
+																				: `#${order.investmentOrderId}`}
+																		</p>
+																		<p className="text-xs text-base-content/50">
+																			{formatMappedLabel(order.transactionType, {
+																				BUY: "Buy",
+																				SELL: "Sell",
+																			})}
+																		</p>
+																	</div>
+																	<span
+																		className={getOrderStatusBadgeClassName(
+																			order.orderStatus,
+																		)}
+																	>
+																		{formatMappedLabel(order.orderStatus, {
+																			ACTIVE: "Active",
+																			COMPLETED: "Completed",
+																			FAILED: "Failed",
+																			TERMINATED: "Terminated",
+																		})}
+																	</span>
+																</div>
+																<div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-base-content/55">
+																	<span>Remaining</span>
+																	<span className="text-right tabular-nums">
+																		{formatNumber(order.remainingAmount, {
+																			maximumFractionDigits: 0,
+																		})}{" "}
+																		/{" "}
+																		{formatNumber(order.totalAmount, {
+																			maximumFractionDigits: 0,
+																		})}
+																	</span>
+																	<span>Limit</span>
+																	<span className="text-right tabular-nums">
+																		{formatCurrency(
+																			order.acceptedPrice,
+																			order.currency,
+																			{
+																				minimumFractionDigits: 2,
+																				maximumFractionDigits: 2,
+																			},
+																		)}
+																	</span>
+																	{order.expirationTime && (
+																		<>
+																			<span>Expires</span>
+																			<span className="text-right tabular-nums">
+																				{formatDateTimeValue(
+																					order.expirationTime,
+																					"dd/MM HH:mm",
+																				)}
+																			</span>
+																		</>
+																	)}
+																</div>
+															</div>
+														))}
+													</div>
+												)}
+											</div>
+										</div>
+									)}
 								</article>
 							);
 						})}
