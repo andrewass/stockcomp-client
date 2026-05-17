@@ -49,6 +49,13 @@ This file describes the project conventions for AI/code agents working in this r
 - Use Next.js routing/navigation primitives for new code (`next/link`, `next/navigation`), not legacy router APIs.
 - Commit messages must start with an uppercase letter and must not use conventional-commit prefixes like `feat:`, `fix:`, or `chore:`.
 
+## Component structure and colocation
+- Avoid large multipurpose React components. Split components when a file mixes distinct UI regions, unrelated state groups, or enough JSX/logic that the main behavior is hard to scan.
+- Keep state as close as practical to the component that owns and uses it. Lift state only when sibling coordination, server interaction, or parent-level orchestration requires it.
+- Prefer feature-local component folders for related UI parts, hooks, types, and utilities when a component grows beyond a single file.
+- Keep extracted child components focused on one responsibility with explicit `Props`; avoid moving code into shared modules unless it is genuinely reused across features.
+- Preserve behavior during structural refactors unless the task explicitly asks for UX or logic changes.
+
 ## Skills
 - Skills under `.agents/skills/**` should be repo-agnostic by default so they can be reused across projects.
 - Do not hardcode repository names, repo-specific paths, or project-only assumptions in reusable skills.
