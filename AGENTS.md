@@ -139,6 +139,7 @@ This file describes the project conventions for AI/code agents working in this r
 ## Quality checks
 - Biome is used in CI (`biome ci .`).
 - Default local agent behavior: do not run `biome`, tests, or builds unless explicitly requested by the user.
+- Before creating a commit, ensure the code is correctly formatted and lint-clean according to Biome.
 - If verification is skipped due to this rule, state that clearly in the final update.
 
 ## Notes for safe changes

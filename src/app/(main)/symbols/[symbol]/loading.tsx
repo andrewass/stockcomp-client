@@ -12,8 +12,8 @@ export default function SymbolDetailsLoading() {
 		<div
 			className="w-full max-w-7xl space-y-6 px-4 pb-12 pt-2 sm:px-6 lg:px-8"
 			aria-busy="true"
-			aria-label="Loading symbol details"
 		>
+			<span className="sr-only">Loading symbol details</span>
 			<div className="skeleton h-8 w-24" />
 
 			<div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(21rem,0.38fr)]">

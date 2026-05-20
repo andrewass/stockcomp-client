@@ -66,9 +66,7 @@ export default function SymbolTradingSidebar({
 		queryFn: () => fetchTradingData(symbol),
 		initialData: initialTradingData,
 		refetchInterval: (query) =>
-			hasActiveOrders(query.state.data)
-				? queryTiming.refetchIntervalMs
-				: false,
+			hasActiveOrders(query.state.data) ? queryTiming.refetchIntervalMs : false,
 	});
 
 	const contests = tradingQuery.data.contests;

@@ -9,7 +9,7 @@ import {
 import { auth } from "@/lib/auth.ts";
 
 function normalizeReturnTo(returnTo?: string): string {
-	if (!returnTo || !returnTo.startsWith("/") || returnTo.startsWith("//")) {
+	if (!returnTo?.startsWith("/") || returnTo.startsWith("//")) {
 		return "/";
 	}
 

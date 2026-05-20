@@ -59,10 +59,7 @@ export default function ResponsiveNavigationBar({
 						>
 							<Bars3Icon className="size-6" />
 						</button>
-						<ul
-							tabIndex={0}
-							className="menu menu-sm dropdown-content z-50 mt-3 w-72 rounded-lg bg-base-300 p-2 shadow-xl"
-						>
+						<ul className="menu menu-sm dropdown-content z-50 mt-3 w-72 rounded-lg bg-base-300 p-2 shadow-xl">
 							{items.map((item) => {
 								const active = isActivePath(pathname, item.activePathPrefix);
 

@@ -36,14 +36,15 @@ function buildPageHref(
 function PagerControl({ href, ariaLabel, icon, disabled }: PagerControlProps) {
 	if (disabled) {
 		return (
-			<span
+			<button
+				type="button"
 				className="grid size-8 place-items-center text-base-content/35 pointer-events-none"
-				role="button"
+				aria-label={ariaLabel}
 				aria-disabled="true"
-				tabIndex={-1}
+				disabled
 			>
 				{icon}
-			</span>
+			</button>
 		);
 	}
 

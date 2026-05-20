@@ -30,7 +30,6 @@ function getStatusBadgeClassName(contest: Contest): string {
 			return "badge badge-warning badge-outline";
 		case "grey":
 			return "badge badge-neutral badge-outline";
-		case "red":
 		default:
 			return "badge badge-error badge-outline";
 	}

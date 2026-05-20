@@ -62,13 +62,13 @@ export default function ContestSection({
 												<span
 													className="tooltip tooltip-top shrink-0"
 													data-tip={statusLabel}
-													aria-label={`Status: ${statusLabel}`}
-													tabIndex={0}
 												>
 													<span
 														className={`block size-2.5 rounded-full ring-2 ring-base-100 ${getContestStatusDotClass(
 															contest.contestStatus,
 														)}`}
+														role="img"
+														aria-label={`Status: ${statusLabel}`}
 													/>
 												</span>
 											</div>

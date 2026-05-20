@@ -9,7 +9,7 @@ interface SearchParamsLike {
 
 function getReturnTo(searchParams: SearchParamsLike): string {
 	const returnTo = searchParams.get("returnTo");
-	if (!returnTo || !returnTo.startsWith("/") || returnTo.startsWith("//")) {
+	if (!returnTo?.startsWith("/") || returnTo.startsWith("//")) {
 		return "/";
 	}
 
@@ -26,6 +26,7 @@ export default function SignInPage() {
 
 	return (
 		<button
+			type="button"
 			onClick={() =>
 				authClient.signIn.social({ provider: "google", callbackURL })
 			}

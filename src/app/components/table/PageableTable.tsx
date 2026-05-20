@@ -10,7 +10,7 @@ export function parseParams(
 		? parseInt(String(searchParams.pageSize), 10)
 		: 10;
 
-	if (isNaN(parsedPageNumber) || isNaN(parsedPageSize)) {
+	if (Number.isNaN(parsedPageNumber) || Number.isNaN(parsedPageSize)) {
 		return null;
 	}
 	return { pageNumber: parsedPageNumber, pageSize: parsedPageSize };
@@ -46,8 +46,8 @@ export default function PageableTable<T extends Identifiable>({
 			<table className="table">
 				<thead>
 					<tr className="bg-base-300">
-						{headerItems.map((item, index) => (
-							<th key={index}>{item}</th>
+						{headerItems.map((item) => (
+							<th key={item}>{item}</th>
 						))}
 					</tr>
 				</thead>
