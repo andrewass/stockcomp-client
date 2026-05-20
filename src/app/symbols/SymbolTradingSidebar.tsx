@@ -4,6 +4,7 @@ import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import type { CreateInvestmentOrderRequest } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import { queryTiming } from "@/query/queryTiming.ts";
 import type { SymbolTradingViewModel } from "@/symbols/domain.ts";
 import { InvestmentsSection } from "@/symbols/trading/InvestmentsSection.tsx";
 import { TradingOrderForm } from "@/symbols/trading/TradingOrderForm.tsx";
@@ -65,7 +66,9 @@ export default function SymbolTradingSidebar({
 		queryFn: () => fetchTradingData(symbol),
 		initialData: initialTradingData,
 		refetchInterval: (query) =>
-			hasActiveOrders(query.state.data) ? 5_000 : false,
+			hasActiveOrders(query.state.data)
+				? queryTiming.refetchIntervalMs
+				: false,
 	});
 
 	const contests = tradingQuery.data.contests;

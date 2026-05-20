@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { queryTiming } from "@/query/queryTiming.ts";
 import type { SymbolCardViewModel } from "@/symbols/domain.ts";
 
 const SYMBOL_CARD_SKELETON_KEYS = [
@@ -76,8 +77,8 @@ export function SymbolsGrid() {
 	const trendingSymbols = useQuery({
 		queryKey: ["symbols", "trending-prices"],
 		queryFn: fetchTrendingSymbols,
-		refetchInterval: 5_000,
-		staleTime: 5_000,
+		refetchInterval: queryTiming.refetchIntervalMs,
+		staleTime: queryTiming.refetchIntervalMs,
 	});
 	const symbols = trendingSymbols.data ?? [];
 	const shouldShowSkeleton = symbols.length === 0 && trendingSymbols.isFetching;
