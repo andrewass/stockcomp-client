@@ -18,7 +18,7 @@ interface NavigationItem {
 }
 
 interface Props {
-	brandSubtitle: string;
+	brandSubtitle?: string;
 	defaultHref: string;
 	hasAdminRole: boolean;
 	isAdminMode: boolean;

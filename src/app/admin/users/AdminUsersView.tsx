@@ -1,4 +1,4 @@
-import type { User } from "@/types/userTypes.ts";
+import type { User } from "@/domain/user/userTypes.ts";
 import AdminUsersTable from "./AdminUsersTable.tsx";
 
 interface Props {

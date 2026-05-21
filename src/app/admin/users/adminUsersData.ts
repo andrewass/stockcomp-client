@@ -1,6 +1,6 @@
 import "server-only";
 import { resourceGet } from "@/api/resourceServerClient.ts";
-import type { UserPage } from "@/types/userTypes.ts";
+import type { UserPage } from "@/domain/user/userTypes.ts";
 
 export async function getAdminUsers(
 	pageNumber: number,
