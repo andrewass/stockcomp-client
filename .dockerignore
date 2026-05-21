@@ -3,5 +3,21 @@ Dockerfile
 .gitignore
 README.md
 
+.git
+.idea
+.next
+.agents
+.env
+.env*.local
+
+sqlite.db
+*.db
+*.sqlite
+*.sqlite3
+tsconfig.tsbuildinfo
+
+notes
+k8s
+
 build
 node_modules
