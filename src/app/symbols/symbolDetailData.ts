@@ -1,13 +1,13 @@
 import "server-only";
 import {
-	getHistoricPrices,
 	getStockSymbolFinancials,
 	getStockSymbolPrice,
 } from "@/api/fastFinanceClient.ts";
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
-import type { HistoricalPrice } from "@/domain/symbol/symbolTypes.ts";
-import { Period } from "@/domain/symbol/symbolTypes.ts";
+import type { Period } from "@/domain/symbol/symbolTypes.ts";
 import type { SymbolDetailViewModel } from "@/symbols/domain.ts";
+import { getSymbolPriceHistoryData } from "@/symbols/priceHistoryData.ts";
+import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/priceHistoryPeriods.ts";
 
 function normalizeSymbol(symbol: string): string {
 	return symbol.trim().toUpperCase();
@@ -23,20 +23,9 @@ function toNullableFiniteNumber(
 	return value;
 }
 
-function mapHistoryPoint(historyPoint: HistoricalPrice) {
-	return {
-		price: historyPoint.price,
-		priceDate: historyPoint.price_date,
-	};
-}
-
-function getHistoryPointTimestamp(priceDate: string): number {
-	const timestamp = Date.parse(priceDate);
-	return Number.isNaN(timestamp) ? 0 : timestamp;
-}
-
 export async function getSymbolDetailData(
 	symbol: string,
+	historyPeriod: Period = DEFAULT_PRICE_HISTORY_PERIOD,
 ): Promise<SymbolDetailViewModel | null> {
 	const normalizedSymbol = normalizeSymbol(symbol);
 	if (!normalizedSymbol) {
@@ -47,7 +36,7 @@ export async function getSymbolDetailData(
 		const [price, financials, history] = await Promise.all([
 			getStockSymbolPrice(normalizedSymbol),
 			getStockSymbolFinancials(normalizedSymbol),
-			getHistoricPrices(normalizedSymbol, Period.YEAR1),
+			getSymbolPriceHistoryData(normalizedSymbol, historyPeriod),
 		]);
 
 		return {
@@ -72,18 +61,7 @@ export async function getSymbolDetailData(
 					financials.dividendYieldPercentage,
 				),
 			},
-			history: history
-				.filter(
-					(historyPoint) =>
-						Number.isFinite(historyPoint.price) &&
-						!Number.isNaN(Date.parse(historyPoint.price_date)),
-				)
-				.map(mapHistoryPoint)
-				.sort(
-					(first, second) =>
-						getHistoryPointTimestamp(first.priceDate) -
-						getHistoryPointTimestamp(second.priceDate),
-				),
+			history,
 		};
 	} catch (error) {
 		if (isApiHttpStatusError(error, 404)) {

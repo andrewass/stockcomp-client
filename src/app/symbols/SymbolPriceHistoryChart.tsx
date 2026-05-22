@@ -15,6 +15,7 @@ import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
 interface Props {
 	currency: string;
 	history: SymbolPriceHistoryPoint[];
+	periodLabel: string;
 }
 
 type ChartDatum = {
@@ -82,7 +83,11 @@ function formatCurrency(value: number, currency: string): string {
 	}
 }
 
-export function SymbolPriceHistoryChart({ currency, history }: Props) {
+export function SymbolPriceHistoryChart({
+	currency,
+	history,
+	periodLabel,
+}: Props) {
 	const chartData = useMemo(
 		() =>
 			history
@@ -124,7 +129,7 @@ export function SymbolPriceHistoryChart({ currency, history }: Props) {
 				<AreaChart
 					data={chartData}
 					margin={{ top: 8, right: 8, bottom: 8, left: 0 }}
-					title="One-year price history chart"
+					title={`${periodLabel} price history chart`}
 				>
 					<CartesianGrid stroke="var(--color-base-300)" strokeDasharray="3 3" />
 					<XAxis

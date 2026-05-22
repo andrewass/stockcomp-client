@@ -144,5 +144,6 @@ This file describes the project conventions for AI/code agents working in this r
 
 ## Notes for safe changes
 - Prefer incremental edits and keep behavior consistent unless a change request says otherwise.
+- If Docker images are built only for local testing or verification, remove those test images after verification.
 - Do not log tokens, secrets, or sensitive auth/session data.
 - For token expiry comparisons, prefer UTC-safe handling and explicit buffer/skew logic.

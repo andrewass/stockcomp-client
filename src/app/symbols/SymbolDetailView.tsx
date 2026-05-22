@@ -2,7 +2,8 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import type React from "react";
 import type { SymbolDetailViewModel } from "@/symbols/domain.ts";
-import { SymbolPriceHistoryChart } from "@/symbols/SymbolPriceHistoryChart.tsx";
+import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/priceHistoryPeriods.ts";
+import { SymbolPriceHistoryPanel } from "@/symbols/SymbolPriceHistoryPanel.tsx";
 
 interface Props {
 	symbolDetail: SymbolDetailViewModel;
@@ -223,23 +224,12 @@ export default function SymbolDetailView({
 						</div>
 					</section>
 
-					<section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
-						<div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-							<div>
-								<p className="text-sm font-medium uppercase tracking-[0.2em] text-base-content/55">
-									Price history
-								</p>
-								<h2 className="mt-2 text-2xl font-semibold text-base-content">
-									One-year trend
-								</h2>
-							</div>
-							<span className="badge badge-ghost">1Y</span>
-						</div>
-						<SymbolPriceHistoryChart
-							currency={symbolDetail.currency}
-							history={symbolDetail.history}
-						/>
-					</section>
+					<SymbolPriceHistoryPanel
+						currency={symbolDetail.currency}
+						initialHistory={symbolDetail.history}
+						initialPeriod={DEFAULT_PRICE_HISTORY_PERIOD}
+						symbol={symbolDetail.symbol}
+					/>
 				</div>
 				{tradingPanel && (
 					<aside className="xl:sticky xl:top-24 xl:self-start">
