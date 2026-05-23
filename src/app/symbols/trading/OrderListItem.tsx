@@ -1,3 +1,4 @@
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import type { SymbolTradingOrderViewModel } from "@/symbols/domain.ts";
@@ -8,6 +9,8 @@ import {
 
 interface Props {
 	order: SymbolTradingOrderViewModel;
+	isCancellingOrder: boolean;
+	onCancelOrder: (order: SymbolTradingOrderViewModel) => void;
 }
 
 function getOrderStatusBadgeClassName(status: string): string {
@@ -24,7 +27,15 @@ function getOrderStatusBadgeClassName(status: string): string {
 	}
 }
 
-export function OrderListItem({ order }: Props) {
+export function OrderListItem({
+	order,
+	isCancellingOrder,
+	onCancelOrder,
+}: Props) {
+	const canCancel =
+		order.orderStatus === ORDER_STATUS.ACTIVE &&
+		order.investmentOrderId !== null;
+
 	return (
 		<div className="rounded-box bg-base-200/60 px-3 py-2 text-sm">
 			<div className="flex items-start justify-between gap-3">
@@ -42,14 +53,28 @@ export function OrderListItem({ order }: Props) {
 						})}
 					</p>
 				</div>
-				<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
-					{formatMappedLabel(order.orderStatus, {
-						ACTIVE: "Active",
-						COMPLETED: "Completed",
-						FAILED: "Failed",
-						TERMINATED: "Terminated",
-					})}
-				</span>
+				<div className="flex shrink-0 items-center gap-1.5">
+					<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
+						{formatMappedLabel(order.orderStatus, {
+							ACTIVE: "Active",
+							COMPLETED: "Completed",
+							FAILED: "Failed",
+							TERMINATED: "Terminated",
+						})}
+					</span>
+					{canCancel && (
+						<button
+							type="button"
+							className="btn btn-ghost btn-xs btn-square text-base-content/55 hover:bg-error/10 hover:text-error"
+							disabled={isCancellingOrder}
+							onClick={() => onCancelOrder(order)}
+							aria-label={`Cancel order ${order.investmentOrderId}`}
+							title="Cancel order"
+						>
+							<TrashIcon className="size-4" aria-hidden="true" />
+						</button>
+					)}
+				</div>
 			</div>
 			<div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-base-content/55">
 				<span>Remaining</span>

@@ -1,16 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { SymbolTradingContestViewModel } from "@/symbols/domain.ts";
+import type {
+	SymbolTradingContestViewModel,
+	SymbolTradingOrderViewModel,
+} from "@/symbols/domain.ts";
 import { ContestInvestmentCard } from "@/symbols/trading/ContestInvestmentCard.tsx";
 
 interface Props {
 	contests: SymbolTradingContestViewModel[];
 	currency: string;
 	isError: boolean;
+	isCancellingOrder: boolean;
+	onCancelOrder: (
+		contest: SymbolTradingContestViewModel,
+		order: SymbolTradingOrderViewModel,
+	) => void;
 }
 
-export function InvestmentsSection({ contests, currency, isError }: Props) {
+export function InvestmentsSection({
+	contests,
+	currency,
+	isError,
+	isCancellingOrder,
+	onCancelOrder,
+}: Props) {
 	const [expandedContestIds, setExpandedContestIds] = useState<number[]>(() =>
 		contests[0] ? [contests[0].contestId] : [],
 	);
@@ -65,6 +79,8 @@ export function InvestmentsSection({ contests, currency, isError }: Props) {
 								contest={contest}
 								currency={currency}
 								isExpanded={isExpanded}
+								isCancellingOrder={isCancellingOrder}
+								onCancelOrder={onCancelOrder}
 								onToggle={() => toggleContest(contest.contestId)}
 							/>
 						);

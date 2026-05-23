@@ -1,6 +1,10 @@
 import "server-only";
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
-import { resourceGet, resourcePost } from "@/api/resourceServerClient.ts";
+import {
+	resourceDelete,
+	resourceGet,
+	resourcePost,
+} from "@/api/resourceServerClient.ts";
 import type { Contest } from "@/domain/contests/contestTypes.ts";
 import type {
 	CreateInvestmentOrderRequest,
@@ -178,6 +182,22 @@ export async function createInvestmentOrder(
 			expirationTime: request.expirationTime || getDefaultExpirationTime(),
 			acceptedPrice: request.acceptedPrice,
 			transactionType: request.transactionType,
+		},
+	});
+}
+
+export async function cancelInvestmentOrder({
+	contestId,
+	orderId,
+}: {
+	contestId: number;
+	orderId: number;
+}): Promise<void> {
+	await resourceDelete<void>({
+		url: "/participants/investmentorders/delete",
+		params: {
+			contestId,
+			orderId,
 		},
 	});
 }

@@ -3,6 +3,8 @@ import { OrderListItem } from "@/symbols/trading/OrderListItem.tsx";
 
 interface Props {
 	orders: SymbolTradingOrderViewModel[];
+	isCancellingOrder: boolean;
+	onCancelOrder: (order: SymbolTradingOrderViewModel) => void;
 }
 
 function getOrderKey(order: SymbolTradingOrderViewModel): string {
@@ -22,7 +24,7 @@ function getOrderKey(order: SymbolTradingOrderViewModel): string {
 	].join("-");
 }
 
-export function OrderList({ orders }: Props) {
+export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
 	return (
 		<div className="mt-4 space-y-2">
 			<div className="flex items-center justify-between gap-3">
@@ -48,7 +50,12 @@ export function OrderList({ orders }: Props) {
 					}`}
 				>
 					{orders.map((order) => (
-						<OrderListItem key={getOrderKey(order)} order={order} />
+						<OrderListItem
+							key={getOrderKey(order)}
+							order={order}
+							isCancellingOrder={isCancellingOrder}
+							onCancelOrder={onCancelOrder}
+						/>
 					))}
 				</div>
 			)}

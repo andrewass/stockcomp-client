@@ -1,6 +1,7 @@
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import { isUnauthenticatedError } from "@/api/resourceServerClient.ts";
 import {
+	cancelInvestmentOrder,
 	createInvestmentOrder,
 	isTransactionType,
 } from "@/symbols/api/tradingData.ts";
@@ -53,6 +54,27 @@ function toErrorResponse(error: unknown): Response {
 
 	return Response.json(
 		{ message: "Unable to create investment order." },
+		{ status: 502 },
+	);
+}
+
+function toCancelErrorResponse(error: unknown): Response {
+	if (isUnauthenticatedError(error)) {
+		return Response.json(
+			{ message: "Authentication required." },
+			{ status: 401 },
+		);
+	}
+
+	if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
+		return Response.json(
+			{ message: "Unable to cancel investment order." },
+			{ status: error.status },
+		);
+	}
+
+	return Response.json(
+		{ message: "Unable to cancel investment order." },
 		{ status: 502 },
 	);
 }
@@ -113,5 +135,25 @@ export async function POST(request: Request): Promise<Response> {
 		return Response.json(order ?? null, { status: 201 });
 	} catch (error) {
 		return toErrorResponse(error);
+	}
+}
+
+export async function DELETE(request: Request): Promise<Response> {
+	const { searchParams } = new URL(request.url);
+	const contestId = parsePositiveInteger(Number(searchParams.get("contestId")));
+	const orderId = parsePositiveInteger(Number(searchParams.get("orderId")));
+
+	if (!contestId || !orderId) {
+		return Response.json(
+			{ message: "contestId and orderId are required." },
+			{ status: 400 },
+		);
+	}
+
+	try {
+		await cancelInvestmentOrder({ contestId, orderId });
+		return new Response(null, { status: 204 });
+	} catch (error) {
+		return toCancelErrorResponse(error);
 	}
 }

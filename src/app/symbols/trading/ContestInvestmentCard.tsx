@@ -4,7 +4,10 @@ import {
 	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
-import type { SymbolTradingContestViewModel } from "@/symbols/domain.ts";
+import type {
+	SymbolTradingContestViewModel,
+	SymbolTradingOrderViewModel,
+} from "@/symbols/domain.ts";
 import { OrderList } from "@/symbols/trading/OrderList.tsx";
 import {
 	formatCurrency,
@@ -15,6 +18,11 @@ interface Props {
 	contest: SymbolTradingContestViewModel;
 	currency: string;
 	isExpanded: boolean;
+	isCancellingOrder: boolean;
+	onCancelOrder: (
+		contest: SymbolTradingContestViewModel,
+		order: SymbolTradingOrderViewModel,
+	) => void;
 	onToggle: () => void;
 }
 
@@ -73,6 +81,8 @@ export function ContestInvestmentCard({
 	contest,
 	currency,
 	isExpanded,
+	isCancellingOrder,
+	onCancelOrder,
 	onToggle,
 }: Props) {
 	const profitClassName = getProfitClassName(contest.investment.totalProfit);
@@ -163,7 +173,11 @@ export function ContestInvestmentCard({
 						</div>
 					</div>
 
-					<OrderList orders={contest.orders} />
+					<OrderList
+						orders={contest.orders}
+						isCancellingOrder={isCancellingOrder}
+						onCancelOrder={(order) => onCancelOrder(contest, order)}
+					/>
 				</section>
 			)}
 		</article>

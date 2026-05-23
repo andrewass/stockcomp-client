@@ -47,7 +47,9 @@ This file describes the project conventions for AI/code agents working in this r
 - Prefer server components by default; add `"use client"` only when hooks/browser APIs are required.
 - Put server-only read loaders in feature data modules with `import "server-only"`; reserve Server Actions (`"use server"`) for mutations and form submissions.
 - Use Next.js routing/navigation primitives for new code (`next/link`, `next/navigation`), not legacy router APIs.
-- Commit messages must start with an uppercase letter and must not use conventional-commit prefixes like `feat:`, `fix:`, or `chore:`.
+- Commit messages must follow the Conventional Commits v1.0.0 specification: `<type>[optional scope][optional !]: <description>`.
+- Use `feat` for user-facing features and `fix` for bug fixes; other lowercase types such as `docs`, `refactor`, `test`, `build`, `ci`, `style`, `perf`, and `chore` are allowed when they describe the change.
+- Mark breaking changes with `!` before the colon or a `BREAKING CHANGE:` footer.
 
 ## Component structure and colocation
 - Avoid large multipurpose React components. Split components when a file mixes distinct UI regions, unrelated state groups, or enough JSX/logic that the main behavior is hard to scan.
