@@ -226,7 +226,7 @@ export default function SymbolDetailView({
 
 					<SymbolPriceHistoryPanel
 						currency={symbolDetail.currency}
-						initialHistory={symbolDetail.history}
+						initialPriceHistory={symbolDetail.priceHistory}
 						initialPeriod={DEFAULT_PRICE_HISTORY_PERIOD}
 						symbol={symbolDetail.symbol}
 					/>

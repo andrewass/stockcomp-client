@@ -21,6 +21,16 @@ export type SymbolPriceHistoryPoint = {
 	priceDate: string;
 };
 
+export type SymbolPriceHistoryChangeViewModel = {
+	amount: number;
+	percentage: number;
+};
+
+export type SymbolPriceHistoryViewModel = {
+	history: SymbolPriceHistoryPoint[];
+	change: SymbolPriceHistoryChangeViewModel | null;
+};
+
 export type SymbolDetailViewModel = {
 	symbol: string;
 	companyName: string;
@@ -30,7 +40,7 @@ export type SymbolDetailViewModel = {
 	currency: string;
 	usdPrice: number | null;
 	financials: SymbolFinancialsViewModel;
-	history: SymbolPriceHistoryPoint[];
+	priceHistory: SymbolPriceHistoryViewModel;
 };
 
 export type SymbolContestListItemViewModel = {

@@ -33,7 +33,7 @@ export async function getSymbolDetailData(
 	}
 
 	try {
-		const [price, financials, history] = await Promise.all([
+		const [price, financials, priceHistory] = await Promise.all([
 			getStockSymbolPrice(normalizedSymbol),
 			getStockSymbolFinancials(normalizedSymbol),
 			getSymbolPriceHistoryData(normalizedSymbol, historyPeriod),
@@ -61,7 +61,7 @@ export async function getSymbolDetailData(
 					financials.dividendYieldPercentage,
 				),
 			},
-			history,
+			priceHistory,
 		};
 	} catch (error) {
 		if (isApiHttpStatusError(error, 404)) {

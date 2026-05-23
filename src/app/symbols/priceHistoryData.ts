@@ -1,7 +1,11 @@
 import "server-only";
 import { getHistoricPrices } from "@/api/fastFinanceClient.ts";
 import type { HistoricalPrice, Period } from "@/domain/symbol/symbolTypes.ts";
-import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
+import type {
+	SymbolPriceHistoryChangeViewModel,
+	SymbolPriceHistoryPoint,
+	SymbolPriceHistoryViewModel,
+} from "@/symbols/domain.ts";
 
 function normalizeSymbol(symbol: string): string {
 	return symbol.trim().toUpperCase();
@@ -21,18 +25,45 @@ function getHistoryPointTimestamp(priceDate: string): number {
 	return Number.isNaN(timestamp) ? 0 : timestamp;
 }
 
+function getPriceHistoryChange(
+	history: SymbolPriceHistoryPoint[],
+): SymbolPriceHistoryChangeViewModel | null {
+	if (history.length < 2) {
+		return null;
+	}
+
+	const firstPrice = history[0]?.price;
+	const lastPrice = history.at(-1)?.price;
+	if (
+		firstPrice === undefined ||
+		lastPrice === undefined ||
+		!Number.isFinite(firstPrice) ||
+		!Number.isFinite(lastPrice)
+	) {
+		return null;
+	}
+
+	const amount = lastPrice - firstPrice;
+
+	return {
+		amount,
+		percentage: firstPrice === 0 ? 0 : (amount / firstPrice) * 100,
+	};
+}
+
 export async function getSymbolPriceHistoryData(
 	symbol: string,
 	period: Period,
-): Promise<SymbolPriceHistoryPoint[]> {
+): Promise<SymbolPriceHistoryViewModel> {
 	const normalizedSymbol = normalizeSymbol(symbol);
 	if (!normalizedSymbol) {
-		return [];
+		return {
+			history: [],
+			change: null,
+		};
 	}
 
-	const history = await getHistoricPrices(normalizedSymbol, period);
-
-	return history
+	const history = (await getHistoricPrices(normalizedSymbol, period))
 		.filter(
 			(historyPoint) =>
 				Number.isFinite(historyPoint.price) &&
@@ -44,4 +75,9 @@ export async function getSymbolPriceHistoryData(
 				getHistoryPointTimestamp(first.priceDate) -
 				getHistoryPointTimestamp(second.priceDate),
 		);
+
+	return {
+		history,
+		change: getPriceHistoryChange(history),
+	};
 }

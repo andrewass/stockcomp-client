@@ -35,11 +35,11 @@ export async function GET(request: Request): Promise<Response> {
 	}
 
 	try {
-		const history = await getSymbolPriceHistoryData(
+		const priceHistory = await getSymbolPriceHistoryData(
 			symbol,
 			getPeriodFromRequest(request),
 		);
-		return Response.json({ history });
+		return Response.json(priceHistory);
 	} catch (error) {
 		return toErrorResponse(error);
 	}

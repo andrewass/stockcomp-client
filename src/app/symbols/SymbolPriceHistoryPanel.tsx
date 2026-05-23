@@ -3,28 +3,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { Period } from "@/domain/symbol/symbolTypes.ts";
-import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
+import type { SymbolPriceHistoryViewModel } from "@/symbols/domain.ts";
 import {
 	getPriceHistoryPeriodLabel,
+	getPriceHistoryPeriodTitle,
 	PRICE_HISTORY_PERIOD_OPTIONS,
 } from "@/symbols/priceHistoryPeriods.ts";
 import { SymbolPriceHistoryChart } from "@/symbols/SymbolPriceHistoryChart.tsx";
 
 interface Props {
 	currency: string;
-	initialHistory: SymbolPriceHistoryPoint[];
+	initialPriceHistory: SymbolPriceHistoryViewModel;
 	initialPeriod: Period;
 	symbol: string;
 }
 
-type PriceHistoryResponse = {
-	history: SymbolPriceHistoryPoint[];
-};
-
 async function fetchPriceHistory(
 	symbol: string,
 	period: Period,
-): Promise<SymbolPriceHistoryPoint[]> {
+): Promise<SymbolPriceHistoryViewModel> {
 	const searchParams = new URLSearchParams({ symbol, period });
 	const response = await fetch(
 		`/symbols/api/price-history?${searchParams.toString()}`,
@@ -35,37 +32,99 @@ async function fetchPriceHistory(
 		throw new Error("Unable to load price history.");
 	}
 
-	const payload = (await response.json()) as PriceHistoryResponse;
-	return payload.history;
+	return (await response.json()) as SymbolPriceHistoryViewModel;
+}
+
+function formatNumber(
+	value: number,
+	options?: Intl.NumberFormatOptions,
+): string {
+	return new Intl.NumberFormat("en-US", options).format(value);
+}
+
+function formatCurrency(value: number, currency: string): string {
+	if (!Number.isFinite(value)) {
+		return "N/A";
+	}
+
+	try {
+		return new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency,
+			maximumFractionDigits: 2,
+			minimumFractionDigits: 2,
+		}).format(value);
+	} catch {
+		return new Intl.NumberFormat("en-US", {
+			maximumFractionDigits: 2,
+			minimumFractionDigits: 2,
+		}).format(value);
+	}
+}
+
+function formatSignedCurrency(value: number, currency: string): string {
+	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
+	return `${sign}${formatCurrency(Math.abs(value), currency)}`;
+}
+
+function formatSignedPercent(value: number): string {
+	const sign = value > 0 ? "+" : "";
+	return `${sign}${formatNumber(value, {
+		maximumFractionDigits: 2,
+		minimumFractionDigits: 2,
+	})}%`;
+}
+
+function getChangeClassName(change: number): string {
+	if (change > 0) {
+		return "badge badge-success badge-outline relative top-0.5";
+	}
+
+	if (change < 0) {
+		return "badge badge-error badge-outline relative top-0.5";
+	}
+
+	return "badge badge-neutral badge-outline relative top-0.5";
 }
 
 export function SymbolPriceHistoryPanel({
 	currency,
-	initialHistory,
+	initialPriceHistory,
 	initialPeriod,
 	symbol,
 }: Props) {
 	const [selectedPeriod, setSelectedPeriod] = useState<Period>(initialPeriod);
 	const periodLabel = getPriceHistoryPeriodLabel(selectedPeriod);
+	const periodTitle = getPriceHistoryPeriodTitle(selectedPeriod);
 	const historyQuery = useQuery({
 		queryKey: ["symbol-price-history", symbol, selectedPeriod],
 		queryFn: () => fetchPriceHistory(symbol, selectedPeriod),
 		initialData:
-			selectedPeriod === initialPeriod ? () => initialHistory : undefined,
+			selectedPeriod === initialPeriod ? () => initialPriceHistory : undefined,
 		placeholderData: (previousData) => previousData,
 	});
-	const history = historyQuery.data ?? [];
+	const priceHistory = historyQuery.data ?? { history: [], change: null };
 
 	return (
 		<section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
-			<div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-				<div>
-					<p className="text-sm font-medium uppercase tracking-[0.2em] text-base-content/55">
-						Price history
-					</p>
-					<h2 className="mt-2 text-2xl font-semibold text-base-content">
-						{periodLabel} trend
+			<div className="mb-6 space-y-4">
+				<p className="text-sm font-medium uppercase tracking-[0.2em] text-base-content/55">
+					Price history
+				</p>
+				<div className="flex flex-wrap items-center gap-3">
+					<h2 className="text-2xl font-semibold leading-none text-base-content">
+						{periodTitle}
 					</h2>
+					{priceHistory.change === null ? (
+						<span className="badge badge-neutral badge-outline relative top-0.5">
+							N/A
+						</span>
+					) : (
+						<span className={getChangeClassName(priceHistory.change.amount)}>
+							{formatSignedCurrency(priceHistory.change.amount, currency)} (
+							{formatSignedPercent(priceHistory.change.percentage)})
+						</span>
+					)}
 				</div>
 				<fieldset
 					aria-label="Select price history period"
@@ -100,8 +159,8 @@ export function SymbolPriceHistoryPanel({
 			<div className="relative">
 				<SymbolPriceHistoryChart
 					currency={currency}
-					history={history}
-					periodLabel={periodLabel}
+					history={priceHistory.history}
+					periodLabel={periodTitle}
 				/>
 				{historyQuery.isFetching && (
 					<div className="absolute right-3 top-3 rounded-full border border-base-300 bg-base-100/90 px-3 py-1 text-xs font-medium text-base-content shadow-sm">
