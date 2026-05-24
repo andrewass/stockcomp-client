@@ -1,5 +1,6 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { ContestLeaderboardParticipant } from "@/domain/contests/contestParticipantTypes.ts";
+import { formatNumber } from "@/lib/formatters.ts";
 
 interface Props {
 	participants: ContestLeaderboardParticipant[];
@@ -13,10 +14,6 @@ type ContestLeaderboardRow = ContestLeaderboardParticipant & {
 	id: number;
 };
 
-const numberFormatter = new Intl.NumberFormat(undefined, {
-	maximumFractionDigits: 2,
-});
-
 const contestLeaderboardHeaderItems = [
 	"Ranking",
 	"Country",
@@ -24,10 +21,6 @@ const contestLeaderboardHeaderItems = [
 	"Total Value",
 	"Remaining Funds",
 ];
-
-function formatNumericValue(value: number): string {
-	return numberFormatter.format(value);
-}
 
 export default function ContestLeaderboardTable({
 	participants,
@@ -52,8 +45,14 @@ export default function ContestLeaderboardTable({
 					<td>{participant.rank ?? "-"}</td>
 					<td>{participant.country ?? "-"}</td>
 					<td>{participant.username}</td>
-					<td>{formatNumericValue(participant.totalValue)}</td>
-					<td>{formatNumericValue(participant.remainingFunds)}</td>
+					<td>
+						{formatNumber(participant.totalValue, { maximumFractionDigits: 2 })}
+					</td>
+					<td>
+						{formatNumber(participant.remainingFunds, {
+							maximumFractionDigits: 2,
+						})}
+					</td>
 				</tr>
 			)}
 		/>

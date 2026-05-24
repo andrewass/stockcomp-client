@@ -3,12 +3,15 @@ import {
 	CONTEST_STATUS,
 	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
-import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
-import { OrderList } from "@/symbols/detail/trading/OrderList.tsx";
 import {
 	formatCurrency,
+	formatDateTimeValue,
+	formatMappedLabel,
 	formatNumber,
-} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
+	formatSignedCurrency,
+	getProfitClassName,
+} from "@/lib/formatters.ts";
+import { OrderList } from "@/symbols/detail/trading/OrderList.tsx";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
@@ -24,26 +27,6 @@ interface Props {
 		order: SymbolTradingOrderViewModel,
 	) => void;
 	onToggle: () => void;
-}
-
-function formatSignedCurrency(value: number, currency: string): string {
-	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
-	return `${sign}${formatCurrency(Math.abs(value), currency, {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}`;
-}
-
-function getProfitClassName(value: number): string {
-	if (value > 0) {
-		return "text-success";
-	}
-
-	if (value < 0) {
-		return "text-error";
-	}
-
-	return "text-base-content";
 }
 
 function getContestStatusBadgeClassName(status: string): string {

@@ -1,9 +1,9 @@
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
-import { formatMappedLabel } from "@/lib/formatters.ts";
 import {
 	formatCurrency,
+	formatMappedLabel,
 	formatNumber,
-} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
+} from "@/lib/formatters.ts";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,

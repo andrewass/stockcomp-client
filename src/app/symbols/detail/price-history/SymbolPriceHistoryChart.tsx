@@ -10,6 +10,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
+import { formatCurrency, formatNumber } from "@/lib/formatters.ts";
 import type { SymbolPriceHistoryPoint } from "@/symbols/domain.ts";
 
 interface Props {
@@ -59,28 +60,10 @@ function formatDateLabel(timestamp: number): string {
 }
 
 function formatAxisPrice(value: number): string {
-	return new Intl.NumberFormat("en-US", {
+	return formatNumber(value, {
 		notation: "compact",
 		maximumFractionDigits: 1,
-	}).format(value);
-}
-
-function formatCurrency(value: number, currency: string): string {
-	if (!Number.isFinite(value)) {
-		return "N/A";
-	}
-
-	try {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency,
-			maximumFractionDigits: 2,
-		}).format(value);
-	} catch {
-		return new Intl.NumberFormat("en-US", {
-			maximumFractionDigits: 2,
-		}).format(value);
-	}
+	});
 }
 
 export function SymbolPriceHistoryChart({

@@ -22,29 +22,3 @@ export function hasActiveOrders(
 		) ?? false
 	);
 }
-
-export function formatCurrency(
-	value: number,
-	currency: string,
-	options?: Intl.NumberFormatOptions,
-): string {
-	try {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency,
-			...options,
-		}).format(value);
-	} catch {
-		return new Intl.NumberFormat("en-US", {
-			maximumFractionDigits: 2,
-			...options,
-		}).format(value);
-	}
-}
-
-export function formatNumber(
-	value: number,
-	options?: Intl.NumberFormatOptions,
-): string {
-	return new Intl.NumberFormat("en-US", options).format(value);
-}

@@ -1,11 +1,11 @@
 import type { ContestParticipantDetail } from "@/domain/contests/contestParticipantTypes.ts";
-import ContestInvestmentOrdersTable from "./ContestInvestmentOrdersTable.tsx";
-import ContestInvestmentsTable from "./ContestInvestmentsTable.tsx";
 import {
 	formatCurrency,
 	formatSignedCurrency,
 	getProfitClassName,
-} from "./contestParticipantFormatters.ts";
+} from "@/lib/formatters.ts";
+import ContestInvestmentOrdersTable from "./ContestInvestmentOrdersTable.tsx";
+import ContestInvestmentsTable from "./ContestInvestmentsTable.tsx";
 
 interface Props {
 	participantDetail: ContestParticipantDetail;

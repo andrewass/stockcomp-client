@@ -5,7 +5,7 @@ import {
 	formatNumber,
 	formatSignedCurrency,
 	getProfitClassName,
-} from "./contestParticipantFormatters.ts";
+} from "@/lib/formatters.ts";
 
 interface Props {
 	investments: ContestParticipantInvestment[];

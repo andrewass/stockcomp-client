@@ -1,6 +1,12 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import type React from "react";
+import {
+	formatCurrency,
+	formatNumber,
+	formatSignedCurrency,
+	formatSignedPercent,
+} from "@/lib/formatters.ts";
 import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
 import { SymbolPriceHistoryPanel } from "@/symbols/detail/price-history/SymbolPriceHistoryPanel.tsx";
 import type { SymbolDetailViewModel } from "@/symbols/domain.ts";
@@ -13,56 +19,6 @@ interface Props {
 interface Metric {
 	label: string;
 	value: string;
-}
-
-function formatCurrency(
-	value: number | null | undefined,
-	currency: string,
-	options?: Intl.NumberFormatOptions,
-): string {
-	if (value === null || value === undefined || !Number.isFinite(value)) {
-		return "N/A";
-	}
-
-	try {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency,
-			...options,
-		}).format(value);
-	} catch {
-		return new Intl.NumberFormat("en-US", {
-			maximumFractionDigits: 2,
-			...options,
-		}).format(value);
-	}
-}
-
-function formatNumber(
-	value: number | null | undefined,
-	options?: Intl.NumberFormatOptions,
-): string {
-	if (value === null || value === undefined || !Number.isFinite(value)) {
-		return "N/A";
-	}
-
-	return new Intl.NumberFormat("en-US", options).format(value);
-}
-
-function formatSignedCurrency(value: number, currency: string): string {
-	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
-	return `${sign}${formatCurrency(Math.abs(value), currency, {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}`;
-}
-
-function formatSignedPercent(value: number): string {
-	const sign = value > 0 ? "+" : "";
-	return `${sign}${formatNumber(value, {
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	})}%`;
 }
 
 function getChangeClassName(change: number): string {
@@ -165,7 +121,10 @@ export default function SymbolDetailView({
 										</div>
 									</div>
 									<div className={getChangeClassName(symbolDetail.priceChange)}>
-										{formatSignedPercent(symbolDetail.percentageChange)}
+										{formatSignedPercent(symbolDetail.percentageChange, {
+											minimumFractionDigits: 2,
+											maximumFractionDigits: 2,
+										})}
 									</div>
 								</div>
 
@@ -189,6 +148,10 @@ export default function SymbolDetailView({
 											{formatSignedCurrency(
 												symbolDetail.priceChange,
 												symbolDetail.currency,
+												{
+													minimumFractionDigits: 2,
+													maximumFractionDigits: 2,
+												},
 											)}
 										</div>
 									</div>

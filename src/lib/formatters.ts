@@ -1,5 +1,84 @@
 import { format, isValid, parseISO } from "date-fns";
 
+const DEFAULT_LOCALE = "en-US";
+const DEFAULT_FALLBACK_VALUE = "N/A";
+
+export function formatNumber(
+	value: number | null | undefined,
+	options?: Intl.NumberFormatOptions,
+	fallback = DEFAULT_FALLBACK_VALUE,
+): string {
+	if (value === null || value === undefined || !Number.isFinite(value)) {
+		return fallback;
+	}
+
+	return new Intl.NumberFormat(DEFAULT_LOCALE, options).format(value);
+}
+
+export function formatCurrency(
+	value: number | null | undefined,
+	currency = "USD",
+	options?: Intl.NumberFormatOptions,
+	fallback = DEFAULT_FALLBACK_VALUE,
+): string {
+	if (value === null || value === undefined || !Number.isFinite(value)) {
+		return fallback;
+	}
+
+	try {
+		return new Intl.NumberFormat(DEFAULT_LOCALE, {
+			style: "currency",
+			currency,
+			...options,
+		}).format(value);
+	} catch {
+		return formatNumber(
+			value,
+			{ maximumFractionDigits: 2, ...options },
+			fallback,
+		);
+	}
+}
+
+export function formatSignedCurrency(
+	value: number | null | undefined,
+	currency = "USD",
+	options?: Intl.NumberFormatOptions,
+	fallback = DEFAULT_FALLBACK_VALUE,
+): string {
+	if (value === null || value === undefined || !Number.isFinite(value)) {
+		return fallback;
+	}
+
+	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
+	return `${sign}${formatCurrency(Math.abs(value), currency, options, fallback)}`;
+}
+
+export function formatSignedPercent(
+	value: number | null | undefined,
+	options?: Intl.NumberFormatOptions,
+	fallback = DEFAULT_FALLBACK_VALUE,
+): string {
+	if (value === null || value === undefined || !Number.isFinite(value)) {
+		return fallback;
+	}
+
+	const sign = value > 0 ? "+" : "";
+	return `${sign}${formatNumber(value, options, fallback)}%`;
+}
+
+export function getProfitClassName(value: number): string {
+	if (value > 0) {
+		return "text-success";
+	}
+
+	if (value < 0) {
+		return "text-error";
+	}
+
+	return "text-base-content";
+}
+
 export function formatEnumLabel(value: string): string {
 	if (!value) {
 		return value;

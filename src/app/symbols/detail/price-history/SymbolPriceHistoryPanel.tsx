@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { Period } from "@/domain/symbol/symbolTypes.ts";
+import { formatSignedCurrency, formatSignedPercent } from "@/lib/formatters.ts";
 import {
 	getPriceHistoryPeriodLabel,
 	getPriceHistoryPeriodTitle,
@@ -33,46 +34,6 @@ async function fetchPriceHistory(
 	}
 
 	return (await response.json()) as SymbolPriceHistoryViewModel;
-}
-
-function formatNumber(
-	value: number,
-	options?: Intl.NumberFormatOptions,
-): string {
-	return new Intl.NumberFormat("en-US", options).format(value);
-}
-
-function formatCurrency(value: number, currency: string): string {
-	if (!Number.isFinite(value)) {
-		return "N/A";
-	}
-
-	try {
-		return new Intl.NumberFormat("en-US", {
-			style: "currency",
-			currency,
-			maximumFractionDigits: 2,
-			minimumFractionDigits: 2,
-		}).format(value);
-	} catch {
-		return new Intl.NumberFormat("en-US", {
-			maximumFractionDigits: 2,
-			minimumFractionDigits: 2,
-		}).format(value);
-	}
-}
-
-function formatSignedCurrency(value: number, currency: string): string {
-	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
-	return `${sign}${formatCurrency(Math.abs(value), currency)}`;
-}
-
-function formatSignedPercent(value: number): string {
-	const sign = value > 0 ? "+" : "";
-	return `${sign}${formatNumber(value, {
-		maximumFractionDigits: 2,
-		minimumFractionDigits: 2,
-	})}%`;
 }
 
 function getChangeClassName(change: number): string {
@@ -121,8 +82,16 @@ export function SymbolPriceHistoryPanel({
 						</span>
 					) : (
 						<span className={getChangeClassName(priceHistory.change.amount)}>
-							{formatSignedCurrency(priceHistory.change.amount, currency)} (
-							{formatSignedPercent(priceHistory.change.percentage)})
+							{formatSignedCurrency(priceHistory.change.amount, currency, {
+								maximumFractionDigits: 2,
+								minimumFractionDigits: 2,
+							})}{" "}
+							(
+							{formatSignedPercent(priceHistory.change.percentage, {
+								maximumFractionDigits: 2,
+								minimumFractionDigits: 2,
+							})}
+							)
 						</span>
 					)}
 				</div>

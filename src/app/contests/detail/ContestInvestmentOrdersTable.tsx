@@ -1,11 +1,12 @@
 import Link from "next/link";
 import type { ContestParticipantInvestmentOrder } from "@/domain/contests/contestParticipantTypes.ts";
 import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
-import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import {
 	formatCurrency,
+	formatDateTimeValue,
+	formatMappedLabel,
 	formatNumber,
-} from "./contestParticipantFormatters.ts";
+} from "@/lib/formatters.ts";
 
 interface Props {
 	orders: ContestParticipantInvestmentOrder[];

@@ -1,10 +1,11 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
-import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import {
 	formatCurrency,
+	formatDateTimeValue,
+	formatMappedLabel,
 	formatNumber,
-} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
+} from "@/lib/formatters.ts";
 import type { SymbolTradingOrderViewModel } from "@/symbols/domain.ts";
 
 interface Props {

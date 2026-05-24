@@ -2,6 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import {
+	formatCurrency,
+	formatSignedCurrency,
+	formatSignedPercent,
+} from "@/lib/formatters.ts";
 import { queryTiming } from "@/query/queryTiming.ts";
 import type { SymbolCardViewModel } from "@/symbols/domain.ts";
 
@@ -16,20 +21,6 @@ const SYMBOL_CARD_SKELETON_KEYS = [
 	"symbol-card-skeleton-8",
 	"symbol-card-skeleton-9",
 ];
-
-function formatPrice(value: number, currency: string): string {
-	return new Intl.NumberFormat("en-US", {
-		style: "currency",
-		currency,
-		minimumFractionDigits: 2,
-		maximumFractionDigits: 2,
-	}).format(value);
-}
-
-function formatChange(value: number, currency: string): string {
-	const sign = value > 0 ? "+" : value < 0 ? "-" : "";
-	return `${sign}${formatPrice(Math.abs(value), currency)}`;
-}
 
 function getChangeStyles(change: number): string {
 	if (change > 0) {
@@ -116,7 +107,10 @@ export function SymbolsGrid() {
 							</div>
 							<div className="space-y-2">
 								<p className="text-3xl font-semibold tracking-tight">
-									{formatPrice(symbol.currentPrice, symbol.currency)}
+									{formatCurrency(symbol.currentPrice, symbol.currency, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
 								</p>
 								<div
 									className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium ${getChangeStyles(
@@ -124,12 +118,17 @@ export function SymbolsGrid() {
 									)}`}
 								>
 									<span>
-										{formatChange(symbol.priceChange, symbol.currency)}
+										{formatSignedCurrency(symbol.priceChange, symbol.currency, {
+											minimumFractionDigits: 2,
+											maximumFractionDigits: 2,
+										})}
 									</span>
 									<span aria-hidden="true">/</span>
 									<span>
-										{symbol.percentageChange > 0 ? "+" : ""}
-										{symbol.percentageChange.toFixed(2)}%
+										{formatSignedPercent(symbol.percentageChange, {
+											minimumFractionDigits: 2,
+											maximumFractionDigits: 2,
+										})}
 									</span>
 								</div>
 							</div>

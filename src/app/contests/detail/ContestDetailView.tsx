@@ -7,7 +7,11 @@ import {
 	contestStatusRecord,
 	getStatusByColor,
 } from "@/domain/contests/contestTypes.ts";
-import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
+import {
+	formatDateTimeValue,
+	formatMappedLabel,
+	formatNumber,
+} from "@/lib/formatters.ts";
 import ContestLeaderboardTable from "./ContestLeaderboardTable.tsx";
 import ContestParticipantStatus from "./ContestParticipantStatus.tsx";
 
@@ -18,10 +22,6 @@ interface Props {
 	pageSize: number;
 	currentPage: number;
 }
-
-const numberFormatter = new Intl.NumberFormat(undefined, {
-	maximumFractionDigits: 2,
-});
 
 function getStatusBadgeClassName(contest: Contest): string {
 	switch (getStatusByColor(contest)) {
@@ -49,10 +49,6 @@ function getContestTimelineSummary(contest: Contest): string {
 		default:
 			return "Contest timeline unavailable.";
 	}
-}
-
-function formatNumericValue(value: number): string {
-	return numberFormatter.format(value);
 }
 
 export default function ContestDetailView({
@@ -90,7 +86,9 @@ export default function ContestDetailView({
 						<div className="stat">
 							<div className="stat-title">Participants</div>
 							<div className="stat-value text-3xl">
-								{formatNumericValue(participantCount)}
+								{formatNumber(participantCount, {
+									maximumFractionDigits: 2,
+								})}
 							</div>
 						</div>
 						<div className="stat">

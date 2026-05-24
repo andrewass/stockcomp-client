@@ -127,6 +127,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Global styles/plugins are configured in [`src/app/globals.css`](src/app/globals.css) and [`postcss.config.mjs`](postcss.config.mjs).
 - Keep styling consistent with existing pages/components before introducing new design patterns.
 - Do not add new MUI-based UI in active product code.
+- Use [`src/lib/formatters.ts`](src/lib/formatters.ts) as the single source of truth for formatted display text such as numbers, currency, signed currency/percent values, dates, enum labels, and positive/negative value styling. Do not add feature-local formatting helpers for these concerns unless the formatting is truly feature-specific.
 
 ## Data fetching and state
 - React Query provider is set up in [`src/app/providers/AppProviders.tsx`](src/app/providers/AppProviders.tsx).
