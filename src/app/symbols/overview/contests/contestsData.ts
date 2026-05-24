@@ -1,9 +1,37 @@
 import "server-only";
+import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import { resourceGet, resourcePost } from "@/api/resourceServerClient.ts";
-import type { Contest } from "@/domain/contests/contestTypes.ts";
-import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
+import {
+	CONTEST_STATUS,
+	type Contest,
+} from "@/domain/contests/contestTypes.ts";
+import type {
+	SymbolContestInvestmentStatusViewModel,
+	SymbolContestListItemViewModel,
+} from "@/symbols/domain.ts";
 
-type ContestListResponseItem = Contest | { contest: Contest };
+interface UserParticipantDto {
+	rank?: number | null;
+	totalValue: number;
+	totalInvestmentValue: number;
+	remainingFunds: number;
+}
+
+interface ContestParticipantDto {
+	contest: Contest;
+	participant: UserParticipantDto;
+}
+
+interface InvestmentDto {
+	totalProfit: number;
+}
+
+interface DetailedParticipantDto {
+	participant: UserParticipantDto;
+	investments: InvestmentDto[];
+}
+
+type ContestListResponseItem = Contest | ContestParticipantDto;
 
 export async function getUnregisteredContests(): Promise<
 	SymbolContestListItemViewModel[]
@@ -20,7 +48,13 @@ export async function getRegisteredContests(): Promise<
 	const contests = await resourceGet<ContestListResponseItem[]>({
 		url: "/participants/registered",
 	});
-	return mapToSymbolContestListItemViewModel(contests);
+	const detailedParticipantsByContestId =
+		await getRunningDetailedParticipantsByContestId(contests);
+
+	return mapToSymbolContestListItemViewModel(
+		contests,
+		detailedParticipantsByContestId,
+	);
 }
 
 export async function signUpParticipant(contestId: number): Promise<void> {
@@ -34,9 +68,16 @@ export async function signUpParticipant(contestId: number): Promise<void> {
 
 function mapToSymbolContestListItemViewModel(
 	contests: ContestListResponseItem[],
+	detailedParticipantsByContestId: Map<
+		number,
+		DetailedParticipantDto
+	> = new Map(),
 ): SymbolContestListItemViewModel[] {
 	return contests.map((item) => {
 		const contest = "contest" in item ? item.contest : item;
+		const detailedParticipant = detailedParticipantsByContestId.get(
+			contest.contestId,
+		);
 
 		return {
 			contestId: contest.contestId,
@@ -44,10 +85,76 @@ function mapToSymbolContestListItemViewModel(
 			contestStatus: contest.contestStatus,
 			startTime: contest.startTime,
 			endTime: contest.endTime,
+			investmentStatus: detailedParticipant
+				? mapInvestmentStatus(detailedParticipant)
+				: undefined,
 		};
 	});
 }
 
 interface SignUpParticipantRequest {
 	contestId: number;
+}
+
+async function getDetailedParticipantForContest(
+	contestId: number,
+): Promise<DetailedParticipantDto | null> {
+	try {
+		return await resourceGet<DetailedParticipantDto | null>({
+			url: `/participants/detailed/contest/${contestId}`,
+		});
+	} catch (error) {
+		if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
+			return null;
+		}
+
+		throw error;
+	}
+}
+
+async function getRunningDetailedParticipantsByContestId(
+	contests: ContestListResponseItem[],
+): Promise<Map<number, DetailedParticipantDto>> {
+	const runningContests = contests
+		.map((item) => ("contest" in item ? item.contest : item))
+		.filter((contest) => contest.contestStatus === CONTEST_STATUS.RUNNING);
+
+	const detailedParticipants = await Promise.all(
+		runningContests.map((contest) =>
+			getDetailedParticipantForContest(contest.contestId),
+		),
+	);
+
+	return new Map(
+		detailedParticipants.flatMap((detailedParticipant, index) =>
+			detailedParticipant
+				? [[runningContests[index].contestId, detailedParticipant]]
+				: [],
+		),
+	);
+}
+
+function toFiniteNumber(value: number | null | undefined): number {
+	return value === undefined || value === null || !Number.isFinite(value)
+		? 0
+		: value;
+}
+
+function mapInvestmentStatus(
+	detailedParticipant: DetailedParticipantDto,
+): SymbolContestInvestmentStatusViewModel {
+	return {
+		remainingFunds: toFiniteNumber(
+			detailedParticipant.participant.remainingFunds,
+		),
+		totalInvestmentValue: toFiniteNumber(
+			detailedParticipant.participant.totalInvestmentValue,
+		),
+		totalProfit: detailedParticipant.investments.reduce(
+			(sum, investment) => sum + toFiniteNumber(investment.totalProfit),
+			0,
+		),
+		totalValue: toFiniteNumber(detailedParticipant.participant.totalValue),
+		rank: detailedParticipant.participant.rank ?? null,
+	};
 }

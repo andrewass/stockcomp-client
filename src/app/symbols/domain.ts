@@ -49,6 +49,15 @@ export interface SymbolContestListItemViewModel {
 	contestStatus: string;
 	startTime: string;
 	endTime: string;
+	investmentStatus?: SymbolContestInvestmentStatusViewModel;
+}
+
+export interface SymbolContestInvestmentStatusViewModel {
+	remainingFunds: number;
+	totalInvestmentValue: number;
+	totalProfit: number;
+	totalValue: number;
+	rank: number | null;
 }
 
 export interface SymbolTradingOrderViewModel {

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { contestStatusRecord } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
+import ContestInvestmentStatus from "./ContestInvestmentStatus.tsx";
 
 interface Props {
 	title: string;
@@ -102,6 +103,11 @@ export default function ContestSection({
 											</p>
 										</div>
 									</div>
+									{contest.investmentStatus && (
+										<ContestInvestmentStatus
+											status={contest.investmentStatus}
+										/>
+									)}
 								</div>
 							</article>
 						);
