@@ -10,11 +10,11 @@ interface Props {
 	onClose: () => void;
 }
 
-type ContestFormState = {
+interface ContestFormState {
 	contestName: string;
 	startTime: string;
 	durationDays: string;
-};
+}
 
 const INITIAL_FORM_STATE: ContestFormState = {
 	contestName: "",

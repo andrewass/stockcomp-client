@@ -1,37 +1,37 @@
-export type SymbolCardViewModel = {
+export interface SymbolCardViewModel {
 	symbol: string;
 	companyName: string;
 	currentPrice: number;
 	priceChange: number;
 	percentageChange: number;
 	currency: string;
-};
+}
 
-export type SymbolFinancialsViewModel = {
+export interface SymbolFinancialsViewModel {
 	marketCap: number;
 	priceToBook: number;
 	priceToEarnings: number;
 	earningsPerShare: number;
 	dividendRate: number | null;
 	dividendYieldPercentage: number | null;
-};
+}
 
-export type SymbolPriceHistoryPoint = {
+export interface SymbolPriceHistoryPoint {
 	price: number;
 	priceDate: string;
-};
+}
 
-export type SymbolPriceHistoryChangeViewModel = {
+export interface SymbolPriceHistoryChangeViewModel {
 	amount: number;
 	percentage: number;
-};
+}
 
-export type SymbolPriceHistoryViewModel = {
+export interface SymbolPriceHistoryViewModel {
 	history: SymbolPriceHistoryPoint[];
 	change: SymbolPriceHistoryChangeViewModel | null;
-};
+}
 
-export type SymbolDetailViewModel = {
+export interface SymbolDetailViewModel {
 	symbol: string;
 	companyName: string;
 	currentPrice: number;
@@ -41,17 +41,17 @@ export type SymbolDetailViewModel = {
 	usdPrice: number | null;
 	financials: SymbolFinancialsViewModel;
 	priceHistory: SymbolPriceHistoryViewModel;
-};
+}
 
-export type SymbolContestListItemViewModel = {
+export interface SymbolContestListItemViewModel {
 	contestId: number;
 	contestName: string;
 	contestStatus: string;
 	startTime: string;
 	endTime: string;
-};
+}
 
-export type SymbolTradingOrderViewModel = {
+export interface SymbolTradingOrderViewModel {
 	investmentOrderId: number | null;
 	transactionType: "BUY" | "SELL";
 	totalAmount: number;
@@ -60,9 +60,17 @@ export type SymbolTradingOrderViewModel = {
 	currency: string;
 	orderStatus: string;
 	expirationTime: string;
-};
+}
 
-export type SymbolTradingContestViewModel = {
+export interface SymbolTradingInvestmentViewModel {
+	amount: number;
+	totalCost: number;
+	totalProfit: number;
+	totalProfitPercentage: number;
+	totalValue: number;
+}
+
+export interface SymbolTradingContestViewModel {
 	contestId: number;
 	participantId: number;
 	contestName: string;
@@ -70,17 +78,11 @@ export type SymbolTradingContestViewModel = {
 	startTime: string;
 	endTime: string;
 	remainingFunds: number;
-	investment: {
-		amount: number;
-		totalCost: number;
-		totalProfit: number;
-		totalProfitPercentage: number;
-		totalValue: number;
-	};
+	investment: SymbolTradingInvestmentViewModel;
 	orders: SymbolTradingOrderViewModel[];
-};
+}
 
-export type SymbolTradingViewModel = {
+export interface SymbolTradingViewModel {
 	symbol: string;
 	contests: SymbolTradingContestViewModel[];
-};
+}

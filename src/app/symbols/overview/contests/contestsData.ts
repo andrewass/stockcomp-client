@@ -48,6 +48,6 @@ function mapToSymbolContestListItemViewModel(
 	});
 }
 
-type SignUpParticipantRequest = {
+interface SignUpParticipantRequest {
 	contestId: number;
-};
+}

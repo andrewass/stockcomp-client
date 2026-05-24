@@ -51,6 +51,12 @@ This file describes the project conventions for AI/code agents working in this r
 - Use `feat` for user-facing features and `fix` for bug fixes; other lowercase types such as `docs`, `refactor`, `test`, `build`, `ci`, `style`, `perf`, and `chore` are allowed when they describe the change.
 - Mark breaking changes with `!` before the colon or a `BREAKING CHANGE:` footer.
 
+## TypeScript type conventions
+- Use `interface` for named object contracts: domain entities, DTOs, request/response shapes, exported view models, and component `Props`.
+- Use `type` for unions, intersections, utility aliases, mapped/conditional types, `Record` aliases, `ReturnType` aliases, and small local composed types that need `&` or `|`.
+- Do not switch established types only for style unless you are already touching that area or doing a dedicated type-convention cleanup.
+- Keep exported contracts consistently named and explicit; avoid anonymous object types in public function signatures when a named interface improves reuse or readability.
+
 ## Component structure and colocation
 - Avoid large multipurpose React components. Split components when a file mixes distinct UI regions, unrelated state groups, or enough JSX/logic that the main behavior is hard to scan.
 - Treat a component as too large when it combines two or more of these responsibilities: data fetching/mutations, form state, modal state, list rendering, section layout, item rendering, formatting helpers, or API request helpers.

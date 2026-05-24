@@ -47,20 +47,20 @@ export function getStatusByColor(contest: Contest): string {
 	return "red";
 }
 
-export type ContestPage = {
+export interface ContestPage {
 	contests: Contest[];
 	totalEntriesCount: number;
-};
+}
 
-export type UpdateContestRequest = {
+export interface UpdateContestRequest {
 	contestId: number;
 	contestName: string;
 	startTime: string;
 	contestStatus: string;
-};
+}
 
-export type CreateContestRequest = {
+export interface CreateContestRequest {
 	startTime: string;
 	contestName: string;
 	durationDays: number;
-};
+}

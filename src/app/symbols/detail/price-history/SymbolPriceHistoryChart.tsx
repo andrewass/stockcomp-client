@@ -18,10 +18,10 @@ interface Props {
 	periodLabel: string;
 }
 
-type ChartDatum = {
+interface ChartDatum {
 	price: number;
 	timestamp: number;
-};
+}
 
 function toTimestamp(priceDate: number): number | null {
 	if (!Number.isFinite(priceDate) || priceDate <= 0) {

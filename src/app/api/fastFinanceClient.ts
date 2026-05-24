@@ -7,21 +7,21 @@ import type {
 	StockPrice,
 } from "@/domain/symbol/symbolTypes.ts";
 
-export type TrendingSymbolsResponse = {
+export interface TrendingSymbolsResponse {
 	symbols: SymbolPriceResponse[];
-};
+}
 
-type SymbolsPriceRequest = {
+interface SymbolsPriceRequest {
 	symbols: string[];
-};
+}
 
-export type SymbolPriceResponse = {
+export interface SymbolPriceResponse {
 	symbol: string;
 	companyName: string;
 	currentPrice: number;
 	previousClose: number;
 	currency: string;
-};
+}
 
 const PROVIDER = "fastfinance";
 
@@ -107,9 +107,9 @@ export function getStockSymbolFinancials(
 	});
 }
 
-type HistoricalPricesResponse = {
+interface HistoricalPricesResponse {
 	prices: HistoricalPrice[];
-};
+}
 
 export function getHistoricPrices(
 	symbol: string,

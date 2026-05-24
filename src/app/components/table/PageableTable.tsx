@@ -1,9 +1,9 @@
 import type React from "react";
 import TablePager from "@/components/table/TablePager.tsx";
 
-type Identifiable = {
+interface Identifiable {
 	id: string | number;
-};
+}
 
 interface Props<T extends Identifiable> {
 	items: T[];

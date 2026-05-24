@@ -4,20 +4,20 @@ export enum MedalValue {
 	Bronze = "Bronze",
 }
 
-export type Medal = {
+export interface Medal {
 	medalValue: MedalValue;
 	position: number;
-};
+}
 
-export type LeaderboardEntry = {
+export interface LeaderboardEntry {
 	country: string;
 	displayName: string;
 	ranking: number;
 	score: number;
 	medals: Medal[];
-};
+}
 
-export type LeaderboardEntryPage = {
+export interface LeaderboardEntryPage {
 	entries: LeaderboardEntry[];
 	totalEntriesCount: number;
-};
+}

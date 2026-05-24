@@ -10,10 +10,10 @@ interface Props {
 	tradingPanel?: React.ReactNode;
 }
 
-type Metric = {
+interface Metric {
 	label: string;
 	value: string;
-};
+}
 
 function formatCurrency(
 	value: number | null | undefined,

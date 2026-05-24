@@ -1,12 +1,12 @@
-export type StockPrice = {
+export interface StockPrice {
 	currentPrice: number;
 	previousClose: number;
 	currency: string;
 	symbol: string;
 	companyName: string;
-};
+}
 
-export type StockFinancials = {
+export interface StockFinancials {
 	symbol: string;
 	companyName: string;
 	currency: string;
@@ -16,12 +16,12 @@ export type StockFinancials = {
 	earningsPerShare: number;
 	dividendRate?: number | null;
 	dividendYieldPercentage?: number | null;
-};
+}
 
-export type HistoricalPrice = {
+export interface HistoricalPrice {
 	price: number;
 	price_date: string;
-};
+}
 
 export enum Period {
 	DAY1 = "1d",

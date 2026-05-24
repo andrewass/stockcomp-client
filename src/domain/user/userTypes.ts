@@ -1,11 +1,11 @@
-export type UserPage = {
+export interface UserPage {
 	entries: User[];
 	totalEntriesCount: number;
-};
+}
 
-export type User = {
+export interface User {
 	username: string;
 	email: string;
 	userRole: string;
 	userStatus: string;
-};
+}
