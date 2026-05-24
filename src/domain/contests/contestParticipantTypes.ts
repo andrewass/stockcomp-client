@@ -1,4 +1,5 @@
 import type { Contest } from "@/domain/contests/contestTypes.ts";
+import type { TransactionType } from "@/domain/investmentorder/investmentOrderTypes.ts";
 
 export interface ContestLeaderboardParticipant {
 	participantId: number;
@@ -17,5 +18,37 @@ export interface ContestLeaderboardPage {
 
 export interface ContestParticipantDetail {
 	contest: Contest;
-	participant: ContestLeaderboardParticipant;
+	participant: ContestParticipantSummary;
+	investments: ContestParticipantInvestment[];
+	activeOrders: ContestParticipantInvestmentOrder[];
+	completedOrders: ContestParticipantInvestmentOrder[];
+}
+
+export interface ContestParticipantSummary {
+	participantId: number;
+	userId: number;
+	rank?: number | null;
+	totalValue: number;
+	totalInvestmentValue: number;
+	remainingFunds: number;
+}
+
+export interface ContestParticipantInvestment {
+	symbol: string;
+	amount: number;
+	averageUnitCost: number;
+	totalProfit: number;
+	totalValue: number;
+}
+
+export interface ContestParticipantInvestmentOrder {
+	orderId: number | null;
+	symbol: string;
+	totalAmount: number;
+	remainingAmount: number;
+	acceptedPrice: number;
+	currency: string;
+	expirationTime: string;
+	transactionType: TransactionType;
+	orderStatus: string;
 }

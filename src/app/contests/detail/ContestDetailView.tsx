@@ -9,6 +9,7 @@ import {
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import ContestLeaderboardTable from "./ContestLeaderboardTable.tsx";
+import ContestParticipantStatus from "./ContestParticipantStatus.tsx";
 
 interface Props {
 	contest: Contest;
@@ -109,40 +110,7 @@ export default function ContestDetailView({
 			</section>
 
 			{participantDetail && (
-				<section className="card border border-base-300 bg-base-100 shadow-sm">
-					<div className="card-body gap-4">
-						<div className="space-y-1">
-							<h2 className="text-xl font-semibold text-base-content">
-								My status
-							</h2>
-							<p className="text-sm text-base-content/70">
-								Your position in this contest right now.
-							</p>
-						</div>
-						<div className="stats stats-vertical border border-base-300 bg-base-200/50 lg:stats-horizontal">
-							<div className="stat">
-								<div className="stat-title">Rank</div>
-								<div className="stat-value text-3xl">
-									{participantDetail.participant.rank ?? "-"}
-								</div>
-							</div>
-							<div className="stat">
-								<div className="stat-title">Total value</div>
-								<div className="stat-value text-3xl">
-									{formatNumericValue(participantDetail.participant.totalValue)}
-								</div>
-							</div>
-							<div className="stat">
-								<div className="stat-title">Remaining funds</div>
-								<div className="stat-value text-3xl">
-									{formatNumericValue(
-										participantDetail.participant.remainingFunds,
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
+				<ContestParticipantStatus participantDetail={participantDetail} />
 			)}
 
 			<section className="space-y-4">
