@@ -32,7 +32,7 @@ This file describes the project conventions for AI/code agents working in this r
 ## Domain extraction template (incremental)
 - Use incremental migration by domain entity: extract one domain at a time, keep behavior unchanged, then move to the next entity.
 - First extraction target: `contests` as a shared domain across `(admin)` and `(main)` experiences.
-- For feature-specific read orchestration, prefer stable non-route-group feature modules such as `src/app/<feature>/*Data.ts` or `src/app/<feature>/api/*Data.ts`.
+- For feature-specific read orchestration, prefer stable non-route-group feature modules such as `src/app/<feature>/<screen-or-workflow>/*Data.ts`.
 - Keep shared provider clients, token exchange, and HTTP/error helpers in `src/app/api/**`.
 - Keep domain-owned logic/types in `src/domain/<domain>/**`; app adapters map transport DTOs to/from domain shapes.
 - Feature UIs in both admin and main must depend on the same domain contracts, not duplicate per-route-group models.
@@ -61,6 +61,15 @@ This file describes the project conventions for AI/code agents working in this r
 - Prefer feature-local component folders for related UI parts, hooks, types, and utilities when a component grows beyond a single file.
 - Keep extracted child components focused on one responsibility with explicit `Props`; avoid moving code into shared modules unless it is genuinely reused across features.
 - Preserve behavior during structural refactors unless the task explicitly asks for UX or logic changes.
+
+## Feature module structure
+- Organize broad `src/app/<feature>/**` modules by user-facing screen or workflow before organizing by technical file type.
+- When one feature backs multiple pages, create focused subfolders for each page/workflow, for example `overview/`, `detail/`, `trading/`, `settings/`, or similarly domain-specific names.
+- Keep route entry files under route groups thin; they should import view components and server loaders from stable feature folders outside route-group paths.
+- Put server-only read loaders next to the screen/workflow that owns them, for example `src/app/<feature>/<workflow>/<workflow>Data.ts`; do not place feature data loaders under an `api/` folder unless that folder contains actual route handler infrastructure.
+- Reserve `src/app/api/**` for shared technical clients and cross-feature API infrastructure. Reserve route-local `api/**/route.ts` folders for HTTP gateways used by client components.
+- Keep shared feature contracts in a small stable module such as `src/app/<feature>/domain.ts` when multiple subfolders need the same view models.
+- For `src/app/symbols/**`, preserve the split between `overview/` for the symbol grid and contest list page, and `detail/` for symbol details, price history, trading, investments, and order details.
 
 ## Skills
 - Skills under `.agents/skills/**` should be repo-agnostic by default so they can be reused across projects.

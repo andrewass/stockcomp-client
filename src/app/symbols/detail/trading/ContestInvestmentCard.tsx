@@ -4,15 +4,15 @@ import {
 	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
+import { OrderList } from "@/symbols/detail/trading/OrderList.tsx";
+import {
+	formatCurrency,
+	formatNumber,
+} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
 } from "@/symbols/domain.ts";
-import { OrderList } from "@/symbols/trading/OrderList.tsx";
-import {
-	formatCurrency,
-	formatNumber,
-} from "@/symbols/trading/tradingSidebarUtils.ts";
 
 interface Props {
 	contest: SymbolTradingContestViewModel;

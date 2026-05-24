@@ -4,7 +4,7 @@ import {
 	cancelInvestmentOrder,
 	createInvestmentOrder,
 	isTransactionType,
-} from "@/symbols/api/tradingData.ts";
+} from "@/symbols/detail/trading/tradingData.ts";
 
 interface CreateInvestmentOrderBody {
 	contestId?: unknown;

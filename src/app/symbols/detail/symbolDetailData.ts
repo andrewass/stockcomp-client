@@ -5,9 +5,9 @@ import {
 } from "@/api/fastFinanceClient.ts";
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import type { Period } from "@/domain/symbol/symbolTypes.ts";
+import { getSymbolPriceHistoryData } from "@/symbols/detail/price-history/priceHistoryData.ts";
+import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
 import type { SymbolDetailViewModel } from "@/symbols/domain.ts";
-import { getSymbolPriceHistoryData } from "@/symbols/priceHistoryData.ts";
-import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/priceHistoryPeriods.ts";
 
 function normalizeSymbol(symbol: string): string {
 	return symbol.trim().toUpperCase();

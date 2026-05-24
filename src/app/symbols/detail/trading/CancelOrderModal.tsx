@@ -1,13 +1,13 @@
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
 import { formatMappedLabel } from "@/lib/formatters.ts";
+import {
+	formatCurrency,
+	formatNumber,
+} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
 } from "@/symbols/domain.ts";
-import {
-	formatCurrency,
-	formatNumber,
-} from "@/symbols/trading/tradingSidebarUtils.ts";
 
 interface PendingOrderCancellation {
 	contest: SymbolTradingContestViewModel;

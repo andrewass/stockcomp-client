@@ -1,6 +1,6 @@
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import { isUnauthenticatedError } from "@/api/resourceServerClient.ts";
-import { getSymbolTradingData } from "@/symbols/api/tradingData.ts";
+import { getSymbolTradingData } from "@/symbols/detail/trading/tradingData.ts";
 
 function getSymbolFromRequest(request: Request): string | null {
 	const { searchParams } = new URL(request.url);

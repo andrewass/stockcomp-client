@@ -1,5 +1,5 @@
+import { OrderListItem } from "@/symbols/detail/trading/OrderListItem.tsx";
 import type { SymbolTradingOrderViewModel } from "@/symbols/domain.ts";
-import { OrderListItem } from "@/symbols/trading/OrderListItem.tsx";
 
 interface Props {
 	orders: SymbolTradingOrderViewModel[];

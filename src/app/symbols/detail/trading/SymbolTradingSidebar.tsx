@@ -1,10 +1,10 @@
 "use client";
 
+import { CancelOrderModal } from "@/symbols/detail/trading/CancelOrderModal.tsx";
+import { InvestmentsSection } from "@/symbols/detail/trading/InvestmentsSection.tsx";
+import { TradeSection } from "@/symbols/detail/trading/TradeSection.tsx";
+import { useSymbolTradingSidebar } from "@/symbols/detail/trading/useSymbolTradingSidebar.ts";
 import type { SymbolTradingViewModel } from "@/symbols/domain.ts";
-import { CancelOrderModal } from "@/symbols/trading/CancelOrderModal.tsx";
-import { InvestmentsSection } from "@/symbols/trading/InvestmentsSection.tsx";
-import { TradeSection } from "@/symbols/trading/TradeSection.tsx";
-import { useSymbolTradingSidebar } from "@/symbols/trading/useSymbolTradingSidebar.ts";
 
 interface Props {
 	symbol: string;

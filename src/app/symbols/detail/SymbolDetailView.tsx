@@ -1,9 +1,9 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import type React from "react";
+import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
+import { SymbolPriceHistoryPanel } from "@/symbols/detail/price-history/SymbolPriceHistoryPanel.tsx";
 import type { SymbolDetailViewModel } from "@/symbols/domain.ts";
-import { DEFAULT_PRICE_HISTORY_PERIOD } from "@/symbols/priceHistoryPeriods.ts";
-import { SymbolPriceHistoryPanel } from "@/symbols/SymbolPriceHistoryPanel.tsx";
 
 interface Props {
 	symbolDetail: SymbolDetailViewModel;

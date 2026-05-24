@@ -3,21 +3,21 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { queryTiming } from "@/query/queryTiming.ts";
-import type {
-	SymbolTradingContestViewModel,
-	SymbolTradingOrderViewModel,
-	SymbolTradingViewModel,
-} from "@/symbols/domain.ts";
 import {
 	cancelInvestmentOrder,
 	createInvestmentOrder,
 	fetchTradingData,
 	type SymbolTradingOrderRequest,
-} from "@/symbols/trading/tradingApi.ts";
+} from "@/symbols/detail/trading/tradingApi.ts";
 import {
 	getTradingQueryKey,
 	hasActiveOrders,
-} from "@/symbols/trading/tradingSidebarUtils.ts";
+} from "@/symbols/detail/trading/tradingSidebarUtils.ts";
+import type {
+	SymbolTradingContestViewModel,
+	SymbolTradingOrderViewModel,
+	SymbolTradingViewModel,
+} from "@/symbols/domain.ts";
 
 interface Options {
 	symbol: string;

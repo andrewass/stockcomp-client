@@ -1,7 +1,7 @@
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import { TradingOrderForm } from "@/symbols/detail/trading/TradingOrderForm.tsx";
+import type { SymbolTradingOrderRequest } from "@/symbols/detail/trading/tradingApi.ts";
 import type { SymbolTradingContestViewModel } from "@/symbols/domain.ts";
-import { TradingOrderForm } from "@/symbols/trading/TradingOrderForm.tsx";
-import type { SymbolTradingOrderRequest } from "@/symbols/trading/tradingApi.ts";
 
 interface Props {
 	symbol: string;

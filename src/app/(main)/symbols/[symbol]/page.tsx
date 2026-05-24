@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { getSymbolTradingData } from "@/symbols/api/tradingData.ts";
-import SymbolDetailView from "@/symbols/SymbolDetailView.tsx";
-import SymbolTradingSidebar from "@/symbols/SymbolTradingSidebar.tsx";
-import { getSymbolDetailData } from "@/symbols/symbolDetailData.ts";
+import SymbolDetailView from "@/symbols/detail/SymbolDetailView.tsx";
+import { getSymbolDetailData } from "@/symbols/detail/symbolDetailData.ts";
+import SymbolTradingSidebar from "@/symbols/detail/trading/SymbolTradingSidebar.tsx";
+import { getSymbolTradingData } from "@/symbols/detail/trading/tradingData.ts";
 
 interface Props {
 	params: Promise<{ symbol: string }>;

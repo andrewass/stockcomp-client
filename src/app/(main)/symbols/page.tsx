@@ -1,4 +1,4 @@
-import { SymbolsView } from "../../symbols/SymbolsView.tsx";
+import { SymbolsView } from "@/symbols/overview/SymbolsView.tsx";
 
 export default function SymbolsPage() {
 	return <SymbolsView />;

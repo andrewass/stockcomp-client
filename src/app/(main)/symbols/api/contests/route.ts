@@ -2,7 +2,7 @@ import {
 	getRegisteredContests,
 	getUnregisteredContests,
 	signUpParticipant,
-} from "@/symbols/api/contestsData.ts";
+} from "@/symbols/overview/contests/contestsData.ts";
 
 export async function GET(): Promise<Response> {
 	const [unregisteredContests, registeredContests] = await Promise.all([

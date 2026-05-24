@@ -1,9 +1,9 @@
+import ContestList from "@/symbols/overview/contests/ContestList.tsx";
 import {
 	getRegisteredContests,
 	getUnregisteredContests,
-} from "@/symbols/api/contestsData.ts";
-import ContestList from "@/symbols/contestlist/ContestList.tsx";
-import { SymbolsGrid } from "@/symbols/symbolgrid/SymbolsGrid.tsx";
+} from "@/symbols/overview/contests/contestsData.ts";
+import { SymbolsGrid } from "@/symbols/overview/symbols-grid/SymbolsGrid.tsx";
 
 export async function SymbolsView() {
 	const [unregisteredContests, registeredContests] = await Promise.all([

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ContestInvestmentCard } from "@/symbols/detail/trading/ContestInvestmentCard.tsx";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
 } from "@/symbols/domain.ts";
-import { ContestInvestmentCard } from "@/symbols/trading/ContestInvestmentCard.tsx";
 
 interface Props {
 	contests: SymbolTradingContestViewModel[];

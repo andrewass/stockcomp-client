@@ -3,13 +3,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { Period } from "@/domain/symbol/symbolTypes.ts";
-import type { SymbolPriceHistoryViewModel } from "@/symbols/domain.ts";
 import {
 	getPriceHistoryPeriodLabel,
 	getPriceHistoryPeriodTitle,
 	PRICE_HISTORY_PERIOD_OPTIONS,
-} from "@/symbols/priceHistoryPeriods.ts";
-import { SymbolPriceHistoryChart } from "@/symbols/SymbolPriceHistoryChart.tsx";
+} from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
+import { SymbolPriceHistoryChart } from "@/symbols/detail/price-history/SymbolPriceHistoryChart.tsx";
+import type { SymbolPriceHistoryViewModel } from "@/symbols/domain.ts";
 
 interface Props {
 	currency: string;

@@ -1,6 +1,6 @@
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
-import { getSymbolPriceHistoryData } from "@/symbols/priceHistoryData.ts";
-import { parsePriceHistoryPeriod } from "@/symbols/priceHistoryPeriods.ts";
+import { getSymbolPriceHistoryData } from "@/symbols/detail/price-history/priceHistoryData.ts";
+import { parsePriceHistoryPeriod } from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
 
 function getSymbolFromRequest(request: Request): string | null {
 	const { searchParams } = new URL(request.url);
