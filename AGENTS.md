@@ -23,11 +23,11 @@ This file describes the project conventions for AI/code agents working in this r
 
 ## Domain-driven boundaries
 - Treat `src/domain/**` as the source of truth for domain behavior: business rules, invariants, domain services, and domain types.
-- Keep `src/app/**` as delivery/application layer: routing, UI composition, server actions, and framework-specific orchestration.
+- Keep `src/app/**` as delivery/application layer: routing, UI composition, mutations, route handlers, and framework-specific orchestration.
 - Do not put business rules in `page.tsx`, `layout.tsx`, client components, or route handlers; call domain/application functions instead.
 - Enforce dependency direction: `app -> domain` is allowed, `domain -> app` is not. Domain code must not import Next.js/React/browser APIs.
 - Keep transport mapping at the edges: map API/resource-server DTOs to domain/view shapes in technical clients, feature `*Data.ts` modules, or dedicated mappers, not inside core domain logic or client components.
-- Feature data modules and server actions should orchestrate auth/session/API calls and delegate business decisions to domain/application modules.
+- Feature data modules, route handlers, and mutation helpers should orchestrate auth/session/API calls and delegate business decisions to domain/application modules.
 
 ## Domain extraction template (incremental)
 - Use incremental migration by domain entity: extract one domain at a time, keep behavior unchanged, then move to the next entity.
@@ -45,7 +45,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Do not import through route-group paths such as `@/(admin)/...`; import feature modules via stable aliases like `@/admin/...`, `@/auth/...`, `@/components/...`.
 - For component props types, use an `interface` named `Props`.
 - Prefer server components by default; add `"use client"` only when hooks/browser APIs are required.
-- Put server-only read loaders in feature data modules with `import "server-only"`; reserve Server Actions (`"use server"`) for mutations and form submissions.
+- Put server-only read loaders in feature data modules with `import "server-only"`; reserve Server Actions (`"use server"`) for cases where the feature explicitly needs that submission model.
 - Use Next.js routing/navigation primitives for new code (`next/link`, `next/navigation`), not legacy router APIs.
 - Commit messages must follow the Conventional Commits v1.0.0 specification: `<type>[optional scope][optional !]: <description>`.
 - Use `feat` for user-facing features and `fix` for bug fixes; other lowercase types such as `docs`, `refactor`, `test`, `build`, `ci`, `style`, `perf`, and `chore` are allowed when they describe the change.
@@ -95,15 +95,13 @@ This file describes the project conventions for AI/code agents working in this r
 - For mixed tasks, combine all relevant skills rather than choosing only one.
 - Use this priority when guidance conflicts: correctness/security (`better-auth-best-practices`, `next-best-practices`) before performance (`vercel-react-best-practices`) before UI/design (`daisyui-best-practices`, `frontend-design`, `web-design-guidelines`).
 
-## Server action placement
-- Place feature actions in stable feature modules (for example `src/app/admin/<feature>/actions.ts`) rather than inside route-group paths.
-- Route `page.tsx` files should call feature data modules for reads and feature actions for mutations; avoid defining endpoint URLs/config inline in page files.
+## Mutation and route handler placement
+- Prefer the existing client mutation pattern for interactive client components: feature-local client API helper -> colocated route handler -> server-only feature module.
+- Keep route handlers thin: parse and validate requests, call a feature module, and return JSON/status.
+- Put server-side mutation orchestration next to the workflow that owns it with explicit names such as `createContestData.ts` or `tradingData.ts`; avoid generic `actions.ts` files unless a Server Action is explicitly required.
+- Use Server Actions only when the task specifically benefits from progressive-enhancement form submission or the feature already consistently uses Server Actions.
 - In files with `"use server"`, all exported functions must be `async` (Next.js Server Actions requirement).
-- Keep server actions focused on server-side orchestration and auth-aware API calls, not UI logic.
-- Use explicit `"use server"` and keep action inputs/outputs strongly typed.
-- Avoid action re-export/shim files unless there is a concrete migration need.
-- Use `actions.ts` only for mutations and form submissions. If a feature has no mutations or form submissions, it should not have an `actions.ts` file.
-- Name read orchestration files after the screen or feature, for example `contestDetailData.ts`, `contestsData.ts`, or `adminContestsData.ts`; never use `actions.ts` for read-only loaders.
+- Name read orchestration files after the screen or feature, for example `contestDetailData.ts`, `contestsData.ts`, or `adminContestsData.ts`; never use mutation/action files for read-only loaders.
 
 ## API access and auth
 - Use the exported functions from [`src/app/api/resourceServerClient.ts`](src/app/api/resourceServerClient.ts) for resource-server API calls: `resourceGet`, `resourcePost`, `resourcePut`, `resourceDelete`.
@@ -114,7 +112,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Client components and TanStack Query hooks must not import `resourceServerClient`, `fastFinanceClient`, or `server-only` feature data modules directly. They should fetch a colocated feature route instead.
 - Better Auth is configured in [`src/lib/auth.ts`](src/lib/auth.ts) (server) and [`src/lib/auth-client.ts`](src/lib/auth-client.ts) (client).
 - Auth route handler is in [`src/app/api/auth/[...all]/route.ts`](src/app/api/auth/[...all]/route.ts).
-- Prefer `resourceServerClient` from server actions, route handlers, and server components when calling the resource server.
+- Prefer `resourceServerClient` from server-only feature modules, route handlers, Server Actions, and server components when calling the resource server.
 - Keep Better Auth secure defaults intact: require `BETTER_AUTH_SECRET`, keep secure cookies in production, and do not weaken origin/CSRF protections.
 - Avoid auth-flow/config changes unless the task explicitly requests them.
 

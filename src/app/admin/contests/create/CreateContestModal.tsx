@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { type FormEvent, useMemo, useState, useTransition } from "react";
-import { createContestAction } from "@/admin/contests/actions.ts";
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
+import { createContest } from "./createContestApi.ts";
 
 interface Props {
 	isOpen: boolean;
@@ -77,7 +77,7 @@ export default function CreateContestModal({ isOpen, onClose }: Props) {
 
 		setFieldErrors({});
 		startTransition(async () => {
-			const response = await createContestAction({
+			const response = await createContest({
 				contestName: formState.contestName.trim(),
 				startTime: formState.startTime,
 				durationDays: durationDaysAsNumber,

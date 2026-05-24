@@ -1,6 +1,6 @@
-import { parseParams } from "@/components/table/PageableTable.tsx";
-import ContestView from "@/contests/ContestView.tsx";
-import { getContests } from "@/contests/contestsData.ts";
+import { parseParams } from "@/components/table/paginationParams.ts";
+import ContestView from "@/contests/overview/ContestView.tsx";
+import { getContests } from "@/contests/overview/contestsData.ts";
 
 export default async function ContestsPage({
 	params,

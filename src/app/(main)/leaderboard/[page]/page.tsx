@@ -1,4 +1,4 @@
-import { parseParams } from "@/components/table/PageableTable.tsx";
+import { parseParams } from "@/components/table/paginationParams.ts";
 import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
 import { getLeaderboardEntries } from "@/leaderboard/leaderboardData.ts";
 

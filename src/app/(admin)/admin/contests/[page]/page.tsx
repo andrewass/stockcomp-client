@@ -1,6 +1,6 @@
-import AdminContestsView from "@/admin/contests/AdminContestsView.tsx";
-import { getAdminContests } from "@/admin/contests/adminContestsData.ts";
-import { parseParams } from "@/components/table/PageableTable.tsx";
+import AdminContestsView from "@/admin/contests/list/AdminContestsView.tsx";
+import { getAdminContests } from "@/admin/contests/list/adminContestsData.ts";
+import { parseParams } from "@/components/table/paginationParams.ts";
 
 export default async function AdminContestsPage({
 	params,

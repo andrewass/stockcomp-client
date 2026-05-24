@@ -1,6 +1,6 @@
 import AdminUsersView from "@/admin/users/AdminUsersView.tsx";
 import { getAdminUsers } from "@/admin/users/adminUsersData.ts";
-import { parseParams } from "@/components/table/PageableTable.tsx";
+import { parseParams } from "@/components/table/paginationParams.ts";
 
 export default async function AdminUsersPage({
 	params,
