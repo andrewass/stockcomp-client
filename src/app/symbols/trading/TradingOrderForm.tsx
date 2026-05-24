@@ -9,7 +9,7 @@ import {
 	type TransactionType,
 } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import type { SymbolTradingContestViewModel } from "@/symbols/domain.ts";
-import type { SymbolTradingOrderRequest } from "@/symbols/SymbolTradingSidebar.tsx";
+import type { SymbolTradingOrderRequest } from "@/symbols/trading/tradingApi.ts";
 import { formatCurrency } from "@/symbols/trading/tradingSidebarUtils.ts";
 
 interface Props {

@@ -53,6 +53,10 @@ This file describes the project conventions for AI/code agents working in this r
 
 ## Component structure and colocation
 - Avoid large multipurpose React components. Split components when a file mixes distinct UI regions, unrelated state groups, or enough JSX/logic that the main behavior is hard to scan.
+- Treat a component as too large when it combines two or more of these responsibilities: data fetching/mutations, form state, modal state, list rendering, section layout, item rendering, formatting helpers, or API request helpers.
+- Before adding new behavior to an already broad component, first extract focused feature-local pieces such as `FeatureSection.tsx`, `FeatureModal.tsx`, `FeatureList.tsx`, `FeatureItem.tsx`, `useFeatureState.ts`, `featureApi.ts`, or `featureTypes.ts`.
+- As a practical review trigger, reconsider the structure once a component approaches 150-200 lines, has more than one substantial JSX section, or exports types that child components import from the parent.
+- Parent view components should mostly compose child components and pass callbacks/data. They should not also own unrelated API helpers, modal bodies, list item markup, and form internals.
 - Keep state as close as practical to the component that owns and uses it. Lift state only when sibling coordination, server interaction, or parent-level orchestration requires it.
 - Prefer feature-local component folders for related UI parts, hooks, types, and utilities when a component grows beyond a single file.
 - Keep extracted child components focused on one responsibility with explicit `Props`; avoid moving code into shared modules unless it is genuinely reused across features.
