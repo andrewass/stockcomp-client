@@ -28,6 +28,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Enforce dependency direction: `app -> domain` is allowed, `domain -> app` is not. Domain code must not import Next.js/React/browser APIs.
 - Keep transport mapping at the edges: map API/resource-server DTOs to domain/view shapes in technical clients, feature `*Data.ts` modules, or dedicated mappers, not inside core domain logic or client components.
 - Feature data modules, route handlers, and mutation helpers should orchestrate auth/session/API calls and delegate business decisions to domain/application modules.
+- For client-triggered app API calls, prefer the explicit flow `component/hook -> route.ts -> *Data.ts -> relevant technical client`. Do not add feature-local `*Api.ts` client wrapper files for app route calls.
 
 ## Domain extraction template (incremental)
 - Use incremental migration by domain entity: extract one domain at a time, keep behavior unchanged, then move to the next entity.
@@ -103,7 +104,8 @@ This file describes the project conventions for AI/code agents working in this r
 - Use this priority when guidance conflicts: correctness/security (`better-auth-best-practices`, `next-best-practices`) before performance (`vercel-react-best-practices`) before UI/design (`daisyui-best-practices`, `frontend-design`, `web-design-guidelines`).
 
 ## Mutation and route handler placement
-- Prefer the existing client mutation pattern for interactive client components: feature-local client API helper -> colocated route handler -> server-only feature module.
+- Prefer direct fetches from the owning client component or hook to a colocated route handler for interactive client mutations: `component/hook -> route.ts -> *Data.ts -> relevant technical client`.
+- Do not add feature-local `*Api.ts` client wrapper files for calls to this app's own route handlers; keep shared request/response contracts in `*Types.ts` or domain modules when multiple files need them.
 - Keep route handlers thin: parse and validate requests, call a feature module, and return JSON/status.
 - Put server-side mutation orchestration next to the workflow that owns it with explicit names such as `createContestData.ts` or `tradingData.ts`; avoid generic `actions.ts` files unless a Server Action is explicitly required.
 - Use Server Actions only when the task specifically benefits from progressive-enhancement form submission or the feature already consistently uses Server Actions.

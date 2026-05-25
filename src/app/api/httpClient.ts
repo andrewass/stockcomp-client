@@ -19,7 +19,7 @@ export type JsonRequestConfig = {
 	baseUrl: string;
 	body?: unknown;
 	headers?: HeadersInit;
-	method: "GET" | "POST" | "PUT" | "DELETE";
+	method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 	params?: RequestParams;
 	provider: string;
 	url: string;

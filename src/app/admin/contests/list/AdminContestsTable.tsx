@@ -1,3 +1,4 @@
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import PageableTable from "@/components/table/PageableTable.tsx";
 import {
 	type Contest,
@@ -10,6 +11,7 @@ interface Props {
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
+	onEditContest: (contest: Contest) => void;
 }
 
 const contestTableHeaderItems = [
@@ -19,6 +21,7 @@ const contestTableHeaderItems = [
 	"Participants",
 	"Start Time",
 	"End Time",
+	"Actions",
 ];
 
 type ContestTableEntry = Contest & {
@@ -30,6 +33,7 @@ export default function AdminContestsTable({
 	pageSize,
 	currentPage,
 	totalEntriesCount,
+	onEditContest,
 }: Props) {
 	return (
 		<div>
@@ -53,6 +57,17 @@ export default function AdminContestsTable({
 						<td>{contest.participantCount ?? "-"}</td>
 						<td>{formatDateTimeValue(contest.startTime)}</td>
 						<td>{formatDateTimeValue(contest.endTime)}</td>
+						<td>
+							<button
+								type="button"
+								className="btn btn-ghost btn-sm btn-circle"
+								onClick={() => onEditContest(contest)}
+								aria-label={`Edit ${contest.contestName}`}
+								title="Edit contest"
+							>
+								<PencilSquareIcon className="size-4" aria-hidden="true" />
+							</button>
+						</td>
 					</tr>
 				)}
 			/>

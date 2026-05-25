@@ -2,6 +2,7 @@ export const CONTEST_STATUS = {
 	AWAITING_START: "AWAITING_START",
 	RUNNING: "RUNNING",
 	STOPPED: "STOPPED",
+	AWAITING_COMPLETION: "AWAITING_COMPLETION",
 	COMPLETED: "COMPLETED",
 };
 
@@ -19,6 +20,7 @@ export const contestStatusRecord: Record<string, string> = {
 	[CONTEST_STATUS.AWAITING_START]: "Awaiting Start",
 	[CONTEST_STATUS.RUNNING]: "Running",
 	[CONTEST_STATUS.STOPPED]: "Stopped",
+	[CONTEST_STATUS.AWAITING_COMPLETION]: "Awaiting Completion",
 	[CONTEST_STATUS.COMPLETED]: "Completed",
 };
 
@@ -37,6 +39,8 @@ export function getStatusByColor(contest: Contest): string {
 			return "green";
 		case CONTEST_STATUS.COMPLETED:
 			return "grey";
+		case CONTEST_STATUS.AWAITING_COMPLETION:
+			return "yellow";
 		case CONTEST_STATUS.AWAITING_START:
 			return "yellow";
 		case CONTEST_STATUS.STOPPED:
@@ -54,9 +58,9 @@ export interface ContestPage {
 
 export interface UpdateContestRequest {
 	contestId: number;
-	contestName: string;
-	startTime: string;
-	contestStatus: string;
+	contestName?: string;
+	startTime?: string;
+	contestStatus?: string;
 }
 
 export interface CreateContestRequest {

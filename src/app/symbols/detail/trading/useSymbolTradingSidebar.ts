@@ -4,15 +4,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import { queryTiming } from "@/query/queryTiming.ts";
 import {
-	cancelInvestmentOrder,
-	createInvestmentOrder,
-	fetchTradingData,
-	type SymbolTradingOrderRequest,
-} from "@/symbols/detail/trading/tradingApi.ts";
-import {
 	getTradingQueryKey,
 	hasActiveOrders,
 } from "@/symbols/detail/trading/tradingSidebarUtils.ts";
+import type { SymbolTradingOrderRequest } from "@/symbols/detail/trading/tradingTypes.ts";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
@@ -27,6 +22,60 @@ interface Options {
 interface PendingOrderCancellation {
 	contest: SymbolTradingContestViewModel;
 	order: SymbolTradingOrderViewModel;
+}
+
+interface CancelInvestmentOrderRequest {
+	contestId: number;
+	orderId: number;
+}
+
+async function fetchTradingData(
+	symbol: string,
+): Promise<SymbolTradingViewModel> {
+	const response = await fetch(
+		`/symbols/api/trading?symbol=${encodeURIComponent(symbol)}`,
+	);
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	return (await response.json()) as SymbolTradingViewModel;
+}
+
+async function createInvestmentOrder(
+	request: SymbolTradingOrderRequest,
+): Promise<void> {
+	const response = await fetch("/symbols/api/trading/orders", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(request),
+	});
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
+}
+
+async function cancelInvestmentOrder({
+	contestId,
+	orderId,
+}: CancelInvestmentOrderRequest): Promise<void> {
+	const searchParams = new URLSearchParams({
+		contestId: contestId.toString(),
+		orderId: orderId.toString(),
+	});
+	const response = await fetch(
+		`/symbols/api/trading/orders?${searchParams.toString()}`,
+		{
+			method: "DELETE",
+		},
+	);
+
+	if (!response.ok) {
+		throw new Error(`HTTP error! status: ${response.status}`);
+	}
 }
 
 export function useSymbolTradingSidebar({

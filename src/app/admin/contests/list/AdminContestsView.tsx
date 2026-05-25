@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Contest } from "@/domain/contests/contestTypes.ts";
 import CreateContestModal from "../create/CreateContestModal.tsx";
+import UpdateContestModal from "../update/UpdateContestModal.tsx";
 import AdminContestsTable from "./AdminContestsTable.tsx";
 
 interface Props {
@@ -20,6 +21,7 @@ export default function AdminContestsView({
 }: Props) {
 	const [isCreateContestModalOpen, setIsCreateContestModalOpen] =
 		useState(false);
+	const [editingContest, setEditingContest] = useState<Contest | null>(null);
 
 	return (
 		<div className="space-y-4">
@@ -37,10 +39,16 @@ export default function AdminContestsView({
 				pageSize={pageSize}
 				currentPage={currentPage}
 				totalEntriesCount={totalEntriesCount}
+				onEditContest={setEditingContest}
 			/>
 			<CreateContestModal
 				isOpen={isCreateContestModalOpen}
 				onClose={() => setIsCreateContestModalOpen(false)}
+			/>
+			<UpdateContestModal
+				contest={editingContest}
+				isOpen={editingContest !== null}
+				onClose={() => setEditingContest(null)}
 			/>
 		</div>
 	);
