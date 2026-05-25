@@ -88,8 +88,8 @@ Avoid importing server-only fetch helpers directly into client query functions. 
 For this repository:
 
 - `QueryClientProvider` already lives in [src/app/providers/AppProviders.tsx](../../../../src/app/providers/AppProviders.tsx).
-- `src/app/api/apiWrapper.ts` is server-only and is the preferred boundary for authenticated resource-server reads on the server.
-- When a client component needs TanStack Query for authenticated resource-server data, prefer server prefetch plus hydration, or query through a route handler designed for client access.
+- Use `src/app/api/resourceServerClient.ts` from server-only feature modules, route handlers, Server Actions, and Server Components for resource-server API calls.
+- Client components and TanStack Query hooks must not import `resourceServerClient`, provider clients, or server-only feature data modules directly. When client-side querying needs authenticated resource-server data, prefer server prefetch plus hydration, or query through a thin feature route handler designed for client access.
 - Keep business rules in `src/domain/**`, not inside query hooks, client components, or route entry files.
 
 ## Review Checklist

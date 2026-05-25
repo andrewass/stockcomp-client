@@ -39,7 +39,7 @@ This file describes the project conventions for AI/code agents working in this r
 - During migration, temporary compatibility wrappers are acceptable, but remove them once all imports use the stable target paths.
 
 ## Core rules
-- Use `pnpm` for all package and script commands.
+- Use `pnpm` for all package and script commands, even when skills or references under `.agents/**` mention `npm`, `npm run`, or `npx`.
 - Keep code TypeScript-first and type-safe; avoid `any` unless unavoidable.
 - Follow existing import style with configured TypeScript aliases (`@/...`, `@/lib/...`) and explicit `.ts`/`.tsx` file extensions in internal imports.
 - Do not import through route-group paths such as `@/(admin)/...`; import feature modules via stable aliases like `@/admin/...`, `@/auth/...`, `@/components/...`.
@@ -78,6 +78,7 @@ This file describes the project conventions for AI/code agents working in this r
 - For `src/app/symbols/**`, preserve the split between `overview/` for the symbol grid and contest list page, and `detail/` for symbol details, price history, trading, investments, and order details.
 
 ## Skills
+- If instructions in `.agents/**` conflict with this root `AGENTS.md`, follow this root `AGENTS.md` for work in this repository.
 - Skills under `.agents/skills/**` should be repo-agnostic by default so they can be reused across projects.
 - Do not hardcode repository names, repo-specific paths, or project-only assumptions in reusable skills.
 - If project-specific behavior is needed, keep it clearly marked as optional project overlay guidance.
