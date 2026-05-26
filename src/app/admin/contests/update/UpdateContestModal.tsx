@@ -63,6 +63,39 @@ function validateForm(formState: ContestFormState): Record<string, string> {
 	return fieldErrors;
 }
 
+function buildUpdateContestRequest(
+	contest: Contest,
+	formState: ContestFormState,
+): UpdateContestRequest {
+	const initialFormState = getInitialFormState(contest);
+	const request: UpdateContestRequest = {
+		contestId: contest.contestId,
+	};
+	const contestName = formState.contestName.trim();
+
+	if (contestName !== initialFormState.contestName) {
+		request.contestName = contestName;
+	}
+
+	if (formState.contestStatus !== initialFormState.contestStatus) {
+		request.contestStatus = formState.contestStatus;
+	}
+
+	if (formState.startTime !== initialFormState.startTime) {
+		request.startTime = formState.startTime;
+	}
+
+	return request;
+}
+
+function hasContestChanges(request: UpdateContestRequest): boolean {
+	return (
+		request.contestName !== undefined ||
+		request.contestStatus !== undefined ||
+		request.startTime !== undefined
+	);
+}
+
 async function updateContest(
 	request: UpdateContestRequest,
 ): Promise<UpdateContestResult> {
@@ -135,13 +168,14 @@ export default function UpdateContestModal({
 		}
 
 		setFieldErrors({});
+		const updateRequest = buildUpdateContestRequest(contest, formState);
+		if (!hasContestChanges(updateRequest)) {
+			closeModal();
+			return;
+		}
+
 		startTransition(async () => {
-			const response = await updateContest({
-				contestId: contest.contestId,
-				contestName: formState.contestName.trim(),
-				contestStatus: formState.contestStatus,
-				startTime: formState.startTime,
-			});
+			const response = await updateContest(updateRequest);
 
 			if (!response.ok) {
 				setFieldErrors(response.fieldErrors ?? {});

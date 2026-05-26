@@ -2,9 +2,13 @@ import { createContest } from "@/admin/contests/create/createContestData.ts";
 import type { CreateContestResult } from "@/admin/contests/create/createContestTypes.ts";
 import { updateContest } from "@/admin/contests/update/updateContestData.ts";
 import type { UpdateContestResult } from "@/admin/contests/update/updateContestTypes.ts";
-import { isUnauthenticatedError } from "@/api/resourceServerClient.ts";
+import {
+	isUnauthenticatedError,
+	resourceGet,
+} from "@/api/resourceServerClient.ts";
 import {
 	CONTEST_STATUS,
+	type Contest,
 	type CreateContestRequest,
 	type UpdateContestRequest,
 } from "@/domain/contests/contestTypes.ts";
@@ -67,28 +71,43 @@ function validateUpdateContestBody(
 ): UpdateContestResult & { request?: UpdateContestRequest } {
 	const contestId =
 		typeof body.contestId === "number" ? body.contestId : Number.NaN;
-	const contestName =
-		typeof body.contestName === "string" ? body.contestName.trim() : "";
-	const startTime = typeof body.startTime === "string" ? body.startTime : "";
-	const contestStatus =
-		typeof body.contestStatus === "string" ? body.contestStatus : "";
 	const fieldErrors: Record<string, string> = {};
+	const updateRequest: UpdateContestRequest = {
+		contestId,
+	};
 
 	if (!Number.isInteger(contestId) || contestId < 1) {
 		fieldErrors.contestId = "Contest ID is required.";
 	}
 
-	if (!contestName) {
-		fieldErrors.contestName = "Contest name is required.";
+	if (body.contestName != null) {
+		const contestName =
+			typeof body.contestName === "string" ? body.contestName.trim() : "";
+		if (!contestName) {
+			fieldErrors.contestName = "Contest name is required.";
+		} else {
+			updateRequest.contestName = contestName;
+		}
 	}
 
-	const startDate = new Date(startTime);
-	if (Number.isNaN(startDate.getTime())) {
-		fieldErrors.startTime = "Start time is invalid.";
+	if (body.startTime != null) {
+		const startTime = typeof body.startTime === "string" ? body.startTime : "";
+		const startDate = new Date(startTime);
+		if (Number.isNaN(startDate.getTime())) {
+			fieldErrors.startTime = "Start time is invalid.";
+		} else {
+			updateRequest.startTime = startDate.toISOString();
+		}
 	}
 
-	if (!Object.values(CONTEST_STATUS).includes(contestStatus)) {
-		fieldErrors.contestStatus = "Contest status is invalid.";
+	if (body.contestStatus != null) {
+		const contestStatus =
+			typeof body.contestStatus === "string" ? body.contestStatus : "";
+		if (!Object.values(CONTEST_STATUS).includes(contestStatus)) {
+			fieldErrors.contestStatus = "Contest status is invalid.";
+		} else {
+			updateRequest.contestStatus = contestStatus;
+		}
 	}
 
 	if (Object.keys(fieldErrors).length > 0) {
@@ -100,12 +119,7 @@ function validateUpdateContestBody(
 
 	return {
 		ok: true,
-		request: {
-			contestId,
-			contestName,
-			contestStatus,
-			startTime: startDate.toISOString(),
-		},
+		request: updateRequest,
 	};
 }
 
@@ -130,6 +144,26 @@ function toErrorResponse(
 		} satisfies CreateContestResult,
 		{ status: 502 },
 	);
+}
+
+async function assertContestCanBeUpdated(
+	contestId: number,
+): Promise<Response | null> {
+	const contest = await resourceGet<Contest>({
+		url: `/contests/${contestId}`,
+	});
+
+	if (contest.contestStatus === CONTEST_STATUS.COMPLETED) {
+		return Response.json(
+			{
+				ok: false,
+				message: "Completed contests cannot be updated.",
+			} satisfies UpdateContestResult,
+			{ status: 409 },
+		);
+	}
+
+	return null;
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -182,6 +216,13 @@ export async function PATCH(request: Request): Promise<Response> {
 	}
 
 	try {
+		const conflictResponse = await assertContestCanBeUpdated(
+			validation.request.contestId,
+		);
+		if (conflictResponse) {
+			return conflictResponse;
+		}
+
 		await updateContest(validation.request);
 
 		return Response.json({ ok: true } satisfies UpdateContestResult);
