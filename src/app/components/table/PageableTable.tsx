@@ -27,8 +27,8 @@ export default function PageableTable<T extends Identifiable>({
 	const totalPages = pageSize > 0 ? Math.ceil(totalEntriesCount / pageSize) : 0;
 
 	return (
-		<div className="border border-base-300 w-300">
-			<table className="table">
+		<div className="w-300 max-w-full overflow-x-auto border border-base-300">
+			<table className="table w-full min-w-[48rem]">
 				<thead>
 					<tr className="bg-base-300">
 						{headerItems.map((item) => (

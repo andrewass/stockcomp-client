@@ -19,6 +19,8 @@ function getInvestmentProfitPercentage(
 }
 
 export default function ContestInvestmentsTable({ investments }: Props) {
+	const hasScrollableRows = investments.length > 5;
+
 	return (
 		<section className="space-y-3">
 			<div className="space-y-1">
@@ -34,9 +36,21 @@ export default function ContestInvestmentsTable({ investments }: Props) {
 					No investments in this contest yet.
 				</div>
 			) : (
-				<div className="overflow-x-auto rounded-box border border-base-300">
+				<div
+					className="overflow-x-auto rounded-box border border-base-300"
+					style={
+						hasScrollableRows
+							? {
+									height: "16rem",
+									overflowY: "scroll",
+									overscrollBehavior: "contain",
+									scrollbarGutter: "stable",
+								}
+							: undefined
+					}
+				>
 					<table className="table table-zebra">
-						<thead>
+						<thead className="sticky top-0 z-10 bg-base-100">
 							<tr>
 								<th>Symbol</th>
 								<th className="text-right">Shares</th>

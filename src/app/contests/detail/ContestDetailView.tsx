@@ -128,6 +128,7 @@ export default function ContestDetailView({
 					totalEntriesCount={leaderboard.totalEntriesCount}
 				/>
 			</section>
+			<div aria-hidden="true" className="h-24" />
 		</div>
 	);
 }

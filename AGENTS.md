@@ -129,6 +129,7 @@ This file describes the project conventions for AI/code agents working in this r
 - Use Tailwind utility classes and DaisyUI components/patterns.
 - Global styles/plugins are configured in [`src/app/globals.css`](src/app/globals.css) and [`postcss.config.mjs`](postcss.config.mjs).
 - Keep styling consistent with existing pages/components before introducing new design patterns.
+- When changing layout, tables, cards, or page wrappers, preserve responsive behavior across viewport sizes. Avoid raw fixed-width layouts that can overflow or cause inconsistent widths; fixed widths must be capped with `max-w-full` and paired with appropriate horizontal overflow behavior when content cannot safely shrink.
 - Do not add new MUI-based UI in active product code.
 - Use [`src/lib/formatters.ts`](src/lib/formatters.ts) as the single source of truth for formatted display text such as numbers, currency, signed currency/percent values, dates, enum labels, and positive/negative value styling. Do not add feature-local formatting helpers for these concerns unless the formatting is truly feature-specific.
 
