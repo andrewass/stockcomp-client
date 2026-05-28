@@ -7,6 +7,11 @@ export interface SymbolCardViewModel {
 	currency: string;
 }
 
+export interface SymbolSearchResultViewModel {
+	symbol: string;
+	companyName: string;
+}
+
 export interface SymbolFinancialsViewModel {
 	marketCap: number;
 	priceToBook: number;

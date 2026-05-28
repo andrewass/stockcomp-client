@@ -3,6 +3,7 @@ import {
 	getRegisteredContests,
 	getUnregisteredContests,
 } from "@/symbols/overview/contests/contestsData.ts";
+import { SymbolSearch } from "@/symbols/overview/search/SymbolSearch.tsx";
 import { SymbolsGrid } from "@/symbols/overview/symbols-grid/SymbolsGrid.tsx";
 
 export async function SymbolsView() {
@@ -15,6 +16,7 @@ export async function SymbolsView() {
 		<div className="w-full max-w-7xl px-4 pb-12 pt-2 sm:px-6 lg:px-8">
 			<div className="grid items-start gap-6 xl:gap-12 xl:grid-cols-[minmax(0,3fr)_minmax(18rem,1fr)]">
 				<section className="space-y-6">
+					<SymbolSearch />
 					<div className="relative overflow-hidden rounded-box border border-base-300 bg-base-200/80 p-6 shadow-sm">
 						<div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 bg-linear-to-l from-primary/10 via-transparent to-transparent lg:block" />
 						<div className="relative">
