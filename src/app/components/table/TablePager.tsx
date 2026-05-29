@@ -6,6 +6,10 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import {
+	DEFAULT_PAGE_SIZE,
+	MAX_PAGE_SIZE,
+} from "@/components/table/paginationParams.ts";
 
 interface Props {
 	currentPage: number;
@@ -66,7 +70,9 @@ export default function TablePager({
 	basePath,
 }: Props) {
 	const safePageSize =
-		Number.isFinite(pageSize) && pageSize > 0 ? Math.floor(pageSize) : 10;
+		Number.isFinite(pageSize) && pageSize >= 1
+			? Math.min(Math.floor(pageSize), MAX_PAGE_SIZE)
+			: DEFAULT_PAGE_SIZE;
 	const safeTotalPages =
 		Number.isFinite(totalPages) && totalPages > 0 ? Math.floor(totalPages) : 0;
 	const lastPage = Math.max(safeTotalPages - 1, 0);

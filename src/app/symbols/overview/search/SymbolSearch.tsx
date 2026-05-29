@@ -176,9 +176,9 @@ export function SymbolSearch() {
 			<label htmlFor={inputId} className="sr-only">
 				Search symbols or companies
 			</label>
-			<div className="relative">
+			<div className="input input-bordered flex h-12 w-full items-center gap-3 focus-within:border-base-300 focus-within:outline-none focus-within:ring-1 focus-within:ring-base-content/10">
 				<MagnifyingGlassIcon
-					className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-base-content/45"
+					className="pointer-events-none size-5 shrink-0 text-base-content/45"
 					aria-hidden="true"
 				/>
 				<input
@@ -192,7 +192,7 @@ export function SymbolSearch() {
 					}}
 					onFocus={() => setIsOpen(true)}
 					onKeyDown={handleKeyDown}
-					className="input input-bordered h-12 w-full pl-12 text-base focus:border-base-300 focus:outline-none focus:ring-1 focus:ring-base-content/10"
+					className="min-w-0 grow bg-transparent text-base outline-none"
 					placeholder="Search by ticker or company name"
 					autoComplete="off"
 					role="combobox"

@@ -1,4 +1,8 @@
 import type React from "react";
+import {
+	DEFAULT_PAGE_SIZE,
+	MAX_PAGE_SIZE,
+} from "@/components/table/paginationParams.ts";
 import TablePager from "@/components/table/TablePager.tsx";
 
 interface Identifiable {
@@ -24,7 +28,12 @@ export default function PageableTable<T extends Identifiable>({
 	renderRow,
 	headerItems,
 }: Props<T>) {
-	const totalPages = pageSize > 0 ? Math.ceil(totalEntriesCount / pageSize) : 0;
+	const safePageSize =
+		Number.isFinite(pageSize) && pageSize >= 1
+			? Math.min(Math.floor(pageSize), MAX_PAGE_SIZE)
+			: DEFAULT_PAGE_SIZE;
+	const totalPages =
+		totalEntriesCount > 0 ? Math.ceil(totalEntriesCount / safePageSize) : 0;
 
 	return (
 		<div className="w-300 max-w-full overflow-x-auto border border-base-300">
@@ -51,7 +60,7 @@ export default function PageableTable<T extends Identifiable>({
 			<TablePager
 				currentPage={currentPage}
 				totalPages={totalPages}
-				pageSize={pageSize}
+				pageSize={safePageSize}
 				basePath={basePath}
 			/>
 		</div>
