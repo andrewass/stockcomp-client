@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export default async function ContestIndexPage({
 	params,
@@ -9,7 +9,7 @@ export default async function ContestIndexPage({
 	const parsedContestId = Number.parseInt(contestId, 10);
 
 	if (Number.isNaN(parsedContestId)) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	redirect(`/contest/${parsedContestId}/0?pageSize=10`);

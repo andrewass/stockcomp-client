@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import { parseParams } from "@/components/table/paginationParams.ts";
 import ContestDetailView from "@/contests/detail/ContestDetailView.tsx";
 import { getContestDetailPageData } from "@/contests/detail/contestDetailData.ts";
@@ -15,7 +17,7 @@ export default async function ContestDetailPage({
 	const parsedParams = parseParams(page, resolvedSearchParams);
 
 	if (Number.isNaN(parsedContestId) || !parsedParams) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	const pageData = await getContestDetailPageData(
@@ -25,7 +27,7 @@ export default async function ContestDetailPage({
 	);
 
 	if (!pageData) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	return (

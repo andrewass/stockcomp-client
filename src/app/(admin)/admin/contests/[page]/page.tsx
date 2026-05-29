@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import AdminContestsView from "@/admin/contests/list/AdminContestsView.tsx";
 import { getAdminContests } from "@/admin/contests/list/adminContestsData.ts";
 import { parseParams } from "@/components/table/paginationParams.ts";
@@ -14,7 +16,7 @@ export default async function AdminContestsPage({
 	const parsedParams = parseParams(page, resolvedSearchParams);
 
 	if (!parsedParams) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	const contestsResponse = await getAdminContests(

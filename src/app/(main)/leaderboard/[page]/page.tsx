@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import { parseParams } from "@/components/table/paginationParams.ts";
 import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
 import { getLeaderboardEntries } from "@/leaderboard/leaderboardData.ts";
@@ -14,7 +16,7 @@ export default async function LeaderboardPage({
 	const parsedParams = parseParams(page, resolvedSearchParams);
 
 	if (!parsedParams) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	const leaderboardResponse = await getLeaderboardEntries(

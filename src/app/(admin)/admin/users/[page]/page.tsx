@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import AdminUsersView from "@/admin/users/AdminUsersView.tsx";
 import { getAdminUsers } from "@/admin/users/adminUsersData.ts";
 import { parseParams } from "@/components/table/paginationParams.ts";
@@ -14,7 +16,7 @@ export default async function AdminUsersPage({
 	const parsedParams = parseParams(page, resolvedSearchParams);
 
 	if (!parsedParams) {
-		return <p>404: Page not found</p>;
+		notFound();
 	}
 
 	const usersResponse = await getAdminUsers(
