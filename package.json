@@ -36,6 +36,7 @@
 		"preinstall": "npx only-allow pnpm",
 		"dev": "next dev --webpack",
 		"build": "next build",
+		"typecheck": "tsc --noEmit --incremental false",
 		"start": "next start"
 	},
 	"browserslist": [

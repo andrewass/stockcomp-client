@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src/",
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": [
@@ -30,9 +29,19 @@
       }
     ],
     "paths": {
-      "@/*": ["app/(main)/*", "app/*", "lib/*"],
-      "@/domain/*": ["domain/*"],
-      "@/lib/*": ["lib/*"]
+      "@/admin/*": ["./src/app/admin/*"],
+      "@/api/*": ["./src/app/api/*"],
+      "@/auth/*": ["./src/app/auth/*"],
+      "@/components/*": ["./src/app/components/*"],
+      "@/contests/*": ["./src/app/contests/*"],
+      "@/domain/*": ["./src/domain/*"],
+      "@/leaderboard/*": ["./src/app/leaderboard/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/navigation/*": ["./src/app/navigation/*"],
+      "@/providers/*": ["./src/app/providers/*"],
+      "@/query/*": ["./src/app/query/*"],
+      "@/symbols/*": ["./src/app/symbols/*"],
+      "@/theme/*": ["./src/app/theme/*"]
     }
   },
   "include": [
