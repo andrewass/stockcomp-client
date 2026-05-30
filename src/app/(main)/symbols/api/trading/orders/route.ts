@@ -1,5 +1,7 @@
-import { isApiHttpStatusError } from "@/api/httpClient.ts";
-import { isUnauthenticatedError } from "@/api/resourceServerClient.ts";
+import {
+	parseJsonRequestBody,
+	toRouteErrorResponse,
+} from "@/api/routeHandlerResponses.ts";
 import {
 	cancelInvestmentOrder,
 	createInvestmentOrder,
@@ -38,55 +40,25 @@ function parseFutureLocalDateTime(value: unknown): string | null {
 }
 
 function toErrorResponse(error: unknown): Response {
-	if (isUnauthenticatedError(error)) {
-		return Response.json(
-			{ message: "Authentication required." },
-			{ status: 401 },
-		);
-	}
-
-	if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
-		return Response.json(
-			{ message: "Unable to create investment order." },
-			{ status: error.status },
-		);
-	}
-
-	return Response.json(
-		{ message: "Unable to create investment order." },
-		{ status: 502 },
-	);
+	return toRouteErrorResponse(error, {
+		message: "Unable to create investment order.",
+	});
 }
 
 function toCancelErrorResponse(error: unknown): Response {
-	if (isUnauthenticatedError(error)) {
-		return Response.json(
-			{ message: "Authentication required." },
-			{ status: 401 },
-		);
-	}
-
-	if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
-		return Response.json(
-			{ message: "Unable to cancel investment order." },
-			{ status: error.status },
-		);
-	}
-
-	return Response.json(
-		{ message: "Unable to cancel investment order." },
-		{ status: 502 },
-	);
+	return toRouteErrorResponse(error, {
+		message: "Unable to cancel investment order.",
+	});
 }
 
 export async function POST(request: Request): Promise<Response> {
-	let body: CreateInvestmentOrderBody;
-	try {
-		body = (await request.json()) as CreateInvestmentOrderBody;
-	} catch {
-		return Response.json({ message: "Invalid JSON body." }, { status: 400 });
+	const parsedBody =
+		await parseJsonRequestBody<CreateInvestmentOrderBody>(request);
+	if (!parsedBody.ok) {
+		return parsedBody.response;
 	}
 
+	const body = parsedBody.body;
 	const contestId = parsePositiveInteger(body.contestId);
 	const participantId = parsePositiveInteger(body.participantId);
 	const totalAmount = parsePositiveInteger(body.totalAmount ?? body.amount);

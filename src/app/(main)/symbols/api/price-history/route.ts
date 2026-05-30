@@ -1,4 +1,4 @@
-import { isApiHttpStatusError } from "@/api/httpClient.ts";
+import { toRouteErrorResponse } from "@/api/routeHandlerResponses.ts";
 import { getSymbolPriceHistoryData } from "@/symbols/detail/price-history/priceHistoryData.ts";
 import { parsePriceHistoryPeriod } from "@/symbols/detail/price-history/priceHistoryPeriods.ts";
 
@@ -15,17 +15,9 @@ function getPeriodFromRequest(request: Request) {
 }
 
 function toErrorResponse(error: unknown): Response {
-	if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
-		return Response.json(
-			{ message: "Unable to load price history." },
-			{ status: error.status },
-		);
-	}
-
-	return Response.json(
-		{ message: "Unable to load price history." },
-		{ status: 502 },
-	);
+	return toRouteErrorResponse(error, {
+		message: "Unable to load price history.",
+	});
 }
 
 export async function GET(request: Request): Promise<Response> {

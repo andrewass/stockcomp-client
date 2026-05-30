@@ -2,10 +2,11 @@ import { createContest } from "@/admin/contests/create/createContestData.ts";
 import type { CreateContestResult } from "@/admin/contests/create/createContestTypes.ts";
 import { updateContest } from "@/admin/contests/update/updateContestData.ts";
 import type { UpdateContestResult } from "@/admin/contests/update/updateContestTypes.ts";
+import { resourceGet } from "@/api/resourceServerClient.ts";
 import {
-	isUnauthenticatedError,
-	resourceGet,
-} from "@/api/resourceServerClient.ts";
+	parseJsonRequestBody,
+	toRouteErrorResponse,
+} from "@/api/routeHandlerResponses.ts";
 import {
 	CONTEST_STATUS,
 	type Contest,
@@ -123,27 +124,24 @@ function validateUpdateContestBody(
 	};
 }
 
+function createAdminContestErrorBody(
+	message: string,
+): CreateContestResult & UpdateContestResult {
+	return {
+		ok: false,
+		message,
+	};
+}
+
 function toErrorResponse(
 	error: unknown,
 	action: "create" | "update",
 ): Response {
-	if (isUnauthenticatedError(error)) {
-		return Response.json(
-			{
-				ok: false,
-				message: "Session expired. Please sign in again.",
-			} satisfies CreateContestResult,
-			{ status: 401 },
-		);
-	}
-
-	return Response.json(
-		{
-			ok: false,
-			message: `Unable to ${action} contest right now. Please try again.`,
-		} satisfies CreateContestResult,
-		{ status: 502 },
-	);
+	return toRouteErrorResponse(error, {
+		authenticationMessage: "Session expired. Please sign in again.",
+		createBody: createAdminContestErrorBody,
+		message: `Unable to ${action} contest right now. Please try again.`,
+	});
 }
 
 async function assertContestCanBeUpdated(
@@ -167,20 +165,14 @@ async function assertContestCanBeUpdated(
 }
 
 export async function POST(request: Request): Promise<Response> {
-	let body: CreateContestBody;
-	try {
-		body = (await request.json()) as CreateContestBody;
-	} catch {
-		return Response.json(
-			{
-				ok: false,
-				message: "Invalid JSON body.",
-			} satisfies CreateContestResult,
-			{ status: 400 },
-		);
+	const parsedBody = await parseJsonRequestBody<CreateContestBody>(request, {
+		createBody: createAdminContestErrorBody,
+	});
+	if (!parsedBody.ok) {
+		return parsedBody.response;
 	}
 
-	const validation = validateCreateContestBody(body);
+	const validation = validateCreateContestBody(parsedBody.body);
 	if (!validation.ok || !validation.request) {
 		return Response.json(validation, { status: 400 });
 	}
@@ -197,20 +189,14 @@ export async function POST(request: Request): Promise<Response> {
 }
 
 export async function PATCH(request: Request): Promise<Response> {
-	let body: UpdateContestBody;
-	try {
-		body = (await request.json()) as UpdateContestBody;
-	} catch {
-		return Response.json(
-			{
-				ok: false,
-				message: "Invalid JSON body.",
-			} satisfies UpdateContestResult,
-			{ status: 400 },
-		);
+	const parsedBody = await parseJsonRequestBody<UpdateContestBody>(request, {
+		createBody: createAdminContestErrorBody,
+	});
+	if (!parsedBody.ok) {
+		return parsedBody.response;
 	}
 
-	const validation = validateUpdateContestBody(body);
+	const validation = validateUpdateContestBody(parsedBody.body);
 	if (!validation.ok || !validation.request) {
 		return Response.json(validation, { status: 400 });
 	}

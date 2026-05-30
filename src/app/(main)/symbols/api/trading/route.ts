@@ -1,5 +1,4 @@
-import { isApiHttpStatusError } from "@/api/httpClient.ts";
-import { isUnauthenticatedError } from "@/api/resourceServerClient.ts";
+import { toRouteErrorResponse } from "@/api/routeHandlerResponses.ts";
 import { getSymbolTradingData } from "@/symbols/detail/trading/tradingData.ts";
 
 function getSymbolFromRequest(request: Request): string | null {
@@ -10,24 +9,9 @@ function getSymbolFromRequest(request: Request): string | null {
 }
 
 function toErrorResponse(error: unknown): Response {
-	if (isUnauthenticatedError(error)) {
-		return Response.json(
-			{ message: "Authentication required." },
-			{ status: 401 },
-		);
-	}
-
-	if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {
-		return Response.json(
-			{ message: "Unable to load symbol trading data." },
-			{ status: error.status },
-		);
-	}
-
-	return Response.json(
-		{ message: "Unable to load symbol trading data." },
-		{ status: 502 },
-	);
+	return toRouteErrorResponse(error, {
+		message: "Unable to load symbol trading data.",
+	});
 }
 
 export async function GET(request: Request): Promise<Response> {
