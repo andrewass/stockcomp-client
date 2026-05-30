@@ -1,6 +1,10 @@
-import { redirect } from "next/navigation";
+import { unstable_rethrow } from "next/navigation";
 import type React from "react";
-import { getViewerHasAdminRole, requireViewerSession } from "@/lib/viewer.ts";
+import AdminAccessUnavailable from "@/admin/AdminAccessUnavailable.tsx";
+import {
+	isViewerAdminRoleUnavailableError,
+	requireViewerAdminRole,
+} from "@/lib/viewer.ts";
 import AdminNavigationBarWide from "@/navigation/AdminNavigationBarWide.tsx";
 
 export default async function AdminLayout({
@@ -8,11 +12,16 @@ export default async function AdminLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	await requireViewerSession("/admin");
-	const hasAdminRole = await getViewerHasAdminRole();
+	try {
+		await requireViewerAdminRole("/admin");
+	} catch (error) {
+		unstable_rethrow(error);
 
-	if (!hasAdminRole) {
-		redirect("/");
+		if (isViewerAdminRoleUnavailableError(error)) {
+			return <AdminAccessUnavailable />;
+		}
+
+		throw error;
 	}
 
 	return (
