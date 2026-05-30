@@ -16,8 +16,9 @@ export class TokenRefreshError extends Error {
 		public readonly status: number,
 		public readonly errorCode?: string,
 		public readonly errorDescription?: string,
+		cause?: unknown,
 	) {
-		super(message);
+		super(message, { cause });
 		this.name = "TokenRefreshError";
 	}
 }

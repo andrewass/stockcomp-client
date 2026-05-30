@@ -3,6 +3,7 @@ import {
 	getResourceServerAudience,
 	getTokenExchangeUrl,
 } from "@/api/auth/tokens/tokenConfig.ts";
+import { ApiJsonParseError, requestText } from "@/api/httpClient.ts";
 
 export interface ResourceTokenResponse {
 	accessToken: string;
@@ -43,6 +44,10 @@ function createBody(subjectToken: string, audience: string): URLSearchParams {
 	});
 }
 
+function getTokenExchangeBaseUrl(): string {
+	return `${getTokenExchangeUrl().replace(/\/+$/, "")}/`;
+}
+
 function parseExpiresAt(responseData: RawResourceTokenResponse): Date {
 	if (responseData.expiresAt !== undefined) {
 		if (typeof responseData.expiresAt === "number") {
@@ -64,10 +69,9 @@ function parseExpiresAt(responseData: RawResourceTokenResponse): Date {
 	throw new Error("Token exchange response did not include expiration");
 }
 
-async function readTokenExchangeError(
-	response: Response,
-): Promise<TokenExchangeErrorResponse> {
-	const responseBody = await response.text();
+function readTokenExchangeError(
+	responseBody: string,
+): TokenExchangeErrorResponse {
 	if (!responseBody) {
 		return {};
 	}
@@ -81,17 +85,37 @@ async function readTokenExchangeError(
 	}
 }
 
+function parseTokenExchangeResponse(
+	responseBody: string,
+	requestUrl: string,
+): RawResourceTokenResponse {
+	try {
+		return JSON.parse(responseBody) as RawResourceTokenResponse;
+	} catch (error) {
+		throw new ApiJsonParseError(
+			"Failed to parse JSON response from token-exchange",
+			"POST",
+			requestUrl,
+			"token-exchange",
+			error,
+		);
+	}
+}
+
 export async function exchangeForResourceToken(
 	subjectToken: string,
 ): Promise<ResourceTokenResponse> {
 	const audience = getResourceServerAudience();
-	const response = await fetch(`${getTokenExchangeUrl()}/token`, {
+	const { requestUrl, response, responseBody } = await requestText({
+		baseUrl: getTokenExchangeBaseUrl(),
+		url: "token",
+		provider: "token-exchange",
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
-		body: createBody(subjectToken, audience).toString(),
+		body: createBody(subjectToken, audience),
 	});
 	if (!response.ok) {
-		const errorResponse = await readTokenExchangeError(response);
+		const errorResponse = readTokenExchangeError(responseBody);
 		const requestId = response.headers.get("x-request-id") ?? undefined;
 		const detail = [
 			errorResponse.error,
@@ -112,7 +136,7 @@ export async function exchangeForResourceToken(
 		);
 	}
 
-	const responseData = (await response.json()) as RawResourceTokenResponse;
+	const responseData = parseTokenExchangeResponse(responseBody, requestUrl);
 	if (!responseData.accessToken) {
 		throw new Error("Token exchange response did not include accessToken");
 	}

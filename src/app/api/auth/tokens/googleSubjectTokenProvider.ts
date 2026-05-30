@@ -1,5 +1,6 @@
 import "server-only";
 import {
+	clearGoogleAccountTokensForUser,
 	getGoogleRefreshTokenForUser,
 	saveGoogleAccountTokens,
 } from "@/api/auth/tokens/googleAccountTokenStore.ts";
@@ -8,6 +9,7 @@ import {
 	getGoogleClientSecret,
 } from "@/api/auth/tokens/tokenConfig.ts";
 import { TokenRefreshError } from "@/api/auth/tokens/tokenErrors.ts";
+import { requestText } from "@/api/httpClient.ts";
 import { auth } from "@/lib/auth.ts";
 
 interface GoogleRefreshTokenResponse {
@@ -25,7 +27,7 @@ interface JwtPayload {
 	iss?: string;
 }
 
-const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
+const GOOGLE_TOKEN_BASE_URL = "https://oauth2.googleapis.com";
 const TOKEN_EXPIRY_BUFFER_MS = 60_000;
 const GOOGLE_ISSUERS = new Set([
 	"https://accounts.google.com",
@@ -88,10 +90,56 @@ function parseGoogleTokenResponse(
 	}
 }
 
+function hasInvalidGrantMarker(value: unknown): boolean {
+	if (typeof value === "string") {
+		return value.includes("invalid_grant");
+	}
+
+	if (!value || typeof value !== "object") {
+		return false;
+	}
+
+	const errorDetails = value as {
+		code?: unknown;
+		error?: unknown;
+		errorCode?: unknown;
+		message?: unknown;
+	};
+
+	return [
+		errorDetails.error,
+		errorDetails.errorCode,
+		errorDetails.code,
+		errorDetails.message,
+	].some(hasInvalidGrantMarker);
+}
+
+function isInvalidGrantError(error: unknown): boolean {
+	return (
+		(error instanceof TokenRefreshError &&
+			error.errorCode === "invalid_grant") ||
+		hasInvalidGrantMarker(error) ||
+		(error instanceof Error && hasInvalidGrantMarker(error.cause))
+	);
+}
+
+function createInvalidGrantRefreshError(error: unknown): TokenRefreshError {
+	return new TokenRefreshError(
+		"Google token refresh failed with invalid_grant",
+		400,
+		"invalid_grant",
+		"Google refresh token is invalid or expired.",
+		error,
+	);
+}
+
 async function refreshGoogleTokens(
 	refreshToken: string,
 ): Promise<GoogleRefreshTokenResponse> {
-	const response = await fetch(GOOGLE_TOKEN_URL, {
+	const { response, responseBody } = await requestText({
+		baseUrl: GOOGLE_TOKEN_BASE_URL,
+		url: "/token",
+		provider: "google-oauth",
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
 		body: new URLSearchParams({
@@ -99,10 +147,9 @@ async function refreshGoogleTokens(
 			client_secret: getGoogleClientSecret(),
 			refresh_token: refreshToken,
 			grant_type: "refresh_token",
-		}).toString(),
+		}),
 	});
 
-	const responseBody = await response.text();
 	const responseData = parseGoogleTokenResponse(responseBody);
 	if (!response.ok) {
 		throw new TokenRefreshError(
@@ -124,7 +171,17 @@ async function refreshGoogleIdTokenForUser(
 		return null;
 	}
 
-	const refreshed = await refreshGoogleTokens(refreshToken);
+	let refreshed: GoogleRefreshTokenResponse;
+	try {
+		refreshed = await refreshGoogleTokens(refreshToken);
+	} catch (error) {
+		if (isInvalidGrantError(error)) {
+			clearGoogleAccountTokensForUser(userId);
+		}
+
+		throw error;
+	}
+
 	if (!refreshed.access_token || !refreshed.id_token || !refreshed.expires_in) {
 		return null;
 	}
@@ -148,10 +205,21 @@ export async function getGoogleSubjectTokenForUser(
 	userId: string,
 	requestHeaders: Headers,
 ): Promise<string | null> {
-	const { idToken } = await auth.api.getAccessToken({
-		body: { providerId: "google" },
-		headers: requestHeaders,
-	});
+	let idToken: string | undefined;
+	try {
+		const accessToken = await auth.api.getAccessToken({
+			body: { providerId: "google" },
+			headers: requestHeaders,
+		});
+		idToken = accessToken.idToken;
+	} catch (error) {
+		if (isInvalidGrantError(error)) {
+			clearGoogleAccountTokensForUser(userId);
+			throw createInvalidGrantRefreshError(error);
+		}
+
+		throw error;
+	}
 
 	if (idToken && isGoogleIdTokenUsable(idToken)) {
 		return idToken;

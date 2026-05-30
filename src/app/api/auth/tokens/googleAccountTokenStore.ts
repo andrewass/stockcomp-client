@@ -29,6 +29,14 @@ interface UpdateGoogleAccountTokensStatement {
 	): unknown;
 }
 
+interface ClearGoogleAccessTokensStatement {
+	run(updatedAt: string, userId: string, providerId: string): unknown;
+}
+
+interface ClearGoogleAccountTokensStatement {
+	run(updatedAt: string, userId: string, providerId: string): unknown;
+}
+
 const GOOGLE_PROVIDER_ID = "google";
 const MISSING_ACCOUNT_TABLE_ERROR = "no such table: account";
 
@@ -37,6 +45,9 @@ type SqliteDatabase = ReturnType<typeof Database>;
 let db: SqliteDatabase | null = null;
 let selectGoogleAccountStmt: SelectGoogleAccountStatement | null = null;
 let updateGoogleAccountTokensStmt: UpdateGoogleAccountTokensStatement | null =
+	null;
+let clearGoogleAccessTokensStmt: ClearGoogleAccessTokensStatement | null = null;
+let clearGoogleAccountTokensStmt: ClearGoogleAccountTokensStatement | null =
 	null;
 
 function getDb(): SqliteDatabase {
@@ -72,11 +83,48 @@ function getUpdateGoogleAccountTokensStmt(): UpdateGoogleAccountTokensStatement 
 	return updateGoogleAccountTokensStmt;
 }
 
+function getClearGoogleAccessTokensStmt(): ClearGoogleAccessTokensStatement {
+	clearGoogleAccessTokensStmt ??= getDb().prepare(`
+		UPDATE account
+		SET
+			accessToken = NULL,
+			idToken = NULL,
+			accessTokenExpiresAt = NULL,
+			updatedAt = ?
+		WHERE userId = ? AND providerId = ?
+	`) as ClearGoogleAccessTokensStatement;
+
+	return clearGoogleAccessTokensStmt;
+}
+
+function getClearGoogleAccountTokensStmt(): ClearGoogleAccountTokensStatement {
+	clearGoogleAccountTokensStmt ??= getDb().prepare(`
+		UPDATE account
+		SET
+			accessToken = NULL,
+			refreshToken = NULL,
+			idToken = NULL,
+			accessTokenExpiresAt = NULL,
+			updatedAt = ?
+		WHERE userId = ? AND providerId = ?
+	`) as ClearGoogleAccountTokensStatement;
+
+	return clearGoogleAccountTokensStmt;
+}
+
 function isMissingAccountTableError(error: unknown): boolean {
 	return (
 		error instanceof Error &&
 		error.message.includes(MISSING_ACCOUNT_TABLE_ERROR)
 	);
+}
+
+function ignoreMissingAccountTable(error: unknown): void {
+	if (isMissingAccountTableError(error)) {
+		return;
+	}
+
+	throw error;
 }
 
 export function getGoogleRefreshTokenForUser(userId: string): string | null {
@@ -93,6 +141,30 @@ export function getGoogleRefreshTokenForUser(userId: string): string | null {
 		}
 
 		throw error;
+	}
+}
+
+export function clearGoogleAccessTokensForUser(userId: string): void {
+	try {
+		getClearGoogleAccessTokensStmt().run(
+			new Date().toISOString(),
+			userId,
+			GOOGLE_PROVIDER_ID,
+		);
+	} catch (error) {
+		ignoreMissingAccountTable(error);
+	}
+}
+
+export function clearGoogleAccountTokensForUser(userId: string): void {
+	try {
+		getClearGoogleAccountTokensStmt().run(
+			new Date().toISOString(),
+			userId,
+			GOOGLE_PROVIDER_ID,
+		);
+	} catch (error) {
+		ignoreMissingAccountTable(error);
 	}
 }
 

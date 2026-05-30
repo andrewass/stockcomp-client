@@ -1,5 +1,6 @@
 import "server-only";
 import { headers } from "next/headers";
+import { clearGoogleAccessTokensForUser } from "@/api/auth/tokens/googleAccountTokenStore.ts";
 import { getGoogleSubjectTokenForUser } from "@/api/auth/tokens/googleSubjectTokenProvider.ts";
 import {
 	deleteResourceToken,
@@ -11,8 +12,17 @@ import {
 	createUnauthenticatedError,
 	TokenRefreshError,
 } from "@/api/auth/tokens/tokenErrors.ts";
-import { exchangeForResourceToken } from "@/api/auth/tokens/tokenExchangeClient.ts";
+import {
+	exchangeForResourceToken,
+	type ResourceTokenResponse,
+	TokenExchangeHttpError,
+} from "@/api/auth/tokens/tokenExchangeClient.ts";
 import { auth } from "@/lib/auth.ts";
+
+const RETRYABLE_TOKEN_EXCHANGE_ERRORS = new Set([
+	"invalid_grant",
+	"invalid_token",
+]);
 
 async function getCurrentUserId(requestHeaders: Headers): Promise<string> {
 	const session = await auth.api.getSession({ headers: requestHeaders });
@@ -48,6 +58,32 @@ async function getSubjectToken(
 	return subjectToken;
 }
 
+function isRetryableTokenExchangeAuthError(error: unknown): boolean {
+	return (
+		error instanceof TokenExchangeHttpError &&
+		error.errorCode !== undefined &&
+		RETRYABLE_TOKEN_EXCHANGE_ERRORS.has(error.errorCode)
+	);
+}
+
+async function exchangeResourceTokenWithSubjectRefresh(
+	userId: string,
+	requestHeaders: Headers,
+	subjectToken: string,
+): Promise<ResourceTokenResponse> {
+	try {
+		return await exchangeForResourceToken(subjectToken);
+	} catch (error) {
+		if (!isRetryableTokenExchangeAuthError(error)) {
+			throw error;
+		}
+
+		clearGoogleAccessTokensForUser(userId);
+		const refreshedSubjectToken = await getSubjectToken(userId, requestHeaders);
+		return exchangeForResourceToken(refreshedSubjectToken);
+	}
+}
+
 export async function getResourceAccessTokenForCurrentUser(
 	forceRefresh = false,
 ): Promise<string> {
@@ -63,7 +99,11 @@ export async function getResourceAccessTokenForCurrentUser(
 
 	const subjectToken = await getSubjectToken(userId, requestHeaders);
 	const { accessToken, expiresAt } =
-		await exchangeForResourceToken(subjectToken);
+		await exchangeResourceTokenWithSubjectRefresh(
+			userId,
+			requestHeaders,
+			subjectToken,
+		);
 	saveResourceToken({
 		userId,
 		audience,
