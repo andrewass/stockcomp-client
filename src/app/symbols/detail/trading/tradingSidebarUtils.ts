@@ -1,7 +1,10 @@
-import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import {
+	type InvestmentOrderStatus,
+	ORDER_STATUS,
+} from "@/domain/investmentorder/investmentOrderTypes.ts";
 import type { SymbolTradingViewModel } from "@/symbols/domain.ts";
 
-const terminalOrderStatuses = new Set<string>([
+const terminalOrderStatuses = new Set<InvestmentOrderStatus>([
 	ORDER_STATUS.COMPLETED,
 	ORDER_STATUS.FAILED,
 	ORDER_STATUS.TERMINATED,

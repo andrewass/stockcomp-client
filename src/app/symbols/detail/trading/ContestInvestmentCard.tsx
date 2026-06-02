@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
 	CONTEST_STATUS,
+	type ContestStatus,
 	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
 import {
@@ -29,7 +30,7 @@ interface Props {
 	onToggle: () => void;
 }
 
-function getContestStatusBadgeClassName(status: string): string {
+function getContestStatusBadgeClassName(status: ContestStatus): string {
 	switch (status) {
 		case CONTEST_STATUS.RUNNING:
 			return "badge badge-success badge-outline";
@@ -56,7 +57,7 @@ function getContestTimelineLabel(
 	return `Ends ${formatDateTimeValue(contest.endTime, "dd/MM HH:mm")}`;
 }
 
-function getContestStatusLabel(status: string): string {
+function getContestStatusLabel(status: ContestStatus): string {
 	return formatMappedLabel(status, contestStatusRecord);
 }
 

@@ -92,9 +92,9 @@ export function formatEnumLabel(value: string): string {
 		.join(" ");
 }
 
-export function formatMappedLabel(
-	value: string,
-	labelMap: Record<string, string>,
+export function formatMappedLabel<TValue extends string>(
+	value: TValue,
+	labelMap: Partial<Record<TValue, string>>,
 ): string {
 	return labelMap[value] ?? formatEnumLabel(value);
 }

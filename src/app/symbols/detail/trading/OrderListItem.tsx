@@ -1,5 +1,8 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import {
+	type InvestmentOrderStatus,
+	ORDER_STATUS,
+} from "@/domain/investmentorder/investmentOrderTypes.ts";
 import {
 	formatCurrency,
 	formatDateTimeValue,
@@ -14,7 +17,7 @@ interface Props {
 	onCancelOrder: (order: SymbolTradingOrderViewModel) => void;
 }
 
-function getOrderStatusBadgeClassName(status: string): string {
+function getOrderStatusBadgeClassName(status: InvestmentOrderStatus): string {
 	switch (status) {
 		case ORDER_STATUS.COMPLETED:
 			return "badge badge-success badge-outline";

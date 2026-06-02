@@ -4,11 +4,17 @@ import {
 	isUnauthenticatedError,
 	resourceGet,
 } from "@/api/resourceServerClient.ts";
+import {
+	type ContestDto,
+	mapContestDto,
+} from "@/contests/contestDataMappers.ts";
 import type {
 	ContestLeaderboardPage,
 	ContestParticipantDetail,
+	ContestParticipantInvestmentOrder,
 } from "@/domain/contests/contestParticipantTypes.ts";
 import type { Contest } from "@/domain/contests/contestTypes.ts";
+import { isInvestmentOrderStatus } from "@/domain/investmentorder/investmentOrderTypes.ts";
 
 export interface ContestDetailPageData {
 	contest: Contest;
@@ -16,10 +22,60 @@ export interface ContestDetailPageData {
 	participantDetail: ContestParticipantDetail | null;
 }
 
+type ContestParticipantInvestmentOrderDto = Omit<
+	ContestParticipantInvestmentOrder,
+	"orderStatus"
+> & {
+	orderStatus: unknown;
+};
+
+type ContestParticipantDetailDto = Omit<
+	ContestParticipantDetail,
+	"activeOrders" | "completedOrders" | "contest"
+> & {
+	activeOrders: ContestParticipantInvestmentOrderDto[];
+	completedOrders: ContestParticipantInvestmentOrderDto[];
+	contest: ContestDto;
+};
+
+function mapInvestmentOrderStatus(
+	value: unknown,
+): ContestParticipantInvestmentOrder["orderStatus"] {
+	if (isInvestmentOrderStatus(value)) {
+		return value;
+	}
+
+	throw new Error(
+		"Unknown investment order status returned by resource server.",
+	);
+}
+
+function mapInvestmentOrderDto(
+	order: ContestParticipantInvestmentOrderDto,
+): ContestParticipantInvestmentOrder {
+	return {
+		...order,
+		orderStatus: mapInvestmentOrderStatus(order.orderStatus),
+	};
+}
+
+function mapContestParticipantDetailDto(
+	detail: ContestParticipantDetailDto,
+): ContestParticipantDetail {
+	return {
+		...detail,
+		contest: mapContestDto(detail.contest),
+		activeOrders: detail.activeOrders.map(mapInvestmentOrderDto),
+		completedOrders: detail.completedOrders.map(mapInvestmentOrderDto),
+	};
+}
+
 async function getContest(contestId: number): Promise<Contest> {
-	return resourceGet<Contest>({
+	const contest = await resourceGet<ContestDto>({
 		url: `/contests/${contestId}`,
 	});
+
+	return mapContestDto(contest);
 }
 
 async function getContestLeaderboard(
@@ -37,9 +93,11 @@ async function getParticipantDetailForContest(
 	contestId: number,
 ): Promise<ContestParticipantDetail | null> {
 	try {
-		return await resourceGet<ContestParticipantDetail>({
+		const detail = await resourceGet<ContestParticipantDetailDto>({
 			url: `/participants/detailed/contest/${contestId}`,
 		});
+
+		return mapContestParticipantDetailDto(detail);
 	} catch (error) {
 		if (isUnauthenticatedError(error)) {
 			throw error;

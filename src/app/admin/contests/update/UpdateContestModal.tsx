@@ -5,7 +5,9 @@ import { type FormEvent, useEffect, useState, useTransition } from "react";
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
 import {
 	type Contest,
+	type ContestStatus,
 	contestStatusRecord,
+	isContestStatus,
 	type UpdateContestRequest,
 } from "@/domain/contests/contestTypes.ts";
 import type { UpdateContestResult } from "./updateContestTypes.ts";
@@ -20,7 +22,7 @@ interface ContestFormState {
 	contestName: string;
 	startTime: string;
 	endTime: string;
-	contestStatus: string;
+	contestStatus: ContestStatus | "";
 }
 
 function toDateTimeLocalInputValue(dateTime: string): string {
@@ -44,6 +46,12 @@ function getInitialFormState(contest: Contest | null): ContestFormState {
 	};
 }
 
+function toContestStatusFormValue(
+	value: string,
+): ContestFormState["contestStatus"] {
+	return isContestStatus(value) ? value : "";
+}
+
 function validateForm(formState: ContestFormState): Record<string, string> {
 	const fieldErrors: Record<string, string> = {};
 	const contestName = formState.contestName.trim();
@@ -56,7 +64,7 @@ function validateForm(formState: ContestFormState): Record<string, string> {
 		fieldErrors.startTime = "Start time is invalid.";
 	}
 
-	if (!Object.keys(contestStatusRecord).includes(formState.contestStatus)) {
+	if (!isContestStatus(formState.contestStatus)) {
 		fieldErrors.contestStatus = "Contest status is invalid.";
 	}
 
@@ -77,7 +85,10 @@ function buildUpdateContestRequest(
 		request.contestName = contestName;
 	}
 
-	if (formState.contestStatus !== initialFormState.contestStatus) {
+	if (
+		isContestStatus(formState.contestStatus) &&
+		formState.contestStatus !== initialFormState.contestStatus
+	) {
 		request.contestStatus = formState.contestStatus;
 	}
 
@@ -263,7 +274,7 @@ export default function UpdateContestModal({
 						onChange={(event) =>
 							setFormState((current) => ({
 								...current,
-								contestStatus: event.target.value,
+								contestStatus: toContestStatusFormValue(event.target.value),
 							}))
 						}
 						required

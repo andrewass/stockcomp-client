@@ -5,11 +5,15 @@ import {
 	resourceGet,
 	resourcePost,
 } from "@/api/resourceServerClient.ts";
-import type { Contest } from "@/domain/contests/contestTypes.ts";
+import {
+	type ContestDto,
+	mapContestDto,
+} from "@/contests/contestDataMappers.ts";
 import type {
 	CreateInvestmentOrderRequest,
 	TransactionType,
 } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import { isInvestmentOrderStatus } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
@@ -22,7 +26,7 @@ interface UserParticipantDto {
 }
 
 interface ContestParticipantDto {
-	contest: Contest;
+	contest: ContestDto;
 	participant: UserParticipantDto;
 }
 
@@ -43,11 +47,11 @@ interface InvestmentOrderDto {
 	currency: string;
 	expirationTime: string;
 	transactionType: TransactionType;
-	orderStatus: string;
+	orderStatus: unknown;
 }
 
 interface DetailedParticipantDto {
-	contest: Contest;
+	contest: ContestDto;
 	participant: UserParticipantDto;
 	investments: InvestmentDto[];
 	activeOrders: InvestmentOrderDto[];
@@ -69,6 +73,18 @@ function getDefaultExpirationTime(): string {
 	return expiration.toISOString().slice(0, 19);
 }
 
+function mapInvestmentOrderStatus(
+	value: unknown,
+): SymbolTradingOrderViewModel["orderStatus"] {
+	if (isInvestmentOrderStatus(value)) {
+		return value;
+	}
+
+	throw new Error(
+		"Unknown investment order status returned by resource server.",
+	);
+}
+
 function mapTradingOrder(
 	order: InvestmentOrderDto,
 ): SymbolTradingOrderViewModel {
@@ -79,7 +95,7 @@ function mapTradingOrder(
 		remainingAmount: order.remainingAmount,
 		acceptedPrice: order.acceptedPrice,
 		currency: order.currency,
-		orderStatus: order.orderStatus,
+		orderStatus: mapInvestmentOrderStatus(order.orderStatus),
 		expirationTime: order.expirationTime,
 	};
 }
@@ -89,6 +105,7 @@ function mapContestTradingData(
 	detailedParticipant: DetailedParticipantDto | null,
 	symbol: string,
 ): SymbolTradingContestViewModel {
+	const contest = mapContestDto(registeredContest.contest);
 	const investment = detailedParticipant?.investments.find(
 		(item) => normalizeSymbol(item.symbol) === symbol,
 	);
@@ -102,12 +119,12 @@ function mapContestTradingData(
 	].filter((order) => normalizeSymbol(order.symbol) === symbol);
 
 	return {
-		contestId: registeredContest.contest.contestId,
+		contestId: contest.contestId,
 		participantId: registeredContest.participant.participantId,
-		contestName: registeredContest.contest.contestName,
-		contestStatus: registeredContest.contest.contestStatus,
-		startTime: registeredContest.contest.startTime,
-		endTime: registeredContest.contest.endTime,
+		contestName: contest.contestName,
+		contestStatus: contest.contestStatus,
+		startTime: contest.startTime,
+		endTime: contest.endTime,
 		remainingFunds: toFiniteNumber(
 			detailedParticipant?.participant.remainingFunds ??
 				registeredContest.participant.remainingFunds,

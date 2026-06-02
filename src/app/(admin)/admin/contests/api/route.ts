@@ -8,9 +8,13 @@ import {
 	toRouteErrorResponse,
 } from "@/api/routeHandlerResponses.ts";
 import {
+	type ContestDto,
+	mapContestDto,
+} from "@/contests/contestDataMappers.ts";
+import {
 	CONTEST_STATUS,
-	type Contest,
 	type CreateContestRequest,
+	isContestStatus,
 	type UpdateContestRequest,
 } from "@/domain/contests/contestTypes.ts";
 
@@ -104,7 +108,7 @@ function validateUpdateContestBody(
 	if (body.contestStatus != null) {
 		const contestStatus =
 			typeof body.contestStatus === "string" ? body.contestStatus : "";
-		if (!Object.values(CONTEST_STATUS).includes(contestStatus)) {
+		if (!isContestStatus(contestStatus)) {
 			fieldErrors.contestStatus = "Contest status is invalid.";
 		} else {
 			updateRequest.contestStatus = contestStatus;
@@ -147,9 +151,10 @@ function toErrorResponse(
 async function assertContestCanBeUpdated(
 	contestId: number,
 ): Promise<Response | null> {
-	const contest = await resourceGet<Contest>({
+	const contestDto = await resourceGet<ContestDto>({
 		url: `/contests/${contestId}`,
 	});
+	const contest = mapContestDto(contestDto);
 
 	if (contest.contestStatus === CONTEST_STATUS.COMPLETED) {
 		return Response.json(

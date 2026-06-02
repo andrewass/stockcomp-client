@@ -1,3 +1,6 @@
+import type { ContestStatus } from "@/domain/contests/contestTypes.ts";
+import type { InvestmentOrderStatus } from "@/domain/investmentorder/investmentOrderTypes.ts";
+
 export interface SymbolCardViewModel {
 	symbol: string;
 	companyName: string;
@@ -51,7 +54,7 @@ export interface SymbolDetailViewModel {
 export interface SymbolContestListItemViewModel {
 	contestId: number;
 	contestName: string;
-	contestStatus: string;
+	contestStatus: ContestStatus;
 	startTime: string;
 	endTime: string;
 	investmentStatus?: SymbolContestInvestmentStatusViewModel;
@@ -72,7 +75,7 @@ export interface SymbolTradingOrderViewModel {
 	remainingAmount: number;
 	acceptedPrice: number;
 	currency: string;
-	orderStatus: string;
+	orderStatus: InvestmentOrderStatus;
 	expirationTime: string;
 }
 
@@ -88,7 +91,7 @@ export interface SymbolTradingContestViewModel {
 	contestId: number;
 	participantId: number;
 	contestName: string;
-	contestStatus: string;
+	contestStatus: ContestStatus;
 	startTime: string;
 	endTime: string;
 	remainingFunds: number;

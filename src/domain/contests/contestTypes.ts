@@ -4,7 +4,20 @@ export const CONTEST_STATUS = {
 	STOPPED: "STOPPED",
 	AWAITING_COMPLETION: "AWAITING_COMPLETION",
 	COMPLETED: "COMPLETED",
-};
+} as const;
+
+export type ContestStatus =
+	(typeof CONTEST_STATUS)[keyof typeof CONTEST_STATUS];
+
+export const CONTEST_STATUSES: readonly ContestStatus[] =
+	Object.values(CONTEST_STATUS);
+
+export function isContestStatus(value: unknown): value is ContestStatus {
+	return (
+		typeof value === "string" &&
+		(CONTEST_STATUSES as readonly string[]).includes(value)
+	);
+}
 
 export const LEADERBOARD_UPDATE_STATUS = {
 	AWAITING: "AWAITING",
@@ -16,7 +29,7 @@ export const leaderboardUpdateStatusMap = new Map<string, string>([
 	[LEADERBOARD_UPDATE_STATUS.COMPLETED, "Completed"],
 ]);
 
-export const contestStatusRecord: Record<string, string> = {
+export const contestStatusRecord: Record<ContestStatus, string> = {
 	[CONTEST_STATUS.AWAITING_START]: "Awaiting Start",
 	[CONTEST_STATUS.RUNNING]: "Running",
 	[CONTEST_STATUS.STOPPED]: "Stopped",
@@ -29,7 +42,7 @@ export interface Contest {
 	contestName: string;
 	startTime: string;
 	endTime: string;
-	contestStatus: string;
+	contestStatus: ContestStatus;
 	participantCount?: number;
 }
 
@@ -60,7 +73,7 @@ export interface UpdateContestRequest {
 	contestId: number;
 	contestName?: string;
 	startTime?: string;
-	contestStatus?: string;
+	contestStatus?: ContestStatus;
 }
 
 export interface CreateContestRequest {

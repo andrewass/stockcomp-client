@@ -1,5 +1,8 @@
 import type { Contest } from "@/domain/contests/contestTypes.ts";
-import type { TransactionType } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import type {
+	InvestmentOrderStatus,
+	TransactionType,
+} from "@/domain/investmentorder/investmentOrderTypes.ts";
 
 export interface ContestLeaderboardParticipant {
 	participantId: number;
@@ -50,5 +53,5 @@ export interface ContestParticipantInvestmentOrder {
 	currency: string;
 	expirationTime: string;
 	transactionType: TransactionType;
-	orderStatus: string;
+	orderStatus: InvestmentOrderStatus;
 }

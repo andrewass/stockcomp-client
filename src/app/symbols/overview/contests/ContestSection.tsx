@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { contestStatusRecord } from "@/domain/contests/contestTypes.ts";
+import {
+	type ContestStatus,
+	contestStatusRecord,
+} from "@/domain/contests/contestTypes.ts";
 import { formatDateTimeValue, formatMappedLabel } from "@/lib/formatters.ts";
 import type { SymbolContestListItemViewModel } from "@/symbols/domain.ts";
 import ContestInvestmentStatus from "./ContestInvestmentStatus.tsx";
@@ -12,14 +15,14 @@ interface Props {
 	signingUpContestId?: number;
 }
 
-const contestStatusDotClasses: Record<string, string> = {
+const contestStatusDotClasses: Partial<Record<ContestStatus, string>> = {
 	AWAITING_START: "bg-warning",
 	RUNNING: "bg-success",
 	STOPPED: "bg-error",
 	COMPLETED: "bg-base-content/35",
 };
 
-function getContestStatusDotClass(contestStatus: string): string {
+function getContestStatusDotClass(contestStatus: ContestStatus): string {
 	return contestStatusDotClasses[contestStatus] ?? "bg-base-content/35";
 }
 

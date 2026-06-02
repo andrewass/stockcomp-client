@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { ContestParticipantInvestmentOrder } from "@/domain/contests/contestParticipantTypes.ts";
-import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import {
+	type InvestmentOrderStatus,
+	ORDER_STATUS,
+} from "@/domain/investmentorder/investmentOrderTypes.ts";
 import {
 	formatCurrency,
 	formatDateTimeValue,
@@ -12,7 +15,7 @@ interface Props {
 	orders: ContestParticipantInvestmentOrder[];
 }
 
-function getOrderStatusBadgeClassName(status: string): string {
+function getOrderStatusBadgeClassName(status: InvestmentOrderStatus): string {
 	switch (status) {
 		case ORDER_STATUS.ACTIVE:
 			return "badge badge-info badge-outline";

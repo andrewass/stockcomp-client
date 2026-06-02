@@ -3,6 +3,7 @@ import type {
 	ContestParticipantDetail,
 } from "@/domain/contests/contestParticipantTypes.ts";
 import {
+	CONTEST_STATUS,
 	type Contest,
 	contestStatusRecord,
 	getStatusByColor,
@@ -38,13 +39,13 @@ function getStatusBadgeClassName(contest: Contest): string {
 
 function getContestTimelineSummary(contest: Contest): string {
 	switch (contest.contestStatus) {
-		case "AWAITING_START":
+		case CONTEST_STATUS.AWAITING_START:
 			return `This contest starts on ${formatDateTimeValue(contest.startTime)}.`;
-		case "RUNNING":
+		case CONTEST_STATUS.RUNNING:
 			return `This contest is running until ${formatDateTimeValue(contest.endTime)}.`;
-		case "COMPLETED":
+		case CONTEST_STATUS.COMPLETED:
 			return `This contest finished on ${formatDateTimeValue(contest.endTime)}.`;
-		case "STOPPED":
+		case CONTEST_STATUS.STOPPED:
 			return "This contest has been stopped.";
 		default:
 			return "Contest timeline unavailable.";

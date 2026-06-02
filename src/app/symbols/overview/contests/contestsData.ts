@@ -2,6 +2,10 @@ import "server-only";
 import { isApiHttpStatusError } from "@/api/httpClient.ts";
 import { resourceGet, resourcePost } from "@/api/resourceServerClient.ts";
 import {
+	type ContestDto,
+	mapContestDto,
+} from "@/contests/contestDataMappers.ts";
+import {
 	CONTEST_STATUS,
 	type Contest,
 } from "@/domain/contests/contestTypes.ts";
@@ -18,7 +22,7 @@ interface UserParticipantDto {
 }
 
 interface ContestParticipantDto {
-	contest: Contest;
+	contest: ContestDto;
 	participant: UserParticipantDto;
 }
 
@@ -31,12 +35,12 @@ interface DetailedParticipantDto {
 	investments: InvestmentDto[];
 }
 
-type ContestListResponseItem = Contest | ContestParticipantDto;
+type ContestListResponseItemDto = ContestDto | ContestParticipantDto;
 
 export async function getUnregisteredContests(): Promise<
 	SymbolContestListItemViewModel[]
 > {
-	const contests = await resourceGet<ContestListResponseItem[]>({
+	const contests = await resourceGet<ContestListResponseItemDto[]>({
 		url: "/participants/unregistered",
 	});
 	return mapToSymbolContestListItemViewModel(contests);
@@ -45,7 +49,7 @@ export async function getUnregisteredContests(): Promise<
 export async function getRegisteredContests(): Promise<
 	SymbolContestListItemViewModel[]
 > {
-	const contests = await resourceGet<ContestListResponseItem[]>({
+	const contests = await resourceGet<ContestListResponseItemDto[]>({
 		url: "/participants/registered",
 	});
 	const detailedParticipantsByContestId =
@@ -66,15 +70,20 @@ export async function signUpParticipant(contestId: number): Promise<void> {
 	});
 }
 
+function mapContestListResponseItem(item: ContestListResponseItemDto): Contest {
+	const contest = "contest" in item ? item.contest : item;
+	return mapContestDto(contest);
+}
+
 function mapToSymbolContestListItemViewModel(
-	contests: ContestListResponseItem[],
+	contests: ContestListResponseItemDto[],
 	detailedParticipantsByContestId: Map<
 		number,
 		DetailedParticipantDto
 	> = new Map(),
 ): SymbolContestListItemViewModel[] {
 	return contests.map((item) => {
-		const contest = "contest" in item ? item.contest : item;
+		const contest = mapContestListResponseItem(item);
 		const detailedParticipant = detailedParticipantsByContestId.get(
 			contest.contestId,
 		);
@@ -113,10 +122,10 @@ async function getDetailedParticipantForContest(
 }
 
 async function getRunningDetailedParticipantsByContestId(
-	contests: ContestListResponseItem[],
+	contests: ContestListResponseItemDto[],
 ): Promise<Map<number, DetailedParticipantDto>> {
 	const runningContests = contests
-		.map((item) => ("contest" in item ? item.contest : item))
+		.map(mapContestListResponseItem)
 		.filter((contest) => contest.contestStatus === CONTEST_STATUS.RUNNING);
 
 	const detailedParticipants = await Promise.all(
