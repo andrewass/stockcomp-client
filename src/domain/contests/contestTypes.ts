@@ -46,7 +46,9 @@ export interface Contest {
 	participantCount?: number;
 }
 
-export function getStatusByColor(contest: Contest): string {
+export type ContestStatusColor = "green" | "grey" | "yellow" | "red";
+
+export function getStatusByColor(contest: Contest): ContestStatusColor {
 	switch (contest.contestStatus) {
 		case CONTEST_STATUS.RUNNING:
 			return "green";
@@ -58,10 +60,7 @@ export function getStatusByColor(contest: Contest): string {
 			return "yellow";
 		case CONTEST_STATUS.STOPPED:
 			return "red";
-		default:
-			console.error(`Invalid contest status ${contest.contestStatus}`);
 	}
-	return "red";
 }
 
 export interface ContestPage {
