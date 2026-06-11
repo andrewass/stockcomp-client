@@ -5,3 +5,6 @@ allowBuilds:
   prisma: false
   sharp: true
 minimumReleaseAge: 10080
+
+overrides:
+  "kysely": "^0.28.17"

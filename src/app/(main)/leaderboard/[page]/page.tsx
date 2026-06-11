@@ -2,7 +2,10 @@ import { notFound } from "next/navigation";
 
 import { parseParams } from "@/components/table/paginationParams.ts";
 import LeaderboardView from "@/leaderboard/LeaderboardView.tsx";
-import { getLeaderboardEntries } from "@/leaderboard/leaderboardData.ts";
+import {
+	getCurrentUserLeaderboardEntry,
+	getLeaderboardEntries,
+} from "@/leaderboard/leaderboardData.ts";
 
 export default async function LeaderboardPage({
 	params,
@@ -19,15 +22,16 @@ export default async function LeaderboardPage({
 		notFound();
 	}
 
-	const leaderboardResponse = await getLeaderboardEntries(
-		parsedParams.pageNumber,
-		parsedParams.pageSize,
-	);
+	const [leaderboardResponse, currentUserLeaderboardEntry] = await Promise.all([
+		getLeaderboardEntries(parsedParams.pageNumber, parsedParams.pageSize),
+		getCurrentUserLeaderboardEntry(),
+	]);
 
 	return (
 		<div>
 			<LeaderboardView
 				leaderboardEntries={leaderboardResponse.entries}
+				currentUserLeaderboardEntry={currentUserLeaderboardEntry}
 				pageSize={parsedParams.pageSize}
 				currentPage={parsedParams.pageNumber}
 				totalEntriesCount={leaderboardResponse.totalEntriesCount}

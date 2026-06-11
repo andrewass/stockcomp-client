@@ -9,11 +9,34 @@ export interface Medal {
 	position: number;
 }
 
+export interface LeaderboardUserDetailsDto {
+	userId: number;
+	username: string;
+	fullName?: string | null;
+	country?: string | null;
+}
+
+export interface LeaderboardEntryDto {
+	ranking: number;
+	score: number;
+	contestCount: number;
+	medals: Medal[];
+	userDetails: LeaderboardUserDetailsDto;
+}
+
+export interface LeaderboardEntryPageDto {
+	entries: LeaderboardEntryDto[];
+	totalEntriesCount: number;
+}
+
 export interface LeaderboardEntry {
-	country: string;
+	userId: number;
+	username: string;
+	country: string | null;
 	displayName: string;
 	ranking: number;
 	score: number;
+	contestCount: number;
 	medals: Medal[];
 }
 
