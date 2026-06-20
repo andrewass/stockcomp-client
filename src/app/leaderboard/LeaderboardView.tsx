@@ -23,13 +23,15 @@ export default function LeaderboardView({
 				className="flex min-h-12 items-center justify-end"
 				aria-hidden="true"
 			/>
-			<LeaderboardTable
-				leaderboardEntries={leaderboardEntries}
-				pageSize={pageSize}
-				currentPage={currentPage}
-				totalEntriesCount={totalEntriesCount}
-			/>
-			<CurrentUserLeaderboardEntry entry={currentUserLeaderboardEntry} />
+			<div className="space-y-12">
+				<LeaderboardTable
+					leaderboardEntries={leaderboardEntries}
+					pageSize={pageSize}
+					currentPage={currentPage}
+					totalEntriesCount={totalEntriesCount}
+				/>
+				<CurrentUserLeaderboardEntry entry={currentUserLeaderboardEntry} />
+			</div>
 		</div>
 	);
 }
