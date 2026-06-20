@@ -1,6 +1,8 @@
+import Link from "next/link";
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { ContestLeaderboardParticipant } from "@/domain/contests/contestParticipantTypes.ts";
 import { formatNumber } from "@/lib/formatters.ts";
+import { buildUserDetailHref } from "@/users/userProfileNavigation.ts";
 
 interface Props {
 	participants: ContestLeaderboardParticipant[];
@@ -29,6 +31,8 @@ export default function ContestLeaderboardTable({
 	currentPage,
 	totalEntriesCount,
 }: Props) {
+	const returnTo = `/contest/${contestId}/${currentPage}?pageSize=${pageSize}`;
+
 	return (
 		<PageableTable<ContestLeaderboardRow>
 			items={participants.map((participant) => ({
@@ -44,7 +48,14 @@ export default function ContestLeaderboardTable({
 				<tr key={participant.id}>
 					<td>{participant.rank ?? "-"}</td>
 					<td>{participant.country ?? "-"}</td>
-					<td>{participant.username}</td>
+					<td>
+						<Link
+							href={buildUserDetailHref(participant.username, returnTo)}
+							className="link link-hover font-medium"
+						>
+							{participant.username}
+						</Link>
+					</td>
 					<td>
 						{formatNumber(participant.totalValue, { maximumFractionDigits: 2 })}
 					</td>

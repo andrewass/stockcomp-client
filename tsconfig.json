@@ -41,7 +41,8 @@
       "@/providers/*": ["./src/app/providers/*"],
       "@/query/*": ["./src/app/query/*"],
       "@/symbols/*": ["./src/app/symbols/*"],
-      "@/theme/*": ["./src/app/theme/*"]
+      "@/theme/*": ["./src/app/theme/*"],
+      "@/users/*": ["./src/app/users/*"]
     }
   },
   "include": [

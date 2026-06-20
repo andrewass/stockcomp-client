@@ -17,6 +17,8 @@ export default function LeaderboardView({
 	currentPage,
 	totalEntriesCount,
 }: Props) {
+	const returnTo = `/leaderboard/${currentPage}?pageSize=${pageSize}`;
+
 	return (
 		<div className="space-y-8">
 			<div
@@ -29,8 +31,12 @@ export default function LeaderboardView({
 					pageSize={pageSize}
 					currentPage={currentPage}
 					totalEntriesCount={totalEntriesCount}
+					returnTo={returnTo}
 				/>
-				<CurrentUserLeaderboardEntry entry={currentUserLeaderboardEntry} />
+				<CurrentUserLeaderboardEntry
+					entry={currentUserLeaderboardEntry}
+					returnTo={returnTo}
+				/>
 			</div>
 		</div>
 	);

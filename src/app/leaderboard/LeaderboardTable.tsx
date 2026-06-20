@@ -7,6 +7,7 @@ interface Props {
 	pageSize: number;
 	currentPage: number;
 	totalEntriesCount: number;
+	returnTo: string;
 }
 
 const leaderboardTableHeaderItems = [
@@ -27,6 +28,7 @@ export default function LeaderboardTable({
 	pageSize,
 	currentPage,
 	totalEntriesCount,
+	returnTo,
 }: Props) {
 	return (
 		<div>
@@ -41,7 +43,11 @@ export default function LeaderboardTable({
 				basePath="/leaderboard/"
 				headerItems={leaderboardTableHeaderItems}
 				renderRow={(entry) => (
-					<LeaderboardEntryRow key={entry.id} entry={entry} />
+					<LeaderboardEntryRow
+						key={entry.id}
+						entry={entry}
+						returnTo={returnTo}
+					/>
 				)}
 			/>
 		</div>
