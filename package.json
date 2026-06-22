@@ -6,22 +6,22 @@
 	"dependencies": {
 		"@heroicons/react": "^2.2.0",
 		"@tanstack/react-query": "^5.101.0",
-		"better-auth": "^1.6.17",
-		"better-sqlite3": "^12.10.0",
+		"better-auth": "^1.6.18",
+		"better-sqlite3": "^12.10.1",
 		"date-fns": "^4.4.0",
 		"i18n-iso-countries": "^7.14.0",
 		"next": "^16.2.9",
 		"react": "^19.2.7",
 		"react-country-flag": "^3.1.0",
 		"react-dom": "^19.2.7",
-		"react-hook-form": "^7.78.0",
+		"react-hook-form": "^7.79.0",
 		"react-hot-toast": "^2.6.0",
 		"recharts": "^3.8.1",
 		"server-only": "^0.0.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.16",
-		"@tailwindcss/postcss": "^4.3.0",
+		"@biomejs/biome": "2.5.0",
+		"@tailwindcss/postcss": "^4.3.1",
 		"@tanstack/react-query-devtools": "^5.101.0",
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/node": "^25.9.3",
@@ -29,7 +29,7 @@
 		"@types/react-dom": "^19.2.3",
 		"daisyui": "^5.5.23",
 		"only-allow": "^1.2.2",
-		"tailwindcss": "^4.3.0",
+		"tailwindcss": "^4.3.1",
 		"typescript": "^6.0.3"
 	},
 	"scripts": {
