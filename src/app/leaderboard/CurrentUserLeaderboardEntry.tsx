@@ -1,4 +1,5 @@
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
+import { leaderboardTableColumnClassNames } from "@/leaderboard/leaderboardTableColumns.ts";
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
 
 interface Props {
@@ -11,14 +12,19 @@ export default function CurrentUserLeaderboardEntry({
 	returnTo,
 }: Props) {
 	return (
-		<section className="max-w-full space-y-3">
+		<section className="w-300 max-w-full space-y-3">
 			<div>
 				<h2 className="text-lg font-semibold text-base-content">
 					Your leaderboard entry
 				</h2>
 			</div>
-			<div className="overflow-x-auto rounded-box border border-base-300 bg-base-100">
-				<table className="table w-full min-w-[48rem]">
+			<div className="overflow-x-auto border border-base-300 bg-base-100">
+				<table className="table table-fixed w-full min-w-[48rem]">
+					<colgroup>
+						{leaderboardTableColumnClassNames.map((className) => (
+							<col key={className} className={className} />
+						))}
+					</colgroup>
 					<tbody>
 						{entry ? (
 							<LeaderboardEntryRow

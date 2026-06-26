@@ -1,5 +1,9 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
+import {
+	leaderboardTableColumnClassNames,
+	leaderboardTableHeaderItems,
+} from "@/leaderboard/leaderboardTableColumns.ts";
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
 
 interface Props {
@@ -9,15 +13,6 @@ interface Props {
 	totalEntriesCount: number;
 	returnTo: string;
 }
-
-const leaderboardTableHeaderItems = [
-	"Ranking",
-	"Country",
-	"Name",
-	"Score",
-	"Contests",
-	"Medals",
-];
 
 type LeaderboardTableEntry = LeaderboardEntry & {
 	id: number;
@@ -42,6 +37,7 @@ export default function LeaderboardTable({
 				totalEntriesCount={totalEntriesCount}
 				basePath="/leaderboard/"
 				headerItems={leaderboardTableHeaderItems}
+				columnClassNames={leaderboardTableColumnClassNames}
 				renderRow={(entry) => (
 					<LeaderboardEntryRow
 						key={entry.id}
