@@ -9,6 +9,11 @@ interface Identifiable {
 	id: string | number;
 }
 
+interface ColumnDefinition {
+	id: string;
+	className: string;
+}
+
 interface Props<T extends Identifiable> {
 	items: T[];
 	pageSize: number;
@@ -16,7 +21,7 @@ interface Props<T extends Identifiable> {
 	totalEntriesCount: number;
 	basePath: string;
 	headerItems: string[];
-	columnClassNames?: readonly string[];
+	columnDefinitions?: readonly ColumnDefinition[];
 	renderRow: (item: T) => React.ReactNode;
 }
 
@@ -28,7 +33,7 @@ export default function PageableTable<T extends Identifiable>({
 	basePath,
 	renderRow,
 	headerItems,
-	columnClassNames,
+	columnDefinitions,
 }: Props<T>) {
 	const safePageSize =
 		Number.isFinite(pageSize) && pageSize >= 1
@@ -40,12 +45,12 @@ export default function PageableTable<T extends Identifiable>({
 	return (
 		<div className="w-300 max-w-full overflow-x-auto border border-base-300">
 			<table
-				className={`table w-full min-w-[48rem] ${columnClassNames ? "table-fixed" : ""}`}
+				className={`table w-full min-w-[48rem] ${columnDefinitions ? "table-fixed" : ""}`}
 			>
-				{columnClassNames ? (
+				{columnDefinitions ? (
 					<colgroup>
-						{columnClassNames.map((className) => (
-							<col key={className} className={className} />
+						{columnDefinitions.map((column) => (
+							<col key={column.id} className={column.className} />
 						))}
 					</colgroup>
 				) : null}

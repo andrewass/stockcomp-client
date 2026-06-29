@@ -7,11 +7,11 @@ export const leaderboardTableHeaderItems = [
 	"Medals",
 ];
 
-export const leaderboardTableColumnClassNames = [
-	"w-[10%]",
-	"w-[12%]",
-	"w-[32%]",
-	"w-[14%]",
-	"w-[12%]",
-	"w-[20%]",
+export const leaderboardTableColumnDefinitions = [
+	{ id: "ranking", className: "w-[10%]" },
+	{ id: "country", className: "w-[12%]" },
+	{ id: "name", className: "w-[32%]" },
+	{ id: "score", className: "w-[14%]" },
+	{ id: "contests", className: "w-[12%]" },
+	{ id: "medals", className: "w-[20%]" },
 ];

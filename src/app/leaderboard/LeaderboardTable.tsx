@@ -1,7 +1,7 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
 import {
-	leaderboardTableColumnClassNames,
+	leaderboardTableColumnDefinitions,
 	leaderboardTableHeaderItems,
 } from "@/leaderboard/leaderboardTableColumns.ts";
 import type { LeaderboardEntry } from "@/leaderboard/leaderboardTypes.ts";
@@ -37,7 +37,7 @@ export default function LeaderboardTable({
 				totalEntriesCount={totalEntriesCount}
 				basePath="/leaderboard/"
 				headerItems={leaderboardTableHeaderItems}
-				columnClassNames={leaderboardTableColumnClassNames}
+				columnDefinitions={leaderboardTableColumnDefinitions}
 				renderRow={(entry) => (
 					<LeaderboardEntryRow
 						key={entry.id}
