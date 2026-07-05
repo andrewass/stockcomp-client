@@ -29,6 +29,7 @@
       }
     ],
     "paths": {
+      "@/account/*": ["./src/app/account/*"],
       "@/admin/*": ["./src/app/admin/*"],
       "@/api/*": ["./src/app/api/*"],
       "@/auth/*": ["./src/app/auth/*"],
