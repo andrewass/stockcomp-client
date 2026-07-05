@@ -69,7 +69,9 @@ const getVerifiedViewerAdminRoleStatus = cache(
 		}
 
 		try {
-			const hasAdminRole = await resourceGet<boolean>({ url: "/users/admin" });
+			const hasAdminRole = await resourceGet<boolean>({
+				url: "/account/admin",
+			});
 			return hasAdminRole ? "admin" : "not-admin";
 		} catch (error) {
 			if (isUnauthenticatedError(error)) {

@@ -1,13 +1,17 @@
 "use client";
 
 import {
+	ArrowRightStartOnRectangleIcon,
 	Bars3Icon,
 	LockClosedIcon,
 	LockOpenIcon,
+	UserCircleIcon,
 	UserIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { authClient } from "@/lib/auth-client.ts";
 import BrandLink from "@/navigation/BrandLink.tsx";
 import ThemeToggler from "@/navigation/ThemeToggler.tsx";
 
@@ -40,11 +44,27 @@ export default function ResponsiveNavigationBar({
 }: Props) {
 	const pathname = usePathname();
 	const router = useRouter();
+	const [isSigningOut, startSignOutTransition] = useTransition();
+	const [signOutError, setSignOutError] = useState<string | null>(null);
 	const adminHref = "/admin/contests/0?pageSize=10";
 	const adminToggleHref = isAdminMode ? defaultHref : adminHref;
 	const adminToggleLabel = isAdminMode
 		? "Leave admin mode"
 		: "Enter admin mode";
+
+	function handleSignOut() {
+		setSignOutError(null);
+		startSignOutTransition(async () => {
+			const { error } = await authClient.signOut();
+			if (error) {
+				setSignOutError("Unable to sign out. Try again.");
+				return;
+			}
+
+			router.replace("/signin");
+			router.refresh();
+		});
+	}
 
 	return (
 		<div className="border-b border-base-content/10 bg-base-300">
@@ -123,11 +143,37 @@ export default function ResponsiveNavigationBar({
 					<div className="flex h-10 w-10 items-center justify-center">
 						<ThemeToggler iconSize="size-5" />
 					</div>
-					<div
-						className="hidden h-10 w-10 items-center justify-center sm:flex"
-						aria-hidden="true"
-					>
-						<UserIcon className="size-5" />
+					<div className="dropdown dropdown-end">
+						<button
+							type="button"
+							tabIndex={0}
+							className="btn btn-ghost btn-square rounded-lg"
+							aria-label="Open account menu"
+							title="Account"
+						>
+							<UserIcon className="size-5" />
+						</button>
+						<ul className="menu dropdown-content z-50 mt-3 w-56 rounded-lg bg-base-300 p-2 shadow-xl">
+							<li>
+								<Link href="/account">
+									<UserCircleIcon className="size-4" />
+									Account
+								</Link>
+							</li>
+							<li>
+								<button
+									type="button"
+									onClick={handleSignOut}
+									disabled={isSigningOut}
+								>
+									<ArrowRightStartOnRectangleIcon className="size-4" />
+									{isSigningOut ? "Signing out..." : "Sign out"}
+								</button>
+							</li>
+							{signOutError && (
+								<li className="px-3 py-2 text-sm text-error">{signOutError}</li>
+							)}
+						</ul>
 					</div>
 				</div>
 			</div>
