@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CountryFlag from "@/components/country/CountryFlag.tsx";
 import {
 	type LeaderboardEntry,
 	MedalValue,
@@ -78,15 +79,16 @@ export default function LeaderboardEntryRow({
 	return (
 		<tr className={className}>
 			<td className="font-semibold tabular-nums">#{entry.ranking}</td>
-			<td>{entry.country ?? "N/A"}</td>
+			<td>
+				<CountryFlag country={entry.country} emptyLabel="N/A" />
+			</td>
 			<td>
 				<Link
 					href={buildUserDetailHref(entry.username, returnTo)}
 					className="link link-hover font-medium"
 				>
-					{entry.displayName}
+					{entry.username}
 				</Link>
-				<div className="text-xs text-base-content/50">@{entry.username}</div>
 			</td>
 			<td className="font-semibold tabular-nums">
 				{formatNumber(entry.score)}

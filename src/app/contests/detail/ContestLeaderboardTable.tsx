@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CountryFlag from "@/components/country/CountryFlag.tsx";
 import PageableTable from "@/components/table/PageableTable.tsx";
 import type { ContestLeaderboardParticipant } from "@/domain/contests/contestParticipantTypes.ts";
 import { formatNumber } from "@/lib/formatters.ts";
@@ -47,7 +48,9 @@ export default function ContestLeaderboardTable({
 			renderRow={(participant) => (
 				<tr key={participant.id}>
 					<td>{participant.rank ?? "-"}</td>
-					<td>{participant.country ?? "-"}</td>
+					<td>
+						<CountryFlag country={participant.country} />
+					</td>
 					<td>
 						<Link
 							href={buildUserDetailHref(participant.username, returnTo)}

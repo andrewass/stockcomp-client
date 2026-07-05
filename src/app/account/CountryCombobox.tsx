@@ -1,16 +1,13 @@
 "use client";
 
-import * as countries from "i18n-iso-countries";
-import enLocale from "i18n-iso-countries/langs/en.json";
 import { useMemo, useRef, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
-
-countries.registerLocale(enLocale);
-
-interface CountryOption {
-	code: string;
-	name: string;
-}
+import {
+	type CountryOption,
+	getCountryName,
+	getCountryOptions,
+	normalizeCountryCode,
+} from "@/components/country/countryUtils.ts";
 
 interface Props {
 	error?: string;
@@ -21,33 +18,7 @@ interface Props {
 	value: string;
 }
 
-const COUNTRY_OPTIONS: CountryOption[] = Object.entries(
-	countries.getNames("en", { select: "official" }),
-)
-	.map(([code, name]) => ({ code, name }))
-	.sort((first, second) => first.name.localeCompare(second.name));
-
-export function normalizeCountryCode(value: string): string {
-	const trimmedValue = value.trim();
-	if (!trimmedValue) {
-		return "";
-	}
-
-	const upperValue = trimmedValue.toUpperCase();
-	if (countries.isValid(upperValue)) {
-		return countries.toAlpha2(upperValue) ?? upperValue;
-	}
-
-	return countries.getAlpha2Code(trimmedValue, "en") ?? "";
-}
-
-function getCountryLabel(countryCode: string): string {
-	if (!countryCode) {
-		return "";
-	}
-
-	return countries.getName(countryCode, "en", { select: "official" }) ?? "";
-}
+const COUNTRY_OPTIONS = getCountryOptions();
 
 export default function CountryCombobox({
 	error,
@@ -58,7 +29,7 @@ export default function CountryCombobox({
 	value,
 }: Props) {
 	const normalizedValue = normalizeCountryCode(value);
-	const selectedLabel = getCountryLabel(normalizedValue);
+	const selectedLabel = getCountryName(normalizedValue);
 	const [isOpen, setIsOpen] = useState(false);
 	const [searchTerm, setSearchTerm] = useState(selectedLabel);
 	const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

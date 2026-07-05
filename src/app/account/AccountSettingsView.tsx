@@ -1,14 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { type SubmitEvent, useState, useTransition } from "react";
+import { type SubmitEvent, useEffect, useState, useTransition } from "react";
 import type {
 	AccountSettings,
 	UpdateAccountSettingsResult,
 } from "@/account/accountTypes.ts";
-import CountryCombobox, {
-	normalizeCountryCode,
-} from "@/account/CountryCombobox.tsx";
+import CountryCombobox from "@/account/CountryCombobox.tsx";
+import { normalizeCountryCode } from "@/components/country/countryUtils.ts";
 
 interface Props {
 	initialAccount: AccountSettings;
@@ -19,6 +18,8 @@ interface AccountFormState {
 	fullName: string;
 	country: string;
 }
+
+const SUCCESS_MESSAGE_VISIBLE_MS = 3_000;
 
 function getInitials(account: AccountSettings) {
 	const source =
@@ -112,6 +113,18 @@ export default function AccountSettingsView({ initialAccount }: Props) {
 	const [isPending, startTransition] = useTransition();
 	const initials = getInitials(account);
 
+	useEffect(() => {
+		if (!successMessage) {
+			return;
+		}
+
+		const timeoutId = window.setTimeout(() => {
+			setSuccessMessage(null);
+		}, SUCCESS_MESSAGE_VISIBLE_MS);
+
+		return () => window.clearTimeout(timeoutId);
+	}, [successMessage]);
+
 	const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setErrorMessage(null);
@@ -192,13 +205,13 @@ export default function AccountSettingsView({ initialAccount }: Props) {
 					</div>
 
 					{errorMessage ? (
-						<div className="alert alert-error">
+						<div className="alert alert-error" role="alert">
 							<span>{errorMessage}</span>
 						</div>
 					) : null}
 
 					{successMessage ? (
-						<div className="alert alert-success">
+						<div className="alert alert-success" role="status">
 							<span>{successMessage}</span>
 						</div>
 					) : null}
