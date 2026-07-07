@@ -9,7 +9,7 @@ export async function createContest(
 	const startDate = new Date(input.startTime);
 
 	await resourcePost<void>({
-		url: "/contests/create",
+		url: "/contests",
 		body: {
 			contestName,
 			durationDays: input.durationDays,

@@ -7,7 +7,7 @@ export async function getAdminUsers(
 	pageSize: number,
 ): Promise<UserPage> {
 	return resourceGet<UserPage>({
-		url: "/users/sorted",
+		url: "/users",
 		params: { pageNumber, pageSize },
 	});
 }

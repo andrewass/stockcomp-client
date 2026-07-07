@@ -11,7 +11,7 @@ export async function getContests(
 	pageSize: number,
 ): Promise<ContestPage> {
 	const page = await resourceGet<ContestPageDto>({
-		url: "/contests/all",
+		url: "/contests",
 		params: { pageNumber, pageSize },
 	});
 

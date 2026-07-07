@@ -143,7 +143,7 @@ function mapContestTradingData(
 
 async function getRegisteredContests(): Promise<ContestParticipantDto[]> {
 	return resourceGet<ContestParticipantDto[]>({
-		url: "/participants/registered",
+		url: "/participants/contests",
 	});
 }
 
@@ -152,7 +152,8 @@ async function getDetailedParticipantForContest(
 ): Promise<DetailedParticipantDto | null> {
 	try {
 		return await resourceGet<DetailedParticipantDto | null>({
-			url: `/participants/detailed/contest/${contestId}`,
+			url: "/participants/details",
+			params: { contestId },
 		});
 	} catch (error) {
 		if (isApiHttpStatusError(error, 404)) {
@@ -190,7 +191,7 @@ export async function createInvestmentOrder(
 	request: CreateInvestmentOrderRequest,
 ): Promise<void> {
 	await resourcePost<void>({
-		url: "/participants/investmentorders/order",
+		url: "/participants/investment-orders",
 		body: {
 			participantId: request.participantId,
 			symbol: normalizeSymbol(request.symbol),
@@ -211,10 +212,9 @@ export async function cancelInvestmentOrder({
 	orderId: number;
 }): Promise<void> {
 	await resourceDelete<void>({
-		url: "/participants/investmentorders/delete",
+		url: `/participants/investment-orders/${orderId}`,
 		params: {
 			contestId,
-			orderId,
 		},
 	});
 }
