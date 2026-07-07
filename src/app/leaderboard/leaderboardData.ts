@@ -38,7 +38,7 @@ export async function getLeaderboardEntries(
 	pageSize: number,
 ): Promise<LeaderboardEntryPage> {
 	const response = await resourceGet<LeaderboardEntryPageDto>({
-		url: "/leaderboard/sorted",
+		url: "/leaderboard",
 		params: { pageNumber, pageSize },
 	});
 
@@ -48,7 +48,7 @@ export async function getLeaderboardEntries(
 export async function getCurrentUserLeaderboardEntry(): Promise<LeaderboardEntry | null> {
 	try {
 		const response = await resourceGet<LeaderboardEntryDto>({
-			url: "/leaderboard/user",
+			url: "/leaderboard/me",
 		});
 
 		return mapLeaderboardEntry(response);

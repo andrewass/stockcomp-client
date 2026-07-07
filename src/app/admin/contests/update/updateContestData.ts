@@ -8,9 +8,7 @@ import type {
 export async function updateContest(
 	input: UpdateContestRequest,
 ): Promise<void> {
-	const body: Record<string, unknown> = {
-		contestId: input.contestId,
-	};
+	const body: Record<string, unknown> = {};
 
 	if (input.contestName !== undefined) {
 		body.contestName = input.contestName.trim();
@@ -25,7 +23,7 @@ export async function updateContest(
 	}
 
 	await resourcePatch<Contest>({
-		url: "/contests/update",
+		url: `/contests/${input.contestId}`,
 		body,
 	});
 }

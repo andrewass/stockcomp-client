@@ -41,7 +41,7 @@ export async function getUnregisteredContests(): Promise<
 	SymbolContestListItemViewModel[]
 > {
 	const contests = await resourceGet<ContestListResponseItemDto[]>({
-		url: "/participants/unregistered",
+		url: "/participants/available-contests",
 	});
 	return mapToSymbolContestListItemViewModel(contests);
 }
@@ -50,7 +50,7 @@ export async function getRegisteredContests(): Promise<
 	SymbolContestListItemViewModel[]
 > {
 	const contests = await resourceGet<ContestListResponseItemDto[]>({
-		url: "/participants/registered",
+		url: "/participants/contests",
 	});
 	const detailedParticipantsByContestId =
 		await getRunningDetailedParticipantsByContestId(contests);
@@ -63,7 +63,7 @@ export async function getRegisteredContests(): Promise<
 
 export async function signUpParticipant(contestId: number): Promise<void> {
 	await resourcePost<void>({
-		url: "/participants/sign-up",
+		url: "/participants",
 		body: {
 			contestId,
 		} satisfies SignUpParticipantRequest,
@@ -110,7 +110,8 @@ async function getDetailedParticipantForContest(
 ): Promise<DetailedParticipantDto | null> {
 	try {
 		return await resourceGet<DetailedParticipantDto | null>({
-			url: `/participants/detailed/contest/${contestId}`,
+			url: "/participants/details",
+			params: { contestId },
 		});
 	} catch (error) {
 		if (isApiHttpStatusError(error, 400) || isApiHttpStatusError(error, 404)) {

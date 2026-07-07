@@ -84,7 +84,7 @@ async function getContestLeaderboard(
 	pageSize: number,
 ): Promise<ContestLeaderboardPage> {
 	return resourceGet<ContestLeaderboardPage>({
-		url: "/participants/sorted",
+		url: "/participants",
 		params: { contestId, pageNumber, pageSize },
 	});
 }
@@ -94,7 +94,8 @@ async function getParticipantDetailForContest(
 ): Promise<ContestParticipantDetail | null> {
 	try {
 		const detail = await resourceGet<ContestParticipantDetailDto>({
-			url: `/participants/detailed/contest/${contestId}`,
+			url: "/participants/details",
+			params: { contestId },
 		});
 
 		return mapContestParticipantDetailDto(detail);
