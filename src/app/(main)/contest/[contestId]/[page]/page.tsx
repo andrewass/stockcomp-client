@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { parseParams } from "@/components/table/paginationParams.ts";
 import ContestDetailView from "@/contests/detail/ContestDetailView.tsx";
 import { getContestDetailPageData } from "@/contests/detail/contestDetailData.ts";
+import { parseContestDetailTab } from "@/contests/detail/contestDetailTabs.ts";
 
 export default async function ContestDetailPage({
 	params,
@@ -15,6 +16,7 @@ export default async function ContestDetailPage({
 	const resolvedSearchParams = await searchParams;
 	const parsedContestId = Number.parseInt(contestId, 10);
 	const parsedParams = parseParams(page, resolvedSearchParams);
+	const activeTab = parseContestDetailTab(resolvedSearchParams.view);
 
 	if (Number.isNaN(parsedContestId) || !parsedParams) {
 		notFound();
@@ -37,6 +39,7 @@ export default async function ContestDetailPage({
 			participantDetail={pageData.participantDetail}
 			pageSize={parsedParams.pageSize}
 			currentPage={parsedParams.pageNumber}
+			activeTab={activeTab}
 		/>
 	);
 }

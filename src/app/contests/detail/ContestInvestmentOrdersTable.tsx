@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageableTable from "@/components/table/PageableTable.tsx";
 import type { ContestParticipantInvestmentOrder } from "@/domain/contests/contestParticipantTypes.ts";
 import {
 	type InvestmentOrderStatus,
@@ -13,7 +14,24 @@ import {
 
 interface Props {
 	orders: ContestParticipantInvestmentOrder[];
+	contestId: number;
+	pageSize: number;
+	currentPage: number;
 }
+
+type OrderTableEntry = ContestParticipantInvestmentOrder & {
+	id: string;
+};
+
+const orderHeaderItems = [
+	"Order",
+	"Symbol",
+	"Type",
+	"Status",
+	"Remaining",
+	"Limit",
+	"Expires",
+];
 
 function getOrderStatusBadgeClassName(status: InvestmentOrderStatus): string {
 	switch (status) {
@@ -47,104 +65,74 @@ function getOrderKey(order: ContestParticipantInvestmentOrder): string {
 	].join("-");
 }
 
-export default function ContestInvestmentOrdersTable({ orders }: Props) {
-	const hasScrollableRows = orders.length > 5;
+export default function ContestInvestmentOrdersTable({
+	orders,
+	contestId,
+	pageSize,
+	currentPage,
+}: Props) {
+	const pageStart = currentPage * pageSize;
+	const pageOrders = orders
+		.slice(pageStart, pageStart + pageSize)
+		.map((order) => ({
+			...order,
+			id: getOrderKey(order),
+		}));
 
 	return (
-		<section className="space-y-3">
-			<div className="space-y-1">
-				<h3 className="text-lg font-semibold text-base-content">
-					My investment orders
-				</h3>
-				<p className="text-sm text-base-content/70">
-					Active and completed orders in this contest.
-				</p>
-			</div>
-			{orders.length === 0 ? (
-				<div className="rounded-box border border-dashed border-base-300 bg-base-200/40 px-4 py-5 text-sm text-base-content/60">
-					No investment orders in this contest yet.
-				</div>
-			) : (
-				<div
-					className="overflow-x-auto rounded-box border border-base-300"
-					style={
-						hasScrollableRows
-							? {
-									height: "16rem",
-									overflowY: "scroll",
-									overscrollBehavior: "contain",
-									scrollbarGutter: "stable",
-								}
-							: undefined
-					}
-				>
-					<table className="table table-zebra">
-						<thead className="sticky top-0 z-10 bg-base-100">
-							<tr>
-								<th>Order</th>
-								<th>Symbol</th>
-								<th>Type</th>
-								<th>Status</th>
-								<th className="text-right">Remaining</th>
-								<th className="text-right">Limit</th>
-								<th className="text-right">Expires</th>
-							</tr>
-						</thead>
-						<tbody>
-							{orders.map((order) => (
-								<tr key={getOrderKey(order)}>
-									<td>{order.orderId === null ? "-" : `#${order.orderId}`}</td>
-									<td>
-										<Link
-											href={`/symbols/${order.symbol}`}
-											className="font-medium hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-										>
-											{order.symbol}
-										</Link>
-									</td>
-									<td>
-										{formatMappedLabel(order.transactionType, {
-											BUY: "Buy",
-											SELL: "Sell",
-										})}
-									</td>
-									<td>
-										<span
-											className={getOrderStatusBadgeClassName(
-												order.orderStatus,
-											)}
-										>
-											{formatMappedLabel(order.orderStatus, {
-												ACTIVE: "Active",
-												COMPLETED: "Completed",
-												FAILED: "Failed",
-												TERMINATED: "Terminated",
-											})}
-										</span>
-									</td>
-									<td className="text-right tabular-nums">
-										{formatNumber(order.remainingAmount, {
-											maximumFractionDigits: 0,
-										})}{" "}
-										/{" "}
-										{formatNumber(order.totalAmount, {
-											maximumFractionDigits: 0,
-										})}
-									</td>
-									<td className="text-right tabular-nums">
-										{formatCurrency(order.acceptedPrice, order.currency)}
-									</td>
-									<td className="text-right tabular-nums">
-										{order.expirationTime
-											? formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")
-											: "-"}
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+		<PageableTable<OrderTableEntry>
+			items={pageOrders}
+			pageSize={pageSize}
+			currentPage={currentPage}
+			totalEntriesCount={orders.length}
+			basePath={`/contest/${contestId}?view=orders`}
+			headerItems={orderHeaderItems}
+			renderRow={(order) => (
+				<tr key={order.id}>
+					<td>{order.orderId === null ? "-" : `#${order.orderId}`}</td>
+					<td>
+						<Link
+							href={`/symbols/${order.symbol}`}
+							className="font-medium hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						>
+							{order.symbol}
+						</Link>
+					</td>
+					<td>
+						{formatMappedLabel(order.transactionType, {
+							BUY: "Buy",
+							SELL: "Sell",
+						})}
+					</td>
+					<td>
+						<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
+							{formatMappedLabel(order.orderStatus, {
+								ACTIVE: "Active",
+								COMPLETED: "Completed",
+								FAILED: "Failed",
+								TERMINATED: "Terminated",
+							})}
+						</span>
+					</td>
+					<td className="tabular-nums">
+						{formatNumber(order.remainingAmount, {
+							maximumFractionDigits: 0,
+						})}{" "}
+						/{" "}
+						{formatNumber(order.totalAmount, {
+							maximumFractionDigits: 0,
+						})}
+					</td>
+					<td className="tabular-nums">
+						{formatCurrency(order.acceptedPrice, order.currency)}
+					</td>
+					<td className="tabular-nums">
+						{order.expirationTime
+							? formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")
+							: "-"}
+					</td>
+				</tr>
 			)}
-		</section>
+		/>
 	);
 }

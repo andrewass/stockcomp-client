@@ -1,5 +1,5 @@
-import DetailLoadingState from "@/components/route-boundaries/DetailLoadingState.tsx";
+import ContestDetailLoadingState from "@/contests/detail/ContestDetailLoadingState.tsx";
 
 export default function ContestDetailsLoading() {
-	return <DetailLoadingState title="Loading contest details" />;
+	return <ContestDetailLoadingState />;
 }

@@ -32,7 +32,7 @@ export default function ContestLeaderboardTable({
 	currentPage,
 	totalEntriesCount,
 }: Props) {
-	const returnTo = `/contest/${contestId}/${currentPage}?pageSize=${pageSize}`;
+	const returnTo = `/contest/${contestId}/${currentPage}?view=leaderboard&pageSize=${pageSize}`;
 
 	return (
 		<PageableTable<ContestLeaderboardRow>
@@ -43,7 +43,7 @@ export default function ContestLeaderboardTable({
 			pageSize={pageSize}
 			currentPage={currentPage}
 			totalEntriesCount={totalEntriesCount}
-			basePath={`/contest/${contestId}`}
+			basePath={`/contest/${contestId}?view=leaderboard`}
 			headerItems={contestLeaderboardHeaderItems}
 			renderRow={(participant) => (
 				<tr key={participant.id}>

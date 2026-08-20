@@ -1,71 +1,82 @@
 import type { ContestParticipantDetail } from "@/domain/contests/contestParticipantTypes.ts";
 import {
 	formatCurrency,
+	formatNumber,
 	formatSignedCurrency,
 	getProfitClassName,
 } from "@/lib/formatters.ts";
-import ContestInvestmentOrdersTable from "./ContestInvestmentOrdersTable.tsx";
-import ContestInvestmentsTable from "./ContestInvestmentsTable.tsx";
 
 interface Props {
 	participantDetail: ContestParticipantDetail;
+	participantCount: number;
 }
 
-export default function ContestParticipantStatus({ participantDetail }: Props) {
+export default function ContestParticipantStatus({
+	participantDetail,
+	participantCount,
+}: Props) {
 	const participant = participantDetail.participant;
 	const totalProfit = participantDetail.investments.reduce(
 		(sum, investment) => sum + investment.totalProfit,
 		0,
 	);
-	const orders = [
-		...participantDetail.activeOrders,
-		...participantDetail.completedOrders,
-	];
+	const formattedRank =
+		participant.rank == null
+			? "—"
+			: `#${formatNumber(participant.rank, { maximumFractionDigits: 0 })}`;
 
 	return (
-		<section className="card border border-base-300 bg-base-100 shadow-sm">
-			<div className="card-body gap-6">
-				<div className="space-y-1">
-					<h2 className="text-xl font-semibold text-base-content">
-						My contest status
-					</h2>
-					<p className="text-sm text-base-content/70">
-						Your position, current portfolio, and orders in this contest.
+		<section className="space-y-4" aria-labelledby="participant-status-heading">
+			<div className="space-y-1">
+				<h2
+					id="participant-status-heading"
+					className="text-xl font-semibold text-base-content"
+				>
+					Your position
+				</h2>
+				<p className="text-sm text-base-content/65">
+					A quick view of your standing and portfolio performance.
+				</p>
+			</div>
+			<div className="grid overflow-hidden rounded-box border border-base-300 bg-base-300 sm:grid-cols-2 lg:grid-cols-4">
+				<div className="bg-base-100 px-5 py-4">
+					<p className="text-sm text-base-content/55">Rank</p>
+					<p className="mt-1 text-2xl font-semibold tabular-nums text-base-content">
+						{formattedRank}
+					</p>
+					<p className="mt-1 text-xs text-base-content/55">
+						of {formatNumber(participantCount)} participants
 					</p>
 				</div>
-				<div className="stats stats-vertical border border-base-300 bg-base-200/50 lg:stats-horizontal">
-					<div className="stat">
-						<div className="stat-title">Rank</div>
-						<div className="stat-value text-3xl">{participant.rank ?? "-"}</div>
-					</div>
-					<div className="stat">
-						<div className="stat-title">Remaining funds</div>
-						<div className="stat-value text-3xl">
-							{formatCurrency(participant.remainingFunds)}
-						</div>
-					</div>
-					<div className="stat">
-						<div className="stat-title">Invested</div>
-						<div className="stat-value text-3xl">
-							{formatCurrency(participant.totalInvestmentValue)}
-						</div>
-						<div
-							className={`stat-desc font-medium ${getProfitClassName(
-								totalProfit,
-							)}`}
-						>
-							{formatSignedCurrency(totalProfit)}
-						</div>
-					</div>
-					<div className="stat">
-						<div className="stat-title">Total value</div>
-						<div className="stat-value text-3xl">
-							{formatCurrency(participant.totalValue)}
-						</div>
-					</div>
+				<div className="border-t border-base-300 bg-base-100 px-5 py-4 sm:border-l sm:border-t-0">
+					<p className="text-sm text-base-content/55">Total value</p>
+					<p className="mt-1 text-2xl font-semibold tabular-nums text-base-content">
+						{formatCurrency(participant.totalValue)}
+					</p>
+					<p className="mt-1 text-xs tabular-nums text-base-content/55">
+						{formatCurrency(participant.totalInvestmentValue)} invested
+					</p>
 				</div>
-				<ContestInvestmentsTable investments={participantDetail.investments} />
-				<ContestInvestmentOrdersTable orders={orders} />
+				<div className="border-t border-base-300 bg-base-100 px-5 py-4 lg:border-l lg:border-t-0">
+					<p className="text-sm text-base-content/55">Profit / loss</p>
+					<p
+						className={`mt-1 text-2xl font-semibold tabular-nums ${getProfitClassName(
+							totalProfit,
+						)}`}
+					>
+						{formatSignedCurrency(totalProfit)}
+					</p>
+					<p className="mt-1 text-xs text-base-content/55">
+						Across current holdings
+					</p>
+				</div>
+				<div className="border-t border-base-300 bg-base-100 px-5 py-4 sm:border-l lg:border-t-0">
+					<p className="text-sm text-base-content/55">Available funds</p>
+					<p className="mt-1 text-2xl font-semibold tabular-nums text-base-content">
+						{formatCurrency(participant.remainingFunds)}
+					</p>
+					<p className="mt-1 text-xs text-base-content/55">Ready to invest</p>
+				</div>
 			</div>
 		</section>
 	);
