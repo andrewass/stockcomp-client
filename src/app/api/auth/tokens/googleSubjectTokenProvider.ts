@@ -28,6 +28,7 @@ interface JwtPayload {
 }
 
 const GOOGLE_TOKEN_BASE_URL = "https://oauth2.googleapis.com";
+const GOOGLE_PROVIDER_ID = "google";
 const TOKEN_EXPIRY_BUFFER_MS = 60_000;
 const GOOGLE_ISSUERS = new Set([
 	"https://accounts.google.com",
@@ -205,10 +206,20 @@ export async function getGoogleSubjectTokenForUser(
 	userId: string,
 	requestHeaders: Headers,
 ): Promise<string | null> {
+	const accounts = await auth.api.listUserAccounts({
+		headers: requestHeaders,
+	});
+	const googleAccount = accounts.find(
+		(account) => account.providerId === GOOGLE_PROVIDER_ID,
+	);
+	if (!googleAccount) {
+		return null;
+	}
+
 	let idToken: string | undefined;
 	try {
 		const accessToken = await auth.api.getAccessToken({
-			body: { providerId: "google" },
+			body: { accountId: googleAccount.id },
 			headers: requestHeaders,
 		});
 		idToken = accessToken.idToken;
