@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { ContestParticipantInvestmentOrder } from "@/domain/contests/contestParticipantTypes.ts";
 import {
@@ -19,10 +19,6 @@ interface Props {
 	pageSize: number;
 	currentPage: number;
 }
-
-type OrderTableEntry = ContestParticipantInvestmentOrder & {
-	id: string;
-};
 
 const orderHeaderItems = [
 	"Order",
@@ -73,71 +69,66 @@ export default function ContestInvestmentOrdersTable({
 	currentPage,
 }: Props) {
 	const pageStart = currentPage * pageSize;
-	const pageOrders = orders
-		.slice(pageStart, pageStart + pageSize)
-		.map((order) => ({
-			...order,
-			id: getOrderKey(order),
-		}));
+	const pageOrders = orders.slice(pageStart, pageStart + pageSize);
 
 	return (
-		<PageableTable<OrderTableEntry>
-			items={pageOrders}
-			headerItems={orderHeaderItems}
-			pagination={
-				<UrlTablePager
-					currentPage={currentPage}
-					pageSize={pageSize}
-					totalEntriesCount={orders.length}
-					basePath={`/contest/${contestId}?view=orders`}
-				/>
-			}
-			renderRow={(order) => (
-				<tr key={order.id}>
-					<td>{order.orderId === null ? "-" : `#${order.orderId}`}</td>
-					<td>
-						<Link
-							href={`/symbols/${order.symbol}`}
-							className="font-medium hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-						>
-							{order.symbol}
-						</Link>
-					</td>
-					<td>
-						{formatMappedLabel(order.transactionType, {
-							BUY: "Buy",
-							SELL: "Sell",
-						})}
-					</td>
-					<td>
-						<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
-							{formatMappedLabel(order.orderStatus, {
-								ACTIVE: "Active",
-								COMPLETED: "Completed",
-								FAILED: "Failed",
-								TERMINATED: "Terminated",
+		<TableFrame>
+			<DataTable
+				items={pageOrders}
+				headerItems={orderHeaderItems}
+				renderRow={(order) => (
+					<tr key={getOrderKey(order)}>
+						<td>{order.orderId === null ? "-" : `#${order.orderId}`}</td>
+						<td>
+							<Link
+								href={`/symbols/${order.symbol}`}
+								className="font-medium hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							>
+								{order.symbol}
+							</Link>
+						</td>
+						<td>
+							{formatMappedLabel(order.transactionType, {
+								BUY: "Buy",
+								SELL: "Sell",
 							})}
-						</span>
-					</td>
-					<td className="tabular-nums">
-						{formatNumber(order.remainingAmount, {
-							maximumFractionDigits: 0,
-						})}{" "}
-						/{" "}
-						{formatNumber(order.totalAmount, {
-							maximumFractionDigits: 0,
-						})}
-					</td>
-					<td className="tabular-nums">
-						{formatCurrency(order.acceptedPrice, order.currency)}
-					</td>
-					<td className="tabular-nums">
-						{order.expirationTime
-							? formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")
-							: "-"}
-					</td>
-				</tr>
-			)}
-		/>
+						</td>
+						<td>
+							<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
+								{formatMappedLabel(order.orderStatus, {
+									ACTIVE: "Active",
+									COMPLETED: "Completed",
+									FAILED: "Failed",
+									TERMINATED: "Terminated",
+								})}
+							</span>
+						</td>
+						<td className="tabular-nums">
+							{formatNumber(order.remainingAmount, {
+								maximumFractionDigits: 0,
+							})}{" "}
+							/{" "}
+							{formatNumber(order.totalAmount, {
+								maximumFractionDigits: 0,
+							})}
+						</td>
+						<td className="tabular-nums">
+							{formatCurrency(order.acceptedPrice, order.currency)}
+						</td>
+						<td className="tabular-nums">
+							{order.expirationTime
+								? formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")
+								: "-"}
+						</td>
+					</tr>
+				)}
+			/>
+			<UrlTablePager
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalEntriesCount={orders.length}
+				basePath={`/contest/${contestId}?view=orders`}
+			/>
+		</TableFrame>
 	);
 }

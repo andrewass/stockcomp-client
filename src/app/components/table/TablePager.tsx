@@ -1,41 +1,80 @@
-"use client";
-
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 interface Props {
 	currentPage: number;
 	totalPages: number;
+	navigation: TablePagerNavigation;
+}
+
+interface ControlledNavigation {
+	mode: "controlled";
 	onPageChange: (page: number) => void;
 }
+
+interface LinkNavigation {
+	mode: "links";
+	getPageHref: (page: number) => string;
+}
+
+type TablePagerNavigation = ControlledNavigation | LinkNavigation;
 
 interface PagerControlProps {
 	page: number;
 	ariaLabel: string;
 	icon: ReactNode;
 	disabled: boolean;
-	onPageChange: (page: number) => void;
+	navigation: TablePagerNavigation;
 }
+
+const controlClassName =
+	"btn btn-ghost btn-sm btn-square text-base-content disabled:text-base-content/35";
 
 function PagerControl({
 	page,
 	ariaLabel,
 	icon,
 	disabled,
-	onPageChange,
+	navigation,
 }: PagerControlProps) {
+	if (disabled) {
+		return (
+			<button
+				type="button"
+				aria-label={ariaLabel}
+				className={controlClassName}
+				disabled
+			>
+				{icon}
+			</button>
+		);
+	}
+
+	if (navigation.mode === "links") {
+		return (
+			<Link
+				href={navigation.getPageHref(page)}
+				aria-label={ariaLabel}
+				className={controlClassName}
+				prefetch={false}
+			>
+				{icon}
+			</Link>
+		);
+	}
+
 	return (
 		<button
 			type="button"
 			aria-label={ariaLabel}
-			className="grid size-8 place-items-center text-base-content hover:text-base-content/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content disabled:pointer-events-none disabled:text-base-content/35"
-			disabled={disabled}
-			onClick={() => onPageChange(page)}
+			className={controlClassName}
+			onClick={() => navigation.onPageChange(page)}
 		>
 			{icon}
 		</button>
@@ -45,7 +84,7 @@ function PagerControl({
 export default function TablePager({
 	currentPage,
 	totalPages,
-	onPageChange,
+	navigation,
 }: Props) {
 	const safeTotalPages =
 		Number.isFinite(totalPages) && totalPages > 0 ? Math.floor(totalPages) : 0;
@@ -68,14 +107,14 @@ export default function TablePager({
 					ariaLabel="Go to first page"
 					icon={<ChevronDoubleLeftIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasPreviousPage}
-					onPageChange={onPageChange}
+					navigation={navigation}
 				/>
 				<PagerControl
 					page={safeCurrentPage - 1}
 					ariaLabel="Go to previous page"
 					icon={<ChevronLeftIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasPreviousPage}
-					onPageChange={onPageChange}
+					navigation={navigation}
 				/>
 				<span className="min-w-14 text-center text-sm font-semibold tabular-nums text-base-content">
 					{safeTotalPages === 0 ? 0 : safeCurrentPage + 1}/{safeTotalPages}
@@ -85,7 +124,7 @@ export default function TablePager({
 					ariaLabel="Go to next page"
 					icon={<ChevronRightIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasNextPage}
-					onPageChange={onPageChange}
+					navigation={navigation}
 				/>
 				<PagerControl
 					page={lastPage}
@@ -94,7 +133,7 @@ export default function TablePager({
 						<ChevronDoubleRightIcon className="size-4" aria-hidden="true" />
 					}
 					disabled={!hasNextPage}
-					onPageChange={onPageChange}
+					navigation={navigation}
 				/>
 			</div>
 		</nav>

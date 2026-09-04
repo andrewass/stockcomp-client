@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import {
 	type Contest,
@@ -23,10 +23,6 @@ const contestTableHeaderItems = [
 	"End Time",
 ];
 
-type ContestTableEntry = Contest & {
-	id: number;
-};
-
 export default function ContestTable({
 	contests,
 	pageSize,
@@ -34,23 +30,12 @@ export default function ContestTable({
 	totalEntriesCount,
 }: Props) {
 	return (
-		<div>
-			<PageableTable<ContestTableEntry>
-				items={contests.map((contest) => ({
-					...contest,
-					id: contest.contestId,
-				}))}
+		<TableFrame>
+			<DataTable
+				items={contests}
 				headerItems={contestTableHeaderItems}
-				pagination={
-					<UrlTablePager
-						currentPage={currentPage}
-						pageSize={pageSize}
-						totalEntriesCount={totalEntriesCount}
-						basePath="/contests/"
-					/>
-				}
 				renderRow={(contest) => (
-					<tr key={contest.id}>
+					<tr key={contest.contestId}>
 						<td>{contest.contestId}</td>
 						<td>
 							<Link
@@ -69,6 +54,12 @@ export default function ContestTable({
 					</tr>
 				)}
 			/>
-		</div>
+			<UrlTablePager
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/contests/"
+			/>
+		</TableFrame>
 	);
 }

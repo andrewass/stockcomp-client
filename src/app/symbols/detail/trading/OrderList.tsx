@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import TablePager from "@/components/table/TablePager.tsx";
 import {
 	type InvestmentOrderStatus,
@@ -27,8 +27,6 @@ const ORDER_FILTER_OPTIONS: readonly OrderFilterOption[] = [
 	{ label: "Terminated", value: ORDER_STATUS.TERMINATED },
 ];
 const ORDER_HEADERS = ["Order", "Remaining", "Limit", "Expires", "Status", ""];
-
-type OrderTableEntry = SymbolTradingOrderViewModel & { id: string };
 
 interface Props {
 	orders: SymbolTradingOrderViewModel[];
@@ -82,9 +80,10 @@ export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
 	);
 	const currentPage = Math.min(orderPage, pageCount - 1);
 	const firstVisibleOrderIndex = currentPage * ORDERS_PER_PAGE;
-	const visibleOrders = filteredOrders
-		.slice(firstVisibleOrderIndex, firstVisibleOrderIndex + ORDERS_PER_PAGE)
-		.map((order) => ({ ...order, id: getOrderKey(order) }));
+	const visibleOrders = filteredOrders.slice(
+		firstVisibleOrderIndex,
+		firstVisibleOrderIndex + ORDERS_PER_PAGE,
+	);
 
 	function getFilterCount(filter: OrderFilter): number {
 		return filter === "ALL"
@@ -128,28 +127,31 @@ export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
 					No {statusFilter.toLowerCase()} orders for this symbol.
 				</div>
 			) : (
-				<PageableTable<OrderTableEntry>
-					compact
-					items={visibleOrders}
-					headerItems={ORDER_HEADERS}
-					pagination={
-						pageCount > 1 ? (
-							<TablePager
-								currentPage={currentPage}
-								totalPages={pageCount}
-								onPageChange={setOrderPage}
+				<TableFrame>
+					<DataTable
+						density="compact"
+						items={visibleOrders}
+						headerItems={ORDER_HEADERS}
+						renderRow={(order) => (
+							<OrderListItem
+								key={getOrderKey(order)}
+								order={order}
+								isCancellingOrder={isCancellingOrder}
+								onCancelOrder={onCancelOrder}
 							/>
-						) : null
-					}
-					renderRow={(order) => (
-						<OrderListItem
-							key={order.id}
-							order={order}
-							isCancellingOrder={isCancellingOrder}
-							onCancelOrder={onCancelOrder}
+						)}
+					/>
+					{pageCount > 1 ? (
+						<TablePager
+							currentPage={currentPage}
+							totalPages={pageCount}
+							navigation={{
+								mode: "controlled",
+								onPageChange: setOrderPage,
+							}}
 						/>
-					)}
-				/>
+					) : null}
+				</TableFrame>
 			)}
 		</div>
 	);

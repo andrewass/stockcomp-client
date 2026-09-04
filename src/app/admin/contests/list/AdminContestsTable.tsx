@@ -1,5 +1,5 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import {
 	CONTEST_STATUS,
@@ -26,10 +26,6 @@ const contestTableHeaderItems = [
 	"Actions",
 ];
 
-type ContestTableEntry = Contest & {
-	id: number;
-};
-
 export default function AdminContestsTable({
 	contests,
 	pageSize,
@@ -38,27 +34,16 @@ export default function AdminContestsTable({
 	onEditContest,
 }: Props) {
 	return (
-		<div>
-			<PageableTable<ContestTableEntry>
-				items={contests.map((contest) => ({
-					...contest,
-					id: contest.contestId,
-				}))}
+		<TableFrame>
+			<DataTable
+				items={contests}
 				headerItems={contestTableHeaderItems}
-				pagination={
-					<UrlTablePager
-						currentPage={currentPage}
-						pageSize={pageSize}
-						totalEntriesCount={totalEntriesCount}
-						basePath="/admin/contests/"
-					/>
-				}
 				renderRow={(contest) => {
 					const isCompleted =
 						contest.contestStatus === CONTEST_STATUS.COMPLETED;
 
 					return (
-						<tr key={contest.id}>
+						<tr key={contest.contestId}>
 							<td>{contest.contestId}</td>
 							<td>{contest.contestName}</td>
 							<td>
@@ -87,6 +72,12 @@ export default function AdminContestsTable({
 					);
 				}}
 			/>
-		</div>
+			<UrlTablePager
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/admin/contests/"
+			/>
+		</TableFrame>
 	);
 }

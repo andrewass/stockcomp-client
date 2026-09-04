@@ -1,4 +1,4 @@
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { User } from "@/domain/user/userTypes.ts";
 
@@ -11,10 +11,6 @@ interface Props {
 
 const userTableHeaderItems = ["Username", "Email", "Role", "Status"];
 
-type UserTableEntry = User & {
-	id: string;
-};
-
 export default function AdminUsersTable({
 	users,
 	pageSize,
@@ -22,23 +18,12 @@ export default function AdminUsersTable({
 	totalEntriesCount,
 }: Props) {
 	return (
-		<div>
-			<PageableTable<UserTableEntry>
-				items={users.map((user) => ({
-					...user,
-					id: user.email,
-				}))}
+		<TableFrame>
+			<DataTable
+				items={users}
 				headerItems={userTableHeaderItems}
-				pagination={
-					<UrlTablePager
-						currentPage={currentPage}
-						pageSize={pageSize}
-						totalEntriesCount={totalEntriesCount}
-						basePath="/admin/users/"
-					/>
-				}
 				renderRow={(user) => (
-					<tr key={user.id}>
+					<tr key={user.email}>
 						<td>{user.username}</td>
 						<td>{user.email}</td>
 						<td>{user.userRole}</td>
@@ -46,6 +31,12 @@ export default function AdminUsersTable({
 					</tr>
 				)}
 			/>
-		</div>
+			<UrlTablePager
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/admin/users/"
+			/>
+		</TableFrame>
 	);
 }

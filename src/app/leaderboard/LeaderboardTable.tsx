@@ -1,4 +1,4 @@
-import PageableTable from "@/components/table/PageableTable.tsx";
+import DataTable, { TableFrame } from "@/components/table/DataTable.tsx";
 import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
 import {
@@ -15,10 +15,6 @@ interface Props {
 	returnTo: string;
 }
 
-type LeaderboardTableEntry = LeaderboardEntry & {
-	id: number;
-};
-
 export default function LeaderboardTable({
 	leaderboardEntries,
 	pageSize,
@@ -27,30 +23,25 @@ export default function LeaderboardTable({
 	returnTo,
 }: Props) {
 	return (
-		<div>
-			<PageableTable<LeaderboardTableEntry>
-				items={leaderboardEntries.map((entry) => ({
-					...entry,
-					id: entry.userId,
-				}))}
+		<TableFrame>
+			<DataTable
+				items={leaderboardEntries}
 				headerItems={leaderboardTableHeaderItems}
 				columnDefinitions={leaderboardTableColumnDefinitions}
-				pagination={
-					<UrlTablePager
-						currentPage={currentPage}
-						pageSize={pageSize}
-						totalEntriesCount={totalEntriesCount}
-						basePath="/leaderboard/"
-					/>
-				}
 				renderRow={(entry) => (
 					<LeaderboardEntryRow
-						key={entry.id}
+						key={entry.userId}
 						entry={entry}
 						returnTo={returnTo}
 					/>
 				)}
 			/>
-		</div>
+			<UrlTablePager
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalEntriesCount={totalEntriesCount}
+				basePath="/leaderboard/"
+			/>
+		</TableFrame>
 	);
 }

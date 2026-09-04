@@ -1,6 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import {
 	DEFAULT_PAGE_SIZE,
 	MAX_PAGE_SIZE,
@@ -27,7 +24,6 @@ export default function UrlTablePager({
 	totalEntriesCount,
 	basePath,
 }: Props) {
-	const router = useRouter();
 	const safePageSize =
 		Number.isFinite(pageSize) && pageSize >= 1
 			? Math.min(Math.floor(pageSize), MAX_PAGE_SIZE)
@@ -39,9 +35,10 @@ export default function UrlTablePager({
 		<TablePager
 			currentPage={currentPage}
 			totalPages={totalPages}
-			onPageChange={(page) =>
-				router.push(buildPageHref(basePath, page, safePageSize))
-			}
+			navigation={{
+				mode: "links",
+				getPageHref: (page) => buildPageHref(basePath, page, safePageSize),
+			}}
 		/>
 	);
 }

@@ -1,35 +1,41 @@
-import type React from "react";
-
-interface Identifiable {
-	id: string | number;
-}
+import type { ReactNode } from "react";
 
 interface ColumnDefinition {
 	id: string;
 	className: string;
 }
 
-interface Props<T extends Identifiable> {
-	items: T[];
-	headerItems: string[];
-	columnDefinitions?: readonly ColumnDefinition[];
-	compact?: boolean;
-	pagination?: React.ReactNode;
-	renderRow: (item: T) => React.ReactNode;
+interface TableFrameProps {
+	children: ReactNode;
 }
 
-export default function PageableTable<T extends Identifiable>({
+interface Props<T> {
+	items: readonly T[];
+	headerItems: readonly string[];
+	columnDefinitions?: readonly ColumnDefinition[];
+	density?: "comfortable" | "compact";
+	renderRow: (item: T) => ReactNode;
+}
+
+export function TableFrame({ children }: TableFrameProps) {
+	return (
+		<div className="w-300 max-w-full overflow-hidden border border-base-300">
+			{children}
+		</div>
+	);
+}
+
+export default function DataTable<T>({
 	items,
 	renderRow,
 	headerItems,
 	columnDefinitions,
-	compact = false,
-	pagination,
+	density = "comfortable",
 }: Props<T>) {
 	return (
-		<div className="w-300 max-w-full overflow-x-auto border border-base-300">
+		<div className="overflow-x-auto">
 			<table
-				className={`table w-full min-w-[48rem] ${compact ? "table-sm" : ""} ${columnDefinitions ? "table-fixed" : ""}`}
+				className={`table w-full min-w-[48rem] ${density === "compact" ? "table-sm" : ""} ${columnDefinitions ? "table-fixed" : ""}`}
 			>
 				{columnDefinitions ? (
 					<colgroup>
@@ -57,7 +63,6 @@ export default function PageableTable<T extends Identifiable>({
 					)}
 				</tbody>
 			</table>
-			{pagination}
 		</div>
 	);
 }
