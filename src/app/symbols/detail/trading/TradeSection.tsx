@@ -30,16 +30,30 @@ export function TradeSection({
 	onOrderStatusReset,
 }: Props) {
 	return (
-		<section className="space-y-4 rounded-box border border-base-300 bg-base-100 p-4 shadow-sm">
+		<section
+			className="space-y-4 rounded-box border border-primary/25 bg-base-100 p-5 shadow-sm"
+			aria-labelledby="symbol-order-ticket-heading"
+		>
 			<div className="flex items-start justify-between gap-3">
 				<div>
-					<h2 className="text-lg font-semibold text-base-content">Trade</h2>
+					<p className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
+						Order Ticket
+					</p>
+					<h2
+						id="symbol-order-ticket-heading"
+						className="mt-1 text-xl font-semibold text-base-content"
+					>
+						Place an Order
+					</h2>
 					<p className="text-sm text-base-content/65">
-						Create orders for {symbol}.
+						Buy or sell {symbol} in a running contest.
 					</p>
 				</div>
 				{isFetching && (
-					<ArrowPathIcon className="mt-1 size-5 animate-spin text-base-content/45" />
+					<ArrowPathIcon
+						className="mt-1 size-5 animate-spin text-base-content/45 motion-reduce:animate-none"
+						aria-label="Refreshing trading data"
+					/>
 				)}
 			</div>
 

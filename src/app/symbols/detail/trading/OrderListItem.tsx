@@ -41,72 +41,64 @@ export function OrderListItem({
 		order.investmentOrderId !== null;
 
 	return (
-		<div className="rounded-box bg-base-200/60 px-3 py-2 text-sm">
-			<div className="flex items-start justify-between gap-3">
-				<div className="min-w-0">
-					<p className="font-medium">
-						Order{" "}
-						{order.investmentOrderId === null
-							? "-"
-							: `#${order.investmentOrderId}`}
-					</p>
-					<p className="text-xs text-base-content/50">
-						{formatMappedLabel(order.transactionType, {
-							BUY: "Buy",
-							SELL: "Sell",
-						})}
-					</p>
-				</div>
-				<div className="flex shrink-0 items-center gap-1.5">
-					<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
-						{formatMappedLabel(order.orderStatus, {
-							ACTIVE: "Active",
-							COMPLETED: "Completed",
-							FAILED: "Failed",
-							TERMINATED: "Terminated",
-						})}
-					</span>
-					{canCancel && (
-						<button
-							type="button"
-							className="btn btn-ghost btn-xs btn-square text-base-content/55 hover:bg-error/10 hover:text-error"
-							disabled={isCancellingOrder}
-							onClick={() => onCancelOrder(order)}
-							aria-label={`Cancel order ${order.investmentOrderId}`}
-							title="Cancel order"
-						>
-							<TrashIcon className="size-4" aria-hidden="true" />
-						</button>
-					)}
-				</div>
-			</div>
-			<div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-base-content/55">
-				<span>Remaining</span>
-				<span className="text-right tabular-nums">
-					{formatNumber(order.remainingAmount, {
-						maximumFractionDigits: 0,
-					})}{" "}
-					/{" "}
-					{formatNumber(order.totalAmount, {
-						maximumFractionDigits: 0,
+		<tr>
+			<td>
+				<p className="font-medium tabular-nums">
+					{order.investmentOrderId === null
+						? "—"
+						: `#${order.investmentOrderId}`}
+				</p>
+				<p className="text-xs text-base-content/50">
+					{formatMappedLabel(order.transactionType, {
+						BUY: "Buy",
+						SELL: "Sell",
+					})}
+				</p>
+			</td>
+			<td className="tabular-nums">
+				{formatNumber(order.remainingAmount, {
+					maximumFractionDigits: 0,
+				})}{" "}
+				/{" "}
+				{formatNumber(order.totalAmount, {
+					maximumFractionDigits: 0,
+				})}
+			</td>
+			<td className="tabular-nums">
+				{formatCurrency(order.acceptedPrice, order.currency, {
+					minimumFractionDigits: 2,
+					maximumFractionDigits: 2,
+				})}
+			</td>
+			<td className="tabular-nums">
+				{order.expirationTime
+					? formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")
+					: "—"}
+			</td>
+			<td>
+				<span className={getOrderStatusBadgeClassName(order.orderStatus)}>
+					{formatMappedLabel(order.orderStatus, {
+						ACTIVE: "Active",
+						COMPLETED: "Completed",
+						FAILED: "Failed",
+						TERMINATED: "Terminated",
 					})}
 				</span>
-				<span>Limit</span>
-				<span className="text-right tabular-nums">
-					{formatCurrency(order.acceptedPrice, order.currency, {
-						minimumFractionDigits: 2,
-						maximumFractionDigits: 2,
-					})}
-				</span>
-				{order.expirationTime && (
-					<>
-						<span>Expires</span>
-						<span className="text-right tabular-nums">
-							{formatDateTimeValue(order.expirationTime, "dd/MM HH:mm")}
-						</span>
-					</>
-				)}
-			</div>
-		</div>
+			</td>
+			<td className="text-right">
+				{canCancel ? (
+					<button
+						type="button"
+						className="btn btn-ghost btn-xs btn-square text-base-content/55 hover:bg-error/10 hover:text-error"
+						disabled={isCancellingOrder}
+						onClick={() => onCancelOrder(order)}
+						aria-label={`Cancel order ${order.investmentOrderId}`}
+						title="Cancel order"
+					>
+						<TrashIcon className="size-4" aria-hidden="true" />
+					</button>
+				) : null}
+			</td>
+		</tr>
 	);
 }

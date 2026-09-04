@@ -1,5 +1,29 @@
+"use client";
+
+import { useState } from "react";
+import {
+	type InvestmentOrderStatus,
+	ORDER_STATUS,
+} from "@/domain/investmentorder/investmentOrderTypes.ts";
 import { OrderListItem } from "@/symbols/detail/trading/OrderListItem.tsx";
 import type { SymbolTradingOrderViewModel } from "@/symbols/domain.ts";
+
+const ORDERS_PER_PAGE = 5;
+
+type OrderFilter = InvestmentOrderStatus | "ALL";
+
+interface OrderFilterOption {
+	label: string;
+	value: OrderFilter;
+}
+
+const ORDER_FILTER_OPTIONS: readonly OrderFilterOption[] = [
+	{ label: "All", value: "ALL" },
+	{ label: "Active", value: ORDER_STATUS.ACTIVE },
+	{ label: "Completed", value: ORDER_STATUS.COMPLETED },
+	{ label: "Failed", value: ORDER_STATUS.FAILED },
+	{ label: "Terminated", value: ORDER_STATUS.TERMINATED },
+];
 
 interface Props {
 	orders: SymbolTradingOrderViewModel[];
@@ -24,39 +48,148 @@ function getOrderKey(order: SymbolTradingOrderViewModel): string {
 	].join("-");
 }
 
+function compareOrdersByIdDescending(
+	firstOrder: SymbolTradingOrderViewModel,
+	secondOrder: SymbolTradingOrderViewModel,
+): number {
+	if (firstOrder.investmentOrderId === null) {
+		return secondOrder.investmentOrderId === null ? 0 : 1;
+	}
+
+	if (secondOrder.investmentOrderId === null) {
+		return -1;
+	}
+
+	return secondOrder.investmentOrderId - firstOrder.investmentOrderId;
+}
+
 export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
+	const [statusFilter, setStatusFilter] = useState<OrderFilter>("ALL");
+	const [orderPage, setOrderPage] = useState(0);
+	const filteredOrders = (
+		statusFilter === "ALL"
+			? [...orders]
+			: orders.filter((order) => order.orderStatus === statusFilter)
+	).sort(compareOrdersByIdDescending);
+	const pageCount = Math.max(
+		1,
+		Math.ceil(filteredOrders.length / ORDERS_PER_PAGE),
+	);
+	const currentPage = Math.min(orderPage, pageCount - 1);
+	const firstVisibleOrderIndex = currentPage * ORDERS_PER_PAGE;
+	const visibleOrders = filteredOrders.slice(
+		firstVisibleOrderIndex,
+		firstVisibleOrderIndex + ORDERS_PER_PAGE,
+	);
+	const firstVisibleOrderNumber = firstVisibleOrderIndex + 1;
+	const lastVisibleOrderNumber = Math.min(
+		firstVisibleOrderIndex + ORDERS_PER_PAGE,
+		filteredOrders.length,
+	);
+
+	function getFilterCount(filter: OrderFilter): number {
+		return filter === "ALL"
+			? orders.length
+			: orders.filter((order) => order.orderStatus === filter).length;
+	}
+
+	function handleStatusFilterChange(nextFilter: OrderFilter) {
+		setStatusFilter(nextFilter);
+		setOrderPage(0);
+	}
+
 	return (
-		<div className="mt-4 space-y-2">
-			<div className="flex items-center justify-between gap-3">
-				<p className="text-xs font-semibold uppercase tracking-[0.16em] text-base-content/45">
-					Orders
-				</p>
-				{orders.length > 2 && (
-					<span className="text-xs text-base-content/50">
-						Scroll to view all
-					</span>
-				)}
-			</div>
+		<div className="space-y-3">
+			{orders.length > 0 ? (
+				<div className="flex justify-end">
+					<label className="flex w-full items-center gap-2 text-sm sm:w-auto">
+						<span className="shrink-0 text-base-content/60">Status</span>
+						<select
+							className="select select-bordered select-sm w-full sm:w-44"
+							value={statusFilter}
+							onChange={(event) =>
+								handleStatusFilterChange(event.target.value as OrderFilter)
+							}
+						>
+							{ORDER_FILTER_OPTIONS.map((option) => (
+								<option key={option.value} value={option.value}>
+									{option.label} ({getFilterCount(option.value)})
+								</option>
+							))}
+						</select>
+					</label>
+				</div>
+			) : null}
 			{orders.length === 0 ? (
 				<p className="text-sm text-base-content/55">
 					No orders for this symbol.
 				</p>
+			) : filteredOrders.length === 0 ? (
+				<div className="rounded-box border border-dashed border-base-300 bg-base-100 px-4 py-5 text-sm text-base-content/55">
+					No {statusFilter.toLowerCase()} orders for this symbol.
+				</div>
 			) : (
-				<div
-					className={`space-y-2 ${
-						orders.length > 2
-							? "max-h-56 overflow-y-auto overscroll-contain pr-1 [scrollbar-gutter:stable]"
-							: ""
-					}`}
-				>
-					{orders.map((order) => (
-						<OrderListItem
-							key={getOrderKey(order)}
-							order={order}
-							isCancellingOrder={isCancellingOrder}
-							onCancelOrder={onCancelOrder}
-						/>
-					))}
+				<div className="space-y-3">
+					<div className="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+						<table className="table table-sm min-w-[46rem]">
+							<thead>
+								<tr>
+									<th>Order</th>
+									<th>Remaining</th>
+									<th>Limit</th>
+									<th>Expires</th>
+									<th>Status</th>
+									<th>
+										<span className="sr-only">Actions</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{visibleOrders.map((order) => (
+									<OrderListItem
+										key={getOrderKey(order)}
+										order={order}
+										isCancellingOrder={isCancellingOrder}
+										onCancelOrder={onCancelOrder}
+									/>
+								))}
+							</tbody>
+						</table>
+					</div>
+					{pageCount > 1 ? (
+						<div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+							<p className="text-xs tabular-nums text-base-content/55">
+								Showing {firstVisibleOrderNumber}–{lastVisibleOrderNumber} of{" "}
+								{filteredOrders.length}
+							</p>
+							<div className="join">
+								<button
+									type="button"
+									className="btn btn-sm join-item"
+									disabled={currentPage === 0}
+									onClick={() => setOrderPage(Math.max(0, currentPage - 1))}
+								>
+									Previous
+								</button>
+								<span
+									className="btn btn-sm join-item pointer-events-none tabular-nums"
+									aria-current="page"
+								>
+									{currentPage + 1} / {pageCount}
+								</span>
+								<button
+									type="button"
+									className="btn btn-sm join-item"
+									disabled={currentPage === pageCount - 1}
+									onClick={() =>
+										setOrderPage(Math.min(pageCount - 1, currentPage + 1))
+									}
+								>
+									Next
+								</button>
+							</div>
+						</div>
+					) : null}
 				</div>
 			)}
 		</div>

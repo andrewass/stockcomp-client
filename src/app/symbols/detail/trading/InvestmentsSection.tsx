@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import { ContestInvestmentCard } from "@/symbols/detail/trading/ContestInvestmentCard.tsx";
 import type {
 	SymbolTradingContestViewModel,
@@ -25,39 +26,45 @@ export function InvestmentsSection({
 	isCancellingOrder,
 	onCancelOrder,
 }: Props) {
-	const [expandedContestIds, setExpandedContestIds] = useState<number[]>(() =>
-		contests[0] ? [contests[0].contestId] : [],
+	const [expandedContestId, setExpandedContestId] = useState<number | null>(
+		() =>
+			contests.find((contest) =>
+				contest.orders.some(
+					(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
+				),
+			)?.contestId ?? null,
 	);
 
 	useEffect(() => {
-		const contestIds = new Set(contests.map((contest) => contest.contestId));
+		setExpandedContestId((currentId) => {
+			if (
+				currentId !== null &&
+				contests.some((contest) => contest.contestId === currentId)
+			) {
+				return currentId;
+			}
 
-		setExpandedContestIds((currentIds) => {
-			const validIds = currentIds.filter((contestId) =>
-				contestIds.has(contestId),
+			return (
+				contests.find((contest) =>
+					contest.orders.some(
+						(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
+					),
+				)?.contestId ?? null
 			);
-
-			return validIds.length === currentIds.length ? currentIds : validIds;
 		});
 	}, [contests]);
 
 	function toggleContest(contestId: number) {
-		setExpandedContestIds((currentIds) =>
-			currentIds.includes(contestId)
-				? currentIds.filter((currentId) => currentId !== contestId)
-				: [...currentIds, contestId],
+		setExpandedContestId((currentId) =>
+			currentId === contestId ? null : contestId,
 		);
 	}
 
 	return (
-		<section className="space-y-3">
-			<div>
-				<h3 className="font-semibold text-base-content">Investments</h3>
-				<p className="text-sm text-base-content/65">
-					Current position and symbol orders by contest.
-				</p>
-			</div>
-
+		<section
+			className="space-y-5 rounded-box border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6"
+			aria-label="Positions and orders"
+		>
 			{isError && (
 				<div className="alert alert-error text-sm">
 					Unable to refresh trading data.
@@ -71,7 +78,7 @@ export function InvestmentsSection({
 			) : (
 				<div className="space-y-3">
 					{contests.map((contest) => {
-						const isExpanded = expandedContestIds.includes(contest.contestId);
+						const isExpanded = expandedContestId === contest.contestId;
 
 						return (
 							<ContestInvestmentCard

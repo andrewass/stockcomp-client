@@ -4,6 +4,7 @@ import {
 	type ContestStatus,
 	contestStatusRecord,
 } from "@/domain/contests/contestTypes.ts";
+import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import {
 	formatCurrency,
 	formatDateTimeValue,
@@ -71,99 +72,120 @@ export function ContestInvestmentCard({
 }: Props) {
 	const profitClassName = getProfitClassName(contest.investment.totalProfit);
 	const statusLabel = getContestStatusLabel(contest.contestStatus);
+	const activeOrderCount = contest.orders.filter(
+		(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
+	).length;
 	const panelId = `symbol-trading-contest-panel-${contest.contestId}`;
 	const triggerId = `symbol-trading-contest-trigger-${contest.contestId}`;
 
 	return (
 		<article className="overflow-hidden rounded-box border border-base-300 bg-base-100">
-			<button
-				id={triggerId}
-				type="button"
-				className="flex w-full items-start justify-between gap-3 p-4 text-left"
-				aria-expanded={isExpanded}
-				aria-controls={panelId}
-				onClick={onToggle}
-			>
-				<div className="min-w-0">
-					<div className="flex items-center gap-2">
-						<h4 className="truncate font-semibold">{contest.contestName}</h4>
+			<div className="flex flex-col gap-4 p-4 sm:p-5">
+				<div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+					<div className="min-w-0">
+						<div className="flex flex-wrap items-center gap-2">
+							<h3 className="break-words font-semibold text-base-content">
+								{contest.contestName}
+							</h3>
+							<span
+								className={getContestStatusBadgeClassName(
+									contest.contestStatus,
+								)}
+							>
+								{statusLabel}
+							</span>
+						</div>
+						<p className="mt-1 text-xs text-base-content/55">
+							{getContestTimelineLabel(contest)}
+						</p>
+					</div>
+					<button
+						id={triggerId}
+						type="button"
+						className="btn btn-ghost btn-sm w-fit shrink-0 gap-2"
+						aria-expanded={isExpanded}
+						aria-controls={panelId}
+						onClick={onToggle}
+					>
+						{isExpanded
+							? "Hide Orders"
+							: `View Orders (${contest.orders.length})`}
+						{activeOrderCount > 0 ? (
+							<span className="badge badge-info badge-sm">
+								{activeOrderCount} active
+							</span>
+						) : null}
 						<ChevronDownIcon
 							className={`size-4 shrink-0 text-base-content/45 transition-transform ${
 								isExpanded ? "rotate-180" : ""
 							}`}
 							aria-hidden="true"
 						/>
-					</div>
-					<p className="mt-1 text-xs text-base-content/55">
-						{getContestTimelineLabel(contest)}
-					</p>
+					</button>
 				</div>
-				<span
-					className={`${getContestStatusBadgeClassName(
-						contest.contestStatus,
-					)} shrink-0`}
-				>
-					{statusLabel}
-				</span>
-			</button>
 
-			{isExpanded && (
+				<dl className="grid grid-cols-2 gap-px overflow-hidden rounded-box border border-base-300 bg-base-300 lg:grid-cols-4">
+					<div className="bg-base-200 px-4 py-3">
+						<dt className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+							Shares
+						</dt>
+						<dd className="mt-1 font-semibold tabular-nums">
+							{formatNumber(contest.investment.amount, {
+								maximumFractionDigits: 0,
+							})}
+						</dd>
+					</div>
+					<div className="bg-base-200 px-4 py-3">
+						<dt className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+							Value
+						</dt>
+						<dd className="mt-1 font-semibold tabular-nums">
+							{formatCurrency(contest.investment.totalValue, currency, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2,
+							})}
+						</dd>
+					</div>
+					<div className="bg-base-200 px-4 py-3">
+						<dt className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+							P/L
+						</dt>
+						<dd
+							className={`mt-1 font-semibold tabular-nums ${profitClassName}`}
+						>
+							{formatSignedCurrency(contest.investment.totalProfit, currency)}
+						</dd>
+					</div>
+					<div className="bg-base-200 px-4 py-3">
+						<dt className="text-xs uppercase tracking-[0.14em] text-base-content/45">
+							Return
+						</dt>
+						<dd
+							className={`mt-1 font-semibold tabular-nums ${profitClassName}`}
+						>
+							{formatNumber(contest.investment.totalProfitPercentage, {
+								minimumFractionDigits: 2,
+								maximumFractionDigits: 2,
+							})}
+							%
+						</dd>
+					</div>
+				</dl>
+			</div>
+
+			{isExpanded ? (
 				<section
 					id={panelId}
 					aria-labelledby={triggerId}
-					className="border-t border-base-300 p-4"
+					className="border-t border-base-300 bg-base-200/25 p-4 sm:p-5"
 				>
-					<div className="grid grid-cols-2 gap-2 text-sm">
-						<div className="rounded-box bg-base-200/60 px-3 py-2">
-							<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
-								Shares
-							</p>
-							<p className="font-semibold tabular-nums">
-								{formatNumber(contest.investment.amount, {
-									maximumFractionDigits: 0,
-								})}
-							</p>
-						</div>
-						<div className="rounded-box bg-base-200/60 px-3 py-2">
-							<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
-								Value
-							</p>
-							<p className="font-semibold tabular-nums">
-								{formatCurrency(contest.investment.totalValue, currency, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
-							</p>
-						</div>
-						<div className="rounded-box bg-base-200/60 px-3 py-2">
-							<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
-								P/L
-							</p>
-							<p className={`font-semibold tabular-nums ${profitClassName}`}>
-								{formatSignedCurrency(contest.investment.totalProfit, currency)}
-							</p>
-						</div>
-						<div className="rounded-box bg-base-200/60 px-3 py-2">
-							<p className="text-xs uppercase tracking-[0.14em] text-base-content/45">
-								Return
-							</p>
-							<p className={`font-semibold tabular-nums ${profitClassName}`}>
-								{formatNumber(contest.investment.totalProfitPercentage, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
-								%
-							</p>
-						</div>
-					</div>
-
 					<OrderList
 						orders={contest.orders}
 						isCancellingOrder={isCancellingOrder}
 						onCancelOrder={(order) => onCancelOrder(contest, order)}
 					/>
 				</section>
-			)}
+			) : null}
 		</article>
 	);
 }

@@ -260,7 +260,7 @@ export function TradingOrderForm({
 					aria-pressed={transactionType === TRANSACTION_TYPE.BUY}
 					onClick={() => handleTransactionTypeChange(TRANSACTION_TYPE.BUY)}
 				>
-					<ShoppingCartIcon className="size-4" />
+					<ShoppingCartIcon className="size-4" aria-hidden="true" />
 					Buy
 				</button>
 				<button
@@ -273,7 +273,7 @@ export function TradingOrderForm({
 					aria-pressed={transactionType === TRANSACTION_TYPE.SELL}
 					onClick={() => handleTransactionTypeChange(TRANSACTION_TYPE.SELL)}
 				>
-					<BanknotesIcon className="size-4" />
+					<BanknotesIcon className="size-4" aria-hidden="true" />
 					Sell
 				</button>
 			</div>
@@ -416,10 +416,12 @@ export function TradingOrderForm({
 				className="btn btn-primary w-full"
 				disabled={submitDisabled || orderIsPending}
 			>
-				{orderIsPending && (
+				{orderIsPending ? (
 					<span className="loading loading-spinner loading-sm" />
-				)}
-				Create order
+				) : null}
+				{orderIsPending
+					? "Placing Order…"
+					: `Place ${transactionType === TRANSACTION_TYPE.BUY ? "Buy" : "Sell"} Order`}
 			</button>
 		</form>
 	);

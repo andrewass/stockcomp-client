@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import SymbolDetailView from "@/symbols/detail/SymbolDetailView.tsx";
 import { getSymbolDetailData } from "@/symbols/detail/symbolDetailData.ts";
-import SymbolTradingSidebar from "@/symbols/detail/trading/SymbolTradingSidebar.tsx";
 import { getSymbolTradingData } from "@/symbols/detail/trading/tradingData.ts";
 
 interface Props {
@@ -28,14 +27,7 @@ export default async function SymbolDetailsPage({ params }: Props) {
 	return (
 		<SymbolDetailView
 			symbolDetail={symbolDetail}
-			tradingPanel={
-				<SymbolTradingSidebar
-					symbol={symbolDetail.symbol}
-					currentPrice={symbolDetail.currentPrice}
-					currency={symbolDetail.currency}
-					initialTradingData={tradingData}
-				/>
-			}
+			initialTradingData={tradingData}
 		/>
 	);
 }

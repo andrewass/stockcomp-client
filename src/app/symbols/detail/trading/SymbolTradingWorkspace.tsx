@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { CancelOrderModal } from "@/symbols/detail/trading/CancelOrderModal.tsx";
 import { InvestmentsSection } from "@/symbols/detail/trading/InvestmentsSection.tsx";
 import { TradeSection } from "@/symbols/detail/trading/TradeSection.tsx";
@@ -11,13 +12,15 @@ interface Props {
 	currentPrice: number;
 	currency: string;
 	initialTradingData: SymbolTradingViewModel;
+	priceHistoryPanel: React.ReactNode;
 }
 
-export default function SymbolTradingSidebar({
+export default function SymbolTradingWorkspace({
 	symbol,
 	currentPrice,
 	currency,
 	initialTradingData,
+	priceHistoryPanel,
 }: Props) {
 	const {
 		contests,
@@ -36,28 +39,31 @@ export default function SymbolTradingSidebar({
 	} = useSymbolTradingSidebar({ symbol, initialTradingData });
 
 	return (
-		<div className="space-y-5">
-			<TradeSection
-				symbol={symbol}
-				currentPrice={currentPrice}
-				currency={currency}
-				contests={contests}
-				isFetching={tradingIsFetching}
-				orderIsError={orderIsError}
-				orderIsPending={orderIsPending}
-				onCreateOrder={handleCreateOrder}
-				onOrderStatusReset={handleOrderStatusReset}
-			/>
+		<>
+			<div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+				<div className="min-w-0">{priceHistoryPanel}</div>
+				<aside className="xl:sticky xl:top-24 xl:self-start">
+					<TradeSection
+						symbol={symbol}
+						currentPrice={currentPrice}
+						currency={currency}
+						contests={contests}
+						isFetching={tradingIsFetching}
+						orderIsError={orderIsError}
+						orderIsPending={orderIsPending}
+						onCreateOrder={handleCreateOrder}
+						onOrderStatusReset={handleOrderStatusReset}
+					/>
+				</aside>
+			</div>
 
-			<section className="rounded-box border border-base-300 bg-base-100 p-4 shadow-sm">
-				<InvestmentsSection
-					contests={contests}
-					currency={currency}
-					isError={tradingIsError}
-					isCancellingOrder={cancelOrderIsPending}
-					onCancelOrder={handleRequestCancelOrder}
-				/>
-			</section>
+			<InvestmentsSection
+				contests={contests}
+				currency={currency}
+				isError={tradingIsError}
+				isCancellingOrder={cancelOrderIsPending}
+				onCancelOrder={handleRequestCancelOrder}
+			/>
 
 			<CancelOrderModal
 				pendingCancellation={pendingCancellation}
@@ -66,6 +72,6 @@ export default function SymbolTradingSidebar({
 				onClose={handleCloseCancelOrderModal}
 				onConfirm={handleConfirmCancelOrder}
 			/>
-		</div>
+		</>
 	);
 }
