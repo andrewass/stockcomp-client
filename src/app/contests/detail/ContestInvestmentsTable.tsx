@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { ContestParticipantInvestment } from "@/domain/contests/contestParticipantTypes.ts";
 import {
 	formatCurrency,
@@ -52,11 +53,15 @@ export default function ContestInvestmentsTable({
 	return (
 		<PageableTable<InvestmentTableEntry>
 			items={pageInvestments}
-			pageSize={pageSize}
-			currentPage={currentPage}
-			totalEntriesCount={investments.length}
-			basePath={`/contest/${contestId}?view=holdings`}
 			headerItems={investmentHeaderItems}
+			pagination={
+				<UrlTablePager
+					currentPage={currentPage}
+					pageSize={pageSize}
+					totalEntriesCount={investments.length}
+					basePath={`/contest/${contestId}?view=holdings`}
+				/>
+			}
 			renderRow={(investment) => {
 				const profitClassName = getProfitClassName(investment.totalProfit);
 

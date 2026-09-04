@@ -1,78 +1,52 @@
+"use client";
+
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/24/solid";
-import Link from "next/link";
 import type { ReactNode } from "react";
-import {
-	DEFAULT_PAGE_SIZE,
-	MAX_PAGE_SIZE,
-} from "@/components/table/paginationParams.ts";
 
 interface Props {
 	currentPage: number;
 	totalPages: number;
-	pageSize: number;
-	basePath: string;
+	onPageChange: (page: number) => void;
 }
 
 interface PagerControlProps {
-	href: string;
+	page: number;
 	ariaLabel: string;
 	icon: ReactNode;
 	disabled: boolean;
+	onPageChange: (page: number) => void;
 }
 
-function buildPageHref(
-	basePath: string,
-	page: number,
-	pageSize: number,
-): string {
-	const [path, rawQuery] = basePath.split("?");
-	const normalizedPath = path.endsWith("/") ? path : `${path}/`;
-	const searchParams = new URLSearchParams(rawQuery ?? "");
-	searchParams.set("pageSize", `${pageSize}`);
-	return `${normalizedPath}${page}?${searchParams.toString()}`;
-}
-
-function PagerControl({ href, ariaLabel, icon, disabled }: PagerControlProps) {
-	if (disabled) {
-		return (
-			<button
-				type="button"
-				className="grid size-8 place-items-center text-base-content/35 pointer-events-none"
-				aria-label={ariaLabel}
-				aria-disabled="true"
-				disabled
-			>
-				{icon}
-			</button>
-		);
-	}
-
+function PagerControl({
+	page,
+	ariaLabel,
+	icon,
+	disabled,
+	onPageChange,
+}: PagerControlProps) {
 	return (
-		<Link
-			href={href}
+		<button
+			type="button"
 			aria-label={ariaLabel}
-			className="grid size-8 place-items-center text-base-content hover:text-base-content/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content"
+			className="grid size-8 place-items-center text-base-content hover:text-base-content/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content disabled:pointer-events-none disabled:text-base-content/35"
+			disabled={disabled}
+			onClick={() => onPageChange(page)}
 		>
 			{icon}
-		</Link>
+		</button>
 	);
 }
 
 export default function TablePager({
 	currentPage,
 	totalPages,
-	pageSize,
-	basePath,
+	onPageChange,
 }: Props) {
-	const safePageSize =
-		Number.isFinite(pageSize) && pageSize >= 1
-			? Math.min(Math.floor(pageSize), MAX_PAGE_SIZE)
-			: DEFAULT_PAGE_SIZE;
 	const safeTotalPages =
 		Number.isFinite(totalPages) && totalPages > 0 ? Math.floor(totalPages) : 0;
 	const lastPage = Math.max(safeTotalPages - 1, 0);
@@ -82,7 +56,6 @@ export default function TablePager({
 			: Math.min(Math.max(Math.floor(currentPage), 0), lastPage);
 	const hasPreviousPage = safeCurrentPage > 0;
 	const hasNextPage = safeCurrentPage < lastPage;
-	const currentPageLabel = safeTotalPages === 0 ? 0 : safeCurrentPage + 1;
 
 	return (
 		<nav
@@ -91,31 +64,37 @@ export default function TablePager({
 		>
 			<div className="flex items-center gap-2">
 				<PagerControl
-					href={buildPageHref(basePath, 0, safePageSize)}
+					page={0}
 					ariaLabel="Go to first page"
-					icon={<ChevronDoubleLeftIcon className="size-4" />}
+					icon={<ChevronDoubleLeftIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasPreviousPage}
+					onPageChange={onPageChange}
 				/>
 				<PagerControl
-					href={buildPageHref(basePath, safeCurrentPage - 1, safePageSize)}
+					page={safeCurrentPage - 1}
 					ariaLabel="Go to previous page"
-					icon={<ChevronLeftIcon className="size-4" />}
+					icon={<ChevronLeftIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasPreviousPage}
+					onPageChange={onPageChange}
 				/>
 				<span className="min-w-14 text-center text-sm font-semibold tabular-nums text-base-content">
-					{currentPageLabel}/{safeTotalPages}
+					{safeTotalPages === 0 ? 0 : safeCurrentPage + 1}/{safeTotalPages}
 				</span>
 				<PagerControl
-					href={buildPageHref(basePath, safeCurrentPage + 1, safePageSize)}
+					page={safeCurrentPage + 1}
 					ariaLabel="Go to next page"
-					icon={<ChevronRightIcon className="size-4" />}
+					icon={<ChevronRightIcon className="size-4" aria-hidden="true" />}
 					disabled={!hasNextPage}
+					onPageChange={onPageChange}
 				/>
 				<PagerControl
-					href={buildPageHref(basePath, lastPage, safePageSize)}
+					page={lastPage}
 					ariaLabel="Go to last page"
-					icon={<ChevronDoubleRightIcon className="size-4" />}
+					icon={
+						<ChevronDoubleRightIcon className="size-4" aria-hidden="true" />
+					}
 					disabled={!hasNextPage}
+					onPageChange={onPageChange}
 				/>
 			</div>
 		</nav>

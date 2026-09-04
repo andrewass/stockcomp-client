@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import PageableTable from "@/components/table/PageableTable.tsx";
+import TablePager from "@/components/table/TablePager.tsx";
 import {
 	type InvestmentOrderStatus,
 	ORDER_STATUS,
@@ -24,6 +26,9 @@ const ORDER_FILTER_OPTIONS: readonly OrderFilterOption[] = [
 	{ label: "Failed", value: ORDER_STATUS.FAILED },
 	{ label: "Terminated", value: ORDER_STATUS.TERMINATED },
 ];
+const ORDER_HEADERS = ["Order", "Remaining", "Limit", "Expires", "Status", ""];
+
+type OrderTableEntry = SymbolTradingOrderViewModel & { id: string };
 
 interface Props {
 	orders: SymbolTradingOrderViewModel[];
@@ -77,15 +82,9 @@ export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
 	);
 	const currentPage = Math.min(orderPage, pageCount - 1);
 	const firstVisibleOrderIndex = currentPage * ORDERS_PER_PAGE;
-	const visibleOrders = filteredOrders.slice(
-		firstVisibleOrderIndex,
-		firstVisibleOrderIndex + ORDERS_PER_PAGE,
-	);
-	const firstVisibleOrderNumber = firstVisibleOrderIndex + 1;
-	const lastVisibleOrderNumber = Math.min(
-		firstVisibleOrderIndex + ORDERS_PER_PAGE,
-		filteredOrders.length,
-	);
+	const visibleOrders = filteredOrders
+		.slice(firstVisibleOrderIndex, firstVisibleOrderIndex + ORDERS_PER_PAGE)
+		.map((order) => ({ ...order, id: getOrderKey(order) }));
 
 	function getFilterCount(filter: OrderFilter): number {
 		return filter === "ALL"
@@ -129,68 +128,28 @@ export function OrderList({ orders, isCancellingOrder, onCancelOrder }: Props) {
 					No {statusFilter.toLowerCase()} orders for this symbol.
 				</div>
 			) : (
-				<div className="space-y-3">
-					<div className="overflow-x-auto rounded-box border border-base-300 bg-base-100">
-						<table className="table table-sm min-w-[46rem]">
-							<thead>
-								<tr>
-									<th>Order</th>
-									<th>Remaining</th>
-									<th>Limit</th>
-									<th>Expires</th>
-									<th>Status</th>
-									<th>
-										<span className="sr-only">Actions</span>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								{visibleOrders.map((order) => (
-									<OrderListItem
-										key={getOrderKey(order)}
-										order={order}
-										isCancellingOrder={isCancellingOrder}
-										onCancelOrder={onCancelOrder}
-									/>
-								))}
-							</tbody>
-						</table>
-					</div>
-					{pageCount > 1 ? (
-						<div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-							<p className="text-xs tabular-nums text-base-content/55">
-								Showing {firstVisibleOrderNumber}–{lastVisibleOrderNumber} of{" "}
-								{filteredOrders.length}
-							</p>
-							<div className="join">
-								<button
-									type="button"
-									className="btn btn-sm join-item"
-									disabled={currentPage === 0}
-									onClick={() => setOrderPage(Math.max(0, currentPage - 1))}
-								>
-									Previous
-								</button>
-								<span
-									className="btn btn-sm join-item pointer-events-none tabular-nums"
-									aria-current="page"
-								>
-									{currentPage + 1} / {pageCount}
-								</span>
-								<button
-									type="button"
-									className="btn btn-sm join-item"
-									disabled={currentPage === pageCount - 1}
-									onClick={() =>
-										setOrderPage(Math.min(pageCount - 1, currentPage + 1))
-									}
-								>
-									Next
-								</button>
-							</div>
-						</div>
-					) : null}
-				</div>
+				<PageableTable<OrderTableEntry>
+					compact
+					items={visibleOrders}
+					headerItems={ORDER_HEADERS}
+					pagination={
+						pageCount > 1 ? (
+							<TablePager
+								currentPage={currentPage}
+								totalPages={pageCount}
+								onPageChange={setOrderPage}
+							/>
+						) : null
+					}
+					renderRow={(order) => (
+						<OrderListItem
+							key={order.id}
+							order={order}
+							isCancellingOrder={isCancellingOrder}
+							onCancelOrder={onCancelOrder}
+						/>
+					)}
+				/>
 			)}
 		</div>
 	);

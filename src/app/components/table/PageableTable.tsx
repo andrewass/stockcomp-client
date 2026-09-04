@@ -1,9 +1,4 @@
 import type React from "react";
-import {
-	DEFAULT_PAGE_SIZE,
-	MAX_PAGE_SIZE,
-} from "@/components/table/paginationParams.ts";
-import TablePager from "@/components/table/TablePager.tsx";
 
 interface Identifiable {
 	id: string | number;
@@ -16,36 +11,25 @@ interface ColumnDefinition {
 
 interface Props<T extends Identifiable> {
 	items: T[];
-	pageSize: number;
-	currentPage: number;
-	totalEntriesCount: number;
-	basePath: string;
 	headerItems: string[];
 	columnDefinitions?: readonly ColumnDefinition[];
+	compact?: boolean;
+	pagination?: React.ReactNode;
 	renderRow: (item: T) => React.ReactNode;
 }
 
 export default function PageableTable<T extends Identifiable>({
 	items,
-	pageSize,
-	currentPage,
-	totalEntriesCount,
-	basePath,
 	renderRow,
 	headerItems,
 	columnDefinitions,
+	compact = false,
+	pagination,
 }: Props<T>) {
-	const safePageSize =
-		Number.isFinite(pageSize) && pageSize >= 1
-			? Math.min(Math.floor(pageSize), MAX_PAGE_SIZE)
-			: DEFAULT_PAGE_SIZE;
-	const totalPages =
-		totalEntriesCount > 0 ? Math.ceil(totalEntriesCount / safePageSize) : 0;
-
 	return (
 		<div className="w-300 max-w-full overflow-x-auto border border-base-300">
 			<table
-				className={`table w-full min-w-[48rem] ${columnDefinitions ? "table-fixed" : ""}`}
+				className={`table w-full min-w-[48rem] ${compact ? "table-sm" : ""} ${columnDefinitions ? "table-fixed" : ""}`}
 			>
 				{columnDefinitions ? (
 					<colgroup>
@@ -73,12 +57,7 @@ export default function PageableTable<T extends Identifiable>({
 					)}
 				</tbody>
 			</table>
-			<TablePager
-				currentPage={currentPage}
-				totalPages={totalPages}
-				pageSize={safePageSize}
-				basePath={basePath}
-			/>
+			{pagination}
 		</div>
 	);
 }

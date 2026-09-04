@@ -1,4 +1,5 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import LeaderboardEntryRow from "@/leaderboard/LeaderboardEntryRow.tsx";
 import {
 	leaderboardTableColumnDefinitions,
@@ -32,12 +33,16 @@ export default function LeaderboardTable({
 					...entry,
 					id: entry.userId,
 				}))}
-				pageSize={pageSize}
-				currentPage={currentPage}
-				totalEntriesCount={totalEntriesCount}
-				basePath="/leaderboard/"
 				headerItems={leaderboardTableHeaderItems}
 				columnDefinitions={leaderboardTableColumnDefinitions}
+				pagination={
+					<UrlTablePager
+						currentPage={currentPage}
+						pageSize={pageSize}
+						totalEntriesCount={totalEntriesCount}
+						basePath="/leaderboard/"
+					/>
+				}
 				renderRow={(entry) => (
 					<LeaderboardEntryRow
 						key={entry.id}

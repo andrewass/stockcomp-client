@@ -1,5 +1,6 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import {
 	CONTEST_STATUS,
 	type Contest,
@@ -43,11 +44,15 @@ export default function AdminContestsTable({
 					...contest,
 					id: contest.contestId,
 				}))}
-				pageSize={pageSize}
-				currentPage={currentPage}
-				totalEntriesCount={totalEntriesCount}
-				basePath="/admin/contests/"
 				headerItems={contestTableHeaderItems}
+				pagination={
+					<UrlTablePager
+						currentPage={currentPage}
+						pageSize={pageSize}
+						totalEntriesCount={totalEntriesCount}
+						basePath="/admin/contests/"
+					/>
+				}
 				renderRow={(contest) => {
 					const isCompleted =
 						contest.contestStatus === CONTEST_STATUS.COMPLETED;

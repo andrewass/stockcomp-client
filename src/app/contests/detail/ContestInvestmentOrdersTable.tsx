@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { ContestParticipantInvestmentOrder } from "@/domain/contests/contestParticipantTypes.ts";
 import {
 	type InvestmentOrderStatus,
@@ -82,11 +83,15 @@ export default function ContestInvestmentOrdersTable({
 	return (
 		<PageableTable<OrderTableEntry>
 			items={pageOrders}
-			pageSize={pageSize}
-			currentPage={currentPage}
-			totalEntriesCount={orders.length}
-			basePath={`/contest/${contestId}?view=orders`}
 			headerItems={orderHeaderItems}
+			pagination={
+				<UrlTablePager
+					currentPage={currentPage}
+					pageSize={pageSize}
+					totalEntriesCount={orders.length}
+					basePath={`/contest/${contestId}?view=orders`}
+				/>
+			}
 			renderRow={(order) => (
 				<tr key={order.id}>
 					<td>{order.orderId === null ? "-" : `#${order.orderId}`}</td>

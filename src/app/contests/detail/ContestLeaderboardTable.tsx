@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CountryFlag from "@/components/country/CountryFlag.tsx";
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { ContestLeaderboardParticipant } from "@/domain/contests/contestParticipantTypes.ts";
 import { formatNumber } from "@/lib/formatters.ts";
 import { buildUserDetailHref } from "@/users/userProfileNavigation.ts";
@@ -40,11 +41,15 @@ export default function ContestLeaderboardTable({
 				...participant,
 				id: participant.participantId,
 			}))}
-			pageSize={pageSize}
-			currentPage={currentPage}
-			totalEntriesCount={totalEntriesCount}
-			basePath={`/contest/${contestId}?view=leaderboard`}
 			headerItems={contestLeaderboardHeaderItems}
+			pagination={
+				<UrlTablePager
+					currentPage={currentPage}
+					pageSize={pageSize}
+					totalEntriesCount={totalEntriesCount}
+					basePath={`/contest/${contestId}?view=leaderboard`}
+				/>
+			}
 			renderRow={(participant) => (
 				<tr key={participant.id}>
 					<td>{participant.rank ?? "-"}</td>

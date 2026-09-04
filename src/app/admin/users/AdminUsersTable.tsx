@@ -1,4 +1,5 @@
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import type { User } from "@/domain/user/userTypes.ts";
 
 interface Props {
@@ -27,11 +28,15 @@ export default function AdminUsersTable({
 					...user,
 					id: user.email,
 				}))}
-				pageSize={pageSize}
-				currentPage={currentPage}
-				totalEntriesCount={totalEntriesCount}
-				basePath="/admin/users/"
 				headerItems={userTableHeaderItems}
+				pagination={
+					<UrlTablePager
+						currentPage={currentPage}
+						pageSize={pageSize}
+						totalEntriesCount={totalEntriesCount}
+						basePath="/admin/users/"
+					/>
+				}
 				renderRow={(user) => (
 					<tr key={user.id}>
 						<td>{user.username}</td>

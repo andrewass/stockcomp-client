@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageableTable from "@/components/table/PageableTable.tsx";
+import UrlTablePager from "@/components/table/UrlTablePager.tsx";
 import {
 	type Contest,
 	contestStatusRecord,
@@ -39,11 +40,15 @@ export default function ContestTable({
 					...contest,
 					id: contest.contestId,
 				}))}
-				pageSize={pageSize}
-				currentPage={currentPage}
-				totalEntriesCount={totalEntriesCount}
-				basePath="/contests/"
 				headerItems={contestTableHeaderItems}
+				pagination={
+					<UrlTablePager
+						currentPage={currentPage}
+						pageSize={pageSize}
+						totalEntriesCount={totalEntriesCount}
+						basePath="/contests/"
+					/>
+				}
 				renderRow={(contest) => (
 					<tr key={contest.id}>
 						<td>{contest.contestId}</td>
