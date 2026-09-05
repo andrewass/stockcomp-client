@@ -70,7 +70,7 @@ function toFiniteNumber(value: number | null | undefined): number {
 
 function getDefaultExpirationTime(): string {
 	const expiration = new Date(Date.now() + 24 * 60 * 60 * 1000);
-	return expiration.toISOString().slice(0, 19);
+	return expiration.toISOString();
 }
 
 function mapInvestmentOrderStatus(

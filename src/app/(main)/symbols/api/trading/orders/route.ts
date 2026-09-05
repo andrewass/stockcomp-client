@@ -2,6 +2,7 @@ import {
 	parseJsonRequestBody,
 	toRouteErrorResponse,
 } from "@/api/routeHandlerResponses.ts";
+import { parseIsoInstant } from "@/lib/dateTime.ts";
 import {
 	cancelInvestmentOrder,
 	createInvestmentOrder,
@@ -26,17 +27,13 @@ function parsePositiveInteger(value: unknown): number | null {
 		: null;
 }
 
-function parseFutureLocalDateTime(value: unknown): string | null {
-	if (typeof value !== "string" || !value.trim()) {
+function parseFutureIsoInstant(value: unknown): string | null {
+	const isoInstant = parseIsoInstant(value);
+	if (!isoInstant || Date.parse(isoInstant) <= Date.now()) {
 		return null;
 	}
 
-	const expirationTimestamp = Date.parse(value);
-	if (Number.isNaN(expirationTimestamp) || expirationTimestamp <= Date.now()) {
-		return null;
-	}
-
-	return value.trim();
+	return isoInstant;
 }
 
 function toErrorResponse(error: unknown): Response {
@@ -72,7 +69,7 @@ export async function POST(request: Request): Promise<Response> {
 		body.acceptedPrice > 0
 			? body.acceptedPrice
 			: null;
-	const expirationTime = parseFutureLocalDateTime(body.expirationTime);
+	const expirationTime = parseFutureIsoInstant(body.expirationTime);
 
 	if (
 		!contestId ||

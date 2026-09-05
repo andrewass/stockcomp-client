@@ -10,6 +10,7 @@ import {
 	isContestStatus,
 	type UpdateContestRequest,
 } from "@/domain/contests/contestTypes.ts";
+import { localDateTimeToIsoInstant } from "@/lib/dateTime.ts";
 import type { UpdateContestResult } from "./updateContestTypes.ts";
 
 interface Props {
@@ -59,8 +60,7 @@ function validateForm(formState: ContestFormState): Record<string, string> {
 		fieldErrors.contestName = "Contest name is required.";
 	}
 
-	const startDate = new Date(formState.startTime);
-	if (Number.isNaN(startDate.getTime())) {
+	if (!localDateTimeToIsoInstant(formState.startTime)) {
 		fieldErrors.startTime = "Start time is invalid.";
 	}
 
@@ -93,7 +93,10 @@ function buildUpdateContestRequest(
 	}
 
 	if (formState.startTime !== initialFormState.startTime) {
-		request.startTime = formState.startTime;
+		const startTime = localDateTimeToIsoInstant(formState.startTime);
+		if (startTime) {
+			request.startTime = startTime;
+		}
 	}
 
 	return request;

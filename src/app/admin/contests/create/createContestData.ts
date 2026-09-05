@@ -6,14 +6,13 @@ export async function createContest(
 	input: CreateContestRequest,
 ): Promise<void> {
 	const contestName = input.contestName.trim();
-	const startDate = new Date(input.startTime);
 
 	await resourcePost<void>({
 		url: "/contests",
 		body: {
 			contestName,
 			durationDays: input.durationDays,
-			startTime: startDate.toISOString(),
+			startTime: input.startTime,
 		} satisfies CreateContestRequest,
 	});
 }

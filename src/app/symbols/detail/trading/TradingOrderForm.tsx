@@ -8,6 +8,7 @@ import {
 	TRANSACTION_TYPE,
 	type TransactionType,
 } from "@/domain/investmentorder/investmentOrderTypes.ts";
+import { localDateTimeToIsoInstant } from "@/lib/dateTime.ts";
 import { formatCurrency } from "@/lib/formatters.ts";
 import type { SymbolTradingOrderRequest } from "@/symbols/detail/trading/tradingTypes.ts";
 import type { SymbolTradingContestViewModel } from "@/symbols/domain.ts";
@@ -99,10 +100,9 @@ export function TradingOrderForm({
 		acceptedPriceInput.trim() !== "" &&
 		Number.isFinite(acceptedPrice) &&
 		acceptedPrice > 0;
+	const expirationTime = localDateTimeToIsoInstant(expirationTimeInput);
 	const expirationTimeIsValid =
-		expirationTimeInput.trim() !== "" &&
-		!Number.isNaN(Date.parse(expirationTimeInput)) &&
-		Date.parse(expirationTimeInput) > Date.now();
+		expirationTime !== null && Date.parse(expirationTime) > Date.now();
 	const estimatedValue = amount * (acceptedPriceIsValid ? acceptedPrice : 0);
 	const sellAmountExceedsHolding =
 		transactionType === TRANSACTION_TYPE.SELL &&
@@ -198,7 +198,7 @@ export function TradingOrderForm({
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		if (submitDisabled || !selectedContest) {
+		if (submitDisabled || !selectedContest || !expirationTime) {
 			return;
 		}
 
@@ -211,7 +211,7 @@ export function TradingOrderForm({
 				totalAmount: amount,
 				currency,
 				acceptedPrice,
-				expirationTime: expirationTimeInput,
+				expirationTime,
 			},
 			() => {
 				setAmountInput("");

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useMemo, useState, useTransition } from "react";
 import { ModalWindow } from "@/components/modal/ModalWindow.tsx";
 import type { CreateContestRequest } from "@/domain/contests/contestTypes.ts";
+import { localDateTimeToIsoInstant } from "@/lib/dateTime.ts";
 import type { CreateContestResult } from "./createContestTypes.ts";
 
 interface Props {
@@ -35,8 +36,7 @@ function validateForm(formState: ContestFormState): Record<string, string> {
 		fieldErrors.durationDays = "Duration must be at least 1 day.";
 	}
 
-	const startDate = new Date(formState.startTime);
-	if (Number.isNaN(startDate.getTime())) {
+	if (!localDateTimeToIsoInstant(formState.startTime)) {
 		fieldErrors.startTime = "Start time is invalid.";
 	}
 
@@ -106,10 +106,16 @@ export default function CreateContestModal({ isOpen, onClose }: Props) {
 		}
 
 		setFieldErrors({});
+		const startTime = localDateTimeToIsoInstant(formState.startTime);
+		if (!startTime) {
+			setFieldErrors({ startTime: "Start time is invalid." });
+			return;
+		}
+
 		startTransition(async () => {
 			const response = await createContest({
 				contestName: formState.contestName.trim(),
-				startTime: formState.startTime,
+				startTime,
 				durationDays: durationDaysAsNumber,
 			});
 

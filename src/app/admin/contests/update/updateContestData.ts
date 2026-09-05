@@ -19,7 +19,7 @@ export async function updateContest(
 	}
 
 	if (input.startTime !== undefined) {
-		body.startTime = new Date(input.startTime).toISOString();
+		body.startTime = input.startTime;
 	}
 
 	await resourcePatch<Contest>({

@@ -17,6 +17,7 @@ import {
 	isContestStatus,
 	type UpdateContestRequest,
 } from "@/domain/contests/contestTypes.ts";
+import { parseIsoInstant } from "@/lib/dateTime.ts";
 
 interface CreateContestBody {
 	contestName?: unknown;
@@ -49,12 +50,12 @@ function validateCreateContestBody(
 		fieldErrors.durationDays = "Duration must be at least 1 day.";
 	}
 
-	const startDate = new Date(startTime);
-	if (Number.isNaN(startDate.getTime())) {
+	const startTimeIso = parseIsoInstant(startTime);
+	if (!startTimeIso) {
 		fieldErrors.startTime = "Start time is invalid.";
 	}
 
-	if (Object.keys(fieldErrors).length > 0) {
+	if (!startTimeIso || Object.keys(fieldErrors).length > 0) {
 		return {
 			ok: false,
 			fieldErrors,
@@ -66,7 +67,7 @@ function validateCreateContestBody(
 		request: {
 			contestName,
 			durationDays,
-			startTime: startDate.toISOString(),
+			startTime: startTimeIso,
 		},
 	};
 }
@@ -97,11 +98,11 @@ function validateUpdateContestBody(
 
 	if (body.startTime != null) {
 		const startTime = typeof body.startTime === "string" ? body.startTime : "";
-		const startDate = new Date(startTime);
-		if (Number.isNaN(startDate.getTime())) {
+		const startTimeIso = parseIsoInstant(startTime);
+		if (!startTimeIso) {
 			fieldErrors.startTime = "Start time is invalid.";
 		} else {
-			updateRequest.startTime = startDate.toISOString();
+			updateRequest.startTime = startTimeIso;
 		}
 	}
 
