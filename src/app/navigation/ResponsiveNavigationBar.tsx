@@ -13,13 +13,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { authClient } from "@/lib/auth-client.ts";
 import BrandLink from "@/navigation/BrandLink.tsx";
+import NavigationItemLink, {
+	type NavigationItem,
+} from "@/navigation/NavigationItemLink.tsx";
 import ThemeToggler from "@/navigation/ThemeToggler.tsx";
-
-interface NavigationItem {
-	activePathPrefix: string;
-	href: string;
-	label: string;
-}
 
 interface Props {
 	brandSubtitle?: string;
@@ -74,24 +71,18 @@ export default function ResponsiveNavigationBar({
 						<button
 							type="button"
 							tabIndex={0}
-							className="btn btn-ghost btn-square"
+							className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							aria-label="Open navigation menu"
 						>
 							<Bars3Icon className="size-6" />
 						</button>
-						<ul className="menu menu-sm dropdown-content z-50 mt-3 w-72 rounded-lg bg-base-300 p-2 shadow-xl">
+						<ul className="dropdown-content z-50 mt-3 w-72 max-w-[calc(100vw-2rem)] space-y-1 rounded-lg border border-base-content/10 bg-base-300 p-2 shadow-xl">
 							{items.map((item) => {
 								const active = isActivePath(pathname, item.activePathPrefix);
 
 								return (
 									<li key={item.href}>
-										<Link
-											href={item.href}
-											aria-current={active ? "page" : undefined}
-											className={active ? "active font-semibold" : undefined}
-										>
-											{item.label}
-										</Link>
+										<NavigationItemLink active={active} item={item} />
 									</li>
 								);
 							})}
@@ -105,19 +96,13 @@ export default function ResponsiveNavigationBar({
 				</div>
 
 				<div className="navbar-center hidden lg:flex">
-					<ul className="menu menu-horizontal gap-2 rounded-lg bg-transparent px-1.5 py-1 shadow-none">
+					<ul className="flex items-center gap-3 px-1.5 py-1">
 						{items.map((item) => {
 							const active = isActivePath(pathname, item.activePathPrefix);
 
 							return (
 								<li key={item.href}>
-									<Link
-										href={item.href}
-										aria-current={active ? "page" : undefined}
-										className="rounded-md px-4 text-[1.02rem] hover:bg-transparent focus:bg-transparent active:bg-transparent"
-									>
-										{item.label}
-									</Link>
+									<NavigationItemLink active={active} item={item} />
 								</li>
 							);
 						})}
@@ -129,7 +114,7 @@ export default function ResponsiveNavigationBar({
 						<button
 							type="button"
 							onClick={() => router.replace(adminToggleHref)}
-							className="btn btn-ghost btn-square rounded-lg"
+							className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							aria-label={adminToggleLabel}
 							title={adminToggleLabel}
 						>
@@ -147,15 +132,18 @@ export default function ResponsiveNavigationBar({
 						<button
 							type="button"
 							tabIndex={0}
-							className="btn btn-ghost btn-square rounded-lg"
+							className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							aria-label="Open account menu"
 							title="Account"
 						>
 							<UserIcon className="size-5" />
 						</button>
-						<ul className="menu dropdown-content z-50 mt-3 w-56 rounded-lg bg-base-300 p-2 shadow-xl">
+						<ul className="dropdown-content z-50 mt-3 w-56 rounded-lg bg-base-300 p-2 text-sm shadow-xl">
 							<li>
-								<Link href="/account">
+								<Link
+									href="/account"
+									className="flex items-center gap-2 rounded-sm px-3 py-1.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+								>
 									<UserCircleIcon className="size-4" />
 									Account
 								</Link>
@@ -165,6 +153,7 @@ export default function ResponsiveNavigationBar({
 									type="button"
 									onClick={handleSignOut}
 									disabled={isSigningOut}
+									className="flex w-full cursor-pointer items-center gap-2 rounded-sm px-3 py-1.5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-default disabled:opacity-50"
 								>
 									<ArrowRightStartOnRectangleIcon className="size-4" />
 									{isSigningOut ? "Signing out..." : "Sign out"}

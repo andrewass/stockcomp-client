@@ -1,5 +1,10 @@
 "use client";
 
+import {
+	ChartBarIcon,
+	PresentationChartLineIcon,
+	TrophyIcon,
+} from "@heroicons/react/24/outline";
 import ResponsiveNavigationBar from "@/navigation/ResponsiveNavigationBar.tsx";
 
 interface Props {
@@ -18,16 +23,19 @@ export default function DefaultNavigationBarWide({ hasAdminRole }: Props) {
 				{
 					activePathPrefix: "/symbols",
 					href: "/symbols",
+					icon: PresentationChartLineIcon,
 					label: "Symbols",
 				},
 				{
 					activePathPrefix: "/contests",
 					href: `/contests/${urlSuffix}`,
+					icon: TrophyIcon,
 					label: "Contests",
 				},
 				{
 					activePathPrefix: "/leaderboard",
 					href: `/leaderboard/${urlSuffix}`,
+					icon: ChartBarIcon,
 					label: "Leaderboard",
 				},
 			]}

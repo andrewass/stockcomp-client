@@ -1,5 +1,6 @@
 "use client";
 
+import { TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import ResponsiveNavigationBar from "@/navigation/ResponsiveNavigationBar.tsx";
 
 interface Props {
@@ -19,11 +20,13 @@ export default function AdminNavigationBarWide({ hasAdminRole }: Props) {
 				{
 					activePathPrefix: "/admin/contests",
 					href: `/admin/contests/${urlSuffix}`,
+					icon: TrophyIcon,
 					label: "Contests",
 				},
 				{
 					activePathPrefix: "/admin/users",
 					href: `/admin/users/${urlSuffix}`,
+					icon: UsersIcon,
 					label: "Users",
 				},
 			]}
