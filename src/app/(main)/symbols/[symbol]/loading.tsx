@@ -2,10 +2,6 @@ import DetailLoadingState from "@/components/route-boundaries/DetailLoadingState
 
 export default function SymbolDetailsLoading() {
 	return (
-		<DetailLoadingState
-			title="Loading symbol details"
-			showBackAction={true}
-			showSidebar={true}
-		/>
+		<DetailLoadingState title="Loading symbol details" showSidebar={true} />
 	);
 }

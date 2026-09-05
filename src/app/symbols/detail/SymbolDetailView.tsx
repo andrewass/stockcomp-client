@@ -1,5 +1,3 @@
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
 import {
 	formatCurrency,
 	formatNumber,
@@ -97,11 +95,6 @@ export default function SymbolDetailView({
 
 	return (
 		<div className="w-full max-w-7xl space-y-6 px-4 pb-12 pt-2 sm:px-6 lg:px-8">
-			<Link href="/symbols" className="btn btn-ghost btn-sm w-fit gap-2">
-				<ArrowLeftIcon className="size-4" aria-hidden="true" />
-				Symbols
-			</Link>
-
 			<section className="overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm">
 				<div className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-start lg:justify-between">
 					<div className="min-w-0 space-y-3">

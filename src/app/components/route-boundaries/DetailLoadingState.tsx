@@ -3,13 +3,11 @@ const ROW_KEYS = Array.from({ length: 4 }, (_, index) => `row-${index}`);
 
 interface Props {
 	title: string;
-	showBackAction?: boolean;
 	showSidebar?: boolean;
 }
 
 export default function DetailLoadingState({
 	title,
-	showBackAction = false,
 	showSidebar = false,
 }: Props) {
 	return (
@@ -19,7 +17,6 @@ export default function DetailLoadingState({
 			aria-live="polite"
 		>
 			<span className="sr-only">{title}</span>
-			{showBackAction ? <div className="skeleton h-8 w-24" /> : null}
 			<section className="overflow-hidden rounded-box border border-base-300 bg-base-100 shadow-sm">
 				<div className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-start lg:justify-between">
 					<div className="space-y-3">
