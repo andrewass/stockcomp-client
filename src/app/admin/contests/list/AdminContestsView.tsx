@@ -1,9 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import type { Contest } from "@/domain/contests/contestTypes.ts";
-import CreateContestModal from "../create/CreateContestModal.tsx";
-import UpdateContestModal from "../update/UpdateContestModal.tsx";
+import CreateContestButton from "../create/CreateContestButton.tsx";
 import AdminContestsTable from "./AdminContestsTable.tsx";
 
 interface Props {
@@ -19,36 +15,16 @@ export default function AdminContestsView({
 	currentPage,
 	totalEntriesCount,
 }: Props) {
-	const [isCreateContestModalOpen, setIsCreateContestModalOpen] =
-		useState(false);
-	const [editingContest, setEditingContest] = useState<Contest | null>(null);
-
 	return (
 		<div className="space-y-4">
 			<div className="flex min-h-12 items-center justify-end">
-				<button
-					type="button"
-					className="btn btn-outline border-base-300 text-base-content/80 hover:border-base-content/40 hover:text-base-content"
-					onClick={() => setIsCreateContestModalOpen(true)}
-				>
-					Create contest
-				</button>
+				<CreateContestButton />
 			</div>
 			<AdminContestsTable
 				contests={contests}
 				pageSize={pageSize}
 				currentPage={currentPage}
 				totalEntriesCount={totalEntriesCount}
-				onEditContest={setEditingContest}
-			/>
-			<CreateContestModal
-				isOpen={isCreateContestModalOpen}
-				onClose={() => setIsCreateContestModalOpen(false)}
-			/>
-			<UpdateContestModal
-				contest={editingContest}
-				isOpen={editingContest !== null}
-				onClose={() => setEditingContest(null)}
 			/>
 		</div>
 	);

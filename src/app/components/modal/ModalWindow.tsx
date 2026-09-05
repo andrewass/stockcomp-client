@@ -1,7 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 
 interface Props {
 	isOpen: boolean;
@@ -12,6 +13,8 @@ interface Props {
 	hideCloseButton?: boolean;
 }
 
+const subscribeToClient = () => () => {};
+
 export function ModalWindow({
 	isOpen,
 	onClose,
@@ -20,6 +23,13 @@ export function ModalWindow({
 	footer,
 	hideCloseButton = false,
 }: Props) {
+	// Keep server rendering and hydration consistent without delaying client opens.
+	const isClient = useSyncExternalStore(
+		subscribeToClient,
+		() => true,
+		() => false,
+	);
+
 	useEffect(() => {
 		if (!isOpen) {
 			return;
@@ -37,11 +47,11 @@ export function ModalWindow({
 		};
 	}, [isOpen, onClose]);
 
-	if (!isOpen) {
+	if (!isOpen || !isClient) {
 		return null;
 	}
 
-	return (
+	return createPortal(
 		<div className="modal modal-open" role="dialog" aria-modal="true">
 			<div className="modal-box max-w-lg">
 				<div className="flex items-start justify-between gap-4">
@@ -70,6 +80,7 @@ export function ModalWindow({
 				onClick={onClose}
 				aria-label="Close modal"
 			/>
-		</div>
+		</div>,
+		document.body,
 	);
 }
