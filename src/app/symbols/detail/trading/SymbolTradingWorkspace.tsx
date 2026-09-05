@@ -40,9 +40,9 @@ export default function SymbolTradingWorkspace({
 
 	return (
 		<>
-			<div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
-				<div className="min-w-0">{priceHistoryPanel}</div>
-				<aside className="xl:sticky xl:top-24 xl:self-start">
+			<div className="grid items-stretch gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
+				<div className="flex min-w-0">{priceHistoryPanel}</div>
+				<aside className="flex min-w-0">
 					<TradeSection
 						symbol={symbol}
 						currentPrice={currentPrice}

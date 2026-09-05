@@ -31,17 +31,14 @@ export function TradeSection({
 }: Props) {
 	return (
 		<section
-			className="space-y-4 rounded-box border border-primary/25 bg-base-100 p-5 shadow-sm"
+			className="w-full space-y-4 rounded-box border border-base-300 bg-base-100 p-5 shadow-sm"
 			aria-labelledby="symbol-order-ticket-heading"
 		>
 			<div className="flex items-start justify-between gap-3">
 				<div>
-					<p className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
-						Order Ticket
-					</p>
 					<h2
 						id="symbol-order-ticket-heading"
-						className="mt-1 text-xl font-semibold text-base-content"
+						className="text-xl font-semibold text-base-content"
 					>
 						Place an Order
 					</h2>

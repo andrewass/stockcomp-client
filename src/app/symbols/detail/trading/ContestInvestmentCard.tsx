@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
 	CONTEST_STATUS,
 	type ContestStatus,
@@ -22,13 +21,11 @@ import type {
 interface Props {
 	contest: SymbolTradingContestViewModel;
 	currency: string;
-	isExpanded: boolean;
 	isCancellingOrder: boolean;
 	onCancelOrder: (
 		contest: SymbolTradingContestViewModel,
 		order: SymbolTradingOrderViewModel,
 	) => void;
-	onToggle: () => void;
 }
 
 function getContestStatusBadgeClassName(status: ContestStatus): string {
@@ -65,18 +62,14 @@ function getContestStatusLabel(status: ContestStatus): string {
 export function ContestInvestmentCard({
 	contest,
 	currency,
-	isExpanded,
 	isCancellingOrder,
 	onCancelOrder,
-	onToggle,
 }: Props) {
 	const profitClassName = getProfitClassName(contest.investment.totalProfit);
 	const statusLabel = getContestStatusLabel(contest.contestStatus);
 	const activeOrderCount = contest.orders.filter(
 		(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
 	).length;
-	const panelId = `symbol-trading-contest-panel-${contest.contestId}`;
-	const triggerId = `symbol-trading-contest-trigger-${contest.contestId}`;
 
 	return (
 		<article className="overflow-hidden rounded-box border border-base-300 bg-base-100">
@@ -99,29 +92,14 @@ export function ContestInvestmentCard({
 							{getContestTimelineLabel(contest)}
 						</p>
 					</div>
-					<button
-						id={triggerId}
-						type="button"
-						className="btn btn-ghost btn-sm w-fit shrink-0 gap-2"
-						aria-expanded={isExpanded}
-						aria-controls={panelId}
-						onClick={onToggle}
-					>
-						{isExpanded
-							? "Hide Orders"
-							: `View Orders (${contest.orders.length})`}
+					<div className="flex shrink-0 items-center gap-2 text-sm text-base-content/65">
+						<span>Orders ({contest.orders.length})</span>
 						{activeOrderCount > 0 ? (
-							<span className="badge badge-info badge-sm">
+							<span className="badge badge-success badge-outline badge-sm">
 								{activeOrderCount} active
 							</span>
 						) : null}
-						<ChevronDownIcon
-							className={`size-4 shrink-0 text-base-content/45 transition-transform ${
-								isExpanded ? "rotate-180" : ""
-							}`}
-							aria-hidden="true"
-						/>
-					</button>
+					</div>
 				</div>
 
 				<dl className="grid grid-cols-2 gap-px overflow-hidden rounded-box border border-base-300 bg-base-300 lg:grid-cols-4">
@@ -173,19 +151,16 @@ export function ContestInvestmentCard({
 				</dl>
 			</div>
 
-			{isExpanded ? (
-				<section
-					id={panelId}
-					aria-labelledby={triggerId}
-					className="border-t border-base-300 bg-base-200/25 p-4 sm:p-5"
-				>
-					<OrderList
-						orders={contest.orders}
-						isCancellingOrder={isCancellingOrder}
-						onCancelOrder={(order) => onCancelOrder(contest, order)}
-					/>
-				</section>
-			) : null}
+			<section
+				aria-label="Orders"
+				className="border-t border-base-300 bg-base-200/25 p-4 sm:p-5"
+			>
+				<OrderList
+					orders={contest.orders}
+					isCancellingOrder={isCancellingOrder}
+					onCancelOrder={(order) => onCancelOrder(contest, order)}
+				/>
+			</section>
 		</article>
 	);
 }

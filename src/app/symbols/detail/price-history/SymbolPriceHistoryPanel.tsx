@@ -67,7 +67,7 @@ export function SymbolPriceHistoryPanel({
 	const priceHistory = historyQuery.data ?? { history: [], change: null };
 
 	return (
-		<section className="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
+		<section className="flex w-full min-w-0 flex-col rounded-box border border-base-300 bg-base-100 p-6 shadow-sm sm:p-8">
 			<div className="mb-6 space-y-4">
 				<p className="text-sm font-medium uppercase tracking-[0.2em] text-base-content/55">
 					Price history
@@ -125,12 +125,14 @@ export function SymbolPriceHistoryPanel({
 				</div>
 			)}
 
-			<div className="relative">
-				<SymbolPriceHistoryChart
-					currency={currency}
-					history={priceHistory.history}
-					periodLabel={periodTitle}
-				/>
+			<div className="relative min-h-80 flex-1">
+				<div className="absolute inset-0">
+					<SymbolPriceHistoryChart
+						currency={currency}
+						history={priceHistory.history}
+						periodLabel={periodTitle}
+					/>
+				</div>
 				{historyQuery.isFetching && (
 					<div className="absolute right-3 top-3 rounded-full border border-base-300 bg-base-100/90 px-3 py-1 text-xs font-medium text-base-content shadow-sm">
 						<span className="loading loading-spinner loading-xs mr-2 align-[-0.125em]" />

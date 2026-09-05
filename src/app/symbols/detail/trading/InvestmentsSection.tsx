@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useId, useState } from "react";
 import { ORDER_STATUS } from "@/domain/investmentorder/investmentOrderTypes.ts";
 import { ContestInvestmentCard } from "@/symbols/detail/trading/ContestInvestmentCard.tsx";
+import { ContestInvestmentTabs } from "@/symbols/detail/trading/ContestInvestmentTabs.tsx";
 import type {
 	SymbolTradingContestViewModel,
 	SymbolTradingOrderViewModel,
@@ -26,43 +27,21 @@ export function InvestmentsSection({
 	isCancellingOrder,
 	onCancelOrder,
 }: Props) {
-	const [expandedContestId, setExpandedContestId] = useState<number | null>(
-		() =>
-			contests.find((contest) =>
-				contest.orders.some(
-					(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
-				),
-			)?.contestId ?? null,
+	const idPrefix = useId();
+	const defaultContest =
+		contests.find((contest) =>
+			contest.orders.some((order) => order.orderStatus === ORDER_STATUS.ACTIVE),
+		) ?? contests[0];
+	const [selectedContestId, setSelectedContestId] = useState<number | null>(
+		() => defaultContest?.contestId ?? null,
 	);
-
-	useEffect(() => {
-		setExpandedContestId((currentId) => {
-			if (
-				currentId !== null &&
-				contests.some((contest) => contest.contestId === currentId)
-			) {
-				return currentId;
-			}
-
-			return (
-				contests.find((contest) =>
-					contest.orders.some(
-						(order) => order.orderStatus === ORDER_STATUS.ACTIVE,
-					),
-				)?.contestId ?? null
-			);
-		});
-	}, [contests]);
-
-	function toggleContest(contestId: number) {
-		setExpandedContestId((currentId) =>
-			currentId === contestId ? null : contestId,
-		);
-	}
+	const selectedContest =
+		contests.find((contest) => contest.contestId === selectedContestId) ??
+		defaultContest;
 
 	return (
 		<section
-			className="space-y-5 rounded-box border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6"
+			className="min-w-0 space-y-5 rounded-box border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6"
 			aria-label="Positions and orders"
 		>
 			{isError && (
@@ -71,27 +50,34 @@ export function InvestmentsSection({
 				</div>
 			)}
 
-			{contests.length === 0 ? (
+			{!selectedContest ? (
 				<div className="rounded-box border border-dashed border-base-300 bg-base-200/50 px-4 py-6 text-sm text-base-content/60">
 					You have not joined any contests yet.
 				</div>
 			) : (
-				<div className="space-y-3">
-					{contests.map((contest) => {
-						const isExpanded = expandedContestId === contest.contestId;
-
-						return (
-							<ContestInvestmentCard
-								key={contest.contestId}
-								contest={contest}
-								currency={currency}
-								isExpanded={isExpanded}
-								isCancellingOrder={isCancellingOrder}
-								onCancelOrder={onCancelOrder}
-								onToggle={() => toggleContest(contest.contestId)}
-							/>
-						);
-					})}
+				<div className="min-w-0 space-y-4">
+					<ContestInvestmentTabs
+						contests={contests}
+						selectedContestId={selectedContest.contestId}
+						idPrefix={idPrefix}
+						onSelect={setSelectedContestId}
+					/>
+					<div
+						id={`${idPrefix}-panel`}
+						role="tabpanel"
+						aria-labelledby={`${idPrefix}-tab-${selectedContest.contestId}`}
+						// biome-ignore lint/a11y/noNoninteractiveTabindex: The tab panel needs keyboard focus so users can reach its content from the tab list.
+						tabIndex={0}
+						className="rounded-box focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+					>
+						<ContestInvestmentCard
+							key={selectedContest.contestId}
+							contest={selectedContest}
+							currency={currency}
+							isCancellingOrder={isCancellingOrder}
+							onCancelOrder={onCancelOrder}
+						/>
+					</div>
 				</div>
 			)}
 		</section>

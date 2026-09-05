@@ -92,7 +92,7 @@ export function SymbolPriceHistoryChart({
 
 	if (chartData.length === 0) {
 		return (
-			<div className="flex min-h-80 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/50 px-6 text-center">
+			<div className="flex h-full min-h-80 items-center justify-center rounded-box border border-dashed border-base-300 bg-base-200/50 px-6 text-center">
 				<p className="text-sm text-base-content/65">
 					No historical prices are available for this symbol.
 				</p>
@@ -101,10 +101,10 @@ export function SymbolPriceHistoryChart({
 	}
 
 	return (
-		<div className="h-80 min-h-80 w-full min-w-0 text-primary">
+		<div className="h-full min-h-80 w-full min-w-0 text-primary">
 			<ResponsiveContainer
 				width="100%"
-				height={320}
+				height="100%"
 				minWidth={1}
 				minHeight={1}
 				initialDimension={{ width: 1, height: 320 }}

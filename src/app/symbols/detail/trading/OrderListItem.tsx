@@ -20,12 +20,12 @@ interface Props {
 function getOrderStatusBadgeClassName(status: InvestmentOrderStatus): string {
 	switch (status) {
 		case ORDER_STATUS.COMPLETED:
-			return "badge badge-success badge-outline";
+			return "badge badge-neutral badge-outline";
 		case ORDER_STATUS.FAILED:
 		case ORDER_STATUS.TERMINATED:
 			return "badge badge-error badge-outline";
 		case ORDER_STATUS.ACTIVE:
-			return "badge badge-info badge-outline";
+			return "badge badge-success badge-outline";
 		default:
 			return "badge badge-neutral badge-outline";
 	}
