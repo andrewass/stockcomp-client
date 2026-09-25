@@ -27,7 +27,7 @@
 		"@types/node": "^26.6.1",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
-		"daisyui": "^5.7.39",
+		"daisyui": "^5.7.40",
 		"only-allow": "^1.2.2",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^7.0.2"
